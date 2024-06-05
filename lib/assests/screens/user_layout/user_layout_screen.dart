@@ -11,8 +11,14 @@ class _UserLayoutScreenState extends State<UserLayoutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(),
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [],
+          ),
+        ),
       ),
     );
   }
