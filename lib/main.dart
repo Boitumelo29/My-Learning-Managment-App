@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mylearning/assests/screens/user_layout/user_layout_screen.dart';
+import 'package:mylearning/common_widgets/screens/user_layout/user_layout_screen.dart';
+
 
 void main() {
   runApp(const MyApp());
