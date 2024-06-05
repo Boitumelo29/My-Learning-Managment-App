@@ -25,7 +25,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return UserLayoutScreen(
-      children: [],
+      children: [
+        Center(
+          child: Image.asset("lib/assets/5jpg"),
+        )
+      ],
     );
   }
 }

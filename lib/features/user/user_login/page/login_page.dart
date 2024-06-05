@@ -28,8 +28,7 @@ class _LoginPageState extends State<LoginPage> {
             height: 200,
           ),
         ),
-        Text("data"),Text("data"),Text("data"),Text("data"),Text("data"),Text("data"),Text("data"),
-        Text("data"),
+
       ],
     );
   }
