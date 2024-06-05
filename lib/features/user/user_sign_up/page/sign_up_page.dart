@@ -27,7 +27,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return UserLayoutScreen(
       children: [
         Center(
-          child: Image.asset("lib/assets/5jpg"),
+          child: Image.asset(
+            "lib/assets/5.jpg",
+            width: 200,
+            height: 200,
+          ),
         )
       ],
     );
