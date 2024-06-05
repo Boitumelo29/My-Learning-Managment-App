@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class UserLayoutScreen extends StatelessWidget {
-  const UserLayoutScreen({super.key});
+  final dynamic children;
+
+  const UserLayoutScreen({super.key, required this.children});
 
   @override
   Widget build(BuildContext context) {
@@ -11,11 +13,10 @@ class UserLayoutScreen extends StatelessWidget {
         child: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
-            children: [],
+            children: children,
           ),
         ),
       ),
     );
-    ;
   }
 }

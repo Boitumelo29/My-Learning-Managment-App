@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/user_layout/user_layout_screen.dart';
+import 'package:mylearning/features/auth/auth.dart';
 
 
 void main() {
@@ -12,6 +13,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        debugShowCheckedModeBanner: false, home: UserLayoutScreen());
+        debugShowCheckedModeBanner: false, home: AuthPage());
   }
 }
