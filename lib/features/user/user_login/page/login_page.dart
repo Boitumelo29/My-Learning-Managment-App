@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/user_layout/user_layout_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
@@ -31,8 +33,19 @@ class _LoginPageState extends State<LoginPage> {
             height: 200,
           ),
         ),
-        const LongTextField(hintText: "Email", labelText: "Email"),
-        SizedSpace(),
+        const Text("Login"),
+        LongTextField(
+          hintText: "Email",
+          labelText: "Email",
+          controller: email,
+        ),
+        const SizedSpace(),
+        LongTextField(
+          hintText: "Password",
+          labelText: "Password",
+          controller: email,
+        ),
+        const SizedSpace(),
         LongButton(
           onTap: widget.show,
           title: "Signup",
