@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mylearning/common_widgets/screens/user_layout/user_layout_screen.dart';
+import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
 
 class SignUpScreen extends StatefulWidget {
   final VoidCallback show;
@@ -23,16 +25,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [],
+    return UserLayoutScreen(
+      children: [
+        Center(
+          child: Image.asset(
+            "lib/assets/5.jpg",
+            width: 200,
+            height: 200,
           ),
         ),
-      ),
+        LongButton(onTap: widget.show, title: "login")
+      ],
     );
   }
 }

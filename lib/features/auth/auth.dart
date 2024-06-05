@@ -21,7 +21,7 @@ class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     if (a) {
-      return LoginScreen(
+      return LoginPage(
         show: go,
       );
     } else {
