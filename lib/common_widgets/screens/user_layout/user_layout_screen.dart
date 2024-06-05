@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class UserLayoutScreen extends StatelessWidget {
-  final dynamic children;
+  final List<Widget> children;
 
   const UserLayoutScreen({super.key, required this.children});
 
