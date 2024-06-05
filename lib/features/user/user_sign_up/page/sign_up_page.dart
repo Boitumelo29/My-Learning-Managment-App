@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mylearning/common_widgets/screens/user_layout/user_layout_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   final VoidCallback show;
@@ -23,16 +24,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [],
-          ),
-        ),
-      ),
-    );
+    return UserLayoutScreen();
   }
 }
