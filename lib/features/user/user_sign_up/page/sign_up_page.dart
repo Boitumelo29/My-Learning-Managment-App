@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/user_layout/user_layout_screen.dart';
+import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
 
 class SignUpScreen extends StatefulWidget {
   final VoidCallback show;
@@ -32,7 +33,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             width: 200,
             height: 200,
           ),
-        )
+        ),
+        LongButton(onTap: widget.show, title: "login")
       ],
     );
   }

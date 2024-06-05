@@ -11,10 +11,10 @@ class LongButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-          width: 250,
-          height: 50,
+          width: 380,
+          height: 60,
           decoration: BoxDecoration(
-              color: Colors.red, borderRadius: BorderRadius.circular(30)),
+              color: Colors.red, borderRadius: BorderRadius.circular(40)),
           child: Center(child: Text(title))),
     );
   }
