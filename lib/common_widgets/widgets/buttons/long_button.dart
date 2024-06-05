@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 
 class LongButton extends StatelessWidget {
-  const LongButton({super.key});
+  final VoidCallback onTap;
+  final String title;
+
+  const LongButton({super.key, required this.onTap, required this.title});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
-      child: Container(child: Text("enter")),
+      onTap: onTap,
+      child: Container(
+          width: 250,
+          height: 50,
+          decoration: BoxDecoration(
+              color: Colors.red, borderRadius: BorderRadius.circular(30)),
+          child: Center(child: Text(title))),
     );
   }
 }
