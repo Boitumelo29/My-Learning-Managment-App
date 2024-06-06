@@ -5,25 +5,105 @@ class LongTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final String labelText;
+  final bool? suffexIcon;
 
-  const LongTextField({super.key,
-    // required this.globalkey,
-    required this.controller,
-    required this.hintText,
-    required this.labelText});
+  const LongTextField(
+      {super.key,
+      // required this.globalkey,
+      required this.controller,
+      required this.hintText,
+      required this.labelText,
+      this.suffexIcon});
 
   @override
   Widget build(BuildContext context) {
+    bool passwordVisible = false;
+    // suffexIcon = false;
     return TextFormField(
       //  key: globalkey,
       controller: controller,
       decoration: InputDecoration(
+        // suffix: suffexIcon ? Icon(Icons.remove_red_eye) : Icon(Icons.remove_red_eye),
+
         hintText: hintText,
         labelText: labelText,
         border: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.red),
             borderRadius: BorderRadius.circular(30)),
       ),
+    );
+  }
+}
+
+class LongTextFieldForm extends StatefulWidget {
+  final TextEditingController? controller;
+  final String hintText;
+  final String labelText;
+  final bool showIcon;
+  final bool obsureText;
+  final dynamic validator;
+  final FocusNode? focusNode;
+  final Function(String) onChanged;
+
+  const LongTextFieldForm(
+      {super.key,
+      this.controller,
+      this.focusNode,
+      required this.onChanged,
+      required this.hintText,
+      required this.labelText,
+      required this.showIcon,
+      required this.validator,
+      required this.obsureText});
+
+  @override
+  State<LongTextFieldForm> createState() => _LongTextFieldFormState();
+}
+
+class _LongTextFieldFormState extends State<LongTextFieldForm> {
+  bool passwordVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    passwordVisible = true;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      // dont forget https://www.geeksforgeeks.org/how-to-hide-the-keyboard-when-user-tap-out-of-the-textfield-in-flutter/?ref=ml_lbp
+      //I can add the form here
+      focusNode: widget.focusNode,
+      validator: widget.validator,
+      onChanged: widget.onChanged,
+      obscureText: widget.obsureText ? passwordVisible : false,
+      controller: widget.controller,
+      decoration: InputDecoration(
+        suffixIcon: widget.showIcon
+            ? IconButton(
+                onPressed: () {
+                  setState(() {
+                    passwordVisible = !passwordVisible;
+                  });
+                },
+                icon: Icon(passwordVisible
+                    ? Icons.visibility_sharp
+                    : Icons.visibility_off_sharp),
+              )
+            : null,
+        hintText: widget.hintText,
+        labelText: widget.labelText,
+        errorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.red),
+            borderRadius: BorderRadius.circular(30),),
+        border: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.red),
+            borderRadius: BorderRadius.circular(30)),
+      ),
+
+      keyboardType: TextInputType.visiblePassword,
+      textInputAction: TextInputAction.done,
     );
   }
 }
