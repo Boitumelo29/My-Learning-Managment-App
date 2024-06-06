@@ -28,13 +28,16 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return UserLayoutScreen(
       children: <Widget>[
+        const SizedSpace(
+          height: 40,
+        ),
         const Text(
           Strings.myLearning,
           style: TextStyle(color: Colors.red, fontSize: 40),
         ),
         const SizedSpace(
-            // height: 40,
-            ),
+          height: 40,
+        ),
         Center(
           child: Image.asset(
             alignment: Alignment.center,
@@ -50,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                 LongTextFieldForm(
                   focusNode: emailFocus,
                   validator: (value) {
-                    Validation.emailValidation(value);
+                    return Validation.emailValidation(value ?? "testing");
                   },
                   obsureText: false,
                   showIcon: false,
