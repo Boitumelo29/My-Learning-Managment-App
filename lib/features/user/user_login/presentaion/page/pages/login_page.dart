@@ -65,7 +65,9 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedSpace(),
                 LongTextFieldForm(
                   focusNode: passwordFocus,
-                  validator: null,
+                  validator: (value) {
+                    return Validation.passwordValidation(value);
+                  },
                   obsureText: false,
                   showIcon: false,
                   hintText: Strings.password,
@@ -76,6 +78,8 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedSpace(),
                 LongButton(
                   onTap: () {
+                    emailFocus.unfocus();
+                    passwordFocus.unfocus();
                     if (_formKey.currentState!.validate()) {
                       widget.show;
                     }
