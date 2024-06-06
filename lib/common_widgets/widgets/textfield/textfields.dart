@@ -42,11 +42,13 @@ class LongTextFieldForm extends StatefulWidget {
   final bool showIcon;
   final bool obsureText;
   final dynamic validator;
+  final FocusNode? focusNode;
   final Function(String) onChanged;
 
   const LongTextFieldForm(
       {super.key,
       this.controller,
+      this.focusNode,
       required this.onChanged,
       required this.hintText,
       required this.labelText,
@@ -70,6 +72,7 @@ class _LongTextFieldFormState extends State<LongTextFieldForm> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      focusNode: widget.focusNode,
       validator: widget.validator,
       onChanged: widget.onChanged,
       obscureText: widget.obsureText ? passwordVisible : false,
