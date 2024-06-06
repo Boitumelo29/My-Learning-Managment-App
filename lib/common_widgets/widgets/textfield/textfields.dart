@@ -73,7 +73,7 @@ class _LongTextFieldFormState extends State<LongTextFieldForm> {
   Widget build(BuildContext context) {
     return TextFormField(
       // dont forget https://www.geeksforgeeks.org/how-to-hide-the-keyboard-when-user-tap-out-of-the-textfield-in-flutter/?ref=ml_lbp
-      //I can add the form here 
+      //I can add the form here
       focusNode: widget.focusNode,
       validator: widget.validator,
       onChanged: widget.onChanged,
@@ -94,10 +94,14 @@ class _LongTextFieldFormState extends State<LongTextFieldForm> {
             : null,
         hintText: widget.hintText,
         labelText: widget.labelText,
+        errorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.red),
+            borderRadius: BorderRadius.circular(30),),
         border: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.red),
             borderRadius: BorderRadius.circular(30)),
       ),
+
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.done,
     );
