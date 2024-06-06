@@ -70,6 +70,7 @@ class _LongTextFieldFormState extends State<LongTextFieldForm> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: widget.validator,
       onChanged: widget.onChanged,
       obscureText: widget.obsureText ? passwordVisible : false,
       controller: widget.controller,

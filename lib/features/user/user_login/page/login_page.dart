@@ -16,9 +16,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final email = TextEditingController();
+  final TextEditingController email = TextEditingController();
   FocusNode email_f = FocusNode();
-  final password = TextEditingController();
+  final TextEditingController password = TextEditingController();
   FocusNode password_f = FocusNode();
 
   @override
@@ -34,7 +34,11 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         const Text("Login"),
-        LongTextField(
+        LongTextFieldForm(
+          validator: null,
+          obsureText: false,
+          showIcon: false,
+          onChanged: (value){},
           hintText: "Email",
           labelText: "Email",
           controller: email,
