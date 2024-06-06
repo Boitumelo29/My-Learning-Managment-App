@@ -6,6 +6,7 @@ import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
+import 'package:mylearning/util/validation/validation.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback show;
@@ -17,9 +18,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController email = TextEditingController();
+  GlobalKey key = GlobalKey<FormState>();
+  TextEditingController email = TextEditingController();
   FocusNode emailFocus = FocusNode();
-  final TextEditingController password = TextEditingController();
+  TextEditingController password = TextEditingController();
   FocusNode passwordFocus = FocusNode();
 
   @override
@@ -35,33 +37,41 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         //I need to add a form here and the key is the one that will validate the user
-        const Text("Login"),
-        LongTextFieldForm(
-          focusNode: emailFocus,
-          validator: null,
-          obsureText: false,
-          showIcon: false,
-          hintText: Strings.email,
-          labelText: Strings.email,
-          onChanged: (value) {},
-          controller: email,
-        ),
-        const SizedSpace(),
-        LongTextFieldForm(
-          focusNode: passwordFocus,
-          validator: null,
-          obsureText: false,
-          showIcon: false,
-          hintText: Strings.password,
-          labelText: Strings.password,
-          controller: password,
-          onChanged: (value) {},
-        ),
-        const SizedSpace(),
-        LongButton(
-          onTap: widget.show,
-          title: "Signup",
-        )
+        Form(
+            key: key,
+            child: Column(
+              children: <Widget>[
+                const Text("Login"),
+                LongTextFieldForm(
+                  focusNode: emailFocus,
+                  validator: (value) {
+                    Validation.emailValidation(value);
+                  },
+                  obsureText: false,
+                  showIcon: false,
+                  hintText: Strings.email,
+                  labelText: Strings.email,
+                  onChanged: (value) {},
+                  controller: email,
+                ),
+                const SizedSpace(),
+                LongTextFieldForm(
+                  focusNode: passwordFocus,
+                  validator: null,
+                  obsureText: false,
+                  showIcon: false,
+                  hintText: Strings.password,
+                  labelText: Strings.password,
+                  controller: password,
+                  onChanged: (value) {},
+                ),
+                const SizedSpace(),
+                LongButton(
+                  onTap: widget.show,
+                  title: "Signup",
+                )
+              ],
+            ))
       ],
     );
   }
