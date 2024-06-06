@@ -39,14 +39,14 @@ class LongTextFieldForm extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
   final String labelText;
-  final bool? suffexIcon;
+  final bool suffexIcon;
 
   const LongTextFieldForm(
       {super.key,
       required this.controller,
       required this.hintText,
       required this.labelText,
-      this.suffexIcon});
+      required this.suffexIcon});
 
   @override
   State<LongTextFieldForm> createState() => _LongTextFieldFormState();
@@ -77,7 +77,6 @@ class _LongTextFieldFormState extends State<LongTextFieldForm> {
               ? Icons.visibility_sharp
               : Icons.visibility_off_sharp),
         ),
-        // suffix: suffexIcon ? Icon(Icons.remove_red_eye) : Icon(Icons.remove_red_eye),
         hintText: widget.hintText,
         labelText: widget.labelText,
         border: OutlineInputBorder(
