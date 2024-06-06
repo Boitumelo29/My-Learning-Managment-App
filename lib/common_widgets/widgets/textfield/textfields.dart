@@ -70,19 +70,22 @@ class _LongTextFieldFormState extends State<LongTextFieldForm> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      obscureText: passwordVisible,
+      onChanged: widget.onChanged,
+      obscureText: widget.obsureText ? passwordVisible : false,
       controller: widget.controller,
       decoration: InputDecoration(
-        suffixIcon: IconButton(
-          onPressed: () {
-            setState(() {
-              passwordVisible = !passwordVisible;
-            });
-          },
-          icon: Icon(passwordVisible
-              ? Icons.visibility_sharp
-              : Icons.visibility_off_sharp),
-        ),
+        suffixIcon: widget.showIcon
+            ? IconButton(
+                onPressed: () {
+                  setState(() {
+                    passwordVisible = !passwordVisible;
+                  });
+                },
+                icon: Icon(passwordVisible
+                    ? Icons.visibility_sharp
+                    : Icons.visibility_off_sharp),
+              )
+            : null,
         hintText: widget.hintText,
         labelText: widget.labelText,
         border: OutlineInputBorder(
