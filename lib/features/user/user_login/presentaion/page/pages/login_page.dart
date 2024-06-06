@@ -18,9 +18,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController email = TextEditingController();
-  FocusNode email_f = FocusNode();
+  FocusNode emailFocus = FocusNode();
   final TextEditingController password = TextEditingController();
-  FocusNode password_f = FocusNode();
+  FocusNode passwordFocus = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +34,10 @@ class _LoginPageState extends State<LoginPage> {
             height: 200,
           ),
         ),
+        //I need to add a form here and the key is the one that will validate the user
         const Text("Login"),
         LongTextFieldForm(
-          focusNode: email_f,
+          focusNode: emailFocus,
           validator: null,
           obsureText: false,
           showIcon: false,
@@ -47,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         const SizedSpace(),
         LongTextFieldForm(
-          focusNode: password_f,
+          focusNode: passwordFocus,
           validator: null,
           obsureText: false,
           showIcon: false,
