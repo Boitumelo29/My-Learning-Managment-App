@@ -36,17 +36,23 @@ class LongTextField extends StatelessWidget {
 }
 
 class LongTextFieldForm extends StatefulWidget {
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String hintText;
   final String labelText;
-  final bool suffexIcon;
+  final bool showIcon;
+  final bool obsureText;
+  final dynamic validator;
+  final Function(String) onChanged;
 
   const LongTextFieldForm(
       {super.key,
-      required this.controller,
+      this.controller,
+      required this.onChanged,
       required this.hintText,
       required this.labelText,
-      required this.suffexIcon});
+      required this.showIcon,
+      required this.validator,
+      required this.obsureText});
 
   @override
   State<LongTextFieldForm> createState() => _LongTextFieldFormState();
