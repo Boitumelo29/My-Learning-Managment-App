@@ -62,18 +62,33 @@ class _LoginPageState extends State<LoginPage> {
                   onChanged: (value) {},
                   controller: email,
                 ),
-                const SizedSpace(),
+                const SizedSpace(
+                  height: 10,
+                ),
                 LongTextFieldForm(
                   focusNode: passwordFocus,
                   validator: (value) {
                     return Validation.passwordValidation(value);
                   },
-                  obsureText: false,
-                  showIcon: false,
+                  obsureText: true,
+                  showIcon: true,
                   hintText: Strings.password,
                   labelText: Strings.password,
                   controller: password,
                   onChanged: (value) {},
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () {},
+                      child: const Text(
+                        "Forgot Password?",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedSpace(),
                 LongButton(
@@ -85,7 +100,24 @@ class _LoginPageState extends State<LoginPage> {
                     }
                   },
                   title: "Signup",
-                )
+                ),
+                const SizedSpace(
+                  height: 8,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text("Do not have an account? "),
+                    GestureDetector(
+                      onTap: () {},
+                      child: const Text(
+                        "Sign Up",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    )
+                  ],
+                ),
               ],
             ))
       ],

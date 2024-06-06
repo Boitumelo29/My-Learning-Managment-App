@@ -87,21 +87,22 @@ class _LongTextFieldFormState extends State<LongTextFieldForm> {
                   });
                 },
                 icon: Icon(passwordVisible
-                    ? Icons.visibility_sharp
-                    : Icons.visibility_off_sharp),
+                    ? Icons.visibility_off_sharp
+                    : Icons.visibility_sharp),
               )
             : null,
         hintText: widget.hintText,
         labelText: widget.labelText,
         errorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.red),
-            borderRadius: BorderRadius.circular(30),),
+          borderSide: const BorderSide(color: Colors.red),
+          borderRadius: BorderRadius.circular(30),
+        ),
         border: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.red),
             borderRadius: BorderRadius.circular(30)),
       ),
 
-      keyboardType: TextInputType.visiblePassword,
+      keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.done,
     );
   }
