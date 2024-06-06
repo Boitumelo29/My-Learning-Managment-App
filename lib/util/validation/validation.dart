@@ -1,5 +1,5 @@
 class Validation {
-  static emailValidation(String value) {
+  static String? emailValidation(String value) {
     if (value.isNotEmpty ||
         !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
             .hasMatch(value)) {

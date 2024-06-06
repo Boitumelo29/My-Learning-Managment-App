@@ -18,7 +18,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  GlobalKey key = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   TextEditingController email = TextEditingController();
   FocusNode emailFocus = FocusNode();
   TextEditingController password = TextEditingController();
@@ -28,6 +28,13 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return UserLayoutScreen(
       children: <Widget>[
+        const Text(
+          Strings.myLearning,
+          style: TextStyle(color: Colors.red, fontSize: 40),
+        ),
+        const SizedSpace(
+            // height: 40,
+            ),
         Center(
           child: Image.asset(
             alignment: Alignment.center,
@@ -36,12 +43,10 @@ class _LoginPageState extends State<LoginPage> {
             height: 200,
           ),
         ),
-        //I need to add a form here and the key is the one that will validate the user
         Form(
-            key: key,
+            key: _formKey,
             child: Column(
               children: <Widget>[
-                const Text("Login"),
                 LongTextFieldForm(
                   focusNode: emailFocus,
                   validator: (value) {
@@ -67,7 +72,11 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedSpace(),
                 LongButton(
-                  onTap: widget.show,
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      widget.show;
+                    }
+                  },
                   title: "Signup",
                 )
               ],
