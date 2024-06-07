@@ -95,9 +95,9 @@ class _LoginPageState extends State<LoginPage> {
                   onTap: () {
                     emailFocus.unfocus();
                     passwordFocus.unfocus();
-                    if (_formKey.currentState!.validate()) {
-                      widget.show;
-                    }
+                    // if (_formKey.currentState!.validate()) {
+                    //   widget.show;
+                    // }
                   },
                   title: "Signup",
                 ),
@@ -110,7 +110,9 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     const Text("Do not have an account? "),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        widget.show;
+                      },
                       child: const Text(
                         "Sign Up",
                         style: TextStyle(color: Colors.red),
