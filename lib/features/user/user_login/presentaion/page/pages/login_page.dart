@@ -6,6 +6,7 @@ import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
+import 'package:mylearning/util/validation/validation.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback show;
@@ -17,15 +18,26 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController email = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController email = TextEditingController();
   FocusNode emailFocus = FocusNode();
-  final TextEditingController password = TextEditingController();
+  TextEditingController password = TextEditingController();
   FocusNode passwordFocus = FocusNode();
 
   @override
   Widget build(BuildContext context) {
     return UserLayoutScreen(
       children: <Widget>[
+        const SizedSpace(
+          height: 40,
+        ),
+        const Text(
+          Strings.myLearning,
+          style: TextStyle(color: Colors.red, fontSize: 40),
+        ),
+        const SizedSpace(
+          height: 40,
+        ),
         Center(
           child: Image.asset(
             alignment: Alignment.center,
@@ -34,34 +46,82 @@ class _LoginPageState extends State<LoginPage> {
             height: 200,
           ),
         ),
-        //I need to add a form here and the key is the one that will validate the user
-        const Text("Login"),
-        LongTextFieldForm(
-          focusNode: emailFocus,
-          validator: null,
-          obsureText: false,
-          showIcon: false,
-          hintText: Strings.email,
-          labelText: Strings.email,
-          onChanged: (value) {},
-          controller: email,
-        ),
-        const SizedSpace(),
-        LongTextFieldForm(
-          focusNode: passwordFocus,
-          validator: null,
-          obsureText: false,
-          showIcon: false,
-          hintText: Strings.password,
-          labelText: Strings.password,
-          controller: password,
-          onChanged: (value) {},
-        ),
-        const SizedSpace(),
-        LongButton(
-          onTap: widget.show,
-          title: "Signup",
-        )
+        Form(
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                LongTextFieldForm(
+                  focusNode: emailFocus,
+                  validator: (value) {
+                    return Validation.emailValidation(value ?? "testing");
+                  },
+                  obsureText: false,
+                  showIcon: false,
+                  hintText: Strings.email,
+                  labelText: Strings.email,
+                  onChanged: (value) {},
+                  controller: email,
+                ),
+                const SizedSpace(
+                  height: 10,
+                ),
+                LongTextFieldForm(
+                  focusNode: passwordFocus,
+                  validator: (value) {
+                    return Validation.passwordValidation(value);
+                  },
+                  obsureText: true,
+                  showIcon: true,
+                  hintText: Strings.password,
+                  labelText: Strings.password,
+                  controller: password,
+                  onChanged: (value) {},
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () {},
+                      child: const Text(
+                        "Forgot Password?",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedSpace(),
+                LongButton(
+                  onTap: () {
+                    emailFocus.unfocus();
+                    passwordFocus.unfocus();
+                    // if (_formKey.currentState!.validate()) {
+                    //   widget.show;
+                    // }
+                  },
+                  title: "Signup",
+                ),
+                const SizedSpace(
+                  height: 8,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text("Do not have an account? "),
+                    GestureDetector(
+                      onTap: () {
+                        widget.show;
+                      },
+                      child: const Text(
+                        "Sign Up",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ))
       ],
     );
   }
