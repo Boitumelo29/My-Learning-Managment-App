@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/user_layout/user_layout_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
@@ -27,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return UserLayoutScreen(
-      children: <Widget>[
+      children: [
         const SizedSpace(
           height: 40,
         ),
@@ -82,7 +80,9 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        widget.show;
+                      },
                       child: const Text(
                         "Forgot Password?",
                         style: TextStyle(color: Colors.red),
@@ -93,13 +93,14 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedSpace(),
                 LongButton(
                   onTap: () {
+                    widget.show;
                     emailFocus.unfocus();
                     passwordFocus.unfocus();
                     // if (_formKey.currentState!.validate()) {
                     //   widget.show;
                     // }
                   },
-                  title: "Signup",
+                  title: Strings.signUp,
                 ),
                 const SizedSpace(
                   height: 8,
@@ -108,13 +109,13 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text("Do not have an account? "),
+                    const Text(Strings.doNotHaveAnAccount),
                     GestureDetector(
                       onTap: () {
                         widget.show;
                       },
                       child: const Text(
-                        "Sign Up",
+                        Strings.signUp,
                         style: TextStyle(color: Colors.red),
                       ),
                     )
