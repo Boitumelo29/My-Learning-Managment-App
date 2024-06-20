@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                     return Validation.emailValidation(value ?? "testing");
                   },
                   obsureText: false,
-                  showSuffixIcon  : false,
+                  showSuffixIcon: false,
                   hintText: Strings.email,
                   labelText: Strings.email,
                   onChanged: (value) {},
@@ -96,9 +96,9 @@ class _LoginPageState extends State<LoginPage> {
                     widget.show;
                     emailFocus.unfocus();
                     passwordFocus.unfocus();
-                    // if (_formKey.currentState!.validate()) {
-                    //   widget.show;
-                    // }
+                    if (_formKey.currentState!.validate()) {
+                      widget.show;
+                    }
                   },
                   title: Strings.signUp,
                 ),
