@@ -71,10 +71,10 @@ class _SignUpPageState extends State<SignUpPage> {
               },
             ),
             LongTextFieldForm(
-              controller: username,
-              focusNode: username_f,
-              hintText: "Username",
-              labelText: "Username",
+              controller: password,
+              focusNode: password_f,
+              hintText: Strings.password,
+              labelText: Strings.password,
               obsureText: false,
               showPrefixIcon: true,
               prefixIcon: Icons.person,
@@ -85,10 +85,10 @@ class _SignUpPageState extends State<SignUpPage> {
               },
             ),
             LongTextFieldForm(
-              controller: username,
-              focusNode: username_f,
-              hintText: "Username",
-              labelText: "Username",
+              controller: passwordConfirm,
+              focusNode: passwordConfirm_f,
+              hintText: "Confirm Password",
+              labelText: "Confirm Password",
               obsureText: false,
               showPrefixIcon: true,
               prefixIcon: Icons.person,
@@ -98,7 +98,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 Validation.usernameValidation(value);
               },
             ),
-            LongButton(onTap: widget.show ?? () {}, title: "login")
+            LongButton(onTap: widget.show ?? () {}, title: Strings.password)
           ],
         )),
       ],
