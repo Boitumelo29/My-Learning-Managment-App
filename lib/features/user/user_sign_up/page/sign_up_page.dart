@@ -95,7 +95,8 @@ class _SignUpPageState extends State<SignUpPage> {
               showSuffixIcon: false,
               onChanged: (value) {},
               validator: (value) {
-                Validation.passwordConformValidation(value, password.text);
+                Validation.passwordConformValidation(
+                    passwordConfirm.text, password.text);
               },
             ),
             LongButton(onTap: widget.show ?? () {}, title: Strings.password)
