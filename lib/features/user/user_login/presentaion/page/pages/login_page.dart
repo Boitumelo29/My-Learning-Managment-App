@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                   prefixIcon: Icons.email_outlined,
                   focusNode: emailFocus,
                   validator: (value) {
-                    return Validation.emailValidation(value ?? "testing");
+                    return Validation.emailValidation(value);
                   },
                   obsureText: false,
                   showSuffixIcon: false,

@@ -53,7 +53,49 @@ class _SignUpPageState extends State<SignUpPage> {
               showSuffixIcon: false,
               onChanged: (value) {},
               validator: (value) {
-                Validation.usernameValidation(value ?? "");
+                Validation.usernameValidation(value);
+              },
+            ),
+            LongTextFieldForm(
+              controller: email,
+              focusNode: email_f,
+              hintText: Strings.email,
+              labelText: Strings.email,
+              obsureText: false,
+              showPrefixIcon: true,
+              prefixIcon: Icons.email_outlined,
+              showSuffixIcon: false,
+              onChanged: (value) {},
+              validator: (value) {
+                Validation.usernameValidation(value);
+              },
+            ),
+            LongTextFieldForm(
+              controller: username,
+              focusNode: username_f,
+              hintText: "Username",
+              labelText: "Username",
+              obsureText: false,
+              showPrefixIcon: true,
+              prefixIcon: Icons.person,
+              showSuffixIcon: false,
+              onChanged: (value) {},
+              validator: (value) {
+                Validation.usernameValidation(value);
+              },
+            ),
+            LongTextFieldForm(
+              controller: username,
+              focusNode: username_f,
+              hintText: "Username",
+              labelText: "Username",
+              obsureText: false,
+              showPrefixIcon: true,
+              prefixIcon: Icons.person,
+              showSuffixIcon: false,
+              onChanged: (value) {},
+              validator: (value) {
+                Validation.usernameValidation(value);
               },
             ),
             LongButton(onTap: widget.show ?? () {}, title: "login")
