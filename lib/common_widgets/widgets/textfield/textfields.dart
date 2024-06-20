@@ -40,7 +40,8 @@ class LongTextFieldForm extends StatefulWidget {
   final String hintText;
   final String labelText;
   final bool showSuffixIcon;
-  final bool? showPrefixIcon;
+  final bool showPrefixIcon;
+  final IconData? prefixIcon;
   final bool obsureText;
   final dynamic validator;
   final FocusNode? focusNode;
@@ -54,7 +55,8 @@ class LongTextFieldForm extends StatefulWidget {
       required this.hintText,
       required this.labelText,
       required this.showSuffixIcon,
-      this.showPrefixIcon,
+      required this.showPrefixIcon,
+      this.prefixIcon,
       required this.validator,
       required this.obsureText});
 
@@ -81,7 +83,7 @@ class _LongTextFieldFormState extends State<LongTextFieldForm> {
       obscureText: widget.obsureText ? passwordVisible : false,
       controller: widget.controller,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.percent),
+        prefixIcon: widget.showPrefixIcon ? Icon(widget.prefixIcon) : null,
         suffixIcon: widget.showSuffixIcon
             ? IconButton(
                 onPressed: () {

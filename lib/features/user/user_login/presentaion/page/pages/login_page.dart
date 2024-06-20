@@ -49,6 +49,8 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               children: <Widget>[
                 LongTextFieldForm(
+                  showPrefixIcon: true,
+                  prefixIcon: Icons.email_outlined,
                   focusNode: emailFocus,
                   validator: (value) {
                     return Validation.emailValidation(value ?? "testing");
@@ -64,6 +66,8 @@ class _LoginPageState extends State<LoginPage> {
                   height: 10,
                 ),
                 LongTextFieldForm(
+                  showPrefixIcon: true,
+                  prefixIcon: Icons.password,
                   focusNode: passwordFocus,
                   validator: (value) {
                     return Validation.passwordValidation(value);

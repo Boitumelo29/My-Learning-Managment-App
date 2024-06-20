@@ -48,6 +48,8 @@ class _SignUpPageState extends State<SignUpPage> {
               hintText: "Username",
               labelText: "Username",
               obsureText: false,
+              showPrefixIcon: true,
+              prefixIcon: Icons.person,
               showSuffixIcon: false,
               onChanged: (value) {},
               validator: (value) {
