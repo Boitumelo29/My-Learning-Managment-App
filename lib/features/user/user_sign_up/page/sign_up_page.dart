@@ -56,6 +56,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 Validation.usernameValidation(value);
               },
             ),
+            const SizedSpace(
+              height: 10,
+            ),
             LongTextFieldForm(
               controller: email,
               focusNode: email_f,
@@ -70,6 +73,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 Validation.usernameValidation(value);
               },
             ),
+            const SizedSpace(
+              height: 10,
+            ),
             LongTextFieldForm(
               controller: password,
               focusNode: password_f,
@@ -77,21 +83,24 @@ class _SignUpPageState extends State<SignUpPage> {
               labelText: Strings.password,
               obsureText: false,
               showPrefixIcon: true,
-              prefixIcon: Icons.person,
+              prefixIcon: Icons.password,
               showSuffixIcon: false,
               onChanged: (value) {},
               validator: (value) {
                 Validation.usernameValidation(value);
               },
             ),
+            const SizedSpace(
+              height: 10,
+            ),
             LongTextFieldForm(
               controller: passwordConfirm,
               focusNode: passwordConfirm_f,
-              hintText: "Confirm Password",
-              labelText: "Confirm Password",
+              hintText: Strings.confirmPassword,
+              labelText: Strings.confirmPassword,
               obsureText: false,
               showPrefixIcon: true,
-              prefixIcon: Icons.person,
+              prefixIcon: Icons.password,
               showSuffixIcon: false,
               onChanged: (value) {},
               validator: (value) {
@@ -99,7 +108,10 @@ class _SignUpPageState extends State<SignUpPage> {
                     passwordConfirm.text, password.text);
               },
             ),
-            LongButton(onTap: widget.show ?? () {}, title: Strings.password)
+            const SizedSpace(
+              height: 10,
+            ),
+            LongButton(onTap: () {}, title: Strings.signUp)
           ],
         )),
       ],

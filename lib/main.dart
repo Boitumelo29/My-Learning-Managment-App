@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/user_layout/user_layout_screen.dart';
 import 'package:mylearning/features/auth/auth.dart';
-
+import 'package:mylearning/features/user/user_sign_up/page/sign_up_page.dart';
+import 'package:mylearning/util/navigation/tab_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,6 +14,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        debugShowCheckedModeBanner: false, home: AuthPage());
+        debugShowCheckedModeBanner: false, home: TabBarScreen());
   }
 }
