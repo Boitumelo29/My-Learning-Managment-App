@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                     return Validation.emailValidation(value ?? "testing");
                   },
                   obsureText: false,
-                  showIcon: false,
+                  showSuffixIcon  : false,
                   hintText: Strings.email,
                   labelText: Strings.email,
                   onChanged: (value) {},
@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                     return Validation.passwordValidation(value);
                   },
                   obsureText: true,
-                  showIcon: true,
+                  showSuffixIcon: true,
                   hintText: Strings.password,
                   labelText: Strings.password,
                   controller: password,

@@ -20,6 +20,9 @@ class Validation {
   static String? usernameValidation(String value) {
     if (value.isEmpty) {
       return "Username is empty";
+    } else if (value.length <= 3) {
+      return "Username must be longer than 3 characters";
     }
+    return null;
   }
 }
