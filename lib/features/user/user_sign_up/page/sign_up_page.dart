@@ -45,8 +45,8 @@ class _SignUpPageState extends State<SignUpPage> {
             LongTextFieldForm(
               controller: username,
               focusNode: username_f,
-              hintText: "Username",
-              labelText: "Username",
+              hintText: Strings.username,
+              labelText: Strings.username,
               obsureText: false,
               showPrefixIcon: true,
               prefixIcon: Icons.person,

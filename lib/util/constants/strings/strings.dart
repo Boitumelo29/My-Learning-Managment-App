@@ -7,4 +7,6 @@ class Strings {
   static const forgotPassword = "Forgot Password";
   static const signUp = "Sign Up";
   static const doNotHaveAnAccount = "Don't have an account? ";
+  static const username = "Username";
+
 }
