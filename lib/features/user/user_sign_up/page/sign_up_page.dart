@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/user_layout/user_layout_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
+import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -27,10 +28,9 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return UserLayoutScreen(
       children: [
-        const SizedSpace(
-          height: 40,
-        ),
+        const SizedSpace(),
         const Text(Strings.myLearning),
+        const SizedSpace(),
         Center(
           child: Image.asset(
             "lib/assets/5.jpg",
@@ -38,7 +38,16 @@ class _SignUpPageState extends State<SignUpPage> {
             height: 200,
           ),
         ),
-        LongButton(onTap: widget.show ?? () {}, title: "login")
+        Form(
+            child: Column(
+          children: <Widget>[
+            LongTextField(
+                controller: username,
+                hintText: "Username",
+                labelText: "Username"),
+            LongButton(onTap: widget.show ?? () {}, title: "login")
+          ],
+        )),
       ],
     );
   }

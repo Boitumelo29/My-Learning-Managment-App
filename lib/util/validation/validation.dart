@@ -16,4 +16,10 @@ class Validation {
     }
     return null;
   }
+
+  static String? usernameValidation(String value) {
+    if (value.isEmpty) {
+      return "Username is empty";
+    }
+  }
 }
