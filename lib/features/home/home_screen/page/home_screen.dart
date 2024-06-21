@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomePage extends StatefulWidget {
   // final String title = "title";
 
-  const HomeScreen({
+  const HomePage({
     super.key,
   });
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomePage> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return AppBarScreen(children: [Text("Hellow world")]);

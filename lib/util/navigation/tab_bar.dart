@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/features/home/home_screen/page/home_screen.dart';
+import 'package:mylearning/features/profile/profile_screen/page/profile_page.dart';
 
 class TabBarScreen extends StatefulWidget {
   const TabBarScreen({super.key});
@@ -20,7 +21,7 @@ class _TabBarScreenState extends State<TabBarScreen> {
         bottomNavigationBar: const TabBar(
             tabs: [Icon(Icons.home), Icon(Icons.home), Icon(Icons.home)]),
         body: const TabBarView(
-          children: [HomeScreen(), Icon(Icons.home), Icon(Icons.home)],
+          children: [HomePage(), ProfilePage(), Icon(Icons.home)],
         ),
       ),
     );
