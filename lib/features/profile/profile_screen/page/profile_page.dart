@@ -29,8 +29,8 @@ class ProfilePage extends StatelessWidget {
     ];
 
     return AppBarScreen(shouldScroll: false, children: [
-      Column(
-        children: [Icon(Icons.person), const SizedSpace(), Text("Name")],
+      const Column(
+        children: [Icon(Icons.person), SizedSpace(), Text("Name")],
       ),
       const SizedSpace(
         height: 40,
