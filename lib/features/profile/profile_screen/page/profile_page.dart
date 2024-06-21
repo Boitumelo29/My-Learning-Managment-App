@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mylearning/common_widgets/rows/custom_setting_row.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 
@@ -40,8 +41,18 @@ class ProfilePage extends StatelessWidget {
           return const Divider();
         },
         itemCount: profileScreenDet.length,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
-          return
+          var itm = profileScreenDet[index] as Map;
+          return CustomSettingRow(
+              icon: itm['icon'],
+              title: itm['name'],
+              onTapped: () {
+                if (itm['navigation'] != null) {
+                  Navigator.push(context, itm['navigation']);
+                }
+              });
         },
       )
     ]);
