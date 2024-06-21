@@ -12,7 +12,19 @@ class ProfilePage extends StatelessWidget {
         "name": "Edit Profile",
         "navigation": MaterialPageRoute(
             builder: (BuildContext context) => const ExamplePage())
-      }
+      },
+      {
+        "icon": const Icon(Icons.settings),
+        "name": "Account settings",
+        "navigation": MaterialPageRoute(
+            builder: (BuildContext context) => const ExamplePage())
+      },
+      {
+        "icon": const Icon(Icons.help),
+        "name": "Help",
+        "navigation": MaterialPageRoute(
+            builder: (BuildContext context) => const ExamplePage())
+      },
     ];
 
     return AppBarScreen(children: []);
