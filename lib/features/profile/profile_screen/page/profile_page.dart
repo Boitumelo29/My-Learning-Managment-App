@@ -36,11 +36,14 @@ class ProfilePage extends StatelessWidget {
         height: 40,
       ),
       ListView.separated(
-          itemBuilder: (context, index) {},
-          separatorBuilder: (context, index) {
-            return const Divider();
-          },
-          itemCount: profileScreenDet.length)
+        separatorBuilder: (context, index) {
+          return const Divider();
+        },
+        itemCount: profileScreenDet.length,
+        itemBuilder: (context, index) {
+          return
+        },
+      )
     ]);
   }
 }

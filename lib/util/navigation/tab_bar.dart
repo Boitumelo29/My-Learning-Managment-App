@@ -19,9 +19,9 @@ class _TabBarScreenState extends State<TabBarScreen> {
           title: const Text("title"),
         ),
         bottomNavigationBar: const TabBar(
-            tabs: [Icon(Icons.home), Icon(Icons.home), Icon(Icons.home)]),
+            tabs: [Icon(Icons.home), Icon(Icons.home), Icon(Icons.person)]),
         body: const TabBarView(
-          children: [HomePage(), ProfilePage(), Icon(Icons.home)],
+          children: [HomePage(), Icon(Icons.home), ProfilePage()],
         ),
       ),
     );
