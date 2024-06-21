@@ -15,6 +15,6 @@ class HomePage extends StatefulWidget {
 class _HomeScreenState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return AppBarScreen(children: [Text("Hellow world")]);
+    return AppBarScreen(shouldScroll: false, children: [Text("Hellow world")]);
   }
 }

@@ -27,7 +27,7 @@ class ProfilePage extends StatelessWidget {
       },
     ];
 
-    return AppBarScreen(children: []);
+    return AppBarScreen(shouldScroll: false, children: []);
   }
 }
 
