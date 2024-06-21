@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
+import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -27,7 +28,20 @@ class ProfilePage extends StatelessWidget {
       },
     ];
 
-    return AppBarScreen(shouldScroll: false, children: []);
+    return AppBarScreen(shouldScroll: false, children: [
+      Column(
+        children: [Icon(Icons.person), const SizedSpace(), Text("Name")],
+      ),
+      const SizedSpace(
+        height: 40,
+      ),
+      ListView.separated(
+          itemBuilder: (context, index) {},
+          separatorBuilder: (context, index) {
+            return const Divider();
+          },
+          itemCount: profileScreenDet.length)
+    ]);
   }
 }
 
