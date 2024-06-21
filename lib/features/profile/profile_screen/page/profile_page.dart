@@ -46,7 +46,7 @@ class ProfilePage extends StatelessWidget {
         itemBuilder: (context, index) {
           var itm = profileScreenDet[index] as Map;
           return CustomSettingRow(
-              icon: itm['icon'],
+              icon: itm['icon'].icon,
               title: itm['name'],
               onTapped: () {
                 if (itm['navigation'] != null) {
