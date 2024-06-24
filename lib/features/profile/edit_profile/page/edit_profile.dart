@@ -13,6 +13,8 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  List<String> gender = ["male", "female"];
+
   @override
   Widget build(BuildContext context) {
     return AppBarScreen(title: "Edit Profile", shouldScroll: true, children: [
@@ -41,6 +43,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         showPrefixIcon: true,
         onChanged: (value) {},
       ),
+
+      ///gender
+      ///
     ]);
   }
 }
