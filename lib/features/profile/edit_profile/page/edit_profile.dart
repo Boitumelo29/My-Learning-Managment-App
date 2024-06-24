@@ -15,7 +15,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         title: "Edit Profile",
         shouldScroll: true,
         children: [
-          Icon(Icons.person),
+          Center(
+            child: Column(
+              children: [
+                Icon(
+                  Icons.person,
+                  size: 40,
+                ),
+                Text("Change Image")
+              ],
+            ),
+          ),
         ]);
   }
 }
