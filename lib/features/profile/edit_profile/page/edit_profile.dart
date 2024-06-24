@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
+import 'package:mylearning/common_widgets/widgets/textfield/long_rectangle_textfield.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
 
@@ -26,15 +27,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ],
         ),
       ),
-      SizedSpace(),
-      LongTextFieldForm(
-          onChanged: (value) {},
-          hintText: Strings.username,
-          labelText: Strings.username,
-          showSuffixIcon: true,
-          showPrefixIcon: showPrefixIcon,
-          validator: validator,
-          obsureText: obsureText)
+      const SizedSpace(),
+      LongRectangleTextField(
+        hintText: Strings.username,
+        labelText: Strings.username,
+        showPrefixIcon: true,
+        onChanged: (value) {},
+      )
     ]);
   }
 }
