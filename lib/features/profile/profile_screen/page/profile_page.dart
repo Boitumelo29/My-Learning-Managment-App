@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/rows/custom_setting_row.dart';
-import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
+import 'package:mylearning/common_widgets/screens/appBar_layout/no_app_bar_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -29,7 +29,7 @@ class ProfilePage extends StatelessWidget {
       },
     ];
 
-    return AppBarScreen(shouldScroll: false, children: [
+    return NoAppBarScreen(shouldScroll: false, children: [
       const Column(
         children: [Icon(Icons.person), SizedSpace(), Text("Name")],
       ),

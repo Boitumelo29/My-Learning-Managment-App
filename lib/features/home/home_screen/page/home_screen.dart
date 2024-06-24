@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
+import 'package:mylearning/common_widgets/screens/appBar_layout/no_app_bar_screen.dart';
 
 class HomePage extends StatefulWidget {
   // final String title = "title";

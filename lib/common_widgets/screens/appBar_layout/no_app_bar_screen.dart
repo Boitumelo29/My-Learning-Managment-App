@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class AppBarScreen extends StatelessWidget {
+class NoAppBarScreen extends StatelessWidget {
   final List<Widget> children;
   final bool shouldScroll;
 
-  const AppBarScreen(
+  const NoAppBarScreen(
       {super.key, required this.children, required this.shouldScroll});
 
   @override
