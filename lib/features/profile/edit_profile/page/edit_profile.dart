@@ -14,7 +14,7 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  List<String> gender = ["male", "female"];
+  List gender = ["male", "female"];
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             selectedIteIndex = index;
           });
         },
-        children: List<Widget>.generate(items.lenght, i),
+        children: List<Widget>.generate(gender.length, (int index) {
+          return Center(
+            child: Text(gender[index]),
+          );
+        }),
       )
 
       ///gender
