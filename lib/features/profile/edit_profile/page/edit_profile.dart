@@ -33,7 +33,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         labelText: Strings.username,
         showPrefixIcon: true,
         onChanged: (value) {},
-      )
+      ),
+      const SizedSpace(),
+      LongRectangleTextField(
+        hintText: Strings.username,
+        labelText: Strings.username,
+        showPrefixIcon: true,
+        onChanged: (value) {},
+      ),
     ]);
   }
 }
