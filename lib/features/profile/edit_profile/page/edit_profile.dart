@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
+import 'package:mylearning/common_widgets/widgets/buttons/long_rectangle_button.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/long_rectangle_textfield.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
@@ -58,10 +59,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             child: Text(gender[index]),
           );
         }),
-      )
-
-      ///gender
-      ///
+      ),
+      const SizedSpace(),
+      LongRectangleButton(onTap: () {}, title: "Save")
     ]);
   }
 }
