@@ -11,11 +11,11 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    return const AppBarScreen(shouldScroll: true, children: [
-
-
-
-
-    ]);
+    return const AppBarScreen(
+        title: "Edit Profile",
+        shouldScroll: true,
+        children: [
+          Icon(Icons.person),
+        ]);
   }
 }

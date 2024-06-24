@@ -15,7 +15,18 @@ class AppBarScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(title),
+      ),
+      body: SingleChildScrollView(
+        physics: shouldScroll
+            ? const ScrollPhysics()
+            : const NeverScrollableScrollPhysics(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: children,
+        ),
       ),
     );
   }
