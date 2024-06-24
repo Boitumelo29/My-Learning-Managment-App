@@ -45,7 +45,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         showPrefixIcon: true,
         onChanged: (value) {},
       ),
-
+      const SizedSpace(),
       CupertinoPicker(
         itemExtent: 40,
         onSelectedItemChanged: (int index) {
