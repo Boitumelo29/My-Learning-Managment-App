@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
+import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
+import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
+import 'package:mylearning/util/constants/strings/strings.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -11,21 +14,27 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    return const AppBarScreen(
-        title: "Edit Profile",
-        shouldScroll: true,
-        children: [
-          Center(
-            child: Column(
-              children: [
-                Icon(
-                  Icons.person,
-                  size: 40,
-                ),
-                Text("Change Image")
-              ],
+    return AppBarScreen(title: "Edit Profile", shouldScroll: true, children: [
+      const Center(
+        child: Column(
+          children: [
+            Icon(
+              Icons.person,
+              size: 40,
             ),
-          ),
-        ]);
+            Text("Change Image"),
+          ],
+        ),
+      ),
+      SizedSpace(),
+      LongTextFieldForm(
+          onChanged: (value) {},
+          hintText: Strings.username,
+          labelText: Strings.username,
+          showSuffixIcon: true,
+          showPrefixIcon: showPrefixIcon,
+          validator: validator,
+          obsureText: obsureText)
+    ]);
   }
 }
