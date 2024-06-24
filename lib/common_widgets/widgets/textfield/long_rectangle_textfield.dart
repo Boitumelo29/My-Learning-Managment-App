@@ -30,6 +30,8 @@ class _LongRectangleTextFieldState extends State<LongRectangleTextField> {
       validator: widget.validator,
       onChanged: widget.onChanged,
       controller: widget.controller,
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.done,
       decoration: InputDecoration(
           prefixIcon: widget.showPrefixIcon ? Icon(widget.prefixIcon) : null),
     );
