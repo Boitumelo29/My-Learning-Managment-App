@@ -27,9 +27,11 @@ class _LongRectangleTextFieldState extends State<LongRectangleTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator:  widget.validator,
+      validator: widget.validator,
       onChanged: widget.onChanged,
       controller: widget.controller,
+      decoration: InputDecoration(
+          prefixIcon: widget.showPrefixIcon ? Icon(widget.prefixIcon) : null),
     );
   }
 }
