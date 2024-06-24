@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
@@ -17,6 +18,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    int selectedIteIndex = 0;
     return AppBarScreen(title: "Edit Profile", shouldScroll: true, children: [
       const Center(
         child: Column(
@@ -43,6 +45,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         showPrefixIcon: true,
         onChanged: (value) {},
       ),
+
+      CupertinoPicker(
+        itemExtent: 40,
+        onSelectedItemChanged: (int index) {
+          setState(() {
+            selectedIteIndex = index;
+          });
+        },
+        children: List<Widget>.generate(items.lenght, i),
+      )
 
       ///gender
       ///
