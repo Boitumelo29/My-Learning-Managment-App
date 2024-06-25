@@ -7,6 +7,7 @@ import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.d
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/common_widgets/widgets/buttons/long_rectangle_button.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/long_rectangle_textfield.dart';
+import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -32,14 +33,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               children: [
                 const Icon(
                   Icons.person,
-                  size: 40,
+                  size: 60,
                 ),
-                IconButton(onPressed: () {}, icon: const Icon(Icons.camera)),
-                SizedBox(height: 100,
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.camera,
+                      size: 10,
+                    )),
+                SizedBox(
+                    height: 100,
                     width: 100,
-                    child: galleryFile == null ? Center(
-                      child: Text("nothing to show"),) : Center(
-                      child: Text("something to show¬"),) )
+                    child: galleryFile == null
+                        ? const Center(
+                            child: Text("nothing to show"),
+                          )
+                        : const Center(
+                            child: Text("something to show¬"),
+                          ))
               ],
             ),
             const Text("Change Image"),
@@ -47,18 +58,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         ),
       ),
       const SizedSpace(),
-      LongRectangleTextField(
+      LongTextFieldForm(
+        focusNode: null,
         hintText: Strings.username,
         labelText: Strings.username,
         showPrefixIcon: true,
         onChanged: (value) {},
+        showSuffixIcon: false,
+        validator: () {},
+        obsureText: false,
       ),
       const SizedSpace(),
-      LongRectangleTextField(
+      LongTextFieldForm(
+        focusNode: null,
         hintText: Strings.username,
         labelText: Strings.username,
         showPrefixIcon: true,
         onChanged: (value) {},
+        showSuffixIcon: false,
+        validator: () {},
+        obsureText: false,
       ),
       const SizedSpace(),
       CupertinoPicker(

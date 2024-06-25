@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/rows/custom_setting_row.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/no_app_bar_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
+import 'package:mylearning/features/profile/edit_profile/page/edit_profile.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -13,7 +14,7 @@ class ProfilePage extends StatelessWidget {
         "icon": const Icon(Icons.person),
         "name": "Edit Profile",
         "navigation": MaterialPageRoute(
-            builder: (BuildContext context) => const ExamplePage())
+            builder: (BuildContext context) => const EditProfileScreen())
       },
       {
         "icon": const Icon(Icons.settings),
