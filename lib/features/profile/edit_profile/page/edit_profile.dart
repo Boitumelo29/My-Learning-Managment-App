@@ -17,8 +17,8 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  final List<String> gender = ["male", "female"];
-  String selectedGender = "Male";
+  final List<String> gender = [Strings.male, Strings.female];
+  String selectedGender = Strings.maleC;
   File? galleryFile;
   final picker = ImagePicker();
 

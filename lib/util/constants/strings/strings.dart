@@ -14,4 +14,7 @@ class Strings {
 
   //edit profile
   static const male = "male";
+  static const female = "female";
+  static const maleC = "Male";
+  static const editProfile = "Edit Profile";
 }
