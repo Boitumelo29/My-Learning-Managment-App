@@ -53,7 +53,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       },
                       icon: const Icon(
                         Icons.camera,
-                        size: 3te0,
+                        size: 20,
                         color: Colors.grey,
                       ),
                     ))
