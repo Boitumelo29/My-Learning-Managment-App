@@ -16,5 +16,12 @@ class Strings {
   static const male = "male";
   static const female = "female";
   static const maleC = "Male";
+  static const gender = "Gender";
   static const editProfile = "Edit Profile";
+  static const save = "Save";
+  static const photoLibrary = "Photo Library";
+
+
+  //error messages
+  static const errorOccurred = "An error occurred";
 }

@@ -24,76 +24,79 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return AppBarScreen(title: "Edit Profile", shouldScroll: true, children: [
-      Center(
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            const Icon(
-              Icons.person,
-              size: 60,
-            ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: IconButton(
-                  onPressed: () {
-                    _showPicker(context);
-                  },
-                  icon: const Icon(
-                    Icons.camera,
-                    size: 40,
-                  )),
-            ),
-            SizedBox(
-                height: 100,
-                width: 100,
-                child: galleryFile == null
-                    ? const Center(
-                        child: Text("nothing to show"),
-                      )
-                    : Center(
-                        child: Image.file(galleryFile!),
-                      ))
-          ],
-        ),
-      ),
-      const SizedSpace(),
-      LongTextFieldForm(
-        hintText: Strings.username,
-        labelText: Strings.username,
-        showPrefixIcon: true,
-        onChanged: (value) {},
-        showSuffixIcon: false,
-        validator: (value) {},
-        obsureText: false,
-      ),
-      const SizedSpace(),
-      LongTextFieldForm(
-        hintText: Strings.username,
-        labelText: Strings.username,
-        showPrefixIcon: true,
-        onChanged: (value) {},
-        showSuffixIcon: false,
-        validator: (value) {},
-        obsureText: false,
-      ),
-      const SizedSpace(),
-      const Text("The University would be placed here"),
-      Row(
+    return AppBarScreen(
+        title: Strings.editProfile,
+        shouldScroll: true,
         children: [
-          Text("Your Gender: $selectedGender"),
-          ElevatedButton(
-            onPressed: () {
-              _showGender(context);
-            },
-            child: const Text("Gender"),
+          Center(
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                const Icon(
+                  Icons.person,
+                  size: 60,
+                ),
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: IconButton(
+                      onPressed: () {
+                        _showPicker(context);
+                      },
+                      icon: const Icon(
+                        Icons.camera,
+                        size: 40,
+                      )),
+                ),
+                SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: galleryFile == null
+                        ? const Center(
+                            child: Text("nothing to show"),
+                          )
+                        : Center(
+                            child: Image.file(galleryFile!),
+                          ))
+              ],
+            ),
           ),
-        ],
-      ),
-      const SizedSpace(),
-      LongButton(onTap: () {}, title: "Save")
-    ]);
+          const SizedSpace(),
+          LongTextFieldForm(
+            hintText: Strings.username,
+            labelText: Strings.username,
+            showPrefixIcon: true,
+            onChanged: (value) {},
+            showSuffixIcon: false,
+            validator: (value) {},
+            obsureText: false,
+          ),
+          const SizedSpace(),
+          LongTextFieldForm(
+            hintText: Strings.username,
+            labelText: Strings.username,
+            showPrefixIcon: true,
+            onChanged: (value) {},
+            showSuffixIcon: false,
+            validator: (value) {},
+            obsureText: false,
+          ),
+          const SizedSpace(),
+          const Text("The University would be placed here"),
+          Row(
+            children: [
+              Text("Your Gender: $selectedGender"),
+              ElevatedButton(
+                onPressed: () {
+                  _showGender(context);
+                },
+                child: const Text(Strings.gender),
+              ),
+            ],
+          ),
+          const SizedSpace(),
+          LongButton(onTap: () {}, title: Strings.save)
+        ]);
   }
 
   void _showGender(BuildContext context) {
@@ -128,7 +131,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               children: <Widget>[
                 ListTile(
                     leading: const Icon(Icons.photo_library),
-                    title: const Text("Photo Library"),
+                    title: const Text(Strings.photoLibrary),
                     onTap: () {
                       getImage(ImageSource.gallery);
                       Navigator.of(context).pop();
@@ -147,7 +150,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         galleryFile = File(pickedFile!.path);
       } else {
         ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("An error occurred")));
+            .showSnackBar(const SnackBar(content: Text(Strings.errorOccurred)));
       }
     });
   }
