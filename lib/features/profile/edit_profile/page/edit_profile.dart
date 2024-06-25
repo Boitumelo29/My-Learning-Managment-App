@@ -6,8 +6,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
-import 'package:mylearning/common_widgets/widgets/buttons/long_rectangle_button.dart';
-import 'package:mylearning/common_widgets/widgets/textfield/long_rectangle_textfield.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
 
@@ -19,13 +17,36 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  List gender = ["male", "female"];
+  final List<String> gender = ["male", "female"];
+  String selectedGender = "Male";
+  File? galleryFile;
+  final picker = ImagePicker();
+
+  void _showGender(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext builder) {
+          return Container(
+            height: MediaQuery.of(context).copyWith().size.height / 3,
+            child: CupertinoPicker(
+              itemExtent: 32,
+              onSelectedItemChanged: (int value) {
+                setState(() {
+                  selectedGender = gender[value];
+                });
+              },
+              children: gender.map((String gender) {
+                return Center(
+                  child: Text(gender),
+                );
+              }).toList(),
+            ),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
-    File? galleryFile;
-    final picker = ImagePicker();
-    int selectedIteIndex = 0;
     return AppBarScreen(title: "Edit Profile", shouldScroll: true, children: [
       Center(
         child: Stack(
@@ -53,7 +74,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         child: Text("nothing to show"),
                       )
                     : const Center(
-                        child: Text("something to show¬"),
+                        child: Text("something to show"),
                       ))
           ],
         ),
@@ -79,18 +100,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         obsureText: false,
       ),
       const SizedSpace(),
-      CupertinoPicker(
-        itemExtent: 40,
-        onSelectedItemChanged: (int index) {
-          setState(() {
-            selectedIteIndex = index;
-          });
-        },
-        children: List<Widget>.generate(gender.length, (int index) {
-          return Center(
-            child: Text(gender[index]),
-          );
-        }),
+      Row(
+        children: [
+          const Text("Your Gender"),
+          ElevatedButton(onPressed: () {}, child: const Text("Gender"))
+        ],
       ),
       const SizedSpace(),
       LongButton(onTap: () {}, title: "Save")
