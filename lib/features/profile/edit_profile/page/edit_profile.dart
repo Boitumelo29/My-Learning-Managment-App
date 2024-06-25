@@ -22,29 +22,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   File? galleryFile;
   final picker = ImagePicker();
 
-  void _showGender(BuildContext context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext builder) {
-          return Container(
-            height: MediaQuery.of(context).copyWith().size.height / 3,
-            child: CupertinoPicker(
-              itemExtent: 32,
-              onSelectedItemChanged: (int value) {
-                setState(() {
-                  selectedGender = gender[value];
-                });
-              },
-              children: gender.map((String gender) {
-                return Center(
-                  child: Text(gender),
-                );
-              }).toList(),
-            ),
-          );
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
     return AppBarScreen(title: "Edit Profile", shouldScroll: true, children: [
@@ -60,10 +37,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               bottom: 0,
               right: 0,
               child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _showPicker(context);
+                  },
                   icon: const Icon(
                     Icons.camera,
-                    size: 10,
+                    size: 40,
                   )),
             ),
             SizedBox(
@@ -71,11 +50,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 width: 100,
                 child: galleryFile == null
                     ? const Center(
-                        child: Text("nothing to show"),
-                      )
-                    : const Center(
-                        child: Text("something to show"),
-                      ))
+                  child: Text("nothing to show"),
+                )
+                    : Center(
+                  child: Image.file(galleryFile!),
+                ))
           ],
         ),
       ),
@@ -114,5 +93,63 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       const SizedSpace(),
       LongButton(onTap: () {}, title: "Save")
     ]);
+  }
+
+  void _showGender(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext builder) {
+          return Container(
+            height: MediaQuery
+                .of(context)
+                .copyWith()
+                .size
+                .height / 3,
+            child: CupertinoPicker(
+              itemExtent: 32,
+              onSelectedItemChanged: (int value) {
+                setState(() {
+                  selectedGender = gender[value];
+                });
+              },
+              children: gender.map((String gender) {
+                return Center(
+                  child: Text(gender),
+                );
+              }).toList(),
+            ),
+          );
+        });
+  }
+
+  void _showPicker(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return SafeArea(
+            child: (Wrap(
+              children: <Widget>[
+                ListTile(
+                    leading: const Icon(Icons.photo_library),
+                    title: const Text("Photo Library"),
+                    onTap: () {
+                      getImage(ImageSource.gallery);
+                      Navigator.of(context).pop();
+                    })
+              ],
+            )),
+          );
+        });
+  }
+
+
+  Future getImage(ImageSource img) async {
+    final pickedFile = await picker.pickImage(source: img);
+    XFile? xfilePick = pickedFile;
+    setState(() {
+      if(xfilePick != null){
+        galleryFile = File(pickedFile!.path);
+      }else{}
+      });
   }
 }
