@@ -10,17 +10,28 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  ThemeMode _themeMode = ThemeMode.system;
+
   @override
   Widget build(BuildContext context) {
-    return AppBarScreen(
-        shouldScroll: true, children: [
-          //notifications
-      //help
-      //FAQ
-      //dark mode
-      //leave feedback
 
-
-    ], title: Strings.settings);
+    return const AppBarScreen(
+      title: Strings.settings,
+      shouldScroll: true,
+      children: [
+        //Its needs to be alis view with a
+        //notifications
+        //help
+        //FAQ
+        //dark mode
+        //leave feedback
+      ],
+    );
   }
+  void _toggleTheme() {
+    setState(() {
+      _themeMode =
+      _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+    });
+  }te
 }
