@@ -102,8 +102,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       const SizedSpace(),
       Row(
         children: [
-          const Text("Your Gender"),
-          ElevatedButton(onPressed: () {}, child: const Text("Gender"))
+          Text("Your Gender: $selectedGender"),
+          ElevatedButton(
+            onPressed: () {
+              _showGender(context);
+            },
+            child: const Text("Gender"),
+          ),
         ],
       ),
       const SizedSpace(),
