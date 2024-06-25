@@ -26,12 +26,12 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         home: TabBarScreen(
             isDarkMode : isDarkMode,
-            toggleTheme: _toggleTheme(isDarkMode)));
+            toggleTheme: toggleTheme(isDarkMode)));
   }
 
-  _toggleTheme(bool isDarkMode) {
+  toggleTheme(bool isDarkMode) {
     setState(() {
-      isDarkMode = isDarkMode;
+      this.isDarkMode = isDarkMode;
     });
   }
 }
