@@ -24,4 +24,7 @@ class Strings {
   //error messages
   static const errorOccurred = "An error occurred";
   static const nothingToShow = "Nothing to show";
+
+  //settings
+  static const settings = "settings";
 }
