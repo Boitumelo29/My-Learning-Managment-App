@@ -50,11 +50,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 width: 100,
                 child: galleryFile == null
                     ? const Center(
-                  child: Text("nothing to show"),
-                )
+                        child: Text("nothing to show"),
+                      )
                     : Center(
-                  child: Image.file(galleryFile!),
-                ))
+                        child: Image.file(galleryFile!),
+                      ))
           ],
         ),
       ),
@@ -100,11 +100,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         context: context,
         builder: (BuildContext builder) {
           return Container(
-            height: MediaQuery
-                .of(context)
-                .copyWith()
-                .size
-                .height / 3,
+            height: MediaQuery.of(context).copyWith().size.height / 3,
             child: CupertinoPicker(
               itemExtent: 32,
               onSelectedItemChanged: (int value) {
@@ -142,14 +138,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         });
   }
 
-
   Future getImage(ImageSource img) async {
     final pickedFile = await picker.pickImage(source: img);
     XFile? xfilePick = pickedFile;
     setState(() {
-      if(xfilePick != null){
+      if (xfilePick != null) {
         galleryFile = File(pickedFile!.path);
-      }else{}
-      });
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("An error occurred")));
+      }
+    });
   }
 }
