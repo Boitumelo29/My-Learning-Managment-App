@@ -3,7 +3,11 @@ import 'package:mylearning/features/home/home_screen/page/home_screen.dart';
 import 'package:mylearning/features/profile/profile_screen/page/profile_page.dart';
 
 class TabBarScreen extends StatefulWidget {
-  const TabBarScreen({super.key});
+  final bool isDarkMode;
+  final ValueChanged<bool> toggleTheme;
+
+  const TabBarScreen(
+      {super.key, required this.toggleTheme, required this.isDarkMode});
 
   @override
   State<TabBarScreen> createState() => _TabBarScreenState();
@@ -20,8 +24,13 @@ class _TabBarScreenState extends State<TabBarScreen> {
         ),
         bottomNavigationBar: const TabBar(
             tabs: [Icon(Icons.home), Icon(Icons.home), Icon(Icons.person)]),
-        body: const TabBarView(
-          children: [HomePage(), Icon(Icons.home), ProfilePage()],
+        body: TabBarView(
+          children: [
+            const HomePage(),
+            const Icon(Icons.home),
+            ProfilePage(
+                isDarkMode: widget.isDarkMode, toggleTheme: widget.toggleTheme)
+          ],
         ),
       ),
     );

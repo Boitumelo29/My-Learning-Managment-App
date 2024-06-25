@@ -3,22 +3,25 @@ import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.d
 import 'package:mylearning/util/constants/strings/strings.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({super.key});
+  final bool isDarkMode;
+  final ValueChanged<bool> toggleTheme;
+
+  const SettingsPage(
+      {super.key, required this.toggleTheme, required this.isDarkMode});
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  ThemeMode _themeMode = ThemeMode.system;
-
   @override
   Widget build(BuildContext context) {
-
-    return const AppBarScreen(
+    return AppBarScreen(
       title: Strings.settings,
       shouldScroll: true,
       children: [
+        Switch(value: widget.isDarkMode, onChanged: widget.toggleTheme)
+
         //Its needs to be alis view with a
         //notifications
         //help
@@ -28,10 +31,4 @@ class _SettingsPageState extends State<SettingsPage> {
       ],
     );
   }
-  void _toggleTheme() {
-    setState(() {
-      _themeMode =
-      _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
-    });
-  }te
 }
