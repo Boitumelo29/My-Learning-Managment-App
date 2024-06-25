@@ -32,32 +32,28 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                const Icon(
-                  Icons.person,
-                  size: 60,
-                ),
+                galleryFile == null
+                    ? const Icon(
+                        Icons.person,
+                        size: 60,
+                      )
+                    : SizedBox(
+                        height: 100,
+                        width: 100,
+                        child: Center(
+                          child: Image.file(galleryFile!),
+                        ),
+                      ),
                 Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: IconButton(
-                      onPressed: () {
-                        _showPicker(context);
-                      },
-                      icon: const Icon(
-                        Icons.camera,
-                        size: 40,
-                      )),
-                ),
-                SizedBox(
-                    height: 100,
-                    width: 100,
-                    child: galleryFile == null
-                        ? const Center(
-                            child: Text("nothing to show"),
-                          )
-                        : Center(
-                            child: Image.file(galleryFile!),
-                          ))
+                    child: IconButton(
+                  onPressed: () {
+                    _showPicker(context);
+                  },
+                  icon: const Icon(
+                    Icons.camera,
+                    size: 40,
+                  ),
+                ))
               ],
             ),
           ),

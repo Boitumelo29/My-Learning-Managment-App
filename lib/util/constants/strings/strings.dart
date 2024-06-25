@@ -21,7 +21,7 @@ class Strings {
   static const save = "Save";
   static const photoLibrary = "Photo Library";
 
-
   //error messages
   static const errorOccurred = "An error occurred";
+  static const nothingToShow = "Nothing to show";
 }
