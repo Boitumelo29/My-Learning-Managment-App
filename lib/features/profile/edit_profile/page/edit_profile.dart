@@ -140,9 +140,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   Future getImage(ImageSource img) async {
     final pickedFile = await picker.pickImage(source: img);
-    XFile? xfilePick = pickedFile;
+    XFile? xFilePick = pickedFile;
     setState(() {
-      if (xfilePick != null) {
+      if (xFilePick != null) {
         galleryFile = File(pickedFile!.path);
       } else {
         ScaffoldMessenger.of(context)
