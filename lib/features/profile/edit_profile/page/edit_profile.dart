@@ -35,7 +35,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 galleryFile == null
                     ? const Icon(
                         Icons.person,
-                        size: 60,
+                        size: 100,
                       )
                     : SizedBox(
                         height: 100,
@@ -45,15 +45,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                       ),
                 Positioned(
+                    bottom: 0,
+                    right: 0,
                     child: IconButton(
-                  onPressed: () {
-                    _showPicker(context);
-                  },
-                  icon: const Icon(
-                    Icons.camera,
-                    size: 40,
-                  ),
-                ))
+                      onPressed: () {
+                        _showPicker(context);
+                      },
+                      icon: const Icon(
+                        Icons.camera,
+                        size: 20,
+                        color: Colors.grey,
+                      ),
+                    ))
               ],
             ),
           ),
