@@ -28,37 +28,33 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     int selectedIteIndex = 0;
     return AppBarScreen(title: "Edit Profile", shouldScroll: true, children: [
       Center(
-      
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                const Icon(
-                  Icons.person,
-                  size: 60,
-                ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.camera,
-                        size: 10,
-                      )),
-                ),
-                SizedBox(
-                    height: 100,
-                    width: 100,
-                    child: galleryFile == null
-                        ? const Center(
-                            child: Text("nothing to show"),
-                          )
-                        : const Center(
-                            child: Text("something to show¬"),
-                          ))
-              ],
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            const Icon(
+              Icons.person,
+              size: 60,
             ),
-            const Text("Change Image"),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.camera,
+                    size: 10,
+                  )),
+            ),
+            SizedBox(
+                height: 100,
+                width: 100,
+                child: galleryFile == null
+                    ? const Center(
+                        child: Text("nothing to show"),
+                      )
+                    : const Center(
+                        child: Text("something to show¬"),
+                      ))
           ],
         ),
       ),
