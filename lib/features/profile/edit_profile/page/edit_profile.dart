@@ -79,6 +79,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         obsureText: false,
       ),
       const SizedSpace(),
+      const Text("The University would be placed here"),
       Row(
         children: [
           Text("Your Gender: $selectedGender"),

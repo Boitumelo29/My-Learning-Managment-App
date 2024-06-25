@@ -12,4 +12,6 @@ class Strings {
   static const username = "Username";
   static const confirmPassword = "Confirm Password";
 
+  //edit profile
+  static const male = "male";
 }
