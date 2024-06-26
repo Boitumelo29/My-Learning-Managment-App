@@ -9,7 +9,8 @@ class ProfilePage extends StatelessWidget {
   final bool isDarkMode;
   final ValueChanged<bool> toggleTheme;
 
-  const ProfilePage({super.key, required this.toggleTheme, required this.isDarkMode});
+  const ProfilePage(
+      {super.key, required this.toggleTheme, required this.isDarkMode});
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +26,7 @@ class ProfilePage extends StatelessWidget {
         "name": "Account settings",
         "navigation": MaterialPageRoute(
             builder: (BuildContext context) =>
-                SettingsPage(
-                    isDarkMode :isDarkMode,
-                    toggleTheme: toggleTheme))
+                SettingsPage(isDarkMode: isDarkMode, toggleTheme: toggleTheme))
       },
       {
         "icon": const Icon(Icons.help),
@@ -77,3 +76,6 @@ class ExamplePage extends StatelessWidget {
     );
   }
 }
+
+
+//boitumelo thobejane
