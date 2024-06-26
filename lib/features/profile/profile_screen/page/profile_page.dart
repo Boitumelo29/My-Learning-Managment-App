@@ -76,6 +76,3 @@ class ExamplePage extends StatelessWidget {
     );
   }
 }
-
-
-//boi
