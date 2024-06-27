@@ -4,7 +4,7 @@ import 'package:mylearning/features/profile/profile_screen/page/profile_page.dar
 
 class TabBarScreen extends StatefulWidget {
   final bool isDarkMode;
-  final ValueChanged<bool> toggleTheme;
+  final Function toggleTheme;
 
   const TabBarScreen(
       {super.key, required this.toggleTheme, required this.isDarkMode});

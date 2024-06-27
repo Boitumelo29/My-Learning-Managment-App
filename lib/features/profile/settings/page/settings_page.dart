@@ -4,7 +4,7 @@ import 'package:mylearning/util/constants/strings/strings.dart';
 
 class SettingsPage extends StatefulWidget {
   final bool isDarkMode;
-  final ValueChanged<bool> toggleTheme;
+  final Function toggleTheme;
 
   const SettingsPage(
       {super.key, required this.toggleTheme, required this.isDarkMode});
@@ -20,7 +20,11 @@ class _SettingsPageState extends State<SettingsPage> {
       title: Strings.settings,
       shouldScroll: true,
       children: [
-        Switch(value: widget.isDarkMode, onChanged: widget.toggleTheme)
+        Switch(
+            value: widget.isDarkMode,
+            onChanged: (value) {
+              widget.toggleTheme();
+            })
 
         //Its needs to be alis view with a
         //notifications

@@ -7,7 +7,7 @@ import 'package:mylearning/features/profile/settings/page/settings_page.dart';
 
 class ProfilePage extends StatelessWidget {
   final bool isDarkMode;
-  final ValueChanged<bool> toggleTheme;
+  final Function toggleTheme;
 
   const ProfilePage(
       {super.key, required this.toggleTheme, required this.isDarkMode});
