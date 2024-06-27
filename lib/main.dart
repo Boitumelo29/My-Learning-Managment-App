@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
 
   void toggleTheme() {
     setState(() {
-      isDarkMode = isDarkMode;
+      isDarkMode = !isDarkMode;
     });
   }
 }
