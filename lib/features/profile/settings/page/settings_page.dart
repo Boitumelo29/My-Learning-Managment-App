@@ -23,6 +23,7 @@ class _SettingsPageState extends State<SettingsPage> {
         Switch(
             value: widget.isDarkMode,
             onChanged: (value) {
+              print("tapped");
               widget.toggleTheme();
             })
 
