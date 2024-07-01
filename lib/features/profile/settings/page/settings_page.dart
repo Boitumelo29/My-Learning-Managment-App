@@ -45,9 +45,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 }),
           ],
         ),
-
-        //Its needs to be alis view with a
-        //notifications
         //help
         //FAQ
         //dark mode
