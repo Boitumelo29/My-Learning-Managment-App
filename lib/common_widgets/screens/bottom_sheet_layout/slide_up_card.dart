@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
+import 'package:mylearning/common_widgets/widgets/icon_element/icon_floating_elements.dart';
 
 class SlideUpCard extends StatelessWidget {
   final dynamic children;
@@ -8,7 +9,6 @@ class SlideUpCard extends StatelessWidget {
   final String title;
   final String description;
   final String? photo;
-  final bool showIcon;
   final IconData? icon;
 
   const SlideUpCard(
@@ -19,7 +19,6 @@ class SlideUpCard extends StatelessWidget {
       required this.title,
       required this.description,
       this.photo,
-      required this.showIcon,
       this.icon});
 
   @override
@@ -30,8 +29,17 @@ class SlideUpCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const SizedSpace(),
-          FloatingElement()
-        ],),
+          IconFloatingElements(
+            height: 50,
+            width: 50,
+            color: Theme.of(context).colorScheme.onPrimary,
+            child: photo != null ? Image.network(photo!) : Icon(icon),
+          ),
+          const SizedSpace(
+            height: 30,
+          ),
+        ],
+      ),
     );
   }
 }
