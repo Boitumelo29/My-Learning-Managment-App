@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 
 class SlideUpCard extends StatelessWidget {
   final dynamic children;
@@ -25,6 +26,12 @@ class SlideUpCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedSpace(),
+          FloatingElement()
+        ],),
     );
   }
 }
