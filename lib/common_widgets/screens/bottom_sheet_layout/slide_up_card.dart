@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/common_widgets/widgets/icon_element/icon_floating_elements.dart';
 
@@ -29,15 +30,32 @@ class SlideUpCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const SizedSpace(),
-          IconFloatingElements(
-            height: 50,
-            width: 50,
-            color: Theme.of(context).colorScheme.onPrimary,
-            child: photo != null ? Image.network(photo!) : Icon(icon),
-          ),
-          const SizedSpace(
-            height: 30,
-          ),
+          // IconFloatingElements(
+          //   height: 50,
+          //   width: 50,
+          //   color: Theme.of(context).colorScheme.onPrimary,
+          //   child: photo != null ? Image.network(photo!) : Icon(icon),
+          // ),
+          // const SizedSpace(
+          //   height: 30,
+          // ),
+          AnimationLimiter(
+            child: Column(
+              children: AnimationConfiguration.toStaggeredList(
+                duration: const Duration(milliseconds: 300),
+                childAnimationBuilder: (widget) => SlideAnimation(
+                  verticalOffset: 15,
+                  child: FadeInAnimation(
+                    child: ScaleAnimation(
+                      scale: 0.94,
+                      child: widget,
+                    ),
+                  ),
+                ),
+                children: children,
+              ),
+            ),
+          )
         ],
       ),
     );
