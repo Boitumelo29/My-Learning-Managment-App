@@ -23,6 +23,18 @@ class _FAQScreenState extends State<FAQScreen> {
         shouldScroll: true,
         children: [
           ExpansionTileCard(
+            key: cardA,
+            leading: const CircleAvatar(
+              child: Text("FAQ"),
+            ),
+            title: const Text("Who are we"),
+            subtitle: const Text("What do we do?"),
+            children: const [
+              Text("data"),
+              Text("data"),
+              Text("data"),
+            ],
+          ),ExpansionTileCard(
             key: cardB,
             leading: const CircleAvatar(
               child: Text("FAQ"),
