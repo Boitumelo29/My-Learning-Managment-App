@@ -2,6 +2,8 @@ import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
 
+void main() => runApp(FAQScreen());
+
 class FAQScreen extends StatefulWidget {
   const FAQScreen({super.key});
 
@@ -15,22 +17,28 @@ class _FAQScreenState extends State<FAQScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return AppBarScreen(
-      title: "Frequently Asked Questions",
-      shouldScroll: true,
-      children: [
-        ListView(
-          children: [
-            ExpansionTileCard(
-              key: cardB,
-              leading: const CircleAvatar(
-                child: Text("A"),
+    return MaterialApp(
+      home: AppBarScreen(
+        title: "Frequently Asked Questions",
+        shouldScroll: true,
+        children: [
+          ListView(
+            children: [
+              ExpansionTileCard(
+                key: cardB,
+                leading: const CircleAvatar(
+                  child: Text("FAQ"),
+                ),
+                title: const Text("Who are we"),
+                subtitle: Text("subtitle"),
+                children: [
+                  Text("data"),Text("data"),Text("data"),
+                ],
               ),
-              title: const Text("Who are we"),
-            ),
-          ],
-        )
-      ],
+            ],
+          )
+        ],
+      ),
     );
   }
 }
