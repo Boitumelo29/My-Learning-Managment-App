@@ -28,9 +28,11 @@ class _FAQScreenState extends State<FAQScreen> {
               child: Text("FAQ"),
             ),
             title: const Text("Who are we"),
-            subtitle: Text("subtitle"),
-            children: [
-              Text("data"),Text("data"),Text("data"),
+            subtitle: const Text("What do we do?"),
+            children: const [
+              Text("data"),
+              Text("data"),
+              Text("data"),
             ],
           ),
         ],
