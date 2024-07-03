@@ -22,21 +22,17 @@ class _FAQScreenState extends State<FAQScreen> {
         title: "Frequently Asked Questions",
         shouldScroll: true,
         children: [
-          ListView(
+          ExpansionTileCard(
+            key: cardB,
+            leading: const CircleAvatar(
+              child: Text("FAQ"),
+            ),
+            title: const Text("Who are we"),
+            subtitle: Text("subtitle"),
             children: [
-              ExpansionTileCard(
-                key: cardB,
-                leading: const CircleAvatar(
-                  child: Text("FAQ"),
-                ),
-                title: const Text("Who are we"),
-                subtitle: Text("subtitle"),
-                children: [
-                  Text("data"),Text("data"),Text("data"),
-                ],
-              ),
+              Text("data"),Text("data"),Text("data"),
             ],
-          )
+          ),
         ],
       ),
     );
