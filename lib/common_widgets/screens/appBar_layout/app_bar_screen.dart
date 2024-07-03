@@ -5,34 +5,34 @@ class AppBarScreen extends StatelessWidget {
   final String title;
   final List<Widget> children;
 
-  const AppBarScreen({
-    super.key,
-    required this.shouldScroll,
-    required this.children,
-    required this.title,
-  });
+  const AppBarScreen(
+      {super.key,
+      required this.shouldScroll,
+      required this.children,
+      required this.title,});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(title),
-        ),
-        body: SafeArea(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(title),
+      ),
+      body: SingleChildScrollView(
+        physics: shouldScroll
+            ? const ScrollPhysics()
+            : const NeverScrollableScrollPhysics(),
+        child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(10),
-            child: shouldScroll
-                ? ListView(
-                    physics: const ScrollPhysics(),
-                    children: children,
-                  )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: children,
-                  ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: children,
+            ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
