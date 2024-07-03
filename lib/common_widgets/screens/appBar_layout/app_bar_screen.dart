@@ -25,8 +25,13 @@ class AppBarScreen extends StatelessWidget {
             child: shouldScroll
                 ? ListView(
                     physics: const ScrollPhysics(),
+                    children: children,
                   )
-                : Column(),
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: children,
+                  ),
           ),
         ));
   }
