@@ -31,12 +31,6 @@ class ProfilePage extends StatelessWidget {
       },
       {
         "icon": const Icon(Icons.help),
-        "name": "Help",
-        "navigation": MaterialPageRoute(
-            builder: (BuildContext context) => const ExamplePage())
-      },
-      {
-        "icon": const Icon(Icons.help),
         "name": "FAQ",
         "navigation": MaterialPageRoute(
             builder: (BuildContext context) => const FAQScreen())
@@ -47,8 +41,6 @@ class ProfilePage extends StatelessWidget {
         "navigation": MaterialPageRoute(
             builder: (BuildContext context) => const FAQScreen())
       },
-
-      //I can add t&cs herer
     ];
 
     return NoAppBarScreen(shouldScroll: false, children: [
