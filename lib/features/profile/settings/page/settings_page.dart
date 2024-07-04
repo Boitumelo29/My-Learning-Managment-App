@@ -47,7 +47,7 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         //help
         //FAQ
-        //dark mode
+        //
         //leave feedback
       ],
     );
