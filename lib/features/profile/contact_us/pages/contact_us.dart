@@ -44,7 +44,9 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
             },
             obsureText: kFlutterMemoryAllocationsEnabled),
         Text("Social Media"),
-       Row(children: [ Icon(Icons.facebook),],)
+       Row(children: [ Icon(Icons.facebook), Text("facebook name")],),
+        Row(children: [ Icon(Icons.facebook), Text("facebook name")],),
+        Row(children: [Icon(Icons.facebook), Text("facebook name")],),
       ],
     );
   }
