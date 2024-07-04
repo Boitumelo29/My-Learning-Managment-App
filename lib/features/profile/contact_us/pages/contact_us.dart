@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
 
 class ContactUsScreen extends StatefulWidget {
   const ContactUsScreen({super.key});
@@ -10,6 +11,7 @@ class ContactUsScreen extends StatefulWidget {
 class _ContactUsScreenState extends State<ContactUsScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return AppBarScreen(
+        shouldScroll: true, title: "Contact us", children: [Container()]);
   }
 }
