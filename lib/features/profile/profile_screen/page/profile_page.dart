@@ -6,6 +6,7 @@ import 'package:mylearning/features/profile/contact_us/pages/contact_us.dart';
 import 'package:mylearning/features/profile/edit_profile/page/edit_profile.dart';
 import 'package:mylearning/features/profile/faq_screen/screen/faq_screen.dart';
 import 'package:mylearning/features/profile/settings/page/settings_page.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class ProfilePage extends StatelessWidget {
   final bool isDarkMode;
@@ -42,6 +43,16 @@ class ProfilePage extends StatelessWidget {
         "navigation": MaterialPageRoute(
             builder: (BuildContext context) => const ContactUsScreen())
       },
+      {
+        "icon": const Icon(Icons.help),
+        "name": "Contact us",
+        "navigation": Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) =>
+                PlaceholderPage(onInit: () => _showModal(context)),
+          ),
+        )
+      },
     ];
 
     return NoAppBarScreen(shouldScroll: false, children: [
@@ -71,6 +82,28 @@ class ProfilePage extends StatelessWidget {
         },
       )
     ]);
+  }
+
+  void _showModal(BuildContext context) {
+    showCupertinoModalBottomSheet(
+      expand: true,
+      context: context,
+      builder: (context) => ExamplePage(),
+    );
+  }
+}
+
+class PlaceholderPage extends StatelessWidget {
+  final Function onInit;
+
+  PlaceholderPage({required this.onInit});
+
+  @override
+  Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) => onInit());
+    return Container(
+      color: Colors.blue,
+    );
   }
 }
 
