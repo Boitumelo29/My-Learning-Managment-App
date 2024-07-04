@@ -18,6 +18,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return AppBarScreen(
+      // you can change this to a slide up
       title: Strings.settings,
       shouldScroll: true,
       children: [
@@ -45,10 +46,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 }),
           ],
         ),
-        //help
-        //FAQ
-        //
-        //leave feedback
       ],
     );
   }

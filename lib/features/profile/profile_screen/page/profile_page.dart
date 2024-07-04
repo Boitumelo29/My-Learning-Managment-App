@@ -3,6 +3,7 @@ import 'package:mylearning/common_widgets/rows/custom_setting_row.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/no_app_bar_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/features/profile/edit_profile/page/edit_profile.dart';
+import 'package:mylearning/features/profile/faq_screen/screen/faq_screen.dart';
 import 'package:mylearning/features/profile/settings/page/settings_page.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -34,6 +35,20 @@ class ProfilePage extends StatelessWidget {
         "navigation": MaterialPageRoute(
             builder: (BuildContext context) => const ExamplePage())
       },
+      {
+        "icon": const Icon(Icons.help),
+        "name": "FAQ",
+        "navigation": MaterialPageRoute(
+            builder: (BuildContext context) => const FAQScreen())
+      },
+      {
+        "icon": const Icon(Icons.help),
+        "name": "Contact us",
+        "navigation": MaterialPageRoute(
+            builder: (BuildContext context) => const FAQScreen())
+      },
+
+      //I can add t&cs herer
     ];
 
     return NoAppBarScreen(shouldScroll: false, children: [
