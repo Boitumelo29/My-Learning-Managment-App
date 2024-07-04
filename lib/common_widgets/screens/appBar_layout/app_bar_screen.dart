@@ -5,11 +5,12 @@ class AppBarScreen extends StatelessWidget {
   final String title;
   final List<Widget> children;
 
-  const AppBarScreen(
-      {super.key,
-      required this.shouldScroll,
-      required this.children,
-      required this.title,});
+  const AppBarScreen({
+    super.key,
+    required this.shouldScroll,
+    required this.title,
+    required this.children,
+  });
 
   @override
   Widget build(BuildContext context) {
