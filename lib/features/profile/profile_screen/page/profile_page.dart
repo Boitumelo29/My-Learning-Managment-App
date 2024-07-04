@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/rows/custom_setting_row.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/no_app_bar_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
+import 'package:mylearning/features/profile/contact_us/pages/contact_us.dart';
 import 'package:mylearning/features/profile/edit_profile/page/edit_profile.dart';
 import 'package:mylearning/features/profile/faq_screen/screen/faq_screen.dart';
 import 'package:mylearning/features/profile/settings/page/settings_page.dart';
@@ -39,7 +40,7 @@ class ProfilePage extends StatelessWidget {
         "icon": const Icon(Icons.help),
         "name": "Contact us",
         "navigation": MaterialPageRoute(
-            builder: (BuildContext context) => const FAQScreen())
+            builder: (BuildContext context) => const ContactUsScreen())
       },
     ];
 
