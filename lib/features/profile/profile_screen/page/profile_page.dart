@@ -46,12 +46,8 @@ class ProfilePage extends StatelessWidget {
       {
         "icon": const Icon(Icons.help),
         "name": "Contact us",
-        "navigation": Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) =>
-                PlaceholderPage(onInit: () => _showModal(context)),
-          ),
-        )
+        "navigation": MaterialPageRoute(
+            builder: (BuildContext context) => const ContactUsScreen())
       },
     ];
 
@@ -82,28 +78,6 @@ class ProfilePage extends StatelessWidget {
         },
       )
     ]);
-  }
-
-  void _showModal(BuildContext context) {
-    showCupertinoModalBottomSheet(
-      expand: true,
-      context: context,
-      builder: (context) => ExamplePage(),
-    );
-  }
-}
-
-class PlaceholderPage extends StatelessWidget {
-  final Function onInit;
-
-  PlaceholderPage({required this.onInit});
-
-  @override
-  Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) => onInit());
-    return Container(
-      color: Colors.blue,
-    );
   }
 }
 
