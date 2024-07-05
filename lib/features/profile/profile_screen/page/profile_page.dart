@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/rows/custom_setting_row.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/no_app_bar_screen.dart';
+import 'package:mylearning/common_widgets/screens/bottom_sheet_layout/bottom_sheet_modal.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/features/profile/contact_us/pages/contact_us.dart';
 import 'package:mylearning/features/profile/edit_profile/page/edit_profile.dart';
@@ -86,8 +87,6 @@ class ExamplePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.red,
-    );
+    return BottomSheetModal();
   }
 }

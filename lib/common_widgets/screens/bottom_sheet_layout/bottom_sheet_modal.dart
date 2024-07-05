@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
-Future<void> bottomSheet({required BuildContext context, height, required List<Widget> children}) async {
-  showModalBottomSheet<void>(
+class BottomSheetModal extends StatelessWidget {
+  Future<void> bottomSheetModal({required BuildContext context, double? height, required List<Widget> children}) async {
+    showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
         return SizedBox(
@@ -10,9 +10,17 @@ Future<void> bottomSheet({required BuildContext context, height, required List<W
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              children: children
+              children: children,
             ),
           ),
         );
-      });
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
 }
