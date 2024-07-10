@@ -1,6 +1,9 @@
 part of 'network_bloc.dart';
 
-@immutable
-sealed class NetworkState {}
+abstract class NetworkState {}
 
-final class NetworkInitial extends NetworkState {}
+class NetworkInitial extends NetworkState {}
+
+class NetworkSuccess extends NetworkState {}
+
+class NetworkFailure extends NetworkState {}

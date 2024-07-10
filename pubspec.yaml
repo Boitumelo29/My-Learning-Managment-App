@@ -41,6 +41,7 @@ dependencies:
   expansion_tile_card: ^3.0.0
   modal_bottom_sheet: ^3.0.0
   connectivity_plus: ^6.0.3
+  bloc: ^8.1.4
 
 dev_dependencies:
   flutter_test:
