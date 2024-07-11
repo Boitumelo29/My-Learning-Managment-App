@@ -16,7 +16,7 @@ class NetworkBloc extends Bloc<NetworkEvent, NetworkState> {
   factory NetworkBloc() => _instance;
 
   void _observe(event, emit) {
-    NetworkHelper.observeNetwork();
+    //NetworkHelper.observeNetwork();
   }
 
   void _notifyStatus(NetworkNotify event, emit) {

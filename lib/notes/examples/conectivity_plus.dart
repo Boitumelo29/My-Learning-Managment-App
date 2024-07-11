@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       result = await _connectivity.checkConnectivity();
     } catch (e) {
-      print("I am prnigting this$e");
+    print(e);
       // developer.log('Couldn\'t check connectivity status', error: e);
       return;
     }

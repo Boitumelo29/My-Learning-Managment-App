@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/notes/connection_examlpe/bloc/network_bloc.dart';
-import 'network_bloc.dart'; // Import your bloc file
-import 'network_event.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -17,8 +16,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: BlocProvider(
-        create: (context) => NetworkBloc()..add(NetworkObserve()),
-      const Home()),
+          create: (context) =>
+          NetworkBloc()
+            ..add(NetworkObserve()),
+          const Home()),
     );
   }
 }
@@ -35,17 +36,11 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: BlocBuilder<NetworkBloc, NetworkState>(
-          builder: (context, state) {
-            if (state is NetworkFailure) {
-              return const Text("No Internet Connection");
-            } else if (state is NetworkSuccess) {
-              return const Text("You're Connected to Internet");
-            } else {
-              return const SizedBox.shrink();
-            }
-          },
-        ),
+          child: BlocBuilder<NetworkBloc NetworkState>(
+            builder: (context, state) {
+              return Text("test");
+            },
+          )
       ),
     );
   }
