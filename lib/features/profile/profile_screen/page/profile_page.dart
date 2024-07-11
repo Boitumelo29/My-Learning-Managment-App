@@ -44,12 +44,12 @@ class ProfilePage extends StatelessWidget {
         "navigation": MaterialPageRoute(
             builder: (BuildContext context) => const ContactUsScreen())
       },
-      {
-        "icon": const Icon(Icons.help),
-        "name": "Contact us",
-        "navigation": MaterialPageRoute(
-            builder: (BuildContext context) => const ContactUsScreen())
-      },
+      // {
+      //   "icon": const Icon(Icons.help),
+      //   "name": "Contact us",
+      //   "navigation": MaterialPageRoute(
+      //       builder: (BuildContext context) => const ContactUsScreen())
+      // },
     ];
 
     return NoAppBarScreen(shouldScroll: false, children: [
