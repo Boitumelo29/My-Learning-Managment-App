@@ -21,6 +21,28 @@ class _CalendarScreenState extends State<CalendarScreen> {
   CalendarFormat _calendarFormat = CalendarFormat.week;
   DateTime _selectedDay = DateTime.now();
   DateTime _focusedDay = DateTime.now();
+  double _hoursWorked = 6;
+  String _workDetails = '';
+
+  // Function to handle the submission
+  void _handleSubmit() {
+    // For demonstration, let's print the details to the console
+    print('Selected Day: $_selectedDay');
+    print('Hours Worked: $_hoursWorked');
+    print('Work Details: $_workDetails');
+
+    // Here you can add the logic to save the data or send it to a server
+    // For example, you might want to reset the form after submission
+    setState(() {
+      _hoursWorked = 6;
+      _workDetails = '';
+    });
+
+    // You could also show a Snackbar or Dialog to confirm the submission
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Work details submitted successfully!')),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,14 +106,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
               children: [
                 Expanded(
                   child: Slider(
-                    value: 6,
+                    value: _hoursWorked,
                     min: 1,
                     max: 12,
                     divisions: 11,
-                    label: '6',
+                    label: '$_hoursWorked',
                     onChanged: (double value) {
                       setState(() {
-                        // Handle slider value change
+                        _hoursWorked = value;
                       });
                     },
                   ),
@@ -107,14 +129,17 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 hintText: 'Enter work details...',
                 border: OutlineInputBorder(),
               ),
+              onChanged: (value) {
+                setState(() {
+                  _workDetails = value;
+                });
+              },
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
-              onPressed: () {
-                // Handle submit button press
-              },
+              onPressed: _handleSubmit,
               child: Text('Submit'),
             ),
           ),
@@ -123,6 +148,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     );
   }
 }
+
 
 class TaskCard extends StatelessWidget {
   final String company;
