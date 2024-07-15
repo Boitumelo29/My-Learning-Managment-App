@@ -23,22 +23,21 @@ class _CalendarScreenState extends State<CalendarScreen> {
   DateTime _focusedDay = DateTime.now();
   double _hoursWorked = 6;
   String _workDetails = '';
+  List<Task> _tasks = [];
 
   // Function to handle the submission
   void _handleSubmit() {
-    // For demonstration, let's print the details to the console
-    print('Selected Day: $_selectedDay');
-    print('Hours Worked: $_hoursWorked');
-    print('Work Details: $_workDetails');
-
-    // Here you can add the logic to save the data or send it to a server
-    // For example, you might want to reset the form after submission
     setState(() {
+      _tasks.add(Task(
+        company: 'New Company', // Replace with actual company name
+        task: _workDetails,
+        hours: _hoursWorked.toInt(),
+        status: 'Pending',
+      ));
       _hoursWorked = 6;
       _workDetails = '';
     });
 
-    // You could also show a Snackbar or Dialog to confirm the submission
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Work details submitted successfully!')),
     );
@@ -78,26 +77,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
           ),
           Expanded(
             child: ListView(
-              children: [
-                TaskCard(
-                  company: 'EnnisFlint Inc.',
-                  task: 'Custom App Development',
-                  hours: 2,
-                  status: 'Billable',
-                ),
-                TaskCard(
-                  company: 'First Data',
-                  task: 'Enterprise App Re-design',
-                  hours: 2,
-                  status: 'No Charge',
-                ),
-                TaskCard(
-                  company: 'American Express',
-                  task: 'Mobile Enhancements',
-                  hours: 6,
-                  status: 'Pending',
-                ),
-              ],
+              children: _tasks.map((task) => TaskCard(task: task)).toList(),
             ),
           ),
           Padding(
@@ -149,21 +129,45 @@ class _CalendarScreenState extends State<CalendarScreen> {
   }
 }
 
-
 class TaskCard extends StatelessWidget {
+  final Task task;
+
+  TaskCard({required this.task});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.all(8.0),
+      child: ListTile(
+        title: Text(task.company),
+        subtitle: Text(task.task),
+        trailing: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('${task.hours} H'),
+            Text(task.status),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+class Task {
   final String company;
   final String task;
   final int hours;
   final String status;
 
-  TaskCard({
+  Task({
     required this.company,
     required this.task,
     required this.hours,
     required this.status,
   });
 
-  @override
   Widget build(BuildContext context) {
     return Card(
       margin: EdgeInsets.all(8.0),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-class BottomSheetModal extends StatelessWidget {
+class BottomSheetModal {
   Future<void> bottomSheetModal({required BuildContext context, double? height, required List<Widget> children}) async {
     showModalBottomSheet<void>(
       context: context,
@@ -18,9 +18,4 @@ class BottomSheetModal extends StatelessWidget {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
 }

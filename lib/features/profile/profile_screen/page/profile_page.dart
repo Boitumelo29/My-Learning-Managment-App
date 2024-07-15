@@ -87,6 +87,6 @@ class ExamplePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomSheetModal();
+    return Container();
   }
 }
