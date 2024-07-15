@@ -26,3 +26,5 @@ class TaskCard extends StatelessWidget {
     );
   }
 }
+
+class Task{}
