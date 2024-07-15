@@ -17,7 +17,11 @@ class TaskCard extends StatelessWidget {
       margin: const EdgeInsets.all(8.0),
       child: ListTile(
         title: Text(title),
-        subtitle: Text,
+        subtitle: Text(subTitle),
+        trailing: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: children,
+        ),
       ),
     );
   }
