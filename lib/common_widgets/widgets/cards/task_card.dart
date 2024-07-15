@@ -11,18 +11,14 @@ class TaskCard extends StatelessWidget {
       required this.subTitle,
       required this.children});
 
-  Widget build(BuildContext context) {
-    return Card();
-  }
-}
-
-class TaskkCard extends StatelessWidget {
-  final String test;
-
-  const TaskkCard({super.key, required this.test});
-
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Card(
+      margin: const EdgeInsets.all(8.0),
+      child: ListTile(
+        title: Text(title),
+        subtitle: Text,
+      ),
+    );
   }
 }
