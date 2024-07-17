@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/features/home/home_screen/page/home_screen.dart';
 import 'package:mylearning/features/profile/profile_screen/page/profile_page.dart';
+import 'package:mylearning/features/upcoming_events/upcoming_event_screen/pages/upcoming_screen.dart';
 
 class TabBarScreen extends StatefulWidget {
   final bool isDarkMode;
@@ -27,9 +28,8 @@ class _TabBarScreenState extends State<TabBarScreen> {
         body: TabBarView(
           children: [
             const HomePage(),
-            const Icon(Icons.home),
-            ProfilePage(
-                isDarkMode: widget.isDarkMode, toggleTheme: widget.toggleTheme)
+            const UpcomingEvents(),
+            ProfilePage(isDarkMode: widget.isDarkMode, toggleTheme: widget.toggleTheme)
           ],
         ),
       ),
