@@ -46,7 +46,8 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
             onPageChanged: (focusedDay) {
               _focusedDay = focusedDay;
             },
-          )
+          ),
+          const Text("History card of upcoming events here")
         ]);
   }
 }
