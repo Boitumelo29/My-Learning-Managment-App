@@ -25,9 +25,27 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
         title: "Upcoming Events",
         children: [
           TableCalendar(
-            focusedDay: DateTime.utc(2010, 3, 29),
-            firstDay: _focusedDay,
+            firstDay: DateTime.utc(2010, 3, 29),
             lastDay: DateTime.utc(2030, 3, 16),
+            focusedDay: _focusedDay,
+            calendarFormat: _calendarFormat,
+            selectedDayPredicate: (day) {
+              return isSameDay(_selectedDay, day);
+            },
+            onDaySelected: (selectedDay, focusedDay) {
+              setState(() {
+                _selectedDay = selectedDay;
+                _focusedDay = focusedDay;
+              });
+            },
+            onFormatChanged: (format) {
+              setState(() {
+                _calendarFormat = format;
+              });
+            },
+            onPageChanged: (focusedDay) {
+              _focusedDay = focusedDay;
+            },
           )
         ]);
   }
