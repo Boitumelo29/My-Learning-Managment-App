@@ -10,6 +10,6 @@ class UpcomingEvents extends StatefulWidget {
 class _UpcomingEventsState extends State<UpcomingEvents> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return ();
   }
 }
