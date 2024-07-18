@@ -25,9 +25,9 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
         title: "Upcoming Events",
         children: [
           TableCalendar(
-            focusedDay: DateTime.utc(2010, 10, 16),
+            focusedDay: DateTime.utc(2010, 3, 29),
             firstDay: _focusedDay,
-            lastDay: DateTime.utc(2030),
+            lastDay: DateTime.utc(2030, 3, 16),
           )
         ]);
   }
