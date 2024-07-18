@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
 
 class UpcomingEvents extends StatefulWidget {
   const UpcomingEvents({super.key});
@@ -10,6 +11,6 @@ class UpcomingEvents extends StatefulWidget {
 class _UpcomingEventsState extends State<UpcomingEvents> {
   @override
   Widget build(BuildContext context) {
-    return ();
+    return AppBarScreen(shouldScroll: true, title: "", children: []);
   }
 }
