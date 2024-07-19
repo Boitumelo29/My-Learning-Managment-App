@@ -20,6 +20,7 @@ class _FAQScreenState extends State<FAQScreen> {
     return AppBarScreen(
       title: "Frequently Asked Questions",
       shouldScroll: true,
+      shouldHaveFloatingButton: false,
       children: [
         ExpansionTileCard(
           key: cardA,

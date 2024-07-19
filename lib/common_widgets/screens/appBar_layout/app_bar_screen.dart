@@ -4,12 +4,15 @@ class AppBarScreen extends StatelessWidget {
   final bool shouldScroll;
   final String title;
   final List<Widget> children;
+  final bool shouldHaveFloatingButton;
+  final Function()? floatingButton;
 
-  const AppBarScreen({
+   AppBarScreen({
     super.key,
     required this.shouldScroll,
     required this.title,
-    required this.children,
+    required this.children, this.floatingButton,
+    required this.shouldHaveFloatingButton,
   });
 
   @override
@@ -34,6 +37,7 @@ class AppBarScreen extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: shouldHaveFloatingButton ? FloatingActionButton(onPressed: floatingButton,) :null,
     );
   }
 }

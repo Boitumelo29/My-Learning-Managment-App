@@ -21,6 +21,7 @@ class _SettingsPageState extends State<SettingsPage> {
       // you can change this to a slide up
       title: Strings.settings,
       shouldScroll: true,
+      shouldHaveFloatingButton: false,
       children: [
         Row(
           children: [

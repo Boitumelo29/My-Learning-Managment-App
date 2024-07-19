@@ -27,6 +27,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return AppBarScreen(
         title: Strings.editProfile,
         shouldScroll: true,
+        shouldHaveFloatingButton: false,
         children: [
           Center(
             child: Stack(

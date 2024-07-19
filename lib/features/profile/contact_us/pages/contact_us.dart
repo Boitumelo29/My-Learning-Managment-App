@@ -18,6 +18,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
     return AppBarScreen(
       shouldScroll: true,
       title: "Contact us",
+      shouldHaveFloatingButton: false,
       children: [
         Container(),
         Text("Get in touch"),
