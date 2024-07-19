@@ -195,6 +195,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_timetable:
+    dependency: "direct main"
+    description:
+      name: flutter_timetable
+      sha256: "8e05f615d5b844c4c8a6a359fa4d51842b84048b8eea1a98c44f7b486a22f7f6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.6"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
