@@ -33,10 +33,22 @@ class _TimetablePageState extends State<TimetablePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          _addObjects(context);
+        },
         tooltip: "Add Task",
         child: const Icon(Icons.add),
       ),
     );
+  }
+
+  void _addObjects(BuildContext context) {
+    List<Color?> colors = [
+      Colors.purple,
+      Colors.blue,
+      Colors.green,
+      Colors.orange,
+      Colors.lime[600],
+    ];
   }
 }
