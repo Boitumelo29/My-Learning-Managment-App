@@ -45,7 +45,9 @@ class TimetableScreen extends StatelessWidget {
         ),
       ],
     ),
-    body: const Timetable(),
+    body: const Timetable(
+      items: [],
+    ),
   );
 }
 
