@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:time_planner/time_planner.dart';
 
@@ -61,8 +63,9 @@ class _TimetablePageState extends State<TimetablePage> {
     setState(() {
       tasks.add(
         TimePlannerTask(
+          color: colors[Random().nextInt(colors.length)],
           minutesDuration: 20,
-          dateTime: TimePlannerDateTime(day: 1, hour: 11, minutes: 8),
+          dateTime: TimePlannerDateTime(day: 3, hour: 13, minutes: 12),
         ),
       );
     });
