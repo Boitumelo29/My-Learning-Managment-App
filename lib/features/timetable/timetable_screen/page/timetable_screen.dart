@@ -9,6 +9,8 @@ class TimetablePage extends StatefulWidget {
 }
 
 class _TimetablePageState extends State<TimetablePage> {
+  List<TimePlannerTask> tasks = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,10 +23,14 @@ class _TimetablePageState extends State<TimetablePage> {
           headers: [
             TimePlannerTitle(title: "Monday"),
           ],
-          tasks: [],
+          tasks: tasks,
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: (){},tooltip: "Add Task",),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        tooltip: "Add Task",
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
