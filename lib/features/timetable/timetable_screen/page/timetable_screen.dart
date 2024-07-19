@@ -50,5 +50,14 @@ class _TimetablePageState extends State<TimetablePage> {
       Colors.orange,
       Colors.lime[600],
     ];
+
+    setState(() {
+      tasks.add(
+        TimePlannerTask(
+          minutesDuration: 20,
+          dateTime: TimePlannerDateTime(day: 1, hour: 11, minutes: 8),
+        ),
+      );
+    });
   }
 }
