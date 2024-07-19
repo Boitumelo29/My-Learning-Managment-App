@@ -20,8 +20,14 @@ class _TimetablePageState extends State<TimetablePage> {
           endHour: 23,
           use24HourFormat: false,
           setTimeOnAxis: false,
-          headers: [
+          headers: const [
             TimePlannerTitle(title: "Monday"),
+            TimePlannerTitle(title: "Tuesday"),
+            TimePlannerTitle(title: "Wednesday"),
+            TimePlannerTitle(title: "Thursday"),
+            TimePlannerTitle(title: "Friday"),
+            TimePlannerTitle(title: "Saturday"),
+            TimePlannerTitle(title: "Sunday"),
           ],
           tasks: tasks,
         ),
