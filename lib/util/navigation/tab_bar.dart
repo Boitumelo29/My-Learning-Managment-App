@@ -18,16 +18,15 @@ class _TabBarScreenState extends State<TabBarScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 5,
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text("title"),
-        ),
         bottomNavigationBar: const TabBar(
-            tabs: [Icon(Icons.home), Icon(Icons.home), Icon(Icons.person)]),
+            tabs: [Icon(Icons.home),Icon(Icons.home), Icon(Icons.home), Icon(Icons.date_range), Icon(Icons.person)]),
         body: TabBarView(
           children: [
             const HomePage(),
+            const ExamplePage(),
+            const ExamplePage(),
             const UpcomingEvents(),
             ProfilePage(isDarkMode: widget.isDarkMode, toggleTheme: widget.toggleTheme)
           ],
