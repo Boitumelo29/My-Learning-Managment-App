@@ -35,18 +35,7 @@ class AppBarScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Column(
-              children: [
-                // Set a fixed height for the TimePlanner to resolve the issue
-                SizedBox(
-                  height: MediaQuery.of(context).size.height - kToolbarHeight - 20, // Adjust the height as necessary
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: children,
-                  ),
-                ),
-              ],
+              children: children
             ),
           ),
         ),
