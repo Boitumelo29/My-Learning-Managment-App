@@ -35,20 +35,28 @@ class AppBarScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: children.map((child)),
+              children: [
+                // Set a fixed height for the TimePlanner to resolve the issue
+                SizedBox(
+                  height: MediaQuery.of(context).size.height - kToolbarHeight - 20, // Adjust the height as necessary
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: children,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
       ),
       floatingActionButton: shouldHaveFloatingButton
           ? FloatingActionButton(
-              onPressed: floatingActionButton,
-              tooltip: tooltip,
-              child: Icon(icon),
-            )
+        onPressed: floatingActionButton,
+        tooltip: tooltip,
+        child: Icon(icon),
+      )
           : null,
     );
   }

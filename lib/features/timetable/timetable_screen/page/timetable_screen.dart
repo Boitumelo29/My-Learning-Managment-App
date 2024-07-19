@@ -28,7 +28,7 @@ class _TimetablePageState extends State<TimetablePage> {
       children: [
         TimePlanner(
           startHour: 6,
-          endHour: 23,
+          endHour: 20,
           use24HourFormat: false,
           setTimeOnAxis: false,
           headers: const [
