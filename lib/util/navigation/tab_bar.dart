@@ -21,7 +21,7 @@ class _TabBarScreenState extends State<TabBarScreen> {
       length: 5,
       child: Scaffold(
         bottomNavigationBar: const TabBar(
-            tabs: [Icon(Icons.home),Icon(Icons.home), Icon(Icons.home), Icon(Icons.date_range), Icon(Icons.person)]),
+            tabs: [Icon(Icons.home),Icon(Icons.table_chart_sharp), Icon(Icons.note_alt_outlined), Icon(Icons.date_range), Icon(Icons.person)]),
         body: TabBarView(
           children: [
             const HomePage(),
