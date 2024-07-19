@@ -5,14 +5,19 @@ class AppBarScreen extends StatelessWidget {
   final String title;
   final List<Widget> children;
   final bool shouldHaveFloatingButton;
-  final Function()? floatingButton;
+  final Function()? floatingActionButton;
+  final String? tooltip;
+  final IconData? icon;
 
-   AppBarScreen({
+  const AppBarScreen({
     super.key,
     required this.shouldScroll,
     required this.title,
-    required this.children, this.floatingButton,
+    required this.children,
+    this.floatingActionButton,
     required this.shouldHaveFloatingButton,
+    this.tooltip,
+    this.icon,
   });
 
   @override
@@ -32,12 +37,19 @@ class AppBarScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: children,
+              mainAxisSize: MainAxisSize.min,
+              children: children.map((child)),
             ),
           ),
         ),
       ),
-      floatingActionButton: shouldHaveFloatingButton ? FloatingActionButton(onPressed: floatingButton,) :null,
+      floatingActionButton: shouldHaveFloatingButton
+          ? FloatingActionButton(
+              onPressed: floatingActionButton,
+              tooltip: tooltip,
+              child: Icon(icon),
+            )
+          : null,
     );
   }
 }
