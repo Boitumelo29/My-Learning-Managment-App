@@ -44,9 +44,7 @@ class _TimetablePageState extends State<TimetablePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialogs(context);
-        },
+        onPressed: () => showBottomSheetModal(context),
         tooltip: "Add Task",
         child: const Icon(Icons.add),
       ),
@@ -66,8 +64,7 @@ class _TimetablePageState extends State<TimetablePage> {
 
     return showDialog(
         context: context,
-        builder: (ctx) =>
-            AlertDialog(
+        builder: (ctx) => AlertDialog(
               title: const Text("Add A Task"),
               actions: <Widget>[
                 TextFormField(
@@ -108,11 +105,59 @@ class _TimetablePageState extends State<TimetablePage> {
             ));
   }
 
-
   ///Todo: the bottom sheet modal
   showBottomSheetModal(BuildContext context) {
-    showModalBottomSheet(context: context, builder: (BuildContext context) {
-      return SafeArea(child: child);
-    });
+    TextEditingController controller = TextEditingController();
+    List<Color?> colors = [
+      Colors.purple,
+      Colors.blue,
+      Colors.green,
+      Colors.orange,
+      Colors.lime[600],
+    ];
+
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(children: <Widget>[
+              TextFormField(
+                controller: controller,
+                validator: (value) => Validation.usernameValidation(value!),
+              ),
+              const SizedSpace(
+                height: 30,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    child: const Text("Add"),
+                    onTap: () {
+                      setState(() {
+                        tasks.add(
+                          TimePlannerTask(
+                            color: colors[Random().nextInt(colors.length)],
+                            minutesDuration: 20,
+                            dateTime: TimePlannerDateTime(
+                                day: 0, hour: 9, minutes: 12),
+                            child: Text(controller.text),
+                          ),
+                        );
+                      });
+                    },
+                  ),
+                  GestureDetector(
+                    child: const Text("Dismiss"),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  )
+                ],
+              )
+            ]),
+          );
+        });
   }
 }
