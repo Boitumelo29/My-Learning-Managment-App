@@ -53,6 +53,7 @@ class _TimetablePageState extends State<TimetablePage> {
     );
   }
 
+  ///Todo: changing it from  a dialog to a bottom sheet modal
   showDialogs(BuildContext context) {
     TextEditingController controller = TextEditingController();
     List<Color?> colors = [
@@ -65,7 +66,8 @@ class _TimetablePageState extends State<TimetablePage> {
 
     return showDialog(
         context: context,
-        builder: (ctx) => AlertDialog(
+        builder: (ctx) =>
+            AlertDialog(
               title: const Text("Add A Task"),
               actions: <Widget>[
                 TextFormField(
@@ -87,8 +89,8 @@ class _TimetablePageState extends State<TimetablePage> {
                               color: colors[Random().nextInt(colors.length)],
                               minutesDuration: 20,
                               dateTime: TimePlannerDateTime(
-                                  day: 3, hour: 13, minutes: 12),
-                              child: Text(controller.toString()),
+                                  day: 0, hour: 9, minutes: 12),
+                              child: Text(controller.text),
                             ),
                           );
                         });
@@ -104,5 +106,13 @@ class _TimetablePageState extends State<TimetablePage> {
                 )
               ],
             ));
+  }
+
+
+  ///Todo: the bottom sheet modal
+  showBottomSheetModal(BuildContext context) {
+    showModalBottomSheet(context: context, builder: (BuildContext context) {
+      return SafeArea(child: child);
+    });
   }
 }
