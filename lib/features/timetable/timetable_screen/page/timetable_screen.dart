@@ -44,15 +44,14 @@ class _TimetablePageState extends State<TimetablePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialogs(context);
-        },
+        onPressed: () => showBottomSheetModal(context),
         tooltip: "Add Task",
         child: const Icon(Icons.add),
       ),
     );
   }
 
+  ///Todo: changing it from  a dialog to a bottom sheet modal
   showDialogs(BuildContext context) {
     TextEditingController controller = TextEditingController();
     List<Color?> colors = [
@@ -87,8 +86,8 @@ class _TimetablePageState extends State<TimetablePage> {
                               color: colors[Random().nextInt(colors.length)],
                               minutesDuration: 20,
                               dateTime: TimePlannerDateTime(
-                                  day: 3, hour: 13, minutes: 12),
-                              child: Text(controller.toString()),
+                                  day: 0, hour: 9, minutes: 12),
+                              child: Text(controller.text),
                             ),
                           );
                         });
@@ -104,5 +103,88 @@ class _TimetablePageState extends State<TimetablePage> {
                 )
               ],
             ));
+  }
+
+  ///Todo: the bottom sheet modal
+  showBottomSheetModal(BuildContext context) {
+    String dayOfTheWeek = "Monday";
+    List<String> daysOfTheWeek = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ];
+    TextEditingController controller = TextEditingController();
+    List<Color?> colors = [
+      Colors.purple,
+      Colors.blue,
+      Colors.green,
+      Colors.orange,
+      Colors.lime[600],
+    ];
+
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(children: <Widget>[
+              const Text("Add a Task to your Timetable"),
+              TextFormField(
+                controller: controller,
+                validator: (value) => Validation.usernameValidation(value!),
+              ),
+              DropdownButton(
+                  value: dayOfTheWeek,
+                  onChanged: (value) {
+                    ///todo: fix the state
+                    print(value);
+                    setState(() {
+                      dayOfTheWeek = value!;
+                    });
+                  },
+                  items: daysOfTheWeek.map((String daysOfTheWeek) {
+                    return DropdownMenuItem(
+                      value: daysOfTheWeek,
+                      child: Text(daysOfTheWeek),
+                    );
+                  }).toList()),
+              const Text("Time Picker here"),
+              const SizedSpace(
+                height: 30,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    child: const Text("Add"),
+                    onTap: () {
+                      setState(() {
+                        tasks.add(
+                          TimePlannerTask(
+                            color: colors[Random().nextInt(colors.length)],
+                            minutesDuration: 20,
+                            dateTime: TimePlannerDateTime(
+                                day: 0, hour: 9, minutes: 12),
+                            child: Text(controller.text),
+                          ),
+                        );
+                      });
+                    },
+                  ),
+                  GestureDetector(
+                    child: const Text("Dismiss"),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  )
+                ],
+              )
+            ]),
+          );
+        });
   }
 }
