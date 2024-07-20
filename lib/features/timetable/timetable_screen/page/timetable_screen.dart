@@ -107,6 +107,16 @@ class _TimetablePageState extends State<TimetablePage> {
 
   ///Todo: the bottom sheet modal
   showBottomSheetModal(BuildContext context) {
+    String dayOfTheWeek = "Monday";
+    List<String> daysOfTheWeek = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ];
     TextEditingController controller = TextEditingController();
     List<Color?> colors = [
       Colors.purple,
@@ -127,10 +137,22 @@ class _TimetablePageState extends State<TimetablePage> {
                 controller: controller,
                 validator: (value) => Validation.usernameValidation(value!),
               ),
-
-              Text("Date Picker here"),
-
-              Text("Time Picker here"),
+              DropdownButton(
+                  value: dayOfTheWeek,
+                  onChanged: (value) {
+                    ///todo: fix the state
+                    print(value);
+                    setState(() {
+                      dayOfTheWeek = value!;
+                    });
+                  },
+                  items: daysOfTheWeek.map((String daysOfTheWeek) {
+                    return DropdownMenuItem(
+                      value: daysOfTheWeek,
+                      child: Text(daysOfTheWeek),
+                    );
+                  }).toList()),
+              const Text("Time Picker here"),
               const SizedSpace(
                 height: 30,
               ),
