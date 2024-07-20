@@ -122,10 +122,15 @@ class _TimetablePageState extends State<TimetablePage> {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(children: <Widget>[
+              const Text("Add a Task to your Timetable"),
               TextFormField(
                 controller: controller,
                 validator: (value) => Validation.usernameValidation(value!),
               ),
+
+              Text("Date Picker here"),
+
+              Text("Time Picker here"),
               const SizedSpace(
                 height: 30,
               ),
