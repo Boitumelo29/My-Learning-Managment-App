@@ -20,6 +20,7 @@ class CustomSettingRow extends StatelessWidget {
         onTap: onTapped,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Icon(icon),
             const SizedSpace(
@@ -28,9 +29,6 @@ class CustomSettingRow extends StatelessWidget {
             Text(
               title,
               style: const TextStyle(color: Colors.black, fontSize: 10),
-            ),
-            const SizedSpace(
-              width: 200,
             ),
             const Icon(Icons.arrow_forward_ios_outlined)
           ],

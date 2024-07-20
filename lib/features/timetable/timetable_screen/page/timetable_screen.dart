@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
+import 'package:mylearning/util/validation/validation.dart';
 import 'package:time_planner/time_planner.dart';
 
 class TimetablePage extends StatefulWidget {
@@ -43,7 +45,7 @@ class _TimetablePageState extends State<TimetablePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _addObjects(context);
+          showDialogs(context);
         },
         tooltip: "Add Task",
         child: const Icon(Icons.add),
@@ -51,7 +53,8 @@ class _TimetablePageState extends State<TimetablePage> {
     );
   }
 
-  void _addObjects(BuildContext context) {
+  showDialogs(BuildContext context) {
+    TextEditingController controller = TextEditingController();
     List<Color?> colors = [
       Colors.purple,
       Colors.blue,
@@ -60,14 +63,46 @@ class _TimetablePageState extends State<TimetablePage> {
       Colors.lime[600],
     ];
 
-    setState(() {
-      tasks.add(
-        TimePlannerTask(
-          color: colors[Random().nextInt(colors.length)],
-          minutesDuration: 20,
-          dateTime: TimePlannerDateTime(day: 3, hour: 13, minutes: 12),
-        ),
-      );
-    });
+    return showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+              title: const Text("Add A Task"),
+              actions: <Widget>[
+                TextFormField(
+                  controller: controller,
+                  validator: (value) => Validation.usernameValidation(value!),
+                ),
+                const SizedSpace(
+                  height: 30,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      child: const Text("Add"),
+                      onTap: () {
+                        setState(() {
+                          tasks.add(
+                            TimePlannerTask(
+                              color: colors[Random().nextInt(colors.length)],
+                              minutesDuration: 20,
+                              dateTime: TimePlannerDateTime(
+                                  day: 3, hour: 13, minutes: 12),
+                              child: Text(controller.toString()),
+                            ),
+                          );
+                        });
+                      },
+                    ),
+                    GestureDetector(
+                      child: const Text("Dismiss"),
+                      onTap: () {
+                        Navigator.pop(ctx);
+                      },
+                    )
+                  ],
+                )
+              ],
+            ));
   }
 }
