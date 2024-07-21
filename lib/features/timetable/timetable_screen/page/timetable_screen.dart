@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/util/validation/validation.dart';
 import 'package:time_planner/time_planner.dart';
@@ -14,7 +15,7 @@ class TimetablePage extends StatefulWidget {
 
 class _TimetablePageState extends State<TimetablePage> {
   List<TimePlannerTask> tasks = [];
-
+  DateTime _dateTime = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,6 +108,7 @@ class _TimetablePageState extends State<TimetablePage> {
 
   ///Todo: the bottom sheet modal
   showBottomSheetModal(BuildContext context) {
+
     String dayOfTheWeek = "Monday";
     List<String> daysOfTheWeek = [
       "Monday",
@@ -152,7 +154,12 @@ class _TimetablePageState extends State<TimetablePage> {
                       child: Text(daysOfTheWeek),
                     );
                   }).toList()),
-              const Text("Time Picker here"),
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 50),
+                child: Text(_dateTime.hour.toString().padLeft(2, "0") +
+                    ":" +
+                    _dateTime.minute.toString().padLeft(2, '0')),
+              ),
               const SizedSpace(
                 height: 30,
               ),
@@ -186,5 +193,17 @@ class _TimetablePageState extends State<TimetablePage> {
             ]),
           );
         });
+  }
+
+  Widget hourMin(){
+    return TimePickerSpinner(
+      spacing: 40,
+      minutesInterval: 15,
+      onTimeChange: (time){
+        setState(() {
+          _dateTime = time;
+        });
+      },
+    );
   }
 }
