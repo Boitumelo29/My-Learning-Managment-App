@@ -28,63 +28,44 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-
   MyHomePage({super.key});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   DateTime _dateTime = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("title"),
+          title: const Text("title"),
         ),
-        body: new Container(
-          padding: EdgeInsets.only(
-              top: 100
-          ),
-          child: new Column(
+        body: Container(
+          padding: EdgeInsets.only(top: 100),
+          child: Column(
             children: <Widget>[
 //            hourMinute12H(),
               hourMinute15Interval(),
 //            hourMinuteSecond(),
 //            hourMinute12HCustomStyle(),
-              new Container(
-                margin: EdgeInsets.symmetric(
-                    vertical: 50
-                ),
-                child: new Text(
-                  _dateTime.hour.toString().padLeft(2, '0') + ':' +
-                      _dateTime.minute.toString().padLeft(2, '0') + ':' +
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 50),
+                child: Text(
+                  _dateTime.hour.toString().padLeft(2, '0') +
+                      ':' +
+                      _dateTime.minute.toString().padLeft(2, '0') +
+                      ':' +
                       _dateTime.second.toString().padLeft(2, '0'),
-                  style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold
-                  ),
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
               ),
             ],
           ),
-        )
-    );
+        ));
   }
-
 
   /// SAMPLE
   Widget hourMinute12H() {
@@ -124,14 +105,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget hourMinute12HCustomStyle() {
     return new TimePickerSpinner(
       is24HourMode: false,
-      normalTextStyle: TextStyle(
-          fontSize: 24,
-          color: Colors.deepOrange
-      ),
-      highlightedTextStyle: TextStyle(
-          fontSize: 24,
-          color: Colors.yellow
-      ),
+      normalTextStyle: TextStyle(fontSize: 24, color: Colors.deepOrange),
+      highlightedTextStyle: TextStyle(fontSize: 24, color: Colors.yellow),
       spacing: 50,
       itemHeight: 80,
       isForce2Digits: true,
