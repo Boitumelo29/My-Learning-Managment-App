@@ -129,68 +129,72 @@ class _TimetablePageState extends State<TimetablePage> {
     ];
 
     showModalBottomSheet(
+      isScrollControlled: true,
         context: context,
         builder: (BuildContext context) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(children: <Widget>[
-              const Text("Add a Task to your Timetable"),
-              TextFormField(
-                controller: controller,
-                validator: (value) => Validation.usernameValidation(value!),
-              ),
-              DropdownButton(
-                  value: dayOfTheWeek,
-                  onChanged: (value) {
-                    ///todo: fix the state
-                    print(value);
-                    setState(() {
-                      dayOfTheWeek = value!;
-                    });
-                  },
-                  items: daysOfTheWeek.map((String daysOfTheWeek) {
-                    return DropdownMenuItem(
-                      value: daysOfTheWeek,
-                      child: Text(daysOfTheWeek),
-                    );
-                  }).toList()),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 50),
-                child: Text(_dateTime.hour.toString().padLeft(2, "0") +
-                    ":" +
-                    _dateTime.minute.toString().padLeft(2, '0')),
-              ),
-              const SizedSpace(
-                height: 30,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    child: const Text("Add"),
-                    onTap: () {
+            child: Expanded(
+              child: Column(children: <Widget>[
+                const Text("Add a Task to your Timetable"),
+                TextFormField(
+                  controller: controller,
+                  validator: (value) => Validation.usernameValidation(value!),
+                ),
+                DropdownButton(
+                    value: dayOfTheWeek,
+                    onChanged: (value) {
+                      ///todo: fix the state
+                      print(value);
                       setState(() {
-                        tasks.add(
-                          TimePlannerTask(
-                            color: colors[Random().nextInt(colors.length)],
-                            minutesDuration: 20,
-                            dateTime: TimePlannerDateTime(
-                                day: 0, hour: 9, minutes: 12),
-                            child: Text(controller.text),
-                          ),
-                        );
+                        dayOfTheWeek = value!;
                       });
                     },
-                  ),
-                  GestureDetector(
-                    child: const Text("Dismiss"),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  )
-                ],
-              )
-            ]),
+                    items: daysOfTheWeek.map((String daysOfTheWeek) {
+                      return DropdownMenuItem(
+                        value: daysOfTheWeek,
+                        child: Text(daysOfTheWeek),
+                      );
+                    }).toList()),
+                hourMin(),
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 50),
+                  child: Text(_dateTime.hour.toString().padLeft(2, "0") +
+                      ":" +
+                      _dateTime.minute.toString().padLeft(2, '0')),
+                ),
+                // const SizedSpace(
+                //   height: 30,
+                // ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      child: const Text("Add"),
+                      onTap: () {
+                        setState(() {
+                          tasks.add(
+                            TimePlannerTask(
+                              color: colors[Random().nextInt(colors.length)],
+                              minutesDuration: 20,
+                              dateTime: TimePlannerDateTime(
+                                  day: 0, hour: 9, minutes: 12),
+                              child: Text(controller.text),
+                            ),
+                          );
+                        });
+                      },
+                    ),
+                    GestureDetector(
+                      child: const Text("Dismiss"),
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                    )
+                  ],
+                )
+              ]),
+            ),
           );
         });
   }
