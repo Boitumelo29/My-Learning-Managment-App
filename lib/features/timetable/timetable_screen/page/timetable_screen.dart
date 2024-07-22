@@ -16,6 +16,7 @@ class TimetablePage extends StatefulWidget {
 class _TimetablePageState extends State<TimetablePage> {
   List<TimePlannerTask> tasks = [];
   DateTime _dateTime = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,7 +109,6 @@ class _TimetablePageState extends State<TimetablePage> {
 
   ///Todo: the bottom sheet modal
   showBottomSheetModal(BuildContext context) {
-
     String dayOfTheWeek = "Monday";
     List<String> daysOfTheWeek = [
       "Monday",
@@ -129,12 +129,13 @@ class _TimetablePageState extends State<TimetablePage> {
     ];
 
     showModalBottomSheet(
-      isScrollControlled: true,
+        isScrollControlled: true,
         context: context,
         builder: (BuildContext context) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Expanded(
+            child: SizedBox(
+              height: 600,
               child: Column(children: <Widget>[
                 const Text("Add a Task to your Timetable"),
                 TextFormField(
@@ -178,7 +179,9 @@ class _TimetablePageState extends State<TimetablePage> {
                               color: colors[Random().nextInt(colors.length)],
                               minutesDuration: 20,
                               dateTime: TimePlannerDateTime(
-                                  day: 0, hour: 9, minutes: 12),
+                                  day: 0,
+                                  hour: _dateTime.hour,
+                                  minutes: _dateTime.minute),
                               child: Text(controller.text),
                             ),
                           );
@@ -199,11 +202,11 @@ class _TimetablePageState extends State<TimetablePage> {
         });
   }
 
-  Widget hourMin(){
+  Widget hourMin() {
     return TimePickerSpinner(
       spacing: 40,
       minutesInterval: 15,
-      onTimeChange: (time){
+      onTimeChange: (time) {
         setState(() {
           _dateTime = time;
         });
