@@ -160,9 +160,8 @@ class _TimetablePageState extends State<TimetablePage> {
                 hourMin(),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 50),
-                  child: Text(_dateTime.hour.toString().padLeft(2, "0") +
-                      ":" +
-                      _dateTime.minute.toString().padLeft(2, '0')),
+                  child: Text(
+                      "${_dateTime.hour.toString().padLeft(2, "0")} : ${_dateTime.minute.toString().padLeft(2, '0')}"),
                 ),
                 // const SizedSpace(
                 //   height: 30,
