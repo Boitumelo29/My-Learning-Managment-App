@@ -176,7 +176,7 @@ class _TimetablePageState extends State<TimetablePage> {
                           tasks.add(
                             TimePlannerTask(
                               color: colors[Random().nextInt(colors.length)],
-                              minutesDuration: 20,
+                              minutesDuration: 60,
                               dateTime: TimePlannerDateTime(
                                   day: 0,
                                   hour: _dateTime.hour,

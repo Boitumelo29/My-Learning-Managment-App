@@ -22,13 +22,19 @@ class CustomSettingRow extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Icon(icon),
-            const SizedSpace(
-              height: 10,
-            ),
-            Text(
-              title,
-              style: const TextStyle(color: Colors.black, fontSize: 10),
+            SizedBox(
+              child: Row(
+                children: [
+                  Icon(icon),
+                  const SizedSpace(
+                    height: 10,
+                  ),
+                  Text(
+                    title,
+                    style: const TextStyle(color: Colors.black, fontSize: 10),
+                  ),
+                ],
+              ),
             ),
             const Icon(Icons.arrow_forward_ios_outlined)
           ],
