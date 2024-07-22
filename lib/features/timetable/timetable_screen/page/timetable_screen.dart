@@ -119,6 +119,16 @@ class _TimetablePageState extends State<TimetablePage> {
       "Saturday",
       "Sunday",
     ];
+
+    final Map<String, int> dayMapping = {
+      'Monday': 0,
+      'Tuesday': 1,
+      'Wednesday': 2,
+      'Thursday': 3,
+      'Friday': 4,
+      'Saturday': 5,
+      'Sunday': 6,
+    };
     TextEditingController controller = TextEditingController();
     List<Color?> colors = [
       Colors.purple,
@@ -145,13 +155,15 @@ class _TimetablePageState extends State<TimetablePage> {
                 DropdownButton<String>(
                   value: dayOfTheWeek,
                   onChanged: (String? newValue) {
+                    ///Todo: fix the state of the pp
                     print('New value: $newValue');
                     setState(() {
                       dayOfTheWeek = newValue!;
                       print('Updated state: $dayOfTheWeek');
                     });
                   },
-                  items: daysOfTheWeek.map<DropdownMenuItem<String>>((String day) {
+                  items:
+                      daysOfTheWeek.map<DropdownMenuItem<String>>((String day) {
                     return DropdownMenuItem<String>(
                       value: day,
                       child: Text(day),
@@ -179,7 +191,8 @@ class _TimetablePageState extends State<TimetablePage> {
                               color: colors[Random().nextInt(colors.length)],
                               minutesDuration: 60,
                               dateTime: TimePlannerDateTime(
-                                  day: 0,
+                                  day: dayMapping[dayOfTheWeek]!,
+                                  //day: 0,
                                   hour: _dateTime.hour,
                                   minutes: _dateTime.minute),
                               child: Text(controller.text),
