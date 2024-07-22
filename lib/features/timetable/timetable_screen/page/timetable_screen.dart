@@ -110,7 +110,7 @@ class _TimetablePageState extends State<TimetablePage> {
   ///Todo: the bottom sheet modal
   showBottomSheetModal(BuildContext context) {
     String dayOfTheWeek = "Monday";
-    List<String> daysOfTheWeek = [
+    var daysOfTheWeek = [
       "Monday",
       "Tuesday",
       "Wednesday",
@@ -130,6 +130,10 @@ class _TimetablePageState extends State<TimetablePage> {
       'Sunday': 6,
     };
     TextEditingController controller = TextEditingController();
+    String mainColour = "Purple";
+
+    var dropColor = ["Purple", "Blue", "Green", "Orange", "Lime"];
+
     List<Color?> colors = [
       Colors.purple,
       Colors.blue,
@@ -137,6 +141,14 @@ class _TimetablePageState extends State<TimetablePage> {
       Colors.orange,
       Colors.lime[600],
     ];
+
+    final Map<Color, String> coloursMap = {
+      Colors.purple: "Purple",
+      Colors.blue: "Blue",
+      Colors.green: "Green",
+      Colors.orange: "Orange",
+      Colors.lime : "Lime"
+    };
 
     showModalBottomSheet(
         isScrollControlled: true,
@@ -158,8 +170,9 @@ class _TimetablePageState extends State<TimetablePage> {
                 const Text("then I can fix the whole entire ui"),
                 DropdownButton<String>(
                   value: dayOfTheWeek,
+                  icon: const Icon(Icons.date_range),
                   onChanged: (String? newValue) {
-                    ///Todo: fix the state of the pp
+                    ///Todo: fix the state
                     print('New value: $newValue');
                     setState(() {
                       dayOfTheWeek = newValue!;
@@ -174,15 +187,31 @@ class _TimetablePageState extends State<TimetablePage> {
                     );
                   }).toList(),
                 ),
+                DropdownButton<String>(
+                  value: mainColour,
+                  icon: const Icon(Icons.color_lens),
+                  onChanged: (String? newValue) {
+                    ///Todo: fix the state
+                    setState(() {
+                      dayOfTheWeek = newValue!;
+                    });
+                  },
+                  items:
+                      dropColor.map<DropdownMenuItem<String>>((String colors) {
+                    return DropdownMenuItem<String>(
+                      value: colors,
+                      child: Text(colors),
+                    );
+
+                    ///"We can add a row of the color in a circle and the text next to it"
+                  }).toList(),
+                ),
                 hourMin(),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 50),
                   child: Text(
                       "${_dateTime.hour.toString().padLeft(2, "0")} : ${_dateTime.minute.toString().padLeft(2, '0')}"),
                 ),
-                // const SizedSpace(
-                //   height: 30,
-                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -192,7 +221,7 @@ class _TimetablePageState extends State<TimetablePage> {
                         setState(() {
                           tasks.add(
                             TimePlannerTask(
-                              color: colors[Random().nextInt(colors.length)],
+                             // color: coloursMap[mainCol]!,
                               minutesDuration: 60,
                               dateTime: TimePlannerDateTime(
                                   day: dayMapping[dayOfTheWeek]!,
