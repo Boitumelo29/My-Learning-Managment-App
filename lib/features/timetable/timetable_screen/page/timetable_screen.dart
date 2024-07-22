@@ -142,12 +142,31 @@ class _TimetablePageState extends State<TimetablePage> {
       Colors.lime[600],
     ];
 
-    final Map<Color, String> coloursMap = {
-      Colors.purple: "Purple",
-      Colors.blue: "Blue",
-      Colors.green: "Green",
-      Colors.orange: "Orange",
-      Colors.lime : "Lime"
+    Map<String, Color> colorMap = {
+      "Purple": Colors.purple,
+      "Blue": Colors.blue,
+      "Green": Colors.green,
+      "Orange": Colors.orange,
+      "Lime": Colors.lime,
+    };
+
+    String firstTime = "15 min";
+    var howLong = [
+      "15 min",
+      "30 min",
+      "45 min",
+      "1 hour",
+      "1 hour:30min",
+      "2 hours"
+    ];
+
+    Map<String, int> timeMap = {
+      "15 min": 15,
+      "30 min": 30,
+      "45 min": 45,
+      "1 hour": 60,
+      "1 hour:30min": 90,
+      "2 hours": 120
     };
 
     showModalBottomSheet(
@@ -164,7 +183,6 @@ class _TimetablePageState extends State<TimetablePage> {
                   controller: controller,
                   validator: (value) => Validation.usernameValidation(value!),
                 ),
-                const Text("Pick a color or else we set it to a default value"),
                 const Text(
                     "for how long: 30 min, 60 min 2 hours, 3 hours or the whole day, then in v2 we allow them to customise it themeselves"),
                 const Text("then I can fix the whole entire ui"),
@@ -206,6 +224,24 @@ class _TimetablePageState extends State<TimetablePage> {
                     ///"We can add a row of the color in a circle and the text next to it"
                   }).toList(),
                 ),
+                DropdownButton(
+                  value: firstTime,
+                  icon: const Icon(Icons.watch),
+                  onChanged: (String? newValue) {
+                    ///Todo: fix the state
+                    setState(() {
+                      dayOfTheWeek = newValue!;
+                    });
+                  },
+                  items: howLong.map<DropdownMenuItem<String>>((String time) {
+                    return DropdownMenuItem<String>(
+                      value: time,
+                      child: Text(time),
+                    );
+
+                    ///"We can add a row of the color in a circle and the text next to it"
+                  }).toList(),
+                ),
                 hourMin(),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 50),
@@ -221,10 +257,10 @@ class _TimetablePageState extends State<TimetablePage> {
                         setState(() {
                           tasks.add(
                             TimePlannerTask(
-                             // color: coloursMap[mainCol]!,
-                              minutesDuration: 60,
+                              color: colorMap[mainColour]!,
+                              minutesDuration: timeMap[firstTime]!,
                               dateTime: TimePlannerDateTime(
-                                  day: dayMapping[dayOfTheWeek]!,
+                                  day: dayMapping[dayOfTheWeek] ?? 0,
                                   //day: 0,
                                   hour: _dateTime.hour,
                                   minutes: _dateTime.minute),
