@@ -152,6 +152,10 @@ class _TimetablePageState extends State<TimetablePage> {
                   controller: controller,
                   validator: (value) => Validation.usernameValidation(value!),
                 ),
+                const Text("Pick a color or else we set it to a default value"),
+                const Text(
+                    "for how long: 30 min, 60 min 2 hours, 3 hours or the whole day, then in v2 we allow them to customise it themeselves"),
+                const Text("then I can fix the whole entire ui"),
                 DropdownButton<String>(
                   value: dayOfTheWeek,
                   onChanged: (String? newValue) {
