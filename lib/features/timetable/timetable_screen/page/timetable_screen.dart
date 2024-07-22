@@ -142,21 +142,22 @@ class _TimetablePageState extends State<TimetablePage> {
                   controller: controller,
                   validator: (value) => Validation.usernameValidation(value!),
                 ),
-                DropdownButton(
-                    value: dayOfTheWeek,
-                    onChanged: (value) {
-                      ///todo: fix the state
-                      print(value);
-                      setState(() {
-                        dayOfTheWeek = value!;
-                      });
-                    },
-                    items: daysOfTheWeek.map((String daysOfTheWeek) {
-                      return DropdownMenuItem(
-                        value: daysOfTheWeek,
-                        child: Text(daysOfTheWeek),
-                      );
-                    }).toList()),
+                DropdownButton<String>(
+                  value: dayOfTheWeek,
+                  onChanged: (String? newValue) {
+                    print('New value: $newValue');
+                    setState(() {
+                      dayOfTheWeek = newValue!;
+                      print('Updated state: $dayOfTheWeek');
+                    });
+                  },
+                  items: daysOfTheWeek.map<DropdownMenuItem<String>>((String day) {
+                    return DropdownMenuItem<String>(
+                      value: day,
+                      child: Text(day),
+                    );
+                  }).toList(),
+                ),
                 hourMin(),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 50),
