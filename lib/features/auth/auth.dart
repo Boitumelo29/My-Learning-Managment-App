@@ -25,7 +25,7 @@ class _AuthPageState extends State<AuthPage> {
         show: go,
       );
     } else {
-      return LoginPage(show: go);
+      return SignUpPage(show: go);
     }
   }
 }

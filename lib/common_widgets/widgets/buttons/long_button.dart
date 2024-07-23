@@ -14,7 +14,7 @@ class LongButton extends StatelessWidget {
           width: 380,
           height: 60,
           decoration: BoxDecoration(
-              color: Colors.red, borderRadius: BorderRadius.circular(40)),
+              color: Colors.red, borderRadius: BorderRadius.circular(20)),
           child: Center(child: Text(title))),
     );
   }

@@ -81,10 +81,10 @@ class _SignUpPageState extends State<SignUpPage> {
               focusNode: password_f,
               hintText: Strings.password,
               labelText: Strings.password,
-              obsureText: false,
+              obsureText: true,
               showPrefixIcon: true,
               prefixIcon: Icons.password,
-              showSuffixIcon: false,
+              showSuffixIcon: true,
               onChanged: (value) {},
               validator: (value) {
                 Validation.usernameValidation(value);
@@ -98,20 +98,21 @@ class _SignUpPageState extends State<SignUpPage> {
               focusNode: passwordConfirm_f,
               hintText: Strings.confirmPassword,
               labelText: Strings.confirmPassword,
-              obsureText: false,
+              obsureText: true,
               showPrefixIcon: true,
               prefixIcon: Icons.password,
-              showSuffixIcon: false,
+              showSuffixIcon: true,
               onChanged: (value) {},
               validator: (value) {
                 Validation.passwordConformValidation(
                     passwordConfirm.text, password.text);
               },
             ),
-            const SizedSpace(
-              height: 10,
+            TextButton(
+              onPressed: widget.show,
+              child: const Text("Already have an account?"),
             ),
-            LongButton(onTap: () {}, title: Strings.signUp)
+            LongButton(onTap: () {}, title: Strings.signUp),
           ],
         )),
       ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mylearning/features/auth/auth.dart';
 import 'package:mylearning/util/navigation/tab_bar.dart';
 
 void main() {
@@ -18,14 +19,15 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        // theme: isDarkMode ? ThemeData.dark() : ThemeData.light(),
-        themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
-        theme:
-            ThemeData(primarySwatch: Colors.red, brightness: Brightness.light),
-        darkTheme:
-            ThemeData(primarySwatch: Colors.red, brightness: Brightness.dark),
-        debugShowCheckedModeBanner: false,
-        home: TabBarScreen(isDarkMode: isDarkMode, toggleTheme: toggleTheme));
+      // theme: isDarkMode ? ThemeData.dark() : ThemeData.light(),
+      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+      theme: ThemeData(primarySwatch: Colors.red, brightness: Brightness.light),
+      darkTheme:
+          ThemeData(primarySwatch: Colors.red, brightness: Brightness.dark),
+      debugShowCheckedModeBanner: false,
+    home: AuthPage(),
+    //  home: TabBarScreen(isDarkMode: isDarkMode, toggleTheme: toggleTheme),
+    );
   }
 
   void toggleTheme() {

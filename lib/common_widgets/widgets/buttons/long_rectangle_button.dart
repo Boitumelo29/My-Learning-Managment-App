@@ -15,7 +15,7 @@ class LongRectangleButton extends StatelessWidget {
         width: 380,
         height: 60,
         decoration: BoxDecoration(
-            color: Colors.red, borderRadius: BorderRadius.circular(10)),
+            color: Colors.red, borderRadius: BorderRadius.circular(5),
         child: Center(
           child: Text(title),
         ),
