@@ -13,12 +13,19 @@ class HomePage extends StatefulWidget {
 class _HomeScreenState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return const AppBarScreen(
+    return AppBarScreen(
       shouldScroll: false,
       shouldHaveFloatingButton: false,
       title: 'Home Screen',
-      children: const [
-        Text("Hello world"),
+      children: [
+        const Text("Hello world"),
+        Container(
+          height: 200,
+          width: 200,
+          decoration: BoxDecoration(
+              color: Colors.red[80], borderRadius: BorderRadius.circular(20)),
+          child: Text("The Qoute of the day"),
+        ),
         Text("Quote of the day in a container"),
         Text("Upcoming events"),
         Text("Jobs"),

@@ -46,6 +46,8 @@ dependencies:
   flutter_timetable: ^1.1.6
   time_planner: ^0.1.2+1
   flutter_time_picker_spinner: ^2.0.0
+  skeleton_text: ^3.0.1
+  http: ^1.2.2
 
 dev_dependencies:
   flutter_test:

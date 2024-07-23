@@ -16,6 +16,7 @@ class TimetablePage extends StatefulWidget {
 class _TimetablePageState extends State<TimetablePage> {
   List<TimePlannerTask> tasks = [];
   DateTime _dateTime = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,9 +109,8 @@ class _TimetablePageState extends State<TimetablePage> {
 
   ///Todo: the bottom sheet modal
   showBottomSheetModal(BuildContext context) {
-
     String dayOfTheWeek = "Monday";
-    List<String> daysOfTheWeek = [
+    var daysOfTheWeek = [
       "Monday",
       "Tuesday",
       "Wednesday",
@@ -119,7 +119,21 @@ class _TimetablePageState extends State<TimetablePage> {
       "Saturday",
       "Sunday",
     ];
+
+    final Map<String, int> dayMapping = {
+      'Monday': 0,
+      'Tuesday': 1,
+      'Wednesday': 2,
+      'Thursday': 3,
+      'Friday': 4,
+      'Saturday': 5,
+      'Sunday': 6,
+    };
     TextEditingController controller = TextEditingController();
+    String mainColour = "Purple";
+
+    var dropColor = ["Purple", "Blue", "Green", "Orange", "Lime"];
+
     List<Color?> colors = [
       Colors.purple,
       Colors.blue,
@@ -128,44 +142,112 @@ class _TimetablePageState extends State<TimetablePage> {
       Colors.lime[600],
     ];
 
+    Map<String, Color> colorMap = {
+      "Purple": Colors.purple,
+      "Blue": Colors.blue,
+      "Green": Colors.green,
+      "Orange": Colors.orange,
+      "Lime": Colors.lime,
+    };
+
+    String firstTime = "15 min";
+    var howLong = [
+      "15 min",
+      "30 min",
+      "45 min",
+      "1 hour",
+      "1 hour:30min",
+      "2 hours"
+    ];
+
+    Map<String, int> timeMap = {
+      "15 min": 15,
+      "30 min": 30,
+      "45 min": 45,
+      "1 hour": 60,
+      "1 hour:30min": 90,
+      "2 hours": 120
+    };
+
     showModalBottomSheet(
-      isScrollControlled: true,
+        isScrollControlled: true,
         context: context,
         builder: (BuildContext context) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Expanded(
+            child: SizedBox(
+              height: 600,
               child: Column(children: <Widget>[
                 const Text("Add a Task to your Timetable"),
                 TextFormField(
                   controller: controller,
                   validator: (value) => Validation.usernameValidation(value!),
                 ),
+                const Text(
+                    "for how long: 30 min, 60 min 2 hours, 3 hours or the whole day, then in v2 we allow them to customise it themeselves"),
+                const Text("then I can fix the whole entire ui"),
+                DropdownButton<String>(
+                  value: dayOfTheWeek,
+                  icon: const Icon(Icons.date_range),
+                  onChanged: (String? newValue) {
+                    ///Todo: fix the state
+                    print('New value: $newValue');
+                    setState(() {
+                      dayOfTheWeek = newValue!;
+                      print('Updated state: $dayOfTheWeek');
+                    });
+                  },
+                  items:
+                      daysOfTheWeek.map<DropdownMenuItem<String>>((String day) {
+                    return DropdownMenuItem<String>(
+                      value: day,
+                      child: Text(day),
+                    );
+                  }).toList(),
+                ),
+                DropdownButton<String>(
+                  value: mainColour,
+                  icon: const Icon(Icons.color_lens),
+                  onChanged: (String? newValue) {
+                    ///Todo: fix the state
+                    setState(() {
+                      dayOfTheWeek = newValue!;
+                    });
+                  },
+                  items:
+                      dropColor.map<DropdownMenuItem<String>>((String colors) {
+                    return DropdownMenuItem<String>(
+                      value: colors,
+                      child: Text(colors),
+                    );
+
+                    ///"We can add a row of the color in a circle and the text next to it"
+                  }).toList(),
+                ),
                 DropdownButton(
-                    value: dayOfTheWeek,
-                    onChanged: (value) {
-                      ///todo: fix the state
-                      print(value);
-                      setState(() {
-                        dayOfTheWeek = value!;
-                      });
-                    },
-                    items: daysOfTheWeek.map((String daysOfTheWeek) {
-                      return DropdownMenuItem(
-                        value: daysOfTheWeek,
-                        child: Text(daysOfTheWeek),
-                      );
-                    }).toList()),
+                  value: firstTime,
+                  icon: const Icon(Icons.watch),
+                  onChanged: (String? newValue) {
+                    ///Todo: fix the state
+                    setState(() {
+                      dayOfTheWeek = newValue!;
+                    });
+                  },
+                  items: howLong.map<DropdownMenuItem<String>>((String time) {
+                    return DropdownMenuItem<String>(
+                      value: time,
+                      child: Text(time),
+                    );
+
+                    ///"We can add a row of the color in a circle and the text next to it"
+                  }).toList(),
+                ),
                 hourMin(),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 50),
-                  child: Text(_dateTime.hour.toString().padLeft(2, "0") +
-                      ":" +
-                      _dateTime.minute.toString().padLeft(2, '0')),
+                  child: Text(
+                      "${_dateTime.hour.toString().padLeft(2, "0")} : ${_dateTime.minute.toString().padLeft(2, '0')}"),
                 ),
-                // const SizedSpace(
-                //   height: 30,
-                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -175,10 +257,13 @@ class _TimetablePageState extends State<TimetablePage> {
                         setState(() {
                           tasks.add(
                             TimePlannerTask(
-                              color: colors[Random().nextInt(colors.length)],
-                              minutesDuration: 20,
+                              color: colorMap[mainColour]!,
+                              minutesDuration: timeMap[firstTime]!,
                               dateTime: TimePlannerDateTime(
-                                  day: 0, hour: 9, minutes: 12),
+                                  day: dayMapping[dayOfTheWeek] ?? 0,
+                                  //day: 0,
+                                  hour: _dateTime.hour,
+                                  minutes: _dateTime.minute),
                               child: Text(controller.text),
                             ),
                           );
@@ -199,11 +284,11 @@ class _TimetablePageState extends State<TimetablePage> {
         });
   }
 
-  Widget hourMin(){
+  Widget hourMin() {
     return TimePickerSpinner(
       spacing: 40,
       minutesInterval: 15,
-      onTimeChange: (time){
+      onTimeChange: (time) {
         setState(() {
           _dateTime = time;
         });
