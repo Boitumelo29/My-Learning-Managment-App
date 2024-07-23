@@ -1,155 +1,104 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'example',
-      theme: ThemeData(primarySwatch: Colors.blue),
-//      home: DateTesting(),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Holo Datepicker Example'),
-        ),
-        body: MyHomePage(),
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
-      debugShowCheckedModeBanner: false,
+      home: MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          ElevatedButton(
-            child: Text("open picker dialog"),
-            onPressed: () async {
-              var datePicked = await DatePicker.showSimpleDatePicker(
-                context,
-                // initialDate: DateTime(2020),
-                firstDate: DateTime(2020),
-                lastDate: DateTime(2090),
-                dateFormat: "dd-MMMM-yyyy",
-                locale: DateTimePickerLocale.en_us,
-                looping: true,
-              );
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
 
-              final snackBar =
-              SnackBar(content: Text("Date Picked $datePicked"));
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            },
-          ),
-          ElevatedButton(
-            child: Text("Show picker widget"),
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => WidgetPage()));
-            },
-          )
-        ],
+class _MyHomePageState extends State<MyHomePage> {
+  final List<String> daysOfWeek = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
+  ];
+
+  int selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Alert with Spinner'),
       ),
-    );
-  }
-}
-
-class WidgetPage extends StatefulWidget {
-  @override
-  _WidgetPageState createState() => _WidgetPageState();
-}
-
-class _WidgetPageState extends State<WidgetPage> {
-  DateTime? _selectedDate;
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: FractionalOffset.topCenter,
-                end: FractionalOffset.bottomCenter,
-                colors: [
-                  Colors.grey[900]!,
-                  Colors.black,
-                ],
-                stops: const [0.7, 1.0],
-              )),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: DatePickerWidget(
-                    looping: false, // default is not looping
-                    firstDate: DateTime.now(),
-                    //  lastDate: DateTime(2002, 1, 1),
-//              initialDate: DateTime.now(),// DateTime(1994),
-                    dateFormat:
-                    // "MM-dd(E)",
-                    "dd/MMMM",
-                    locale: DatePicker.localeFromString('th'),
-                    onChange: (DateTime newDate, _) {
-                      setState(() {
-                        _selectedDate = newDate;
-                      });
-                      print(_selectedDate);
-                    },
-                    pickerTheme: DateTimePickerTheme(
-                      backgroundColor: Colors.transparent,
-                      itemTextStyle:
-                      TextStyle(color: Colors.white, fontSize: 19),
-                      dividerColor: Colors.white,
-                    ),
-                  ),
-                ),
-                Text("${_selectedDate ?? ''}"),
-              ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                showAlertWithSpinner(context);
+              },
+              child: Text('Show Alert'),
             ),
-          ),
+            SizedBox(height: 20),
+            Text("Selected day: ${daysOfWeek[selectedIndex]}"),
+          ],
         ),
       ),
     );
-    //var locale = "zh";
-    // return SafeArea(
-    //   child: Scaffold(
-    //     body: Center(
-    //       child: DatePickerWidget(
-    //         locale: //locale == 'zh'
-    //             DateTimePickerLocale.zh_cn
-    //             //  DateTimePickerLocale.en_us
-    //         ,
-    //         lastDate: DateTime.now(),
-    //         // dateFormat: "yyyy : MMM : dd",
-    //         // dateFormat: 'yyyy MMMM dd',
-    //         onChange: (DateTime newDate, _) {
-    //           setState(() {
-    //             var dob = newDate.toString();
-    //             print(dob);
-    //           });
-    //         },
-    //         pickerTheme: DateTimePickerTheme(
-    //           backgroundColor: Colors.transparent,
-    //           dividerColor: const Color(0xffe3e3e3),
-    //           itemTextStyle: TextStyle(
-    //             fontFamily: 'NotoSansTC',
-    //             fontSize: 18,
-    //             fontWeight: FontWeight.w500,
-    //             color: Theme.of(context).primaryColor,
-    //           ),
-    //         ),
-    //       ),
-    //     ),
-    //   ),
-    // );
+  }
+
+  void showAlertWithSpinner(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        int tempSelectedIndex = selectedIndex;
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Text('Select a Day'),
+              content: Container(
+                height: 150,
+                child: ListWheelScrollView(
+                  itemExtent: 40,
+                  useMagnifier: true,
+                  magnification: 1.2,
+                  onSelectedItemChanged: (index) {
+                    setState(() {
+                      tempSelectedIndex = index;
+                    });
+                  },
+                  children: daysOfWeek
+                      .map((day) => Center(child: Text(day, style: TextStyle(fontSize: 18))))
+                      .toList(),
+                ),
+              ),
+              actions: <Widget>[
+                ElevatedButton(
+                  child: Text('OK'),
+                  onPressed: () {
+                    setState(() {
+                      selectedIndex = tempSelectedIndex;
+                    });
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
   }
 }

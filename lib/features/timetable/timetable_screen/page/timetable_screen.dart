@@ -17,6 +17,15 @@ class TimetablePage extends StatefulWidget {
 class _TimetablePageState extends State<TimetablePage> {
   List<TimePlannerTask> tasks = [];
   DateTime _dateTime = DateTime.now();
+  List<String> daysOfTheWeek = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -116,15 +125,7 @@ class _TimetablePageState extends State<TimetablePage> {
   showBottomSheetModal(BuildContext context) {
     TextEditingController controller = TextEditingController();
     String dayOfTheWeek = "Monday";
-    List<String> daysOfTheWeek = [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday",
-    ];
+
     final Map<String, int> dayMapping = {
       "Monday": 0,
       "Tuesday": 1,
@@ -180,7 +181,7 @@ class _TimetablePageState extends State<TimetablePage> {
           return Padding(
             padding: const EdgeInsets.only(top: 10, right: 30, left: 30),
             child: SizedBox(
-              height: 600,
+              height: 800,
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -226,76 +227,94 @@ class _TimetablePageState extends State<TimetablePage> {
                     const Text("Choose a date & Time",
                         style: TextStyle(fontSize: 15)),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        DropdownButton<String>(
-                          value: dayOfTheWeek,
-                          icon: const Icon(Icons.date_range),
-                          onChanged: (String? newValue) {
-                            ///Todo: fix the state
-                            print('New value: $newValue');
-                            setState(() {
-                              dayOfTheWeek = newValue!;
-                              print('Updated state: $dayOfTheWeek');
-                            });
-                          },
-                          items: daysOfTheWeek
-                              .map<DropdownMenuItem<String>>((String day) {
-                            return DropdownMenuItem<String>(
-                              value: day,
-                              child: Text(day),
-                            );
-                          }).toList(),
+                        IconsContainer(
+                          onPressed: () {},
+                          title: 'Date',
+                          icon: Icons.date_range,
                         ),
-
-                        ///Todo: use gesture detector instead and then use container, you can make this reusable
-                        ElevatedButton(
+                        IconsContainer(
                             onPressed: () {
                               showTimePicker(context);
                             },
-                            child: const Text("Select a time")),
+                            title: "Time",
+                            icon: Icons.timelapse),
+                        // DropdownButton<String>(
+                        //   value: dayOfTheWeek,
+                        //   icon: const Icon(Icons.date_range),
+                        //   onChanged: (String? newValue) {
+                        //     ///Todo: fix the state
+                        //     print('New value: $newValue');
+                        //     setState(() {
+                        //       dayOfTheWeek = newValue!;
+                        //       print('Updated state: $dayOfTheWeek');
+                        //     });
+                        //   },
+                        //   items: daysOfTheWeek
+                        //       .map<DropdownMenuItem<String>>((String day) {
+                        //     return DropdownMenuItem<String>(
+                        //       value: day,
+                        //       child: Text(day),
+                        //     );
+                        //   }).toList(),
+                        // ),
                       ],
                     ),
-                    Text("Task Type & Duration"),
+                    const Text("Task Type & Duration"),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        DropdownButton<String>(
-                          value: mainColour,
-                          icon: const Icon(Icons.color_lens),
-                          onChanged: (String? newValue) {
-                            ///Todo: fix the state
-                            setState(() {
-                              dayOfTheWeek = newValue!;
-                            });
-                          },
-                          items: dropColor
-                              .map<DropdownMenuItem<String>>((String colors) {
-                            return DropdownMenuItem<String>(
-                              value: colors,
-                              child: Text(colors),
-                            );
-
-                            ///"We can add a row of the color in a circle and the text next to it"
-                          }).toList(),
-                        ),
-                        DropdownButton(
-                          value: firstTime,
-                          icon: const Icon(Icons.watch),
-                          onChanged: (String? newValue) {
-                            ///Todo: fix the state
-                            setState(() {
-                              dayOfTheWeek = newValue!;
-                            });
-                          },
-                          items: howLong
-                              .map<DropdownMenuItem<String>>((String time) {
-                            return DropdownMenuItem<String>(
-                              value: time,
-                              child: Text(time),
-                            );
-
-                            ///"We can add a row of the color in a circle and the text next to it"
-                          }).toList(),
-                        )
+                        IconsContainer(
+                            onPressed: () {
+                              showTimePicker(context);
+                            },
+                            title: "Task Type",
+                            icon: Icons.task),
+                        IconsContainer(
+                            onPressed: () {
+                              showTimePicker(context);
+                            },
+                            title: "Duration",
+                            icon: Icons.timer),
+                        // DropdownButton<String>(
+                        //   value: mainColour,
+                        //   icon: const Icon(Icons.color_lens),
+                        //   onChanged: (String? newValue) {
+                        //     ///Todo: fix the state
+                        //     setState(() {
+                        //       dayOfTheWeek = newValue!;
+                        //     });
+                        //   },
+                        //   items: dropColor
+                        //       .map<DropdownMenuItem<String>>((String colors) {
+                        //     return DropdownMenuItem<String>(
+                        //       value: colors,
+                        //       child: Text(colors),
+                        //     );
+                        //
+                        //     ///"We can add a row of the color in a circle and the text next to it"
+                        //   }).toList(),
+                        // ),
+                        // DropdownButton(
+                        //   value: firstTime,
+                        //   icon: const Icon(Icons.watch),
+                        //   onChanged: (String? newValue) {
+                        //     ///Todo: fix the state
+                        //     setState(() {
+                        //       dayOfTheWeek = newValue!;
+                        //     });
+                        //   },
+                        //   items: howLong
+                        //       .map<DropdownMenuItem<String>>((String time) {
+                        //     return DropdownMenuItem<String>(
+                        //       value: time,
+                        //       child: Text(time),
+                        //     );
+                        //
+                        //     ///"We can add a row of the color in a circle and the text next to it"
+                        //   }).toList(),
+                        // )
                       ],
                     ),
                     Container(
@@ -332,7 +351,7 @@ class _TimetablePageState extends State<TimetablePage> {
                           },
                         )
                       ],
-                    )
+                    ),
                   ]),
             ),
           );
@@ -381,5 +400,68 @@ class _TimetablePageState extends State<TimetablePage> {
             ],
           );
         });
+  }
+
+  showDatePicker(BuildContext context) {
+    int selectedIndex = 0;
+    int tempSlectedIndex = selectedIndex;
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Select a date"),
+            content: Container(
+              height: 150,
+              child: ListWheelScrollView(
+                itemExtent: 40,
+                useMagnifier: true,
+                magnification: 1,
+                onSelectedItemChanged: (index) {
+                  setState(() {
+                    tempSlectedIndex = index;
+                  });
+                },
+                children: daysOfTheWeek
+                    .map((day) => Center(child: Text(day)))
+                    .toList(),
+              ),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Okay"))
+            ],
+          );
+        });
+  }
+}
+
+class IconsContainer extends StatelessWidget {
+  final Function() onPressed;
+  final String title;
+  final IconData icon;
+
+  const IconsContainer(
+      {super.key,
+      required this.onPressed,
+      required this.title,
+      required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+          width: 125,
+          height: 55,
+          decoration: BoxDecoration(
+              color: Colors.red[100], borderRadius: BorderRadius.circular(10)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [Icon(icon), Text(title)],
+          )),
+    );
   }
 }
