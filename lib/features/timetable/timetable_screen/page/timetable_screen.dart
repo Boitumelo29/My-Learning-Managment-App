@@ -201,44 +201,59 @@ class _TimetablePageState extends State<TimetablePage> {
                           fontSize: 25),
                     )),
                     const SizedSpace(),
+
                     ///Todo: maybe we will add the title it looks too much like that one
                     // const Text(
                     //   "Title",
                     //   style: TextStyle(fontSize: 15),
                     // ),
                     Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: LongTextFieldForm(
-                          onChanged: (value) {},
-                          hintText: 'Enter Task',
-                          labelText: 'Enter task',
-                          showSuffixIcon: false,
-                          showPrefixIcon: true,
-                          prefixIcon: Icons.pending_actions,
-                          validator: (value) {
-                            Validation.usernameValidation(value);
-                          },
-                          obsureText: false,
-                        ),),
-                    DropdownButton<String>(
-                      value: dayOfTheWeek,
-                      icon: const Icon(Icons.date_range),
-                      onChanged: (String? newValue) {
-                        ///Todo: fix the state
-                        print('New value: $newValue');
-                        setState(() {
-                          dayOfTheWeek = newValue!;
-                          print('Updated state: $dayOfTheWeek');
-                        });
-                      },
-                      items: daysOfTheWeek
-                          .map<DropdownMenuItem<String>>((String day) {
-                        return DropdownMenuItem<String>(
-                          value: day,
-                          child: Text(day),
-                        );
-                      }).toList(),
+                      padding: const EdgeInsets.all(15.0),
+                      child: LongTextFieldForm(
+                        onChanged: (value) {},
+                        hintText: 'Enter Task',
+                        labelText: 'Enter task',
+                        showSuffixIcon: false,
+                        showPrefixIcon: true,
+                        prefixIcon: Icons.pending_actions,
+                        validator: (value) {
+                          Validation.usernameValidation(value);
+                        },
+                        obsureText: false,
+                      ),
                     ),
+                    const SizedSpace(),
+                    const Text("Choose a date & Time",
+                        style: TextStyle(fontSize: 15)),
+                    Row(
+                      children: [
+                        DropdownButton<String>(
+                          value: dayOfTheWeek,
+                          icon: const Icon(Icons.date_range),
+                          onChanged: (String? newValue) {
+                            ///Todo: fix the state
+                            print('New value: $newValue');
+                            setState(() {
+                              dayOfTheWeek = newValue!;
+                              print('Updated state: $dayOfTheWeek');
+                            });
+                          },
+                          items: daysOfTheWeek
+                              .map<DropdownMenuItem<String>>((String day) {
+                            return DropdownMenuItem<String>(
+                              value: day,
+                              child: Text(day),
+                            );
+                          }).toList(),
+                        ),
+                        ElevatedButton(
+                            onPressed: () {
+                              showTimePicker(context);
+                            },
+                            child: const Text("Select a time")),
+                      ],
+                    ),
+
                     DropdownButton<String>(
                       value: mainColour,
                       icon: const Icon(Icons.color_lens),
@@ -277,11 +292,7 @@ class _TimetablePageState extends State<TimetablePage> {
                         ///"We can add a row of the color in a circle and the text next to it"
                       }).toList(),
                     ),
-                    ElevatedButton(
-                        onPressed: () {
-                          showTimePicker(context);
-                        },
-                        child: const Text("Select a time")),
+
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 50),
                       child: Text(
