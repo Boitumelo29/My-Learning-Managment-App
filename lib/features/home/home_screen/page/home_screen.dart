@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomePage> {
           height: 200,
           width: 200,
           decoration: BoxDecoration(
-              color: Colors.red[80], borderRadius: BorderRadius.circular(20)),
+              color: Colors.red, borderRadius: BorderRadius.circular(20)),
           child: Text("The Qoute of the day"),
         ),
         Text("Quote of the day in a container"),
