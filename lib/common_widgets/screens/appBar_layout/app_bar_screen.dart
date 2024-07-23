@@ -8,17 +8,18 @@ class AppBarScreen extends StatelessWidget {
   final Function()? floatingActionButton;
   final String? tooltip;
   final IconData? icon;
+  final bool shouldBeCentered;
 
-  const AppBarScreen({
-    super.key,
-    required this.shouldScroll,
-    required this.title,
-    required this.children,
-    this.floatingActionButton,
-    required this.shouldHaveFloatingButton,
-    this.tooltip,
-    this.icon,
-  });
+  const AppBarScreen(
+      {super.key,
+      required this.shouldScroll,
+      required this.title,
+      required this.children,
+      this.floatingActionButton,
+      required this.shouldHaveFloatingButton,
+      this.tooltip,
+      this.icon,
+      required this.shouldBeCentered});
 
   @override
   Widget build(BuildContext context) {
@@ -34,19 +35,27 @@ class AppBarScreen extends StatelessWidget {
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(10),
-            child: Column(
-              children: children
+            child: Center(
+              child: shouldBeCentered
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: children)
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: children),
             ),
           ),
         ),
       ),
       floatingActionButton: shouldHaveFloatingButton
           ? FloatingActionButton(
-        backgroundColor: Colors.red,
-        onPressed: floatingActionButton,
-        tooltip: tooltip,
-        child: Icon(icon),
-      )
+              backgroundColor: Colors.red,
+              onPressed: floatingActionButton,
+              tooltip: tooltip,
+              child: Icon(icon),
+            )
           : null,
     );
   }

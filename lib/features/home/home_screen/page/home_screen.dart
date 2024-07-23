@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
+import 'package:mylearning/data/data_services/qoute_of_the_day_data_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -13,7 +14,9 @@ class HomePage extends StatefulWidget {
 class _HomeScreenState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+   //QOTDataService.fetchData();
     return AppBarScreen(
+      shouldBeCentered: true,
       shouldScroll: false,
       shouldHaveFloatingButton: false,
       title: 'Home Screen',

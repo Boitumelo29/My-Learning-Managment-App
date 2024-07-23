@@ -18,6 +18,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return AppBarScreen(
+      shouldBeCentered: false,
       // you can change this to a slide up
       title: Strings.settings,
       shouldScroll: true,

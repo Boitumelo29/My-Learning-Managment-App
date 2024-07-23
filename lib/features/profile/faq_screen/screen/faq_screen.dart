@@ -18,6 +18,7 @@ class _FAQScreenState extends State<FAQScreen> {
   @override
   Widget build(BuildContext context) {
     return AppBarScreen(
+      shouldBeCentered: false,
       title: "Frequently Asked Questions",
       shouldScroll: true,
       shouldHaveFloatingButton: false,

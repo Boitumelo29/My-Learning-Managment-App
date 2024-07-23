@@ -25,6 +25,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return AppBarScreen(
+      shouldBeCentered: false,
         title: Strings.editProfile,
         shouldScroll: true,
         shouldHaveFloatingButton: false,
