@@ -246,6 +246,8 @@ class _TimetablePageState extends State<TimetablePage> {
                             );
                           }).toList(),
                         ),
+
+                        ///Todo: use gesture detector instead and then use container, you can make this reusable
                         ElevatedButton(
                             onPressed: () {
                               showTimePicker(context);
@@ -253,46 +255,49 @@ class _TimetablePageState extends State<TimetablePage> {
                             child: const Text("Select a time")),
                       ],
                     ),
+                    Text("Task Type & Duration"),
+                    Row(
+                      children: [
+                        DropdownButton<String>(
+                          value: mainColour,
+                          icon: const Icon(Icons.color_lens),
+                          onChanged: (String? newValue) {
+                            ///Todo: fix the state
+                            setState(() {
+                              dayOfTheWeek = newValue!;
+                            });
+                          },
+                          items: dropColor
+                              .map<DropdownMenuItem<String>>((String colors) {
+                            return DropdownMenuItem<String>(
+                              value: colors,
+                              child: Text(colors),
+                            );
 
-                    DropdownButton<String>(
-                      value: mainColour,
-                      icon: const Icon(Icons.color_lens),
-                      onChanged: (String? newValue) {
-                        ///Todo: fix the state
-                        setState(() {
-                          dayOfTheWeek = newValue!;
-                        });
-                      },
-                      items: dropColor
-                          .map<DropdownMenuItem<String>>((String colors) {
-                        return DropdownMenuItem<String>(
-                          value: colors,
-                          child: Text(colors),
-                        );
+                            ///"We can add a row of the color in a circle and the text next to it"
+                          }).toList(),
+                        ),
+                        DropdownButton(
+                          value: firstTime,
+                          icon: const Icon(Icons.watch),
+                          onChanged: (String? newValue) {
+                            ///Todo: fix the state
+                            setState(() {
+                              dayOfTheWeek = newValue!;
+                            });
+                          },
+                          items: howLong
+                              .map<DropdownMenuItem<String>>((String time) {
+                            return DropdownMenuItem<String>(
+                              value: time,
+                              child: Text(time),
+                            );
 
-                        ///"We can add a row of the color in a circle and the text next to it"
-                      }).toList(),
+                            ///"We can add a row of the color in a circle and the text next to it"
+                          }).toList(),
+                        )
+                      ],
                     ),
-                    DropdownButton(
-                      value: firstTime,
-                      icon: const Icon(Icons.watch),
-                      onChanged: (String? newValue) {
-                        ///Todo: fix the state
-                        setState(() {
-                          dayOfTheWeek = newValue!;
-                        });
-                      },
-                      items:
-                          howLong.map<DropdownMenuItem<String>>((String time) {
-                        return DropdownMenuItem<String>(
-                          value: time,
-                          child: Text(time),
-                        );
-
-                        ///"We can add a row of the color in a circle and the text next to it"
-                      }).toList(),
-                    ),
-
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 50),
                       child: Text(
