@@ -264,7 +264,7 @@ class _TimetablePageState extends State<TimetablePage> {
                         ///"We can add a row of the color in a circle and the text next to it"
                       }).toList(),
                     ),
-                    // hourMin(),
+                  showTimePicker(context),
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 50),
                       child: Text(
@@ -318,10 +318,10 @@ class _TimetablePageState extends State<TimetablePage> {
     );
   }
 
-  void _showTimePicker(BuildContext context) {
+   showTimePicker(BuildContext context) {
     showDialog(context: context, builder: (BuildContext context) {
       return AlertDialog(
-
+title: const ,
 
       );
     });
