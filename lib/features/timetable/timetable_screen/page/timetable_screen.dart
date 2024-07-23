@@ -317,4 +317,13 @@ class _TimetablePageState extends State<TimetablePage> {
       },
     );
   }
+
+  void _showTimePicker(BuildContext context) {
+    showDialog(context: context, builder: (BuildContext context) {
+      return AlertDialog(
+
+
+      );
+    });
+  }
 }
