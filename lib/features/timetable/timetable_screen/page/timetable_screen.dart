@@ -174,111 +174,133 @@ class _TimetablePageState extends State<TimetablePage> {
         context: context,
         builder: (BuildContext context) {
           return Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(top: 10, right: 30, left: 30),
             child: SizedBox(
               height: 600,
-              child: Column(children: <Widget>[
-                const Text("Add a Task to your Timetable"),
-                TextFormField(
-                  controller: controller,
-                  validator: (value) => Validation.usernameValidation(value!),
-                ),
-                const Text(
-                    "for how long: 30 min, 60 min 2 hours, 3 hours or the whole day, then in v2 we allow them to customise it themeselves"),
-                const Text("then I can fix the whole entire ui"),
-                DropdownButton<String>(
-                  value: dayOfTheWeek,
-                  icon: const Icon(Icons.date_range),
-                  onChanged: (String? newValue) {
-                    ///Todo: fix the state
-                    print('New value: $newValue');
-                    setState(() {
-                      dayOfTheWeek = newValue!;
-                      print('Updated state: $dayOfTheWeek');
-                    });
-                  },
-                  items:
-                      daysOfTheWeek.map<DropdownMenuItem<String>>((String day) {
-                    return DropdownMenuItem<String>(
-                      value: day,
-                      child: Text(day),
-                    );
-                  }).toList(),
-                ),
-                DropdownButton<String>(
-                  value: mainColour,
-                  icon: const Icon(Icons.color_lens),
-                  onChanged: (String? newValue) {
-                    ///Todo: fix the state
-                    setState(() {
-                      dayOfTheWeek = newValue!;
-                    });
-                  },
-                  items:
-                      dropColor.map<DropdownMenuItem<String>>((String colors) {
-                    return DropdownMenuItem<String>(
-                      value: colors,
-                      child: Text(colors),
-                    );
-
-                    ///"We can add a row of the color in a circle and the text next to it"
-                  }).toList(),
-                ),
-                DropdownButton(
-                  value: firstTime,
-                  icon: const Icon(Icons.watch),
-                  onChanged: (String? newValue) {
-                    ///Todo: fix the state
-                    setState(() {
-                      dayOfTheWeek = newValue!;
-                    });
-                  },
-                  items: howLong.map<DropdownMenuItem<String>>((String time) {
-                    return DropdownMenuItem<String>(
-                      value: time,
-                      child: Text(time),
-                    );
-
-                    ///"We can add a row of the color in a circle and the text next to it"
-                  }).toList(),
-                ),
-                hourMin(),
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 50),
-                  child: Text(
-                      "${_dateTime.hour.toString().padLeft(2, "0")} : ${_dateTime.minute.toString().padLeft(2, '0')}"),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      child: const Text("Add"),
-                      onTap: () {
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const Center(child: Icon(Icons.drag_handle)),
+                    const Text("Add a Task to your Timetable"),
+                    const Text("Title"),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.short_text_outlined),
+                          hintText: "Enter your task",
+                          errorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.red),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          border: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.red),
+                              borderRadius: BorderRadius.circular(30)),
+                        ),
+                        showCursor: true,
+                        controller: controller,
+                        validator: (value) =>
+                            Validation.usernameValidation(value!),
+                      ),
+                    ),
+                    const Text(
+                        "for how long: 30 min, 60 min 2 hours, 3 hours or the whole day, then in v2 we allow them to customise it themeselves"),
+                    const Text("then I can fix the whole entire ui"),
+                    DropdownButton<String>(
+                      value: dayOfTheWeek,
+                      icon: const Icon(Icons.date_range),
+                      onChanged: (String? newValue) {
+                        ///Todo: fix the state
+                        print('New value: $newValue');
                         setState(() {
-                          tasks.add(
-                            TimePlannerTask(
-                              color: colorMap[mainColour]!,
-                              minutesDuration: timeMap[firstTime]!,
-                              dateTime: TimePlannerDateTime(
-                                  day: dayMapping[dayOfTheWeek] ?? 0,
-                                  //day: 0,
-                                  hour: _dateTime.hour,
-                                  minutes: _dateTime.minute),
-                              child: Text(controller.text),
-                            ),
-                          );
+                          dayOfTheWeek = newValue!;
+                          print('Updated state: $dayOfTheWeek');
                         });
                       },
+                      items: daysOfTheWeek
+                          .map<DropdownMenuItem<String>>((String day) {
+                        return DropdownMenuItem<String>(
+                          value: day,
+                          child: Text(day),
+                        );
+                      }).toList(),
                     ),
-                    GestureDetector(
-                      child: const Text("Dismiss"),
-                      onTap: () {
-                        Navigator.pop(context);
+                    DropdownButton<String>(
+                      value: mainColour,
+                      icon: const Icon(Icons.color_lens),
+                      onChanged: (String? newValue) {
+                        ///Todo: fix the state
+                        setState(() {
+                          dayOfTheWeek = newValue!;
+                        });
                       },
+                      items: dropColor
+                          .map<DropdownMenuItem<String>>((String colors) {
+                        return DropdownMenuItem<String>(
+                          value: colors,
+                          child: Text(colors),
+                        );
+
+                        ///"We can add a row of the color in a circle and the text next to it"
+                      }).toList(),
+                    ),
+                    DropdownButton(
+                      value: firstTime,
+                      icon: const Icon(Icons.watch),
+                      onChanged: (String? newValue) {
+                        ///Todo: fix the state
+                        setState(() {
+                          dayOfTheWeek = newValue!;
+                        });
+                      },
+                      items:
+                          howLong.map<DropdownMenuItem<String>>((String time) {
+                        return DropdownMenuItem<String>(
+                          value: time,
+                          child: Text(time),
+                        );
+
+                        ///"We can add a row of the color in a circle and the text next to it"
+                      }).toList(),
+                    ),
+                    // hourMin(),
+                    Container(
+                      margin: const EdgeInsets.symmetric(vertical: 50),
+                      child: Text(
+                          "${_dateTime.hour.toString().padLeft(2, "0")} : ${_dateTime.minute.toString().padLeft(2, '0')}"),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          child: const Text("Add"),
+                          onTap: () {
+                            setState(() {
+                              tasks.add(
+                                TimePlannerTask(
+                                  color: colorMap[mainColour]!,
+                                  minutesDuration: timeMap[firstTime]!,
+                                  dateTime: TimePlannerDateTime(
+                                      day: dayMapping[dayOfTheWeek] ?? 0,
+                                      //day: 0,
+                                      hour: _dateTime.hour,
+                                      minutes: _dateTime.minute),
+                                  child: Text(controller.text),
+                                ),
+                              );
+                            });
+                          },
+                        ),
+                        GestureDetector(
+                          child: const Text("Dismiss"),
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                        )
+                      ],
                     )
-                  ],
-                )
-              ]),
+                  ]),
             ),
           );
         });

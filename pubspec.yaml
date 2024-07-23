@@ -48,6 +48,7 @@ dependencies:
   flutter_time_picker_spinner: ^2.0.0
   skeleton_text: ^3.0.1
   http: ^1.2.2
+  time_picker_spinner_pop_up: ^2.0.0
 
 dev_dependencies:
   flutter_test:
