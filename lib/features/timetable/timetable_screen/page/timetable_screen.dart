@@ -67,60 +67,6 @@ class _TimetablePageState extends State<TimetablePage> {
     );
   }
 
-  ///Todo: changing it from  a dialog to a bottom sheet modal
-  // showDialogs(BuildContext context) {
-  //   TextEditingController controller = TextEditingController();
-  //   List<Color?> colors = [
-  //     Colors.purple,
-  //     Colors.blue,
-  //     Colors.green,
-  //     Colors.orange,
-  //     Colors.lime[600],
-  //   ];
-  //
-  //   return showDialog(
-  //       context: context,
-  //       builder: (ctx) => AlertDialog(
-  //             title: const Text("Add A Task"),
-  //             actions: <Widget>[
-  //               TextFormField(
-  //                 controller: controller,
-  //                 validator: (value) => Validation.usernameValidation(value!),
-  //               ),
-  //               const SizedSpace(
-  //                 height: 30,
-  //               ),
-  //               Row(
-  //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                 children: [
-  //                   GestureDetector(
-  //                     child: const Text("Add"),
-  //                     onTap: () {
-  //                       setState(() {
-  //                         tasks.add(
-  //                           TimePlannerTask(
-  //                             color: colors[Random().nextInt(colors.length)],
-  //                             minutesDuration: 20,
-  //                             dateTime: TimePlannerDateTime(
-  //                                 day: 0, hour: 9, minutes: 12),
-  //                             child: Text(controller.text),
-  //                           ),
-  //                         );
-  //                       });
-  //                     },
-  //                   ),
-  //                   GestureDetector(
-  //                     child: const Text("Dismiss"),
-  //                     onTap: () {
-  //                       Navigator.pop(ctx);
-  //                     },
-  //                   )
-  //                 ],
-  //               )
-  //             ],
-  //           ));
-  // }
-
   ///Todo: the bottom sheet modal
   showBottomSheetModal(BuildContext context) {
     TextEditingController controller = TextEditingController();
@@ -137,15 +83,6 @@ class _TimetablePageState extends State<TimetablePage> {
     };
 
     String mainColour = "Purple";
-    List<String> dropColor = ["Purple", "Blue", "Green", "Orange", "Lime"];
-
-    List<Color?> colors = [
-      Colors.purple,
-      Colors.blue,
-      Colors.green,
-      Colors.orange,
-      Colors.lime[600],
-    ];
 
     Map<String, Color> colorMap = {
       "Purple": Colors.purple,
@@ -181,7 +118,7 @@ class _TimetablePageState extends State<TimetablePage> {
           return Padding(
             padding: const EdgeInsets.only(top: 10, right: 30, left: 30),
             child: SizedBox(
-              height: 800,
+              height: 470,
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -230,7 +167,9 @@ class _TimetablePageState extends State<TimetablePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         IconsContainer(
-                          onPressed: () {},
+                          onPressed: () {
+                            showDatePicker(context);
+                          },
                           title: 'Date',
                           icon: Icons.date_range,
                         ),
@@ -240,25 +179,6 @@ class _TimetablePageState extends State<TimetablePage> {
                             },
                             title: "Time",
                             icon: Icons.timelapse),
-                        // DropdownButton<String>(
-                        //   value: dayOfTheWeek,
-                        //   icon: const Icon(Icons.date_range),
-                        //   onChanged: (String? newValue) {
-                        //     ///Todo: fix the state
-                        //     print('New value: $newValue');
-                        //     setState(() {
-                        //       dayOfTheWeek = newValue!;
-                        //       print('Updated state: $dayOfTheWeek');
-                        //     });
-                        //   },
-                        //   items: daysOfTheWeek
-                        //       .map<DropdownMenuItem<String>>((String day) {
-                        //     return DropdownMenuItem<String>(
-                        //       value: day,
-                        //       child: Text(day),
-                        //     );
-                        //   }).toList(),
-                        // ),
                       ],
                     ),
                     const Text("Task Type & Duration"),
@@ -267,61 +187,19 @@ class _TimetablePageState extends State<TimetablePage> {
                       children: [
                         IconsContainer(
                             onPressed: () {
-                              showTimePicker(context);
+                              showTaskPicker(context);
                             },
                             title: "Task Type",
                             icon: Icons.task),
                         IconsContainer(
                             onPressed: () {
-                              showTimePicker(context);
+                              showDurationPicker(context);
                             },
                             title: "Duration",
                             icon: Icons.timer),
-                        // DropdownButton<String>(
-                        //   value: mainColour,
-                        //   icon: const Icon(Icons.color_lens),
-                        //   onChanged: (String? newValue) {
-                        //     ///Todo: fix the state
-                        //     setState(() {
-                        //       dayOfTheWeek = newValue!;
-                        //     });
-                        //   },
-                        //   items: dropColor
-                        //       .map<DropdownMenuItem<String>>((String colors) {
-                        //     return DropdownMenuItem<String>(
-                        //       value: colors,
-                        //       child: Text(colors),
-                        //     );
-                        //
-                        //     ///"We can add a row of the color in a circle and the text next to it"
-                        //   }).toList(),
-                        // ),
-                        // DropdownButton(
-                        //   value: firstTime,
-                        //   icon: const Icon(Icons.watch),
-                        //   onChanged: (String? newValue) {
-                        //     ///Todo: fix the state
-                        //     setState(() {
-                        //       dayOfTheWeek = newValue!;
-                        //     });
-                        //   },
-                        //   items: howLong
-                        //       .map<DropdownMenuItem<String>>((String time) {
-                        //     return DropdownMenuItem<String>(
-                        //       value: time,
-                        //       child: Text(time),
-                        //     );
-                        //
-                        //     ///"We can add a row of the color in a circle and the text next to it"
-                        //   }).toList(),
-                        // )
                       ],
                     ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(vertical: 50),
-                      child: Text(
-                          "${_dateTime.hour.toString().padLeft(2, "0")} : ${_dateTime.minute.toString().padLeft(2, '0')}"),
-                    ),
+                    const SizedSpace(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -409,13 +287,13 @@ class _TimetablePageState extends State<TimetablePage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text("Select a date"),
+            title: const Center(child: Text("Select a date")),
             content: Container(
-              height: 150,
+              height: 120,
               child: ListWheelScrollView(
-                itemExtent: 40,
+                itemExtent: 30,
                 useMagnifier: true,
-                magnification: 1,
+                magnification: 1.5,
                 onSelectedItemChanged: (index) {
                   setState(() {
                     tempSlectedIndex = index;
@@ -423,6 +301,103 @@ class _TimetablePageState extends State<TimetablePage> {
                 },
                 children: daysOfTheWeek
                     .map((day) => Center(child: Text(day)))
+                    .toList(),
+              ),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Okay"))
+            ],
+          );
+        });
+  }
+
+  showTaskPicker(BuildContext context) {
+    List<String> taskColour = [
+      "Important",
+      "Urgent",
+      "Not Urgent",
+    ];
+    List<Color?> colors = [
+      Colors.red,
+      Colors.yellow,
+      Colors.green,
+    ];
+
+    int selectedIndex = 0;
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Center(child: Text("Select a date")),
+            content: Container(
+              height: 120,
+              child: ListWheelScrollView(
+                itemExtent: 30,
+                useMagnifier: true,
+                magnification: 1.5,
+                onSelectedItemChanged: (index) {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                },
+                children: taskColour
+                    .map((task) => Center(
+                            child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [const Icon(Icons.circle), Text(task)],
+                        )))
+                    .toList(),
+              ),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Okay"))
+            ],
+          );
+        });
+  }
+
+  showDurationPicker(BuildContext context) {
+    List<String> duration = [
+      "15 min",
+      "30 min",
+      "40 min",
+      "1 hour",
+      "1 hour 30",
+      "2 hours",
+      "Whole day"
+    ];
+
+    int selectedIndex = 0;
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Center(child: Text("Select a date")),
+            content: Container(
+              height: 120,
+              child: ListWheelScrollView(
+                itemExtent: 30,
+                useMagnifier: true,
+                magnification: 1.5,
+                onSelectedItemChanged: (index) {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                },
+                children: duration
+                    .map((task) => Center(
+                            child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [Text(task)],
+                        )))
                     .toList(),
               ),
             ),
@@ -465,3 +440,123 @@ class IconsContainer extends StatelessWidget {
     );
   }
 }
+
+///todo: how to get the time
+/// Container(
+//                       margin: const EdgeInsets.symmetric(vertical: 50),
+//                       child: Text(
+//                           "${_dateTime.hour.toString().padLeft(2, "0")} : ${_dateTime.minute.toString().padLeft(2, '0')}"),
+//                     ),
+
+// DropdownButton<String>(
+//   value: mainColour,
+//   icon: const Icon(Icons.color_lens),
+//   onChanged: (String? newValue) {
+//     ///Todo: fix the state
+//     setState(() {
+//       dayOfTheWeek = newValue!;
+//     });
+//   },
+//   items: dropColor
+//       .map<DropdownMenuItem<String>>((String colors) {
+//     return DropdownMenuItem<String>(
+//       value: colors,
+//       child: Text(colors),
+//     );
+//
+//     ///"We can add a row of the color in a circle and the text next to it"
+//   }).toList(),
+// ),
+// DropdownButton(
+//   value: firstTime,
+//   icon: const Icon(Icons.watch),
+//   onChanged: (String? newValue) {
+//     ///Todo: fix the state
+//     setState(() {
+//       dayOfTheWeek = newValue!;
+//     });
+//   },
+//   items: howLong
+//       .map<DropdownMenuItem<String>>((String time) {
+//     return DropdownMenuItem<String>(
+//       value: time,
+//       child: Text(time),
+//     );
+//
+//     ///"We can add a row of the color in a circle and the text next to it"
+//   }).toList(),
+// )
+
+// DropdownButton<String>(
+//   value: dayOfTheWeek,
+//   icon: const Icon(Icons.date_range),
+//   onChanged: (String? newValue) {
+//     ///Todo: fix the state
+//     print('New value: $newValue');
+//     setState(() {
+//       dayOfTheWeek = newValue!;
+//       print('Updated state: $dayOfTheWeek');
+//     });
+//   },
+//   items: daysOfTheWeek
+//       .map<DropdownMenuItem<String>>((String day) {
+//     return DropdownMenuItem<String>(
+//       value: day,
+//       child: Text(day),
+//     );
+//   }).toList(),
+// ),
+
+///Todo: changing it from  a dialog to a bottom sheet modal
+// showDialogs(BuildContext context) {
+//   TextEditingController controller = TextEditingController();
+//   List<Color?> colors = [
+//     Colors.purple,
+//     Colors.blue,
+//     Colors.green,
+//     Colors.orange,
+//     Colors.lime[600],
+//   ];
+//
+//   return showDialog(
+//       context: context,
+//       builder: (ctx) => AlertDialog(
+//             title: const Text("Add A Task"),
+//             actions: <Widget>[
+//               TextFormField(
+//                 controller: controller,
+//                 validator: (value) => Validation.usernameValidation(value!),
+//               ),
+//               const SizedSpace(
+//                 height: 30,
+//               ),
+//               Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 children: [
+//                   GestureDetector(
+//                     child: const Text("Add"),
+//                     onTap: () {
+//                       setState(() {
+//                         tasks.add(
+//                           TimePlannerTask(
+//                             color: colors[Random().nextInt(colors.length)],
+//                             minutesDuration: 20,
+//                             dateTime: TimePlannerDateTime(
+//                                 day: 0, hour: 9, minutes: 12),
+//                             child: Text(controller.text),
+//                           ),
+//                         );
+//                       });
+//                     },
+//                   ),
+//                   GestureDetector(
+//                     child: const Text("Dismiss"),
+//                     onTap: () {
+//                       Navigator.pop(ctx);
+//                     },
+//                   )
+//                 ],
+//               )
+//             ],
+//           ));
+// }
