@@ -100,11 +100,11 @@ class _LongTextFieldFormState extends State<LongTextFieldForm> {
         labelText: widget.labelText,
         errorBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.red),
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(20),
         ),
         border: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.red),
-            borderRadius: BorderRadius.circular(30)),
+            borderRadius: BorderRadius.circular(20)),
       ),
 
       keyboardType: TextInputType.emailAddress,

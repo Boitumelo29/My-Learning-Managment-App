@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
+import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 import 'package:mylearning/util/validation/validation.dart';
 import 'package:time_planner/time_planner.dart';
 
@@ -197,36 +198,28 @@ class _TimetablePageState extends State<TimetablePage> {
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontSize: 20),
+                          fontSize: 25),
                     )),
                     const SizedSpace(),
-                    const Text(
-                      "Title",
-                      style: TextStyle(fontSize: 12),
-                    ),
+                    ///Todo: maybe we will add the title it looks too much like that one
+                    // const Text(
+                    //   "Title",
+                    //   style: TextStyle(fontSize: 15),
+                    // ),
                     Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.short_text_outlined),
-                          hintText: "Enter your task",
-                          errorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.red),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          border: OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.red),
-                              borderRadius: BorderRadius.circular(30)),
-                        ),
-                        showCursor: true,
-                        controller: controller,
-                        validator: (value) =>
-                            Validation.usernameValidation(value!),
-                      ),
-                    ),
-                    const Text(
-                        "for how long: 30 min, 60 min 2 hours, 3 hours or the whole day, then in v2 we allow them to customise it themeselves"),
-                    const Text("then I can fix the whole entire ui"),
+                        padding: const EdgeInsets.all(15.0),
+                        child: LongTextFieldForm(
+                          onChanged: (value) {},
+                          hintText: 'Enter Task',
+                          labelText: 'Enter task',
+                          showSuffixIcon: false,
+                          showPrefixIcon: true,
+                          prefixIcon: Icons.pending_actions,
+                          validator: (value) {
+                            Validation.usernameValidation(value);
+                          },
+                          obsureText: false,
+                        ),),
                     DropdownButton<String>(
                       value: dayOfTheWeek,
                       icon: const Icon(Icons.date_range),
