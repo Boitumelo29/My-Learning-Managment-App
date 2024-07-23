@@ -264,7 +264,7 @@ class _TimetablePageState extends State<TimetablePage> {
                         ///"We can add a row of the color in a circle and the text next to it"
                       }).toList(),
                     ),
-                  showTimePicker(context),
+                    showTimePicker(context),
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 50),
                       child: Text(
@@ -273,9 +273,9 @@ class _TimetablePageState extends State<TimetablePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        GestureDetector(
+                        TextButton(
                           child: const Text("Add"),
-                          onTap: () {
+                          onPressed: () {
                             setState(() {
                               tasks.add(
                                 TimePlannerTask(
@@ -292,9 +292,9 @@ class _TimetablePageState extends State<TimetablePage> {
                             });
                           },
                         ),
-                        GestureDetector(
+                        TextButton(
                           child: const Text("Dismiss"),
-                          onTap: () {
+                          onPressed: () {
                             Navigator.pop(context);
                           },
                         )
@@ -318,12 +318,35 @@ class _TimetablePageState extends State<TimetablePage> {
     );
   }
 
-   showTimePicker(BuildContext context) {
-    showDialog(context: context, builder: (BuildContext context) {
-      return AlertDialog(
-title: const ,
-
-      );
-    });
+  showTimePicker(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("select a time"),
+            content: TimePickerSpinner(
+              is24HourMode: true,
+              normalTextStyle:
+                  const TextStyle(fontSize: 24, color: Colors.black),
+              highlightedTextStyle:
+                  const TextStyle(fontSize: 26, color: Colors.red),
+              spacing: 50,
+              itemHeight: 50,
+              isForce2Digits: true,
+              onTimeChange: (time) {
+                setState(() {
+                  _dateTime = time;
+                });
+              },
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Done"))
+            ],
+          );
+        });
   }
 }
