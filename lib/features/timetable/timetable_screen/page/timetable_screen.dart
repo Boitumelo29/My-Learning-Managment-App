@@ -46,71 +46,76 @@ class _TimetablePageState extends State<TimetablePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.red,
         onPressed: () => showBottomSheetModal(context),
         tooltip: "Add Task",
-        child: const Icon(Icons.add),
+        child: const Icon(
+          Icons.add,
+          color: Colors.black,
+        ),
       ),
     );
   }
 
   ///Todo: changing it from  a dialog to a bottom sheet modal
-  showDialogs(BuildContext context) {
-    TextEditingController controller = TextEditingController();
-    List<Color?> colors = [
-      Colors.purple,
-      Colors.blue,
-      Colors.green,
-      Colors.orange,
-      Colors.lime[600],
-    ];
-
-    return showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-              title: const Text("Add A Task"),
-              actions: <Widget>[
-                TextFormField(
-                  controller: controller,
-                  validator: (value) => Validation.usernameValidation(value!),
-                ),
-                const SizedSpace(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      child: const Text("Add"),
-                      onTap: () {
-                        setState(() {
-                          tasks.add(
-                            TimePlannerTask(
-                              color: colors[Random().nextInt(colors.length)],
-                              minutesDuration: 20,
-                              dateTime: TimePlannerDateTime(
-                                  day: 0, hour: 9, minutes: 12),
-                              child: Text(controller.text),
-                            ),
-                          );
-                        });
-                      },
-                    ),
-                    GestureDetector(
-                      child: const Text("Dismiss"),
-                      onTap: () {
-                        Navigator.pop(ctx);
-                      },
-                    )
-                  ],
-                )
-              ],
-            ));
-  }
+  // showDialogs(BuildContext context) {
+  //   TextEditingController controller = TextEditingController();
+  //   List<Color?> colors = [
+  //     Colors.purple,
+  //     Colors.blue,
+  //     Colors.green,
+  //     Colors.orange,
+  //     Colors.lime[600],
+  //   ];
+  //
+  //   return showDialog(
+  //       context: context,
+  //       builder: (ctx) => AlertDialog(
+  //             title: const Text("Add A Task"),
+  //             actions: <Widget>[
+  //               TextFormField(
+  //                 controller: controller,
+  //                 validator: (value) => Validation.usernameValidation(value!),
+  //               ),
+  //               const SizedSpace(
+  //                 height: 30,
+  //               ),
+  //               Row(
+  //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                 children: [
+  //                   GestureDetector(
+  //                     child: const Text("Add"),
+  //                     onTap: () {
+  //                       setState(() {
+  //                         tasks.add(
+  //                           TimePlannerTask(
+  //                             color: colors[Random().nextInt(colors.length)],
+  //                             minutesDuration: 20,
+  //                             dateTime: TimePlannerDateTime(
+  //                                 day: 0, hour: 9, minutes: 12),
+  //                             child: Text(controller.text),
+  //                           ),
+  //                         );
+  //                       });
+  //                     },
+  //                   ),
+  //                   GestureDetector(
+  //                     child: const Text("Dismiss"),
+  //                     onTap: () {
+  //                       Navigator.pop(ctx);
+  //                     },
+  //                   )
+  //                 ],
+  //               )
+  //             ],
+  //           ));
+  // }
 
   ///Todo: the bottom sheet modal
   showBottomSheetModal(BuildContext context) {
+    TextEditingController controller = TextEditingController();
     String dayOfTheWeek = "Monday";
-    var daysOfTheWeek = [
+    List<String> daysOfTheWeek = [
       "Monday",
       "Tuesday",
       "Wednesday",
@@ -119,20 +124,18 @@ class _TimetablePageState extends State<TimetablePage> {
       "Saturday",
       "Sunday",
     ];
-
     final Map<String, int> dayMapping = {
-      'Monday': 0,
-      'Tuesday': 1,
-      'Wednesday': 2,
-      'Thursday': 3,
-      'Friday': 4,
-      'Saturday': 5,
-      'Sunday': 6,
+      "Monday": 0,
+      "Tuesday": 1,
+      "Wednesday": 2,
+      "Thursday": 3,
+      "Friday": 4,
+      "Saturday": 5,
+      "Sunday": 6,
     };
-    TextEditingController controller = TextEditingController();
-    String mainColour = "Purple";
 
-    var dropColor = ["Purple", "Blue", "Green", "Orange", "Lime"];
+    String mainColour = "Purple";
+    List<String> dropColor = ["Purple", "Blue", "Green", "Orange", "Lime"];
 
     List<Color?> colors = [
       Colors.purple,
@@ -181,9 +184,26 @@ class _TimetablePageState extends State<TimetablePage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Center(child: Icon(Icons.drag_handle)),
-                    const Text("Add a Task to your Timetable"),
-                    const Text("Title"),
+                    const Center(
+                      child: Icon(
+                        Icons.drag_handle,
+                        color: Colors.red,
+                      ),
+                    ),
+                    const SizedSpace(),
+                    const Center(
+                        child: Text(
+                      "Add a Task to your Timetable",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    )),
+                    const SizedSpace(),
+                    const Text(
+                      "Title",
+                      style: TextStyle(fontSize: 12),
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: TextFormField(
@@ -264,7 +284,11 @@ class _TimetablePageState extends State<TimetablePage> {
                         ///"We can add a row of the color in a circle and the text next to it"
                       }).toList(),
                     ),
-                    showTimePicker(context),
+                    ElevatedButton(
+                        onPressed: () {
+                          showTimePicker(context);
+                        },
+                        child: const Text("Select a time")),
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 50),
                       child: Text(
@@ -282,7 +306,7 @@ class _TimetablePageState extends State<TimetablePage> {
                                   color: colorMap[mainColour]!,
                                   minutesDuration: timeMap[firstTime]!,
                                   dateTime: TimePlannerDateTime(
-                                      day: dayMapping[dayOfTheWeek] ?? 0,
+                                      day: dayMapping[dayOfTheWeek] ?? 2,
                                       //day: 0,
                                       hour: _dateTime.hour,
                                       minutes: _dateTime.minute),
