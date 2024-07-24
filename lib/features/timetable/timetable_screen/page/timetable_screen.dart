@@ -278,7 +278,9 @@ class _TimetablePageState extends State<TimetablePage> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text("Done"))
+                  child:  const Text(
+                  "Done",
+                  style: TextStyle(color: Colors.red),))
             ],
           );
         });
@@ -314,7 +316,9 @@ class _TimetablePageState extends State<TimetablePage> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text("Okay"))
+                  child:  const Text(
+                  "Done",
+                  style: TextStyle(color: Colors.red),))
             ],
           );
         });
@@ -345,9 +349,9 @@ class _TimetablePageState extends State<TimetablePage> {
             child: StatefulBuilder(
               builder: (BuildContext context, StateSetter setState) {
                 return ListWheelScrollView(
-                  itemExtent: 30,
+                  itemExtent: 35,
                   useMagnifier: true,
-                  magnification: 1.5,
+                  magnification: 1.2,
                   onSelectedItemChanged: (index) {
                     setState(() {
                       selectedIndex = index;
@@ -382,7 +386,9 @@ class _TimetablePageState extends State<TimetablePage> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text("Okay"),
+              child:  const Text(
+              "Done",
+              style: TextStyle(color: Colors.red),)
             )
           ],
         );
@@ -433,7 +439,9 @@ class _TimetablePageState extends State<TimetablePage> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text("Okay"))
+                  child: const Text(
+                  "Done",
+                  style: TextStyle(color: Colors.red),))
             ],
           );
         });
@@ -460,7 +468,7 @@ class IconsContainer extends StatelessWidget {
           height: 55,
           decoration: BoxDecoration(
               border: Border.all(color: Colors.red, width: 1),
-              color: Colors.red[20],
+              color: Colors.red[30],
               borderRadius: BorderRadius.circular(10)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
