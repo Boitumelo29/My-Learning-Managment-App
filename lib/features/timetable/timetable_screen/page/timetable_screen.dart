@@ -125,6 +125,7 @@ class _TimetablePageState extends State<TimetablePage> {
                         Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: LongTextFieldForm(
+                            controller: controller,
                             obsureText: false,
                             hintText: 'Enter Task',
                             labelText: 'Enter task',
@@ -222,7 +223,8 @@ class _TimetablePageState extends State<TimetablePage> {
                                 );
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
-                                //Navigator.pop(context);
+                                controller.clear();
+                                Navigator.pop(context);
                               },
                             ),
                           ],
