@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mylearning/features/auth/auth.dart';
 import 'package:mylearning/util/navigation/tab_bar.dart';
 
 void main() {
