@@ -247,6 +247,7 @@ class _TimetablePageState extends State<TimetablePage> {
     );
   }
 
+  ///timepicker
   showTimePicker(BuildContext context) {
     showDialog(
         context: context,
@@ -279,6 +280,7 @@ class _TimetablePageState extends State<TimetablePage> {
         });
   }
 
+  ///datepicker
   showDatePicker(BuildContext context) {
     int selectedIndex = 0;
     int tempSlectedIndex = selectedIndex;
@@ -287,7 +289,7 @@ class _TimetablePageState extends State<TimetablePage> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Center(child: Text("Select a date")),
-            content: Container(
+            content: SizedBox(
               height: 120,
               child: ListWheelScrollView(
                 itemExtent: 30,
@@ -314,6 +316,7 @@ class _TimetablePageState extends State<TimetablePage> {
         });
   }
 
+  ///taskpicker
   showTaskPicker(BuildContext context) {
     List<String> taskColour = [
       "Important",
@@ -332,7 +335,7 @@ class _TimetablePageState extends State<TimetablePage> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Center(child: Text("Select a date")),
-            content: Container(
+            content: SizedBox(
               height: 120,
               child: ListWheelScrollView(
                 itemExtent: 30,
@@ -363,6 +366,7 @@ class _TimetablePageState extends State<TimetablePage> {
         });
   }
 
+  ///durationpicker
   showDurationPicker(BuildContext context) {
     List<String> duration = [
       "15 min",
@@ -380,7 +384,7 @@ class _TimetablePageState extends State<TimetablePage> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Center(child: Text("Select a date")),
-            content: Container(
+            content: SizedBox(
               height: 120,
               child: ListWheelScrollView(
                 itemExtent: 30,
@@ -431,7 +435,9 @@ class IconsContainer extends StatelessWidget {
           width: 125,
           height: 55,
           decoration: BoxDecoration(
-              color: Colors.red[100], borderRadius: BorderRadius.circular(10)),
+              border: Border.all(color: Colors.red, width: 2),
+              color: Colors.red[50],
+              borderRadius: BorderRadius.circular(10)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [Icon(icon), Text(title)],
