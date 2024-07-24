@@ -17,14 +17,17 @@ class TimetablePage extends StatefulWidget {
 class _TimetablePageState extends State<TimetablePage> {
   List<TimePlannerTask> tasks = [];
   DateTime _dateTime = DateTime.now();
-
+  TextEditingController controller = TextEditingController();
   Color? selectedTaskColor;
   String? selectedDayOfTheWeek;
   String? selectedDuration;
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: const Text("My Timetable"),
         centerTitle: true,
@@ -64,7 +67,6 @@ class _TimetablePageState extends State<TimetablePage> {
 
   ///Todo: the bottom sheet modal
   showBottomSheetModal(BuildContext context) {
-    TextEditingController controller = TextEditingController();
     String dayOfTheWeek = "Monday";
 
     ///todo: it starts at 123 and not 0123
@@ -87,6 +89,7 @@ class _TimetablePageState extends State<TimetablePage> {
       "1 hour": 60,
       "1 hour:30min": 90,
       "2 hours": 120,
+      "4 hours": 240,
       "whole day": 1050
     };
 
@@ -194,7 +197,8 @@ class _TimetablePageState extends State<TimetablePage> {
                                   tasks.add(
                                     TimePlannerTask(
                                       onTap: () {
-                                        showDetailOfTask(context);
+                                        showDetailOfTask(
+                                            _scaffoldKey.currentContext!);
                                       },
                                       color: selectedTaskColor,
                                       minutesDuration: timeMap[
@@ -236,9 +240,10 @@ class _TimetablePageState extends State<TimetablePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          ///todo the colour that is shown is the colour of the current state so you might want to change this
           backgroundColor: selectedTaskColor,
           title: const Text("Details of Task"),
-          content: const Text("We will edit this"),
+          content: Text(controller.text),
           actions: [
             TextButton(
               onPressed: () {
@@ -432,6 +437,7 @@ class _TimetablePageState extends State<TimetablePage> {
       "1 hour",
       "1 hour 30",
       "2 hours",
+      "4 hours",
       "whole day"
     ];
 
