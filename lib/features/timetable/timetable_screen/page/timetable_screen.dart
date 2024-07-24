@@ -118,7 +118,7 @@ class _TimetablePageState extends State<TimetablePage> {
           return Padding(
             padding: const EdgeInsets.only(top: 10, right: 30, left: 30),
             child: SizedBox(
-              height: 430,
+              height: 450,
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -130,20 +130,14 @@ class _TimetablePageState extends State<TimetablePage> {
                       ),
                     ),
                     const Center(
-                        child: Text(
-                      "Add a Task",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25),
-                    )),
-                    const SizedSpace(),
-
-                    ///Todo: maybe we will add the title it looks too much like that one
-                    // const Text(
-                    //   "Title",
-                    //   style: TextStyle(fontSize: 15),
-                    // ),
+                      child: Text(
+                        "Add a Task",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25),
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: LongTextFieldForm(
@@ -162,41 +156,47 @@ class _TimetablePageState extends State<TimetablePage> {
                     const SizedSpace(),
                     const Text("Choose a date & Time",
                         style: TextStyle(fontSize: 15)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        IconsContainer(
-                          onPressed: () {
-                            showDatePicker(context);
-                          },
-                          title: 'Date',
-                          icon: Icons.date_range,
-                        ),
-                        IconsContainer(
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          IconsContainer(
                             onPressed: () {
-                              showTimePicker(context);
+                              showDatePicker(context);
                             },
-                            title: "Time",
-                            icon: Icons.timelapse),
-                      ],
+                            title: 'Date',
+                            icon: Icons.date_range,
+                          ),
+                          IconsContainer(
+                              onPressed: () {
+                                showTimePicker(context);
+                              },
+                              title: "Time",
+                              icon: Icons.timelapse),
+                        ],
+                      ),
                     ),
                     const Text("Task Type & Duration"),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        IconsContainer(
-                            onPressed: () {
-                              showTaskPicker(context);
-                            },
-                            title: "Task Type",
-                            icon: Icons.task),
-                        IconsContainer(
-                            onPressed: () {
-                              showDurationPicker(context);
-                            },
-                            title: "Duration",
-                            icon: Icons.timer),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          IconsContainer(
+                              onPressed: () {
+                                showTaskPicker(context);
+                              },
+                              title: "Task Type",
+                              icon: Icons.task),
+                          IconsContainer(
+                              onPressed: () {
+                                showDurationPicker(context);
+                              },
+                              title: "Duration",
+                              icon: Icons.timer),
+                        ],
+                      ),
                     ),
                     const SizedSpace(),
                     Row(
