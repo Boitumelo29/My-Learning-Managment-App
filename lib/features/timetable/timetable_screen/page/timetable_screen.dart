@@ -100,19 +100,25 @@ class _TimetablePageState extends State<TimetablePage> {
           return Padding(
             padding: const EdgeInsets.only(top: 10, right: 30, left: 30),
             child: SizedBox(
-              height: 450,
+              height: 480,
               child: StatefulBuilder(
                 builder: (BuildContext context, StateSetter setState) {
                   return Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        const Center(
-                          child: Icon(
-                            Icons.drag_handle,
+                        Center(
+                            child: IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+
+                          ///todo: pick a more appropriate button here
+                          icon: const Icon(
+                            Icons.arrow_drop_down,
                             color: Colors.grey,
                           ),
-                        ),
+                        )),
                         const Center(
                           child: Text(
                             "Add a Task",
@@ -187,7 +193,20 @@ class _TimetablePageState extends State<TimetablePage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text("the details"),
+                            ///Todo: the details screen
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.circle,
+                                  color: selectedTaskColor,
+                                ),
+                                const SizedBox(width: 10,),
+                                Text(controller.text),
+                                const SizedBox(width: 10,),
+                                Text(selectedDuration ?? "")
+                              ],
+                            ),
+                            // const Text("the details"),
                             TextButton(
                               child: const Text(
                                 "Add",
@@ -245,6 +264,8 @@ class _TimetablePageState extends State<TimetablePage> {
           ///todo the colour that is shown is the colour of the current state so you might want to change this
           backgroundColor: selectedTaskColor,
           title: const Text("Details of Task"),
+
+          ///todo
           content: Text(controller.text),
           actions: [
             TextButton(
@@ -511,7 +532,7 @@ class IconsContainer extends StatelessWidget {
           height: 55,
           decoration: BoxDecoration(
               border: Border.all(color: Colors.red, width: 1),
-              color: Colors.red[30],
+              color: Colors.red[40],
               borderRadius: BorderRadius.circular(10)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
