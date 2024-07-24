@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                   prefixIcon: Icons.email_outlined,
                   focusNode: emailFocus,
                   validator: (value) {
-                    return Validation.emailValidation(value);
+                    // return Validation.emailValidation(value);
                   },
                   obsureText: false,
                   showSuffixIcon: false,
@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                   prefixIcon: Icons.password,
                   focusNode: passwordFocus,
                   validator: (value) {
-                    return Validation.passwordValidation(value);
+                    // return Validation.passwordValidation(value);
                   },
                   obsureText: true,
                   showSuffixIcon: true,
@@ -97,7 +97,6 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedSpace(),
                 LongButton(
                   onTap: () {
-                    widget.show;
                     emailFocus.unfocus();
                     passwordFocus.unfocus();
                     if (_formKey.currentState!.validate()) {
@@ -109,21 +108,21 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedSpace(
                   height: 8,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Text(Strings.doNotHaveAnAccount),
-                    GestureDetector(
-                      onTap: () {
-                        widget.show;
-                      },
-                      child: const Text(
-                        Strings.signUp,
+                TextButton(
+                  onPressed: widget.show,
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Don't have an account ? ",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      Text(
+                        "signup",
                         style: TextStyle(color: Colors.red),
                       ),
-                    )
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ))

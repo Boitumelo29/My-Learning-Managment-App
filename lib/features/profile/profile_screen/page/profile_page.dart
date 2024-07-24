@@ -48,6 +48,7 @@ class ProfilePage extends StatelessWidget {
     ];
 
     return AppBarScreen(
+      shouldBeCentered: false,
         shouldScroll: false,
         title: 'Profile',
         shouldHaveFloatingButton: false,

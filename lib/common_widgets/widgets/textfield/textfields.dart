@@ -76,7 +76,7 @@ class _LongTextFieldFormState extends State<LongTextFieldForm> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      // dont forget https://www.geeksforgeeks.org/how-to-hide-the-keyboard-when-user-tap-out-of-the-textfield-in-flutter/?ref=ml_lbp
+      /// Todo: dont forget https://www.geeksforgeeks.org/how-to-hide-the-keyboard-when-user-tap-out-of-the-textfield-in-flutter/?ref=ml_lbp
       focusNode: widget.focusNode,
       validator: widget.validator,
       onChanged: widget.onChanged,
@@ -100,11 +100,11 @@ class _LongTextFieldFormState extends State<LongTextFieldForm> {
         labelText: widget.labelText,
         errorBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.red),
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(20),
         ),
         border: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.red),
-            borderRadius: BorderRadius.circular(30)),
+            borderRadius: BorderRadius.circular(20)),
       ),
 
       keyboardType: TextInputType.emailAddress,

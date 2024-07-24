@@ -21,7 +21,8 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
   @override
   Widget build(BuildContext context) {
     return AppBarScreen(
-      shouldHaveFloatingButton: false,
+        shouldBeCentered: false,
+        shouldHaveFloatingButton: false,
         shouldScroll: true,
         title: "Upcoming Events",
         children: [
