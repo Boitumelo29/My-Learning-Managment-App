@@ -30,13 +30,16 @@ class _SignUpPageState extends State<SignUpPage> {
     return UserLayoutScreen(
       children: [
         const SizedSpace(),
-        const Text(Strings.myLearning),
+        const Text(
+          Strings.myLearning,
+          style: TextStyle(color: Colors.red, fontSize: 35),
+        ),
         const SizedSpace(),
         Center(
           child: Image.asset(
             "lib/assets/5.jpg",
-            width: 200,
-            height: 200,
+            width: 160,
+            height: 160,
           ),
         ),
         Form(
@@ -109,9 +112,21 @@ class _SignUpPageState extends State<SignUpPage> {
               },
             ),
             TextButton(
-              onPressed: widget.show,
-              child: const Text("Already have an account?"),
-            ),
+                onPressed: widget.show,
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      "Already have an account? ",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    Text(
+                      "login",
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ],
+                ),),
             LongButton(onTap: () {}, title: Strings.signUp),
           ],
         )),
