@@ -203,7 +203,10 @@ class _TimetablePageState extends State<TimetablePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TextButton(
-                          child: const Text("Add"),
+                          child: const Text(
+                            "Add",
+                            style: TextStyle(color: Colors.red),
+                          ),
                           onPressed: () {
                             setState(() {
                               tasks.add(
@@ -222,7 +225,8 @@ class _TimetablePageState extends State<TimetablePage> {
                           },
                         ),
                         TextButton(
-                          child: const Text("Dismiss"),
+                          child: Text("Dismiss",
+                              style: TextStyle(color: Colors.grey[700])),
                           onPressed: () {
                             Navigator.pop(context);
                           },
@@ -247,7 +251,7 @@ class _TimetablePageState extends State<TimetablePage> {
     );
   }
 
-  ///timepicker
+  ///timePicker
   showTimePicker(BuildContext context) {
     showDialog(
         context: context,
@@ -280,7 +284,7 @@ class _TimetablePageState extends State<TimetablePage> {
         });
   }
 
-  ///datepicker
+  ///datePicker
   showDatePicker(BuildContext context) {
     int selectedIndex = 0;
     int tempSlectedIndex = selectedIndex;
@@ -316,57 +320,77 @@ class _TimetablePageState extends State<TimetablePage> {
         });
   }
 
-  ///taskpicker
+  ///taskPicker
   showTaskPicker(BuildContext context) {
-    List<String> taskColour = [
+    List<String> tasks = [
       "Important",
       "Urgent",
       "Not Urgent",
     ];
-    List<Color?> colors = [
+    List<Color?> taskColors = [
       Colors.red,
       Colors.yellow,
       Colors.green,
     ];
 
     int selectedIndex = 0;
+
     showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Center(child: Text("Select a date")),
-            content: SizedBox(
-              height: 120,
-              child: ListWheelScrollView(
-                itemExtent: 30,
-                useMagnifier: true,
-                magnification: 1.5,
-                onSelectedItemChanged: (index) {
-                  setState(() {
-                    selectedIndex = index;
-                  });
-                },
-                children: taskColour
-                    .map((task) => Center(
-                            child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [const Icon(Icons.circle), Text(task)],
-                        )))
-                    .toList(),
-              ),
-            ),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Center(child: Text("Select a Task")),
+          content: SizedBox(
+            height: 120,
+            child: StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+                return ListWheelScrollView(
+                  itemExtent: 30,
+                  useMagnifier: true,
+                  magnification: 1.5,
+                  onSelectedItemChanged: (index) {
+                    setState(() {
+                      selectedIndex = index;
+                    });
                   },
-                  child: const Text("Okay"))
-            ],
-          );
-        });
+                  children: tasks
+                      .asMap()
+                      .map((index, task) => MapEntry(
+                            index,
+                            Center(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Icon(
+                                    Icons.circle,
+                                    color: taskColors[index],
+                                  ),
+                                  Text(task),
+                                ],
+                              ),
+                            ),
+                          ))
+                      .values
+                      .toList(),
+                );
+              },
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("Okay"),
+            )
+          ],
+        );
+      },
+    );
   }
 
-  ///durationpicker
+  ///durationPicker
   showDurationPicker(BuildContext context) {
     List<String> duration = [
       "15 min",
@@ -435,8 +459,8 @@ class IconsContainer extends StatelessWidget {
           width: 125,
           height: 55,
           decoration: BoxDecoration(
-              border: Border.all(color: Colors.red, width: 2),
-              color: Colors.red[50],
+              border: Border.all(color: Colors.red, width: 1),
+              color: Colors.red[20],
               borderRadius: BorderRadius.circular(10)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
