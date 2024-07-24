@@ -20,6 +20,7 @@ class _TimetablePageState extends State<TimetablePage> {
 
   Color? selectedTaskColor;
   String? selectedDayOfTheWeek;
+  String? selectedDuration;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +86,8 @@ class _TimetablePageState extends State<TimetablePage> {
       "45 min": 45,
       "1 hour": 60,
       "1 hour:30min": 90,
-      "2 hours": 120
+      "2 hours": 120,
+      "whole day": 1050
     };
 
     showModalBottomSheet(
@@ -179,10 +181,9 @@ class _TimetablePageState extends State<TimetablePage> {
                         ),
                         const SizedSpace(),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                                "Here I am going to add the details of the selected data"),
+                            const Text("the details"),
                             TextButton(
                               child: const Text(
                                 "Add",
@@ -192,8 +193,13 @@ class _TimetablePageState extends State<TimetablePage> {
                                 setState(() {
                                   tasks.add(
                                     TimePlannerTask(
+                                      onTap: () {
+                                        showDetailOfTask(context);
+                                      },
                                       color: selectedTaskColor,
-                                      minutesDuration: timeMap[firstTime]!,
+                                      minutesDuration: timeMap[
+                                              selectedDuration ?? firstTime] ??
+                                          30,
                                       dateTime: TimePlannerDateTime(
                                           day: dayMapping[
                                                   selectedDayOfTheWeek ??
@@ -206,6 +212,13 @@ class _TimetablePageState extends State<TimetablePage> {
                                     ),
                                   );
                                 });
+                                var snackBar = const SnackBar(
+                                  content: Text("Task Added"),
+                                  backgroundColor: Colors.red,
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                                //Navigator.pop(context);
                               },
                             ),
                           ],
@@ -216,6 +229,27 @@ class _TimetablePageState extends State<TimetablePage> {
             ),
           );
         });
+  }
+
+  void showDetailOfTask(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: selectedTaskColor,
+          title: const Text("Details of Task"),
+          content: const Text("We will edit this"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("Done"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   ///timePicker
@@ -398,7 +432,7 @@ class _TimetablePageState extends State<TimetablePage> {
       "1 hour",
       "1 hour 30",
       "2 hours",
-      // "Whole day"
+      "whole day"
     ];
 
     int selectedIndex = 0;
@@ -419,7 +453,9 @@ class _TimetablePageState extends State<TimetablePage> {
                       setState(() {
                         selectedIndex = index;
                       });
-                      parentSetStat(() {});
+                      parentSetStat(() {
+                        selectedDuration = duration[selectedIndex];
+                      });
                     },
                     children: duration
                         .map((task) => Center(
