@@ -17,15 +17,7 @@ class TimetablePage extends StatefulWidget {
 class _TimetablePageState extends State<TimetablePage> {
   List<TimePlannerTask> tasks = [];
   DateTime _dateTime = DateTime.now();
-  List<String> daysOfTheWeek = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
+
   Color? selectedTaskColor;
   String? selectedDayOfTheWeek;
 
@@ -74,6 +66,7 @@ class _TimetablePageState extends State<TimetablePage> {
     TextEditingController controller = TextEditingController();
     String dayOfTheWeek = "Monday";
 
+    ///todo: it starts at 123 and not 0123
     final Map<String, int> dayMapping = {
       "Monday": 0,
       "Tuesday": 1,
@@ -84,25 +77,7 @@ class _TimetablePageState extends State<TimetablePage> {
       "Sunday": 6,
     };
 
-    String mainColour = "Purple";
-
-    Map<String, Color> colorMap = {
-      "Purple": Colors.purple,
-      "Blue": Colors.blue,
-      "Green": Colors.green,
-      "Orange": Colors.orange,
-      "Lime": Colors.lime,
-    };
-
     String firstTime = "15 min";
-    var howLong = [
-      "15 min",
-      "30 min",
-      "45 min",
-      "1 hour",
-      "1 hour:30min",
-      "2 hours"
-    ];
 
     Map<String, int> timeMap = {
       "15 min": 15,
@@ -145,7 +120,7 @@ class _TimetablePageState extends State<TimetablePage> {
                         Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: LongTextFieldForm(
-                            onChanged: (value) {},
+                            obsureText: false,
                             hintText: 'Enter Task',
                             labelText: 'Enter task',
                             showSuffixIcon: false,
@@ -154,7 +129,7 @@ class _TimetablePageState extends State<TimetablePage> {
                             validator: (value) {
                               Validation.usernameValidation(value);
                             },
-                            obsureText: false,
+                            onChanged: (value) {},
                           ),
                         ),
                         const SizedSpace(),
@@ -195,7 +170,7 @@ class _TimetablePageState extends State<TimetablePage> {
                                   icon: Icons.task),
                               IconsContainer(
                                   onPressed: () {
-                                    showDurationPicker(context);
+                                    showDurationPicker(context, setState);
                                   },
                                   title: "Duration",
                                   icon: Icons.timer),
@@ -204,8 +179,10 @@ class _TimetablePageState extends State<TimetablePage> {
                         ),
                         const SizedSpace(),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
+                            const Text(
+                                "Here I am going to add the details of the selected data"),
                             TextButton(
                               child: const Text(
                                 "Add",
@@ -218,7 +195,10 @@ class _TimetablePageState extends State<TimetablePage> {
                                       color: selectedTaskColor,
                                       minutesDuration: timeMap[firstTime]!,
                                       dateTime: TimePlannerDateTime(
-                                          day: dayMapping[selectedDayOfTheWeek ?? dayOfTheWeek] ?? 2,
+                                          day: dayMapping[
+                                                  selectedDayOfTheWeek ??
+                                                      dayOfTheWeek] ??
+                                              2,
                                           //day: 0,
                                           hour: _dateTime.hour,
                                           minutes: _dateTime.minute),
@@ -228,13 +208,6 @@ class _TimetablePageState extends State<TimetablePage> {
                                 });
                               },
                             ),
-                            TextButton(
-                              child: Text("Dismiss",
-                                  style: TextStyle(color: Colors.grey[700])),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            )
                           ],
                         ),
                       ]);
@@ -243,18 +216,6 @@ class _TimetablePageState extends State<TimetablePage> {
             ),
           );
         });
-  }
-
-  Widget hourMin() {
-    return TimePickerSpinner(
-      spacing: 40,
-      minutesInterval: 15,
-      onTimeChange: (time) {
-        setState(() {
-          _dateTime = time;
-        });
-      },
-    );
   }
 
   ///timePicker
@@ -352,7 +313,6 @@ class _TimetablePageState extends State<TimetablePage> {
     );
   }
 
-
   ///taskPicker
   ///Todo: It does work but there is something wrong that needs you to comeback to it
   showTaskPicker(BuildContext context, StateSetter parentSetState) {
@@ -430,7 +390,7 @@ class _TimetablePageState extends State<TimetablePage> {
   }
 
   ///durationPicker
-  showDurationPicker(BuildContext context) {
+  showDurationPicker(BuildContext context, StateSetter parentSetStat) {
     List<String> duration = [
       "15 min",
       "30 min",
@@ -438,7 +398,7 @@ class _TimetablePageState extends State<TimetablePage> {
       "1 hour",
       "1 hour 30",
       "2 hours",
-      "Whole day"
+      // "Whole day"
     ];
 
     int selectedIndex = 0;
@@ -449,22 +409,27 @@ class _TimetablePageState extends State<TimetablePage> {
             title: const Center(child: Text("Select a date")),
             content: SizedBox(
               height: 120,
-              child: ListWheelScrollView(
-                itemExtent: 30,
-                useMagnifier: true,
-                magnification: 1.5,
-                onSelectedItemChanged: (index) {
-                  setState(() {
-                    selectedIndex = index;
-                  });
+              child: StatefulBuilder(
+                builder: (BuildContext context, StateSetter setState) {
+                  return ListWheelScrollView(
+                    itemExtent: 30,
+                    useMagnifier: true,
+                    magnification: 1.5,
+                    onSelectedItemChanged: (index) {
+                      setState(() {
+                        selectedIndex = index;
+                      });
+                      parentSetStat(() {});
+                    },
+                    children: duration
+                        .map((task) => Center(
+                                child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [Text(task)],
+                            )))
+                        .toList(),
+                  );
                 },
-                children: duration
-                    .map((task) => Center(
-                            child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [Text(task)],
-                        )))
-                    .toList(),
               ),
             ),
             actions: [
@@ -630,4 +595,16 @@ class IconsContainer extends StatelessWidget {
 //               )
 //             ],
 //           ));
+// }
+
+// Widget hourMin() {
+//   return TimePickerSpinner(
+//     spacing: 40,
+//     minutesInterval: 15,
+//     onTimeChange: (time) {
+//       setState(() {
+//         _dateTime = time;
+//       });
+//     },
+//   );
 // }
