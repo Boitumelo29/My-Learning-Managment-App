@@ -118,7 +118,7 @@ class _TimetablePageState extends State<TimetablePage> {
           return Padding(
             padding: const EdgeInsets.only(top: 10, right: 30, left: 30),
             child: SizedBox(
-              height: 470,
+              height: 430,
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,13 +126,12 @@ class _TimetablePageState extends State<TimetablePage> {
                     const Center(
                       child: Icon(
                         Icons.drag_handle,
-                        color: Colors.red,
+                        color: Colors.grey,
                       ),
                     ),
-                    const SizedSpace(),
                     const Center(
                         child: Text(
-                      "Add a Task to your Timetable",
+                      "Add a Task",
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
