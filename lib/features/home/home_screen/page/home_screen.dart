@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
+import 'package:mylearning/data/data_model/quote_of_the_day_data_model.dart';
 import 'package:mylearning/data/data_services/qoute_of_the_day_data_service.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,9 +13,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomePage> {
+  late Future<QOTDataModel> dataModel;
+  QOTDataService dataService = QOTDataService();
+
+  @override
+  void initState() {
+    super.initState();
+    dataModel = QOTDataService.fetchData(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    //QOTDataService.fetchData();
     return AppBarScreen(
       shouldBeCentered: true,
       shouldScroll: false,
@@ -26,14 +35,24 @@ class _HomeScreenState extends State<HomePage> {
           height: 100,
           width: 400,
           decoration: BoxDecoration(
-              color: Colors.red, borderRadius: BorderRadius.circular(20)),
-          child: const Center(
-              child: Column(
-            children: [
-              Icon(Icons.format_quote_sharp),
-              Text("The Quote of the day"),
-            ],
-          )),
+              border: Border.all(color: Colors.red, width: 0.7),
+              borderRadius: BorderRadius.circular(20)),
+          child: Center(
+              child: FutureBuilder<QOTDataModel>(
+                  future: dataModel,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(snapshot.data!.author),
+                          Text(snapshot.data!.body)
+                        ],
+                      );
+                    }
+                    return const CircularProgressIndicator();
+                  })),
         ),
         const Text("Upcoming events"),
         Container(
