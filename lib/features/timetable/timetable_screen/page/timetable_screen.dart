@@ -17,19 +17,17 @@ class TimetablePage extends StatefulWidget {
 class _TimetablePageState extends State<TimetablePage> {
   List<TimePlannerTask> tasks = [];
   DateTime _dateTime = DateTime.now();
-  List<String> daysOfTheWeek = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
+  TextEditingController controller = TextEditingController();
+  Color? selectedTaskColor;
+  String? selectedDayOfTheWeek;
+  String? selectedDuration;
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: const Text("My Timetable"),
         centerTitle: true,
@@ -38,9 +36,9 @@ class _TimetablePageState extends State<TimetablePage> {
         padding: const EdgeInsets.all(8.0),
         child: Center(
           child: TimePlanner(
-            startHour: 6,
+            startHour: 5,
             endHour: 23,
-            use24HourFormat: false,
+            use24HourFormat: true,
             setTimeOnAxis: false,
             headers: const [
               TimePlannerTitle(title: "Monday"),
@@ -69,9 +67,9 @@ class _TimetablePageState extends State<TimetablePage> {
 
   ///Todo: the bottom sheet modal
   showBottomSheetModal(BuildContext context) {
-    TextEditingController controller = TextEditingController();
     String dayOfTheWeek = "Monday";
 
+    ///todo: it starts at 123 and not 0123
     final Map<String, int> dayMapping = {
       "Monday": 0,
       "Tuesday": 1,
@@ -82,25 +80,7 @@ class _TimetablePageState extends State<TimetablePage> {
       "Sunday": 6,
     };
 
-    String mainColour = "Purple";
-
-    Map<String, Color> colorMap = {
-      "Purple": Colors.purple,
-      "Blue": Colors.blue,
-      "Green": Colors.green,
-      "Orange": Colors.orange,
-      "Lime": Colors.lime,
-    };
-
     String firstTime = "15 min";
-    var howLong = [
-      "15 min",
-      "30 min",
-      "45 min",
-      "1 hour",
-      "1 hour:30min",
-      "2 hours"
-    ];
 
     Map<String, int> timeMap = {
       "15 min": 15,
@@ -108,7 +88,9 @@ class _TimetablePageState extends State<TimetablePage> {
       "45 min": 45,
       "1 hour": 60,
       "1 hour:30min": 90,
-      "2 hours": 120
+      "2 hours": 120,
+      "4 hours": 240,
+      "whole day": 1050
     };
 
     showModalBottomSheet(
@@ -118,140 +100,193 @@ class _TimetablePageState extends State<TimetablePage> {
           return Padding(
             padding: const EdgeInsets.only(top: 10, right: 30, left: 30),
             child: SizedBox(
-              height: 470,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const Center(
-                      child: Icon(
-                        Icons.drag_handle,
-                        color: Colors.red,
-                      ),
-                    ),
-                    const SizedSpace(),
-                    const Center(
-                        child: Text(
-                      "Add a Task to your Timetable",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25),
-                    )),
-                    const SizedSpace(),
-
-                    ///Todo: maybe we will add the title it looks too much like that one
-                    // const Text(
-                    //   "Title",
-                    //   style: TextStyle(fontSize: 15),
-                    // ),
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: LongTextFieldForm(
-                        onChanged: (value) {},
-                        hintText: 'Enter Task',
-                        labelText: 'Enter task',
-                        showSuffixIcon: false,
-                        showPrefixIcon: true,
-                        prefixIcon: Icons.pending_actions,
-                        validator: (value) {
-                          Validation.usernameValidation(value);
-                        },
-                        obsureText: false,
-                      ),
-                    ),
-                    const SizedSpace(),
-                    const Text("Choose a date & Time",
-                        style: TextStyle(fontSize: 15)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        IconsContainer(
-                          onPressed: () {
-                            showDatePicker(context);
-                          },
-                          title: 'Date',
-                          icon: Icons.date_range,
-                        ),
-                        IconsContainer(
-                            onPressed: () {
-                              showTimePicker(context);
-                            },
-                            title: "Time",
-                            icon: Icons.timelapse),
-                      ],
-                    ),
-                    const Text("Task Type & Duration"),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        IconsContainer(
-                            onPressed: () {
-                              showTaskPicker(context);
-                            },
-                            title: "Task Type",
-                            icon: Icons.task),
-                        IconsContainer(
-                            onPressed: () {
-                              showDurationPicker(context);
-                            },
-                            title: "Duration",
-                            icon: Icons.timer),
-                      ],
-                    ),
-                    const SizedSpace(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButton(
-                          child: const Text("Add"),
-                          onPressed: () {
-                            setState(() {
-                              tasks.add(
-                                TimePlannerTask(
-                                  color: colorMap[mainColour]!,
-                                  minutesDuration: timeMap[firstTime]!,
-                                  dateTime: TimePlannerDateTime(
-                                      day: dayMapping[dayOfTheWeek] ?? 2,
-                                      //day: 0,
-                                      hour: _dateTime.hour,
-                                      minutes: _dateTime.minute),
-                                  child: Text(controller.text),
-                                ),
-                              );
-                            });
-                          },
-                        ),
-                        TextButton(
-                          child: const Text("Dismiss"),
+              height: 480,
+              child: StatefulBuilder(
+                builder: (BuildContext context, StateSetter setState) {
+                  return Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Center(
+                            child: IconButton(
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                        )
-                      ],
-                    ),
-                  ]),
+
+                          ///todo: pick a more appropriate button here
+                          icon: const Icon(
+                            Icons.arrow_drop_down,
+                            color: Colors.grey,
+                          ),
+                        )),
+                        const Center(
+                          child: Text(
+                            "Add a Task",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: LongTextFieldForm(
+                            controller: controller,
+                            obsureText: false,
+                            hintText: 'Enter Task',
+                            labelText: 'Enter task',
+                            showSuffixIcon: false,
+                            showPrefixIcon: true,
+                            prefixIcon: Icons.pending_actions,
+                            validator: (value) {
+                              Validation.usernameValidation(value);
+                            },
+                            onChanged: (value) {},
+                          ),
+                        ),
+                        const SizedSpace(),
+                        const Text("Choose a date & Time",
+                            style: TextStyle(fontSize: 15)),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              IconsContainer(
+                                onPressed: () {
+                                  showDatePicker(context, setState);
+                                },
+                                title: 'Date',
+                                icon: Icons.date_range,
+                              ),
+                              IconsContainer(
+                                  onPressed: () {
+                                    showTimePicker(context);
+                                  },
+                                  title: "Time",
+                                  icon: Icons.timelapse),
+                            ],
+                          ),
+                        ),
+                        const Text("Task Type & Duration"),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              IconsContainer(
+                                  onPressed: () {
+                                    showTaskPicker(context, setState);
+                                  },
+                                  title: "Task Type",
+                                  icon: Icons.task),
+                              IconsContainer(
+                                  onPressed: () {
+                                    showDurationPicker(context, setState);
+                                  },
+                                  title: "Duration",
+                                  icon: Icons.timer),
+                            ],
+                          ),
+                        ),
+                        const SizedSpace(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ///Todo: the details screen
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.circle,
+                                  color: selectedTaskColor,
+                                ),
+                                const SizedBox(width: 10,),
+                                Text(controller.text),
+                                const SizedBox(width: 10,),
+                                Text(selectedDuration ?? "")
+                              ],
+                            ),
+                            // const Text("the details"),
+                            TextButton(
+                              child: const Text(
+                                "Add",
+                                style: TextStyle(color: Colors.red),
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  tasks.add(
+                                    TimePlannerTask(
+                                      onTap: () {
+                                        showDetailOfTask(
+                                            _scaffoldKey.currentContext!);
+                                      },
+                                      color: selectedTaskColor,
+                                      minutesDuration: timeMap[
+                                              selectedDuration ?? firstTime] ??
+                                          30,
+                                      dateTime: TimePlannerDateTime(
+                                          day: dayMapping[
+                                                  selectedDayOfTheWeek ??
+                                                      dayOfTheWeek] ??
+                                              2,
+                                          //day: 0,
+                                          hour: _dateTime.hour,
+                                          minutes: _dateTime.minute),
+                                      child: Text(controller.text),
+                                    ),
+                                  );
+                                });
+                                var snackBar = const SnackBar(
+                                  content: Text("Task Added"),
+                                  backgroundColor: Colors.red,
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                                controller.clear();
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        ),
+                      ]);
+                },
+              ),
             ),
           );
         });
   }
 
-  Widget hourMin() {
-    return TimePickerSpinner(
-      spacing: 40,
-      minutesInterval: 15,
-      onTimeChange: (time) {
-        setState(() {
-          _dateTime = time;
-        });
+  void showDetailOfTask(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          ///todo the colour that is shown is the colour of the current state so you might want to change this
+          backgroundColor: selectedTaskColor,
+          title: const Text("Details of Task"),
+
+          ///todo
+          content: Text(controller.text),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("Done"),
+            ),
+          ],
+        );
       },
     );
   }
 
+  ///timePicker
   showTimePicker(BuildContext context) {
     showDialog(
         context: context,
-        builder: (BuildContext context) {
+        builder: (
+          BuildContext context,
+        ) {
           return AlertDialog(
             title: const Text("select a time"),
             content: TimePickerSpinner(
@@ -274,97 +309,150 @@ class _TimetablePageState extends State<TimetablePage> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text("Done"))
+                  child: const Text(
+                    "Done",
+                    style: TextStyle(color: Colors.red),
+                  ))
             ],
           );
         });
   }
 
-  showDatePicker(BuildContext context) {
+  ///datePicker
+  void showDatePicker(BuildContext context, StateSetter parentSetState) {
+    List<String> daysOfTheWeek = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ];
     int selectedIndex = 0;
-    int tempSlectedIndex = selectedIndex;
+
     showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Center(child: Text("Select a date")),
-            content: Container(
-              height: 120,
-              child: ListWheelScrollView(
-                itemExtent: 30,
-                useMagnifier: true,
-                magnification: 1.5,
-                onSelectedItemChanged: (index) {
-                  setState(() {
-                    tempSlectedIndex = index;
-                  });
-                },
-                children: daysOfTheWeek
-                    .map((day) => Center(child: Text(day)))
-                    .toList(),
-              ),
-            ),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Center(child: Text("Select a date")),
+          content: SizedBox(
+            height: 120,
+            child: StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+                return ListWheelScrollView(
+                  itemExtent: 30,
+                  useMagnifier: true,
+                  magnification: 1.5,
+                  onSelectedItemChanged: (index) {
+                    setState(() {
+                      selectedIndex = index;
+                    });
+                    parentSetState(() {
+                      selectedDayOfTheWeek = daysOfTheWeek[selectedIndex];
+                    });
                   },
-                  child: const Text("Okay"))
-            ],
-          );
-        });
+                  children: daysOfTheWeek
+                      .map((day) => Center(child: Text(day)))
+                      .toList(),
+                );
+              },
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text(
+                "Done",
+                style: TextStyle(color: Colors.red),
+              ),
+            )
+          ],
+        );
+      },
+    );
   }
 
-  showTaskPicker(BuildContext context) {
-    List<String> taskColour = [
+  ///taskPicker
+  ///Todo: It does work but there is something wrong that needs you to comeback to it
+  showTaskPicker(BuildContext context, StateSetter parentSetState) {
+    List<String> tasks = [
       "Important",
       "Urgent",
       "Not Urgent",
     ];
-    List<Color?> colors = [
+    List<Color?> taskColors = [
       Colors.red,
       Colors.yellow,
       Colors.green,
     ];
 
     int selectedIndex = 0;
+
     showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Center(child: Text("Select a date")),
-            content: Container(
-              height: 120,
-              child: ListWheelScrollView(
-                itemExtent: 30,
-                useMagnifier: true,
-                magnification: 1.5,
-                onSelectedItemChanged: (index) {
-                  setState(() {
-                    selectedIndex = index;
-                  });
-                },
-                children: taskColour
-                    .map((task) => Center(
-                            child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [const Icon(Icons.circle), Text(task)],
-                        )))
-                    .toList(),
-              ),
-            ),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Center(child: Text("Select a Task")),
+          content: SizedBox(
+            height: 120,
+            child: StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+                return ListWheelScrollView(
+                  itemExtent: 35,
+                  useMagnifier: true,
+                  magnification: 1.2,
+                  onSelectedItemChanged: (index) {
+                    setState(() {
+                      selectedIndex = index;
+                    });
+                    parentSetState(() {
+                      selectedTaskColor = taskColors[selectedIndex]!;
+                    });
                   },
-                  child: const Text("Okay"))
-            ],
-          );
-        });
+                  children: tasks
+                      .asMap()
+                      .map((index, task) => MapEntry(
+                            index,
+                            Center(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Icon(
+                                    Icons.circle,
+                                    color: taskColors[index],
+                                  ),
+                                  Text(task),
+                                ],
+                              ),
+                            ),
+                          ))
+                      .values
+                      .toList(),
+                );
+              },
+            ),
+          ),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  "Done",
+                  style: TextStyle(color: Colors.red),
+                ))
+          ],
+        );
+      },
+    );
   }
 
-  showDurationPicker(BuildContext context) {
+  ///durationPicker
+  showDurationPicker(BuildContext context, StateSetter parentSetStat) {
     List<String> duration = [
       "15 min",
       "30 min",
@@ -372,7 +460,8 @@ class _TimetablePageState extends State<TimetablePage> {
       "1 hour",
       "1 hour 30",
       "2 hours",
-      "Whole day"
+      "4 hours",
+      "whole day"
     ];
 
     int selectedIndex = 0;
@@ -381,24 +470,31 @@ class _TimetablePageState extends State<TimetablePage> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Center(child: Text("Select a date")),
-            content: Container(
+            content: SizedBox(
               height: 120,
-              child: ListWheelScrollView(
-                itemExtent: 30,
-                useMagnifier: true,
-                magnification: 1.5,
-                onSelectedItemChanged: (index) {
-                  setState(() {
-                    selectedIndex = index;
-                  });
+              child: StatefulBuilder(
+                builder: (BuildContext context, StateSetter setState) {
+                  return ListWheelScrollView(
+                    itemExtent: 30,
+                    useMagnifier: true,
+                    magnification: 1.5,
+                    onSelectedItemChanged: (index) {
+                      setState(() {
+                        selectedIndex = index;
+                      });
+                      parentSetStat(() {
+                        selectedDuration = duration[selectedIndex];
+                      });
+                    },
+                    children: duration
+                        .map((task) => Center(
+                                child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [Text(task)],
+                            )))
+                        .toList(),
+                  );
                 },
-                children: duration
-                    .map((task) => Center(
-                            child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [Text(task)],
-                        )))
-                    .toList(),
               ),
             ),
             actions: [
@@ -406,7 +502,10 @@ class _TimetablePageState extends State<TimetablePage> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text("Okay"))
+                  child: const Text(
+                    "Done",
+                    style: TextStyle(color: Colors.red),
+                  ))
             ],
           );
         });
@@ -432,7 +531,9 @@ class IconsContainer extends StatelessWidget {
           width: 125,
           height: 55,
           decoration: BoxDecoration(
-              color: Colors.red[100], borderRadius: BorderRadius.circular(10)),
+              border: Border.all(color: Colors.red, width: 1),
+              color: Colors.red[40],
+              borderRadius: BorderRadius.circular(10)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [Icon(icon), Text(title)],
@@ -559,4 +660,16 @@ class IconsContainer extends StatelessWidget {
 //               )
 //             ],
 //           ));
+// }
+
+// Widget hourMin() {
+//   return TimePickerSpinner(
+//     spacing: 40,
+//     minutesInterval: 15,
+//     onTimeChange: (time) {
+//       setState(() {
+//         _dateTime = time;
+//       });
+//     },
+//   );
 // }
