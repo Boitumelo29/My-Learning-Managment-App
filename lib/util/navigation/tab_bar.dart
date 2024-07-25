@@ -4,6 +4,7 @@ import 'package:mylearning/features/notes/presentation/screen/notes_screen.dart'
 import 'package:mylearning/features/profile/profile_screen/page/profile_page.dart';
 import 'package:mylearning/features/timetable/timetable_screen/page/timetable_screen.dart';
 import 'package:mylearning/features/upcoming_events/upcoming_event_screen/pages/upcoming_screen.dart';
+import 'package:provider/provider.dart';
 
 class TabBarScreen extends StatefulWidget {
   final bool isDarkMode;
@@ -33,7 +34,9 @@ class _TabBarScreenState extends State<TabBarScreen> {
           children: [
             const HomePage(),
             const TimetablePage(),
-            const NotesScreen(),
+            ChangeNotifierProvider(
+                create: (context) => NoteProvider(),
+                child:  NotesScreen()),
             const UpcomingEvents(),
             ProfilePage(
                 isDarkMode: widget.isDarkMode, toggleTheme: widget.toggleTheme)

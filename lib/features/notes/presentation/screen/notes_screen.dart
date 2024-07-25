@@ -15,14 +15,40 @@ class _NotesScreenState extends State<NotesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return AppBarScreen(
-      shouldScroll: true,
-      title: "My Notes",
-      shouldHaveFloatingButton: true,
-      shouldBeCentered: true,
-      icon: Icons.add,
-      floatingActionButton: () => _showInputAlert(context),
-      children: [],
+    // return AppBarScreen(
+    //   shouldScroll: true,
+    //   title: "My Notes",
+    //   shouldHaveFloatingButton: true,
+    //   shouldBeCentered: false,
+    //   icon: Icons.add,
+    //   floatingActionButton: () => _showInputAlert(context),
+    //   children: [
+    //     Expanded(
+    //       child: Consumer<NoteProvider>(
+    //         builder: (context, noteProvider, child) {
+    //           return ListView.builder(
+    //             itemCount: noteProvider.notes.length,
+    //             itemBuilder: (context, index) {
+    //               return NotesCard(note: noteProvider.notes[index]);
+    //             },
+    //           );
+    //         },
+    //       ),
+    //     )
+    //   ],
+    // );
+    return Scaffold(
+      body: Consumer<NoteProvider>(
+        builder: (context, noteProvider, child) {
+          return ListView.builder(
+            itemCount: noteProvider.notes.length,
+            itemBuilder: (context, index) {
+              return NotesCard(note: noteProvider.notes[index]);
+            },
+          );
+        },
+      ),
+      floatingActionButton: _showInputAlert(context),
     );
   }
 
@@ -53,8 +79,8 @@ class _NotesScreenState extends State<NotesScreen> {
                       TextButton(
                           onPressed: () {
                             if (controller.text.isNotEmpty) {
-                              ///Todo come back an finish
-                              // Provider.of(context, listen: false).addNotes(Note(title: controller.text));
+                              Provider.of(context, listen: false)
+                                  .addNotes(Note(title: controller.text));
                               controller.clear();
                             }
                           },
@@ -77,5 +103,30 @@ class Note {
   Note({required this.title, this.description, this.iconData});
 }
 
+class NoteProvider with ChangeNotifier {
+  List<Note> _notes = [];
 
-// class
+  List<Note> get notes => _notes;
+
+  void addNotes(Note note) {
+    _notes.add(note);
+    notifyListeners();
+  }
+}
+
+class NotesCard extends StatelessWidget {
+  final Note note;
+
+  const NotesCard({super.key, required this.note});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        title: Text(note.title),
+        subtitle: Text(note.description ?? ""),
+        trailing: Icon(note.iconData ?? Icons.abc),
+      ),
+    );
+  }
+}
