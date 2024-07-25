@@ -46,6 +46,7 @@ class LongTextFieldForm extends StatefulWidget {
   final dynamic validator;
   final FocusNode? focusNode;
   final Function(String) onChanged;
+  final bool isRed;
 
   const LongTextFieldForm(
       {super.key,
@@ -58,7 +59,8 @@ class LongTextFieldForm extends StatefulWidget {
       required this.showPrefixIcon,
       this.prefixIcon,
       required this.validator,
-      required this.obsureText});
+      required this.obsureText,
+      required this.isRed});
 
   @override
   State<LongTextFieldForm> createState() => _LongTextFieldFormState();
@@ -83,6 +85,17 @@ class _LongTextFieldFormState extends State<LongTextFieldForm> {
       obscureText: widget.obsureText ? passwordVisible : false,
       controller: widget.controller,
       decoration: InputDecoration(
+        enabledBorder: widget.isRed
+            ? OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: const BorderSide(
+                  color: Colors.red,
+                  width: 0.7,
+                ),
+              )
+            : OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: const BorderSide(color: Colors.grey, width: 0.7)),
         prefixIcon: widget.showPrefixIcon ? Icon(widget.prefixIcon) : null,
         suffixIcon: widget.showSuffixIcon
             ? IconButton(

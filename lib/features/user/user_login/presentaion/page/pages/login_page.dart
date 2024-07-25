@@ -49,6 +49,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               children: <Widget>[
                 LongTextFieldForm(
+                  isRed: false,
                   showPrefixIcon: true,
                   prefixIcon: Icons.email_outlined,
                   focusNode: emailFocus,
@@ -66,6 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 10,
                 ),
                 LongTextFieldForm(
+                  isRed: false,
                   showPrefixIcon: true,
                   prefixIcon: Icons.password,
                   focusNode: passwordFocus,

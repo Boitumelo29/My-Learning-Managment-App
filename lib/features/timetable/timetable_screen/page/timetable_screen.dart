@@ -115,7 +115,7 @@ class _TimetablePageState extends State<TimetablePage> {
 
                           ///todo: pick a more appropriate button here
                           icon: const Icon(
-                            Icons.arrow_drop_down,
+                            Icons.drag_handle,
                             color: Colors.grey,
                           ),
                         )),
@@ -131,6 +131,7 @@ class _TimetablePageState extends State<TimetablePage> {
                         Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: LongTextFieldForm(
+                            isRed: true,
                             controller: controller,
                             obsureText: false,
                             hintText: 'Enter Task',
@@ -200,9 +201,13 @@ class _TimetablePageState extends State<TimetablePage> {
                                   Icons.circle,
                                   color: selectedTaskColor,
                                 ),
-                                const SizedBox(width: 10,),
+                                const SizedBox(
+                                  width: 10,
+                                ),
                                 Text(controller.text),
-                                const SizedBox(width: 10,),
+                                const SizedBox(
+                                  width: 10,
+                                ),
                                 Text(selectedDuration ?? "")
                               ],
                             ),

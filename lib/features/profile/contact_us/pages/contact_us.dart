@@ -25,6 +25,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         Text("Get in touch"),
         Text("subtext"),
         LongTextFieldForm(
+          isRed: false,
             onChanged: (value) {},
             hintText: "number",
             labelText: "number",
@@ -35,6 +36,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
               Validation.passwordValidation(value);
             },
             obsureText: kFlutterMemoryAllocationsEnabled), LongTextFieldForm(
+          isRed: false,
             onChanged: (value) {},
             hintText: "email",
             labelText: "email",
