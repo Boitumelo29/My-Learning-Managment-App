@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomePage> {
       children: [
         const Text("Hello UserName, welcome back!"),
         Container(
-          height: 100,
+          height: 150,
           width: 400,
           decoration: BoxDecoration(
               border: Border.all(color: Colors.red, width: 0.7),
@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomePage> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
@@ -51,11 +51,16 @@ class _HomeScreenState extends State<HomePage> {
                         style: const TextStyle(
                             color: Colors.black, fontWeight: FontWeight.bold),
                       ),
-                      Text(
-                        snapshot.data!.body,
-                        style:
-                            const TextStyle(fontSize: 10, color: Colors.grey),
-                      )
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Icon(Icons.format_quote_sharp),
+                            Text(
+                              snapshot.data!.body,
+                              style: const TextStyle(
+                                  fontSize: 10, color: Colors.grey),
+                            ),
+                          ]),
                     ],
                   );
                 }
