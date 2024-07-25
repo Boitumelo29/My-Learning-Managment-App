@@ -38,21 +38,31 @@ class _HomeScreenState extends State<HomePage> {
               border: Border.all(color: Colors.red, width: 0.7),
               borderRadius: BorderRadius.circular(20)),
           child: Center(
-              child: FutureBuilder<QOTDataModel>(
-                  future: dataModel,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(snapshot.data!.author),
-                          Text(snapshot.data!.body)
-                        ],
-                      );
-                    }
-                    return const CircularProgressIndicator();
-                  })),
+            child: FutureBuilder<QOTDataModel>(
+              future: dataModel,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        snapshot.data!.author,
+                        style: const TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        snapshot.data!.body,
+                        style:
+                            const TextStyle(fontSize: 10, color: Colors.grey),
+                      )
+                    ],
+                  );
+                }
+                return const CircularProgressIndicator();
+              },
+            ),
+          ),
         ),
         const Text("Upcoming events"),
         Container(
