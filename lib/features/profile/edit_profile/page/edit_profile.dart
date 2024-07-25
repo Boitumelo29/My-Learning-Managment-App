@@ -64,6 +64,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ),
           const SizedSpace(),
           LongTextFieldForm(
+            isRed: false,
             hintText: Strings.username,
             labelText: Strings.username,
             showPrefixIcon: true,
@@ -74,6 +75,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ),
           const SizedSpace(),
           LongTextFieldForm(
+            isRed: false,
             hintText: Strings.username,
             labelText: Strings.username,
             showPrefixIcon: true,

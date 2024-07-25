@@ -131,6 +131,7 @@ class _TimetablePageState extends State<TimetablePage> {
                         Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: LongTextFieldForm(
+                            isRed: false,
                             controller: controller,
                             obsureText: false,
                             hintText: 'Enter Task',

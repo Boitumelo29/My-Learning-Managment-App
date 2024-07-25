@@ -46,6 +46,7 @@ class _SignUpPageState extends State<SignUpPage> {
             child: Column(
           children: <Widget>[
             LongTextFieldForm(
+              isRed: false,
               controller: username,
               focusNode: username_f,
               hintText: Strings.username,
@@ -63,6 +64,7 @@ class _SignUpPageState extends State<SignUpPage> {
               height: 10,
             ),
             LongTextFieldForm(
+              isRed: false,
               controller: email,
               focusNode: email_f,
               hintText: Strings.email,
@@ -80,6 +82,7 @@ class _SignUpPageState extends State<SignUpPage> {
               height: 10,
             ),
             LongTextFieldForm(
+              isRed: false,
               controller: password,
               focusNode: password_f,
               hintText: Strings.password,
@@ -97,6 +100,7 @@ class _SignUpPageState extends State<SignUpPage> {
               height: 10,
             ),
             LongTextFieldForm(
+              isRed: false,
               controller: passwordConfirm,
               focusNode: passwordConfirm_f,
               hintText: Strings.confirmPassword,
