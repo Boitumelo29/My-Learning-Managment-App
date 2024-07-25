@@ -13,3 +13,5 @@ class QOTDataModel {
         body: quoteJson['body']);
   }
 }
+
+
