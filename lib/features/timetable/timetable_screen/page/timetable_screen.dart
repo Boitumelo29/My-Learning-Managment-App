@@ -131,7 +131,7 @@ class _TimetablePageState extends State<TimetablePage> {
                         Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: LongTextFieldForm(
-                            isRed: false,
+                            isRed: true,
                             controller: controller,
                             obsureText: false,
                             hintText: 'Enter Task',
@@ -201,9 +201,13 @@ class _TimetablePageState extends State<TimetablePage> {
                                   Icons.circle,
                                   color: selectedTaskColor,
                                 ),
-                                const SizedBox(width: 10,),
+                                const SizedBox(
+                                  width: 10,
+                                ),
                                 Text(controller.text),
-                                const SizedBox(width: 10,),
+                                const SizedBox(
+                                  width: 10,
+                                ),
                                 Text(selectedDuration ?? "")
                               ],
                             ),

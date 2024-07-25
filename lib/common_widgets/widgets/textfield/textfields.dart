@@ -86,10 +86,16 @@ class _LongTextFieldFormState extends State<LongTextFieldForm> {
       controller: widget.controller,
       decoration: InputDecoration(
         enabledBorder: widget.isRed
-            ? const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.red, width: 0.7))
-            : const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey, width: 0.7)),
+            ? OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: const BorderSide(
+                  color: Colors.red,
+                  width: 0.7,
+                ),
+              )
+            : OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: const BorderSide(color: Colors.grey, width: 0.7)),
         prefixIcon: widget.showPrefixIcon ? Icon(widget.prefixIcon) : null,
         suffixIcon: widget.showSuffixIcon
             ? IconButton(
