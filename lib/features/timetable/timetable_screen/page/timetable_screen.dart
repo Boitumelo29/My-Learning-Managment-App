@@ -115,7 +115,7 @@ class _TimetablePageState extends State<TimetablePage> {
 
                           ///todo: pick a more appropriate button here
                           icon: const Icon(
-                            Icons.arrow_drop_down,
+                            Icons.drag_handle,
                             color: Colors.grey,
                           ),
                         )),
