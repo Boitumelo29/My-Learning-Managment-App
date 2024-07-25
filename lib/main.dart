@@ -20,7 +20,12 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       // theme: isDarkMode ? ThemeData.dark() : ThemeData.light(),
       themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
-      theme: ThemeData(primarySwatch: Colors.red, brightness: Brightness.light),
+      theme: ThemeData(
+          scaffoldBackgroundColor: Colors.grey[50],
+          primaryColor: Colors.red,
+          primaryColorLight: Colors.red,
+          primaryColorDark: Colors.red[900]),
+      //theme: ThemeData(primarySwatch: Colors.red, brightness: Brightness.light),
       darkTheme:
           ThemeData(primarySwatch: Colors.red, brightness: Brightness.dark),
       debugShowCheckedModeBanner: false,
