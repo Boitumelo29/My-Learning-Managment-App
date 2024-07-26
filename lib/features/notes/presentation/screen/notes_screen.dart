@@ -38,60 +38,83 @@ class _NotesScreenState extends State<NotesScreen> {
     //   ],
     // );
     return Scaffold(
-      body: Consumer<NoteProvider>(
-        builder: (context, noteProvider, child) {
-          return ListView.builder(
-            itemCount: noteProvider.notes.length,
-            itemBuilder: (context, index) {
-              return NotesCard(note: noteProvider.notes[index]);
-            },
-          );
-        },
+      body: ChangeNotifierProvider<NoteProvider>(
+        create: (context) => NoteProvider(),
+        child: Consumer<NoteProvider>(
+          builder: (context, noteProvider, child) {
+            return ListView.builder(
+              itemCount: noteProvider.notes.length,
+              itemBuilder: (context, index) {
+                return NotesCard(note: noteProvider.notes[index]);
+              },
+            );
+          },
+        ),
       ),
-      floatingActionButton: _showInputAlert(context),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _showInputAlert(context),
+        tooltip: "press",
+        child: const Icon(Icons.add),
+      ),
     );
   }
 
   _showInputAlert(BuildContext context) {
     return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Enter Notes"),
-            content: SizedBox(
-              height: 200,
-              width: 300,
-              child: Column(
-                children: [
-                  LongTextFieldForm(
-                      controller: controller,
-                      onChanged: (value) {},
-                      hintText: "Add task",
-                      labelText: "Add Task",
-                      showSuffixIcon: false,
-                      showPrefixIcon: true,
-                      prefixIcon: Icons.task,
-                      validator: (value) {},
-                      obsureText: false,
-                      isRed: true),
-                  Row(
-                    children: [
-                      TextButton(
-                          onPressed: () {
-                            if (controller.text.isNotEmpty) {
-                              Provider.of(context, listen: false)
-                                  .addNotes(Note(title: controller.text));
-                              controller.clear();
-                            }
-                          },
-                          child: const Text("Add"))
-                    ],
-                  )
-                ],
-              ),
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Enter Notes"),
+          content: SizedBox(
+            height: 200,
+            width: 300,
+            child: Column(
+              children: [
+                LongTextFieldForm(
+                    controller: controller,
+                    onChanged: (value) {},
+                    hintText: "Add task",
+                    labelText: "Add Task",
+                    showSuffixIcon: false,
+                    showPrefixIcon: true,
+                    prefixIcon: Icons.task,
+                    validator: (value) {},
+                    obsureText: false,
+                    isRed: true),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text("Dismiss")),
+                    TextButton(
+                      onPressed: () {
+                        if (controller.text.isNotEmpty) {
+                          Provider.of<NoteProvider>(context, listen: false)
+                              .addNotes(Note(title: controller.text));
+                          controller.clear();
+                          var snackBar = const SnackBar(
+                            content: Text("Note Added"),
+                            backgroundColor: Colors.red,
+                          );
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(snackBar);
+                          controller.clear();
+                          Navigator.pop(context);
+                        }
+                      },
+                      child: const Text("Add"),
+                    ),
+                  ],
+                )
+              ],
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }
 
