@@ -48,14 +48,16 @@ class _NotesScreenState extends State<NotesScreen> {
         afterClose: () {},
         children: [
           FloatingActionButton.small(
+            backgroundColor: Colors.red,
             heroTag: null,
-            child: const Icon(Icons.draw),
+            child: const Icon(Icons.task),
             onPressed: () => _showInputAlert(context),
           ),
           FloatingActionButton.small(
-              heroTag: null, child: const Icon(Icons.add), onPressed: () {}),
-          FloatingActionButton.small(
-              heroTag: null, child: const Icon(Icons.chat), onPressed: () {}),
+              backgroundColor: Colors.red,
+              heroTag: null,
+              child: const Icon(Icons.draw),
+              onPressed: () {}),
         ],
       ),
     );
