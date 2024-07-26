@@ -37,15 +37,15 @@ class _NotesScreenState extends State<NotesScreen> {
       ),
       floatingActionButtonLocation: ExpandableFab.location,
       floatingActionButton: ExpandableFab(
-        distance: 30,
+        distance: 50,
         type: ExpandableFabType.up,
         key: _key,
         overlayStyle: ExpandableFabOverlayStyle(
             color: Colors.red.withOpacity(0.5), blur: 10),
         onOpen: () {},
-        afterClose: () {},
-        onClose: () {},
         afterOpen: () {},
+        onClose: () {},
+        afterClose: () {},
         children: [
           FloatingActionButton.small(
             heroTag: null,
