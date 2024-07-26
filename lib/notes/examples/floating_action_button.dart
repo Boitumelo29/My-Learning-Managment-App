@@ -5,7 +5,7 @@ void main() {
   runApp(const MyApp());
 }
 
-final scaffoldKey = GlobalKey<ScaffoldMessengerState>();
+//final scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -18,45 +18,45 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         colorSchemeSeed: Colors.blue,
       ),
-      scaffoldMessengerKey: scaffoldKey,
+      //scaffoldMessengerKey: scaffoldKey,
       home: const FirstPage(),
     );
   }
 }
 
-class CounterWidget extends StatelessWidget {
-  final _counter = ValueNotifier(0);
-
-  CounterWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          const Text(
-            'You have pushed the button this many times:',
-          ),
-          ValueListenableBuilder(
-            valueListenable: _counter,
-            builder: (context, counter, _) {
-              return Text(
-                '$counter',
-                style: Theme.of(context).textTheme.displayMedium,
-              );
-            },
-          ),
-          ElevatedButton.icon(
-            icon: const Icon(Icons.add),
-            label: const Text('add'),
-            onPressed: () => _counter.value++,
-          ),
-        ],
-      ),
-    );
-  }
-}
+// class CounterWidget extends StatelessWidget {
+//   final _counter = ValueNotifier(0);
+//
+//   CounterWidget({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//       child: Column(
+//         mainAxisAlignment: MainAxisAlignment.center,
+//         children: <Widget>[
+//           const Text(
+//             'You have pushed the button this many times:',
+//           ),
+//           ValueListenableBuilder(
+//             valueListenable: _counter,
+//             builder: (context, counter, _) {
+//               return Text(
+//                 '$counter',
+//                 style: Theme.of(context).textTheme.displayMedium,
+//               );
+//             },
+//           ),
+//           ElevatedButton.icon(
+//             icon: const Icon(Icons.add),
+//             label: const Text('add'),
+//             onPressed: () => _counter.value++,
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 class FirstPage extends StatefulWidget {
   const FirstPage({Key? key}) : super(key: key);
@@ -71,7 +71,9 @@ class _FirstPageState extends State<FirstPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CounterWidget(),
+      body: Container(
+        color: Colors.red,
+      ),
       floatingActionButtonLocation: ExpandableFab.location,
       floatingActionButton: ExpandableFab(
         key: _key,
@@ -128,17 +130,14 @@ class _FirstPageState extends State<FirstPage> {
               const SnackBar snackBar = SnackBar(
                 content: Text("SnackBar"),
               );
-              scaffoldKey.currentState?.showSnackBar(snackBar);
+              //scaffoldKey.currentState?.showSnackBar(snackBar);
             },
           ),
           FloatingActionButton.small(
             // shape: const CircleBorder(),
             heroTag: null,
             child: const Icon(Icons.search),
-            onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: ((context) => const NextPage())));
-            },
+            onPressed: () {},
           ),
           FloatingActionButton.small(
             // shape: const CircleBorder(),
@@ -153,22 +152,6 @@ class _FirstPageState extends State<FirstPage> {
             },
           ),
         ],
-      ),
-    );
-  }
-}
-
-class NextPage extends StatelessWidget {
-  const NextPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('next'),
-      ),
-      body: const Center(
-        child: Text('next'),
       ),
     );
   }

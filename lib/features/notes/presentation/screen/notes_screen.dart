@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +12,8 @@ class NotesScreen extends StatefulWidget {
 
 class _NotesScreenState extends State<NotesScreen> {
   final TextEditingController controller = TextEditingController();
+
+  final _key = GlobalKey<ExpandableFabState>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +35,28 @@ class _NotesScreenState extends State<NotesScreen> {
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.red,
-        onPressed: () => _showInputAlert(context),
-        tooltip: "press",
-        child: const Icon(Icons.add),
+      floatingActionButtonLocation: ExpandableFab.location,
+      floatingActionButton: ExpandableFab(
+        distance: 30,
+        type: ExpandableFabType.up,
+        key: _key,
+        overlayStyle: ExpandableFabOverlayStyle(
+            color: Colors.red.withOpacity(0.5), blur: 10),
+        onOpen: () {},
+        afterClose: () {},
+        onClose: () {},
+        afterOpen: () {},
+        children: [
+          FloatingActionButton.small(
+            heroTag: null,
+            child: const Icon(Icons.draw),
+            onPressed: () => _showInputAlert(context),
+          ),
+          FloatingActionButton.small(
+              heroTag: null, child: const Icon(Icons.add), onPressed: () {}),
+          FloatingActionButton.small(
+              heroTag: null, child: const Icon(Icons.chat), onPressed: () {}),
+        ],
       ),
     );
   }
