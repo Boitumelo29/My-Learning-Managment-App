@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
+import 'package:mylearning/data/data_model/quote_of_the_day_data_model.dart';
 import 'package:mylearning/data/data_services/qoute_of_the_day_data_service.dart';
+import 'package:skeleton_text/skeleton_text.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -12,9 +14,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomePage> {
+  late Future<QOTDataModel> dataModel;
+  QOTDataService dataService = QOTDataService();
+
+  @override
+  void initState() {
+    super.initState();
+    dataModel = QOTDataService.fetchData(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    //QOTDataService.fetchData();
     return AppBarScreen(
       shouldBeCentered: true,
       shouldScroll: false,
@@ -23,17 +33,53 @@ class _HomeScreenState extends State<HomePage> {
       children: [
         const Text("Hello UserName, welcome back!"),
         Container(
-          height: 100,
+          height: 150,
           width: 400,
           decoration: BoxDecoration(
-              color: Colors.red, borderRadius: BorderRadius.circular(20)),
-          child: const Center(
-              child: Column(
-            children: [
-              Icon(Icons.format_quote_sharp),
-              Text("The Quote of the day"),
-            ],
-          )),
+              border: Border.all(color: Colors.red, width: 0.7),
+              borderRadius: BorderRadius.circular(20)),
+          child: Center(
+            child: FutureBuilder<QOTDataModel>(
+              future: dataModel,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Icon(Icons.format_quote_sharp),
+                            Text(
+                              snapshot.data!.author,
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ]),
+                      Text(
+                        snapshot.data!.body,
+                        style:
+                            const TextStyle(fontSize: 10, color: Colors.grey),
+                      ),
+                    ],
+                  );
+                }
+                return Center(
+                  child: SkeletonAnimation(
+                    child: Container(
+                      width: 400,
+                      height: 150,
+                      decoration: BoxDecoration(
+                          color: Colors.red[200],
+                          borderRadius: BorderRadius.circular(20)),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
         ),
         const Text("Upcoming events"),
         Container(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/features/home/home_screen/page/home_screen.dart';
+import 'package:mylearning/features/notes/presentation/screen/notes_screen.dart';
 import 'package:mylearning/features/profile/profile_screen/page/profile_page.dart';
 import 'package:mylearning/features/timetable/timetable_screen/page/timetable_screen.dart';
 import 'package:mylearning/features/upcoming_events/upcoming_event_screen/pages/upcoming_screen.dart';
@@ -27,7 +28,7 @@ class _TabBarScreenState extends State<TabBarScreen> {
           children: [
             const HomePage(),
             const TimetablePage(),
-            const ExamplePage(),
+            const NotesScreen(),
             const UpcomingEvents(),
             ProfilePage(isDarkMode: widget.isDarkMode, toggleTheme: widget.toggleTheme)
           ],
