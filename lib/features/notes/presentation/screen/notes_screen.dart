@@ -15,44 +15,26 @@ class _NotesScreenState extends State<NotesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // return AppBarScreen(
-    //   shouldScroll: true,
-    //   title: "My Notes",
-    //   shouldHaveFloatingButton: true,
-    //   shouldBeCentered: false,
-    //   icon: Icons.add,
-    //   floatingActionButton: () => _showInputAlert(context),
-    //   children: [
-    //     Expanded(
-    //       child: Consumer<NoteProvider>(
-    //         builder: (context, noteProvider, child) {
-    //           return ListView.builder(
-    //             itemCount: noteProvider.notes.length,
-    //             itemBuilder: (context, index) {
-    //               return NotesCard(note: noteProvider.notes[index]);
-    //             },
-    //           );
-    //         },
-    //       ),
-    //     )
-    //   ],
-    // );
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text("My Notes"),
       ),
-      body: Consumer<NoteProvider>(
-        builder: (context, noteProvider, child) {
-          return ListView.builder(
-            itemCount: noteProvider.notes.length,
-            itemBuilder: (context, index) {
-              return NotesCard(note: noteProvider.notes[index]);
-            },
-          );
-        },
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Consumer<NoteProvider>(
+          builder: (context, noteProvider, child) {
+            return ListView.builder(
+              itemCount: noteProvider.notes.length,
+              itemBuilder: (context, index) {
+                return NotesCard(note: noteProvider.notes[index]);
+              },
+            );
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.red,
         onPressed: () => _showInputAlert(context),
         tooltip: "press",
         child: const Icon(Icons.add),
