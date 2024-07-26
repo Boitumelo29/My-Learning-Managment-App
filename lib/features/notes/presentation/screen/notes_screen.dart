@@ -38,18 +38,19 @@ class _NotesScreenState extends State<NotesScreen> {
     //   ],
     // );
     return Scaffold(
-      body: ChangeNotifierProvider<NoteProvider>(
-        create: (context) => NoteProvider(),
-        child: Consumer<NoteProvider>(
-          builder: (context, noteProvider, child) {
-            return ListView.builder(
-              itemCount: noteProvider.notes.length,
-              itemBuilder: (context, index) {
-                return NotesCard(note: noteProvider.notes[index]);
-              },
-            );
-          },
-        ),
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("My Notes"),
+      ),
+      body: Consumer<NoteProvider>(
+        builder: (context, noteProvider, child) {
+          return ListView.builder(
+            itemCount: noteProvider.notes.length,
+            itemBuilder: (context, index) {
+              return NotesCard(note: noteProvider.notes[index]);
+            },
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showInputAlert(context),
@@ -99,8 +100,7 @@ class _NotesScreenState extends State<NotesScreen> {
                             content: Text("Note Added"),
                             backgroundColor: Colors.red,
                           );
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(snackBar);
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                           controller.clear();
                           Navigator.pop(context);
                         }
