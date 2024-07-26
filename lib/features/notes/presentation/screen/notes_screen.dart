@@ -20,7 +20,7 @@ class _NotesScreenState extends State<NotesScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("My Notes"),
+        title: const Text("My Notes & Todos"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
