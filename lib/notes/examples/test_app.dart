@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class TodoListScreen extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
 
@@ -43,19 +42,6 @@ class TodoListScreen extends StatelessWidget {
               ),
             ),
           ),
-          ElevatedButton(
-            onPressed: () {
-              if (_controller.text.isNotEmpty) {
-                Provider.of<TodoProvider>(context, listen: false).addTodo(
-                  Todo(
-                    title: _controller.text,
-                  ),
-                );
-                _controller.clear();
-              }
-            },
-            child: Text('Add To-Do'),
-          ),
           Expanded(
             child: Consumer<TodoProvider>(
               builder: (context, todoProvider, child) {
@@ -73,8 +59,25 @@ class TodoListScreen extends StatelessWidget {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (_controller.text.isNotEmpty) {
+            Provider.of<TodoProvider>(context, listen: false).addTodo(
+              Todo(
+                title: _controller.text,
+              ),
+            );
+            _controller.clear();
+          }
+        },
+        tooltip: "add",
+        child: Icon(Icons.add),
+      ),
     );
   }
+
+
+
 }
 
 class TodoCard extends StatelessWidget {
@@ -100,14 +103,14 @@ class TodoCard extends StatelessWidget {
         trailing: Checkbox(
           value: todo.isDone,
           onChanged: (value) {
-            Provider.of<TodoProvider>(context, listen: false).toggleTodoStatus(index);
+            Provider.of<TodoProvider>(context, listen: false)
+                .toggleTodoStatus(index);
           },
         ),
       ),
     );
   }
 }
-
 
 class TodoProvider with ChangeNotifier {
   List<Todo> _todos = [];

@@ -27,11 +27,17 @@ class _HomeScreenState extends State<HomePage> {
   Widget build(BuildContext context) {
     return AppBarScreen(
       shouldBeCentered: true,
-      shouldScroll: false,
+      shouldScroll: true,
       shouldHaveFloatingButton: false,
       title: 'Home Screen',
       children: [
         const Text("Hello UserName, welcome back!"),
+        Text("I think I want to change this to a carosle"),
+        Row(
+          children: [
+            Text("My Notes"),Text("My Chat bot"),Text("My Todos"),
+          ],
+        ),
         Container(
           height: 150,
           width: 400,
@@ -97,7 +103,7 @@ class _HomeScreenState extends State<HomePage> {
             ],
           )),
         ),
-        const Text("What is in the market"),
+        const Text("Chat bot but I might change this to a caroslue to display the notes, chat bot converstaion and someting else if possible  "),
         Container(
           height: 200,
           width: 400,
@@ -106,13 +112,11 @@ class _HomeScreenState extends State<HomePage> {
           child: const Center(
               child: Column(
             children: [
-              Icon(Icons.search),
-              Text(
-                  "bursary finder here that will post the latest bursaries here"),
-              Text(
-                  "Here is the link: https://www.zabursaries.co.za/general-bursaries-south-africa/capitec-bank-bursary/"),
-              Text(
-                  "when pressed it directs you to the job spec details. we can also just redirect them to the job site"),
+              Icon(Icons.chat),
+              Text("A chat bot instead will be try and hard but it can work")
+              //Text("bursary finder here that will post the latest bursaries here"),
+              //Text("Here is the link: https://www.zabursaries.co.za/general-bursaries-south-africa/capitec-bank-bursary/"),
+              //Text("when pressed it directs you to the job spec details. we can also just redirect them to the job site"),
             ],
           )),
         ),
