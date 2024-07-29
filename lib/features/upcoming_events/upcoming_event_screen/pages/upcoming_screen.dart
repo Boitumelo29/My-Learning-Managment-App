@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
+import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 import 'package:mylearning/features/timetable/timetable_screen/page/timetable_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -26,85 +27,85 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
         title: const Text("Upcoming Events"),
       ),
       body:
-      //SingleChildScrollView(
-      //  physics: const ScrollPhysics(),
-       // child:
-        Column(
-          children: [
-            Consumer<EventModel>(
-              builder: (context, eventModel, child) {
-                return TableCalendar(
-                  firstDay: DateTime.utc(2023, 1, 1),
-                  lastDay: DateTime.utc(2030, 3, 16),
-                  focusedDay: _focusedDay,
-                  // calendarFormat: _calendarFormat,
-                  selectedDayPredicate: (day) {
-                    return isSameDay(_selectedDay, day);
-                  },
-                  onDaySelected: (selectedDay, focusedDay) {
-                    setState(() {
-                      _selectedDay = selectedDay;
-                      _focusedDay = focusedDay;
-                    });
-                  },
-                  calendarBuilders: CalendarBuilders(
-                      defaultBuilder: (context, day, focusDay) {
-                    if (eventModel.eventDates
-                        .any((eventDate) => isSameDay(eventDate, day))) {
-                      return Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.red,
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(10)),
-                        margin: const EdgeInsets.all(4),
-                        child: Text("${day.day}"),
-                      );
-                    }
-                    return null;
-                  }),
-                  onFormatChanged: (format) {
-                    setState(() {
-                      _calendarFormat = format;
-                    });
-                  },
-                  onPageChanged: (focusedDay) {
+          //SingleChildScrollView(
+          //  physics: const ScrollPhysics(),
+          // child:
+          Column(
+        children: [
+          Consumer<EventModel>(
+            builder: (context, eventModel, child) {
+              return TableCalendar(
+                firstDay: DateTime.utc(2023, 1, 1),
+                lastDay: DateTime.utc(2030, 3, 16),
+                focusedDay: _focusedDay,
+                calendarFormat: _calendarFormat,
+                selectedDayPredicate: (day) {
+                  return isSameDay(_selectedDay, day);
+                },
+                onDaySelected: (selectedDay, focusedDay) {
+                  setState(() {
+                    _selectedDay = selectedDay;
                     _focusedDay = focusedDay;
-                  },
-                );
+                  });
+                },
+                calendarBuilders:
+                    CalendarBuilders(defaultBuilder: (context, day, focusDay) {
+                  if (eventModel.eventDates
+                      .any((eventDate) => isSameDay(eventDate, day))) {
+                    return Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.red,
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(10)),
+                      margin: const EdgeInsets.all(4),
+                      child: Text("${day.day}"),
+                    );
+                  }
+                  return null;
+                }),
+                onFormatChanged: (format) {
+                  setState(() {
+                    _calendarFormat = format;
+                  });
+                },
+                onPageChanged: (focusedDay) {
+                  _focusedDay = focusedDay;
+                },
+              );
+            },
+          ),
+          Expanded(
+            child: Consumer<EventModel>(
+              builder: (context, eventModel, child) {
+                return ListView.builder(
+                    itemCount: eventModel.events.length,
+                    itemBuilder: (context, index) {
+                      final event = eventModel.events[index];
+                      return Card(
+                        margin: const EdgeInsets.all(8),
+                        child: ListTile(
+                          leading: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.red,
+                                width: 2,
+                              ),
+                            ),
+                            child: Text(
+                                "${event.dateTime.day} ${_getMonth(event.dateTime.month)}"),
+                          ),
+                          title: Text(event.title),
+                          subtitle: Text(event.subTitle ?? ""),
+                        ),
+                      );
+                    });
               },
             ),
-            Expanded(
-              child: Consumer<EventModel>(
-                builder: (context, eventModel, child) {
-                  return ListView.builder(
-                      itemCount: eventModel.events.length,
-                      itemBuilder: (context, index) {
-                        final event = eventModel.events[index];
-                        return Card(
-                          margin: const EdgeInsets.all(8),
-                          child: ListTile(
-                            leading: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.red,
-                                  width: 2,
-                                ),
-                              ),
-                              child: Text(
-                                  "${event.dateTime.day} ${_getMonth(event.dateTime.month)}"),
-                            ),
-                            title: Text(event.title),
-                            subtitle: Text(event.subTitle ?? ""),
-                          ),
-                        );
-                      });
-                },
-              ),
-            )
-          ],
-        ),
+          )
+        ],
+      ),
       //),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _addEventAlert(context),
@@ -122,16 +123,42 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
           return StatefulBuilder(builder: (context, setState) {
             return AlertDialog(
               title: const Text("Add event"),
-              content: SingleChildScrollView(
-                child: ListBody(
+              content: SizedBox(
+                height: 200,
+                width: 500,
+                child: Column(
                   children: <Widget>[
-                    TextField(
-                      controller: textEditingController,
-                      decoration:
-                          const InputDecoration(hintText: "Enter Event"),
-                    ),
+                    LongTextFieldForm(
+                        onChanged: (value) {},
+                        hintText: "Enter Task",
+                        labelText: "Enter Task",
+                        showSuffixIcon: false,
+                        showPrefixIcon: true,
+                        prefixIcon: Icons.date_range,
+                        validator: (value) {},
+                        obsureText: false,
+                        isRed: true),
                     IconsContainer(
-                        onPressed: () {}, title: "Date", icon: Icons.date_range)
+                      onPressed: () async {
+                        final DateTime? picked = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2020),
+                            lastDate: DateTime(2101));
+                        if (picked != null) {
+                          setState(() {
+                            selectedDate = picked;
+                          });
+                        }
+                        Navigator.pop(context);
+                      },
+                      title: 'Date',
+                      icon: Icons.date_range,
+                    ),
+                    if (selectedDate != null)
+                      Text("Selected date: ${selectedDate!.toLocal()}")
+                    else
+                      const Text("No selected date")
                   ],
                 ),
               ),
@@ -174,7 +201,7 @@ class Event {
 }
 
 class EventModel extends ChangeNotifier {
-  List<Event> _events = [];
+  final List<Event> _events = [];
 
   List<Event> get events => _events;
 
