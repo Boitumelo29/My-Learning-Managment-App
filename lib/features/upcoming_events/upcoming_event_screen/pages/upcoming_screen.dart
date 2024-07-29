@@ -13,44 +13,46 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
   CalendarFormat _calendarFormat = CalendarFormat.week;
   DateTime _selectedDay = DateTime.now();
   DateTime _focusedDay = DateTime.now();
-  double _hoursWorked = 6;
-  String _workDetails = "";
-
-// List<Task> _tasks = [];
 
   @override
   Widget build(BuildContext context) {
-    return AppBarScreen(
-        shouldBeCentered: false,
-        shouldHaveFloatingButton: false,
-        shouldScroll: true,
-        title: "Upcoming Events",
-        children: [
-          TableCalendar(
-            firstDay: DateTime.utc(2010, 3, 29),
-            lastDay: DateTime.utc(2030, 3, 16),
-            focusedDay: _focusedDay,
-            calendarFormat: _calendarFormat,
-            selectedDayPredicate: (day) {
-              return isSameDay(_selectedDay, day);
-            },
-            onDaySelected: (selectedDay, focusedDay) {
-              setState(() {
-                _selectedDay = selectedDay;
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("Upcoming Events"),
+      ),
+      body: SingleChildScrollView(
+        physics: const ScrollPhysics(),
+        child: Column(
+          children: [
+            TableCalendar(
+              firstDay: DateTime.utc(2010, 3, 29),
+              lastDay: DateTime.utc(2030, 3, 16),
+              focusedDay: _focusedDay,
+              calendarFormat: _calendarFormat,
+              selectedDayPredicate: (day) {
+                return isSameDay(_selectedDay, day);
+              },
+              onDaySelected: (selectedDay, focusedDay) {
+                setState(() {
+                  _selectedDay = selectedDay;
+                  _focusedDay = focusedDay;
+                });
+              },
+              onFormatChanged: (format) {
+                setState(() {
+                  _calendarFormat = format;
+                });
+              },
+              onPageChanged: (focusedDay) {
                 _focusedDay = focusedDay;
-              });
-            },
-            onFormatChanged: (format) {
-              setState(() {
-                _calendarFormat = format;
-              });
-            },
-            onPageChanged: (focusedDay) {
-              _focusedDay = focusedDay;
-            },
-          ),
-          const Text("History card of upcoming events here")
-        ]);
+              },
+            ),
+            const Text("History card of upcoming events here")
+          ],
+        ),
+      ),
+    );
   }
 }
 
