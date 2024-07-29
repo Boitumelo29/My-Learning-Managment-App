@@ -18,6 +18,7 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
   CalendarFormat _calendarFormat = CalendarFormat.week;
   DateTime _selectedDay = DateTime.now();
   DateTime _focusedDay = DateTime.now();
+  final TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +87,7 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
                       return Card(
                         margin: const EdgeInsets.all(8),
                         child: ListTile(
+                          onTap: () => showDetail(context),
                           leading: Container(
                             decoration: BoxDecoration(
                               border: Border.all(
@@ -115,7 +117,6 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
   }
 
   Future<void> _addEventAlert(BuildContext context) async {
-    final TextEditingController textEditingController = TextEditingController();
     DateTime? selectedDate;
     return showDialog(
         context: context,
@@ -129,6 +130,7 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
                 child: Column(
                   children: <Widget>[
                     LongTextFieldForm(
+                        controller: textEditingController,
                         onChanged: (value) {},
                         hintText: "Enter Task",
                         labelText: "Enter Task",
@@ -190,6 +192,35 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
             );
           });
         });
+  }
+
+  showDetail(context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: const Text('Event Details'),
+          content: SizedBox(
+            height: 300,
+            width: 500,
+            child: Column(
+              children: [
+                Text(textEditingController.text),
+                const Text("Subtext")
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Done'),
+              onPressed: () {
+                Navigator.of(dialogContext).pop(); // Dismiss alert dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   bool isSameDay(DateTime date1, DateTime date2) {
