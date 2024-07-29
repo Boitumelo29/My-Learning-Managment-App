@@ -61,3 +61,18 @@ class Event {
 
   Event({required this.title, this.subTitle, required this.dateTime});
 }
+
+class EventModel extends ChangeNotifier {
+  List<Event> _events = [];
+
+  List<Event> get events => _events;
+
+  void addEvent(String title, String? subtitle, DateTime dateTime) {
+    _events.add(Event(title: title, subTitle: subtitle, dateTime: dateTime));
+    notifyListeners();
+  }
+
+  List<DateTime> get eventDates {
+    return _events.map((event) => event.dateTime).toList();
+  }
+}
