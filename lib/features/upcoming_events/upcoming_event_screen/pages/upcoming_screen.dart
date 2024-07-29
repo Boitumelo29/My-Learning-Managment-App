@@ -138,30 +138,55 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
                         validator: (value) {},
                         obsureText: false,
                         isRed: true),
-                    IconsContainer(
-                      onPressed: () async {
-                        final DateTime? picked = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2020),
-                            lastDate: DateTime(2101));
-                        if (picked != null) {
-                          setState(() {
-                            selectedDate = picked;
-                          });
-                        }
-                        Navigator.pop(context);
-                      },
-                      title: 'Date',
-                      icon: Icons.date_range,
+                    const SizedBox(
+                      height: 20,
                     ),
-                    if (selectedDate != null)
-                      Text("Selected date: ${selectedDate!.toLocal()}")
-                    else
-                      const Text("No selected date")
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        IconsContainer(
+                          onPressed: () async {
+                            final DateTime? picked = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2020),
+                                lastDate: DateTime(2101));
+                            if (picked != null) {
+                              setState(() {
+                                selectedDate = picked;
+                              });
+                            }
+                          },
+                          title: 'Date',
+                          icon: Icons.date_range,
+                        ),
+                        // if (selectedDate != null)
+                        //   Text("Selected date: ${selectedDate!.toLocal()}")
+                        // else
+                        //   const Text("")
+                      ],
+                    )
                   ],
                 ),
               ),
+              actions: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                        onPressed: () {
+                          if (textEditingController.text.isNotEmpty &&
+                              selectedDate != null) {
+                            Provider.of<EventModel>(context, listen: false)
+                                .addEvent(textEditingController.text, "",
+                                    selectedDate!);
+                            Navigator.pop(context);
+                          }
+                        },
+                        child: const Text("Add"))
+                  ],
+                )
+              ],
             );
           });
         });
