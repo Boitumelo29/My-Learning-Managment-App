@@ -53,3 +53,5 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
         ]);
   }
 }
+
+class Events{}
