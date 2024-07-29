@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
+import 'package:mylearning/features/timetable/timetable_screen/page/timetable_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -24,9 +25,11 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
         centerTitle: true,
         title: const Text("Upcoming Events"),
       ),
-      body: SingleChildScrollView(
-        physics: const ScrollPhysics(),
-        child: Column(
+      body:
+      //SingleChildScrollView(
+      //  physics: const ScrollPhysics(),
+       // child:
+        Column(
           children: [
             Consumer<EventModel>(
               builder: (context, eventModel, child) {
@@ -102,20 +105,40 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
             )
           ],
         ),
-      ),
+      //),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _addEventAlert(con),
+        onPressed: () => _addEventAlert(context),
         child: const Icon(Icons.add),
       ),
     );
   }
 
-  Future<void>_addEventAlert(BuildContext context)async{
+  Future<void> _addEventAlert(BuildContext context) async {
     final TextEditingController textEditingController = TextEditingController();
-
+    DateTime? selectedDate;
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return StatefulBuilder(builder: (context, setState) {
+            return AlertDialog(
+              title: const Text("Add event"),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    TextField(
+                      controller: textEditingController,
+                      decoration:
+                          const InputDecoration(hintText: "Enter Event"),
+                    ),
+                    IconsContainer(
+                        onPressed: () {}, title: "Date", icon: Icons.date_range)
+                  ],
+                ),
+              ),
+            );
+          });
+        });
   }
-
-
 
   bool isSameDay(DateTime date1, DateTime date2) {
     return date1.year == date2.year &&
