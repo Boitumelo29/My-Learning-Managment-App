@@ -26,31 +26,56 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
         physics: const ScrollPhysics(),
         child: Column(
           children: [
-            Consumer<EventModel>(builder: (context, eventModel, child) {
-              return TableCalendar(
-                firstDay: DateTime.utc(2023, 1, 1),
-                lastDay: DateTime.utc(2030, 3, 16),
-                focusedDay: _focusedDay,
-                // calendarFormat: _calendarFormat,
-                selectedDayPredicate: (day) {
-                  return isSameDay(_selectedDay, day);
-                },
-                onDaySelected: (selectedDay, focusedDay) {
-                  setState(() {
-                    _selectedDay = selectedDay;
+            Consumer<EventModel>(
+              builder: (context, eventModel, child) {
+                return TableCalendar(
+                  firstDay: DateTime.utc(2023, 1, 1),
+                  lastDay: DateTime.utc(2030, 3, 16),
+                  focusedDay: _focusedDay,
+                  // calendarFormat: _calendarFormat,
+                  selectedDayPredicate: (day) {
+                    return isSameDay(_selectedDay, day);
+                  },
+                  onDaySelected: (selectedDay, focusedDay) {
+                    setState(() {
+                      _selectedDay = selectedDay;
+                      _focusedDay = focusedDay;
+                    });
+                  },
+                  calendarBuilders: CalendarBuilders(
+                      defaultBuilder: (context, day, focusDay) {
+                    if (eventModel.eventDates
+                        .any((eventDate) => isSameDay(eventDate, day))) {
+                      return Container(
+                        margin: const EdgeInsets.all(4),
+                        child: Text("${day.day}"),
+                      );
+                    }
+                    return null;
+                  }),
+                  onFormatChanged: (format) {
+                    setState(() {
+                      _calendarFormat = format;
+                    });
+                  },
+                  onPageChanged: (focusedDay) {
                     _focusedDay = focusedDay;
-                  });
-                },
-                onFormatChanged: (format) {
-                  setState(() {
-                    _calendarFormat = format;
-                  });
-                },
-                onPageChanged: (focusedDay) {
-                  _focusedDay = focusedDay;
-                },
-              );
-            })
+                  },
+                );
+              },
+            ),
+            Expanded(child: Consumer<EventModel>(
+              builder: (context, eventModel, child) {
+                return ListView.builder(
+                    itemCount: eventModel.events.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        margin: const EdgeInsets.all(8),
+                        child: ListTile(),
+                      );
+                    });
+              },
+            ))
           ],
         ),
       ),
