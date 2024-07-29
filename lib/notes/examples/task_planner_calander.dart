@@ -57,20 +57,8 @@ class TodoScreen extends StatefulWidget {
 }
 
 class _TodoScreenState extends State<TodoScreen> {
-  late CalendarController _calendarController;
-  DateTime? _selectedDate;
-
-  @override
-  void initState() {
-    super.initState();
-    _calendarController = CalendarController();
-  }
-
-  @override
-  void dispose() {
-    _calendarController.dispose();
-    super.dispose();
-  }
+  DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
 
   @override
   Widget build(BuildContext context) {
@@ -81,19 +69,27 @@ class _TodoScreenState extends State<TodoScreen> {
       body: Column(
         children: [
           TableCalendar(
-            calendarController: _calendarController,
-            onDaySelected: (date, events, holidays) {
-              _selectDate(context, date);
-            }, focusedDay: null, firstDay: null, lastDay: null,
+            firstDay: DateTime(2020),
+            lastDay: DateTime(2100),
+            focusedDay: _focusedDay,
+            selectedDayPredicate: (day) {
+              return _selectedDay != null ? isSameDay(_selectedDay, day) : false;
+            },
+            onDaySelected: (selectedDay, focusedDay) {
+              setState(() {
+                _selectedDay = selectedDay;
+                _focusedDay = focusedDay; // update `_focusedDay` here as well
+              });
+            },
           ),
           Expanded(
             child: Consumer<TodoModel>(
               builder: (context, todoModel, child) {
-                final todos = _selectedDate == null
+                final todos = _selectedDay == null
                     ? todoModel.todos
                     : todoModel.todos
-                        .where((todo) => isSameDay(todo.date, _selectedDate!))
-                        .toList();
+                    .where((todo) => isSameDay(todo.date, _selectedDay!))
+                    .toList();
 
                 return ListView.builder(
                   itemCount: todos.length,
@@ -117,12 +113,6 @@ class _TodoScreenState extends State<TodoScreen> {
         child: Icon(Icons.add),
       ),
     );
-  }
-
-  void _selectDate(BuildContext context, DateTime date) {
-    setState(() {
-      _selectedDate = date;
-    });
   }
 
   Future<void> _addTodoDialog(BuildContext context) async {
@@ -194,3 +184,4 @@ class _TodoScreenState extends State<TodoScreen> {
         date1.day == date2.day;
   }
 }
+
