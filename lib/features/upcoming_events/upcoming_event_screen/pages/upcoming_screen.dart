@@ -47,6 +47,12 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
                     if (eventModel.eventDates
                         .any((eventDate) => isSameDay(eventDate, day))) {
                       return Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.red,
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(10)),
                         margin: const EdgeInsets.all(4),
                         child: Text("${day.day}"),
                       );
@@ -69,9 +75,19 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
                 return ListView.builder(
                     itemCount: eventModel.events.length,
                     itemBuilder: (context, index) {
+                      final event = eventModel.events[index];
                       return Card(
                         margin: const EdgeInsets.all(8),
-                        child: ListTile(),
+                        child: ListTile(
+                          leading: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.red,
+                                width: 2,
+                              ),
+                            ),
+                          ),
+                        ),
                       );
                     });
               },
