@@ -70,28 +70,34 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
                 );
               },
             ),
-            Expanded(child: Consumer<EventModel>(
-              builder: (context, eventModel, child) {
-                return ListView.builder(
-                    itemCount: eventModel.events.length,
-                    itemBuilder: (context, index) {
-                      final event = eventModel.events[index];
-                      return Card(
-                        margin: const EdgeInsets.all(8),
-                        child: ListTile(
-                          leading: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.red,
-                                width: 2,
+            Expanded(
+              child: Consumer<EventModel>(
+                builder: (context, eventModel, child) {
+                  return ListView.builder(
+                      itemCount: eventModel.events.length,
+                      itemBuilder: (context, index) {
+                        final event = eventModel.events[index];
+                        return Card(
+                          margin: const EdgeInsets.all(8),
+                          child: ListTile(
+                            leading: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.red,
+                                  width: 2,
+                                ),
                               ),
+                              child: Text(
+                                  "${event.dateTime.day} ${_getMonth(event.dateTime.month)}"),
                             ),
+                            title: Text(event.title),
+                            subtitle: Text(event.subTitle ?? ""),
                           ),
-                        ),
-                      );
-                    });
-              },
-            ))
+                        );
+                      });
+                },
+              ),
+            )
           ],
         ),
       ),
