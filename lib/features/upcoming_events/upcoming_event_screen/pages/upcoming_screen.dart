@@ -54,4 +54,10 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
   }
 }
 
-class Events{}
+class Event{
+  final String title;
+  final String? subTitle;
+  final DateTime dateTime;
+
+  Event({required this.title, re});
+}
