@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
@@ -14,9 +13,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MyGeminiSearchScreen(),
+    return MaterialApp(
+      home: FutureBuilder(
+        future: initializeGemini(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return const Center(child: Text('Error initializing Gemini'));
+          } else {
+            return const MyGeminiSearchScreen();
+          }
+        },
+      ),
     );
+  }
+
+  Future<void> initializeGemini() async {
+    // Add your initialization logic here
+    // For example, if there's any async setup, do it here
+    Gemini gemini = Gemini.instance;
   }
 }
 
@@ -219,3 +235,4 @@ class _MyGeminiSearchScreenState extends State<MyGeminiSearchScreen> {
     );
   }
 }
+
