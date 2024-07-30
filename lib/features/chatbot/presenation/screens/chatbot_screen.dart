@@ -6,6 +6,9 @@ import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 
+
+/// todo: now we focus on this:https://www.geeksforgeeks.org/how-to-create-a-chatbot-application-using-chatgpt-api-in-flutter/?ref=header_search
+/// todo text to speech. https://pub.dev/packages/flutter_tts
 class ChatBotPage extends StatelessWidget {
   const ChatBotPage({super.key});
 
@@ -116,6 +119,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
             children: [
               Expanded(
                 child: LongTextFieldForm(
+                  controller: controller,
                     onChanged: (value) {},
                     hintText: "Enter something",
                     labelText: "Enter something",
@@ -127,13 +131,26 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
               ),
               IconButton(
                   onPressed: () {
-                    if (controller.text.isNotEmpty) {
-                      setState(() {
-                        ///todo, this is how you set the data of the controller
-                        searchedText = controller.text;
-                        controller.clear();
-                        isLoading = true;
-                      });
+                    try {
+                      if (controller.text.isNotEmpty) {
+                        setState(() {
+                          ///todo, this is how you set the data of the controller
+                          searchedText = controller.text;
+                          controller.clear();
+                          isLoading = true;
+                        });
+                        gemini.text(searchedText!).then((value) {
+                          setState(() {
+                            print(value?.content?.parts?.length.toString());
+                            result = value?.content?.parts?.last.text;
+                            isLoading = false;
+                          });
+                        });
+                      }else{
+                        print("@@@@@@@@@ error");
+                      }
+                    } catch (e) {
+                      print(e);
                     }
                   },
                   icon: const Icon(
