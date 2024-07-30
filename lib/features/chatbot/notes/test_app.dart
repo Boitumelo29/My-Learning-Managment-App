@@ -4,13 +4,13 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:image_picker/image_picker.dart';
 
-void main() {
-  Gemini.init(apiKey: "AIzaSyCvFjc2RVFJv6V22IAnzHgPjx5aj8_LCgg");
-  runApp(const MyApp());
-}
+// void main() {
+//   Gemini.init(apiKey: "AIzaSyCvFjc2RVFJv6V22IAnzHgPjx5aj8_LCgg");
+//   runApp(const MyApp());
+// }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyChatApp extends StatelessWidget {
+  const MyChatApp({super.key});
 
   @override
   Widget build(BuildContext context) {

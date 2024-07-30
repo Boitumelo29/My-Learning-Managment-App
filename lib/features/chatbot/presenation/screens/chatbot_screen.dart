@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 
 class ChatBotPage extends StatelessWidget {
   const ChatBotPage({super.key});
@@ -18,15 +19,21 @@ class ChatBotPage extends StatelessWidget {
         future: initialiseGemini(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
+            print("waiting");
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (snapshot.hasData) {
+          } else if (snapshot.hasError) {
+            print("error");
             return const Center(
               child: Text("Oops an error has occurred"),
             );
           } else {
-            return ChatBotPage();
+            print("success");
+            // return Container(
+            //   child: Column(children: [Text("Testing Testing")],),
+            // );
+            return const Center(child: ChatBotScreen());
           }
         },
       ),
@@ -36,7 +43,6 @@ class ChatBotPage extends StatelessWidget {
 
 Future<void> initialiseGemini() async {
   Gemini gemini = Gemini.instance;
-  print(gemini);
 }
 
 class ChatBotScreen extends StatefulWidget {
@@ -64,6 +70,65 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [],);
+    return Column(
+      children: [
+        if (searchedText != null)
+          MaterialButton(
+            onPressed: () {
+              setState(() {
+                searchedText = null;
+                result = null;
+              });
+            },
+            color: Colors.red,
+            child: Text(
+              "Search: $searchedText",
+              style: const TextStyle(color: Colors.white),
+            ),
+          ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: isLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : result != null
+                          ? Markdown(
+                              data: result!,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12),
+                            )
+                          : const Center(
+                              child: Text("Search Something"),
+                            ),
+                )
+              ],
+            ),
+          ),
+        ),
+        Card(
+          child: Row(
+            children: [
+              Expanded(
+                child: LongTextFieldForm(
+                    onChanged: (value) {},
+                    hintText: "Enter something",
+                    labelText: "Enter something",
+                    showSuffixIcon: false,
+                    showPrefixIcon: false,
+                    validator: (value) {},
+                    obsureText: false,
+                    isRed: true),
+              ),
+              SizedBox(),
+              IconButton(onPressed: () {}, icon: const Icon(Icons.send))
+            ],
+          ),
+        )
+      ],
+    );
   }
 }
