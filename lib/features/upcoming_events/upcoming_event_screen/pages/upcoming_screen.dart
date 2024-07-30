@@ -19,6 +19,8 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
   DateTime _selectedDay = DateTime.now();
   DateTime _focusedDay = DateTime.now();
   final TextEditingController textEditingController = TextEditingController();
+  final TextEditingController textEditingControllerSub =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -140,6 +142,17 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
                         validator: (value) {},
                         obsureText: false,
                         isRed: true),
+                    LongTextFieldForm(
+                        controller: textEditingControllerSub,
+                        onChanged: (value) {},
+                        hintText: "Enter Task",
+                        labelText: "Enter Task",
+                        showSuffixIcon: false,
+                        showPrefixIcon: true,
+                        prefixIcon: Icons.date_range,
+                        validator: (value) {},
+                        obsureText: false,
+                        isRed: true),
                     const SizedBox(
                       height: 20,
                     ),
@@ -180,7 +193,9 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
                           if (textEditingController.text.isNotEmpty &&
                               selectedDate != null) {
                             Provider.of<EventModel>(context, listen: false)
-                                .addEvent(textEditingController.text, "",
+                                .addEvent(
+                                    textEditingController.text,
+                                    textEditingControllerSub.text,
                                     selectedDate!);
                             Navigator.pop(context);
                           }
@@ -206,7 +221,7 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
             child: Column(
               children: [
                 Text(textEditingController.text),
-                const Text("Subtext")
+                Text(textEditingControllerSub.text)
               ],
             ),
           ),
