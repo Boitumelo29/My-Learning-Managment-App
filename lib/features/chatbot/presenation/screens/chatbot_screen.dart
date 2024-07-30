@@ -109,8 +109,10 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
             ),
           ),
         ),
-        Card(
+        Padding(
+          padding: const EdgeInsets.all(10),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
                 child: LongTextFieldForm(
@@ -123,8 +125,12 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                     obsureText: false,
                     isRed: true),
               ),
-              SizedBox(),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.send))
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.send,
+                    color: Colors.red,
+                  ))
             ],
           ),
         )
