@@ -126,7 +126,16 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                     isRed: true),
               ),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (controller.text.isNotEmpty) {
+                      setState(() {
+                        ///todo, this is how you set the data of the controller
+                        searchedText = controller.text;
+                        controller.clear();
+                        isLoading = true;
+                      });
+                    }
+                  },
                   icon: const Icon(
                     Icons.send,
                     color: Colors.red,
