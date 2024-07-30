@@ -11,7 +11,9 @@ class ChatBotPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar,
+      appBar: AppBar(
+        title: const Text("My ChatBot"),
+      ),
       body: FutureBuilder(
         future: initialiseGemini(),
         builder: (context, snapshot) {
@@ -62,6 +64,6 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Column(children: [],);
   }
 }
