@@ -5,6 +5,7 @@ import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:image_picker/image_picker.dart';
 
 void main() {
+  Gemini.init(apiKey: "AIzaSyCvFjc2RVFJv6V22IAnzHgPjx5aj8_LCgg");
   runApp(const MyApp());
 }
 
