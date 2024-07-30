@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/features/notes/presentation/screen/notes_screen.dart';
+import 'package:mylearning/features/upcoming_events/upcoming_event_screen/pages/upcoming_screen.dart';
 import 'package:mylearning/util/navigation/tab_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -7,6 +8,7 @@ void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider<NoteProvider>(create: (context) => NoteProvider()),
+      ChangeNotifierProvider(create: (_) => EventModel())
     ],
     child: const MyApp(),
   ));
