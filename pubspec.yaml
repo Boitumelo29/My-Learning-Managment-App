@@ -54,6 +54,7 @@ dependencies:
   flutter_expandable_fab: ^2.2.0
   flutter_gemini: ^2.0.4
   flutter_markdown: ^0.7.3
+  chat_bubbles: ^1.6.0
 
 dev_dependencies:
   flutter_test:
