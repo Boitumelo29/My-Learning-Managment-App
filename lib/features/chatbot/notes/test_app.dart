@@ -1,9 +1,24 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:image_picker/image_picker.dart';
 
+void main() {
+  runApp(const MyApp());
+}
 
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: MyGeminiSearchScreen(),
+    );
+  }
+}
 
 class MyGeminiSearchScreen extends StatefulWidget {
   const MyGeminiSearchScreen({super.key});
@@ -15,12 +30,19 @@ class MyGeminiSearchScreen extends StatefulWidget {
 class _MyGeminiSearchScreenState extends State<MyGeminiSearchScreen> {
   final ImagePicker picker = ImagePicker();
   final controller = TextEditingController();
-  final gemini = Gemini.instance;
+  late final Gemini gemini;
   String? searchedText, result;
 
   bool loading = false;
   bool isTextWithImage = false;
   Uint8List? selectedImage;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize Gemini instance
+    gemini = Gemini.instance;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,39 +56,42 @@ class _MyGeminiSearchScreenState extends State<MyGeminiSearchScreen> {
           Row(
             children: [
               Radio(
-                  value: false,
-                  groupValue: isTextWithImage,
-                  onChanged: (val) {
-                    setState(() {
-                      isTextWithImage = val ?? false;
-                    });
-                  }),
+                value: false,
+                groupValue: isTextWithImage,
+                onChanged: (val) {
+                  setState(() {
+                    isTextWithImage = val ?? false;
+                  });
+                },
+              ),
               const Text("Search with Text"),
               Radio(
-                  value: true,
-                  groupValue: isTextWithImage,
-                  onChanged: (val) {
-                    setState(() {
-                      isTextWithImage = val ?? false;
-                    });
-                  }),
+                value: true,
+                groupValue: isTextWithImage,
+                onChanged: (val) {
+                  setState(() {
+                    isTextWithImage = val ?? false;
+                  });
+                },
+              ),
               const Text("Search with Text and Image")
             ],
           ),
           // To show text that we have search for
           if (searchedText != null)
             MaterialButton(
-                color: Colors.green.shade200,
-                onPressed: () {
-                  setState(() {
-                    searchedText = null;
-                    result = null;
-                  });
-                },
-                child: Text(
-                  'Search: $searchedText',
-                  style: const TextStyle(color: Colors.white),
-                )),
+              color: Colors.green.shade200,
+              onPressed: () {
+                setState(() {
+                  searchedText = null;
+                  result = null;
+                });
+              },
+              child: Text(
+                'Search: $searchedText',
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -108,76 +133,83 @@ class _MyGeminiSearchScreenState extends State<MyGeminiSearchScreen> {
             child: Row(
               children: [
                 Expanded(
-                    child: TextField(
-                      controller: controller,
-                      decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(horizontal: 12),
-                        hintText: 'Write Something...',
-                        border: InputBorder.none,
-                      ),
-                      onTapOutside: (event) =>
-                          FocusManager.instance.primaryFocus?.unfocus(),
-                    )),
+                  child: TextField(
+                    controller: controller,
+                    decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 12),
+                      hintText: 'Write Something...',
+                      border: InputBorder.none,
+                    ),
+                    onTapOutside: (event) =>
+                        FocusManager.instance.primaryFocus?.unfocus(),
+                  ),
+                ),
                 if (isTextWithImage)
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0),
                     // Select image from device
                     child: IconButton(
-                        onPressed: () async {
-                          final ImagePicker picker =
-                          ImagePicker(); // To select Image from device
-                          // Capture a photo.
-                          final XFile? photo = await picker.pickImage(
-                              source: ImageSource.camera);
+                      onPressed: () async {
+                        final XFile? photo = await picker.pickImage(
+                            source: ImageSource.camera);
 
-                          if (photo != null) {
-                            photo.readAsBytes().then((value) => setState(() {
-                              selectedImage = value;
-                            }));
-                          }
-                        },
-                        icon: const Icon(Icons.file_copy_outlined)),
+                        if (photo != null) {
+                          photo.readAsBytes().then((value) => setState(() {
+                            selectedImage = value;
+                          }));
+                        }
+                      },
+                      icon: const Icon(Icons.file_copy_outlined),
+                    ),
                   ),
                 // Send the typed the search to gemini
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0),
                   child: IconButton(
-                      onPressed: () {
-                        if (controller.text.isNotEmpty) {
-                          if (isTextWithImage) {
-                            if (selectedImage != null) {
+                    onPressed: () {
+                      if (controller.text.isNotEmpty) {
+                        if (isTextWithImage) {
+                          if (selectedImage != null) {
+                            setState(() {
                               searchedText = controller.text;
                               controller.clear();
                               loading = true;
-                              setState(() {});
-                              gemini
-                                  .textAndImage(
-                                  text: searchedText!,
-                                  image: selectedImage!)
-                                  .then((value) {
+                            });
+                            gemini
+                                .textAndImage(
+                              text: searchedText!,
+                              images: [selectedImage!], // Pass as a list
+                            )
+                                .then((value) {
+                              setState(() {
                                 result = value?.content?.parts?.last.text;
                                 loading = false;
                               });
-                            } else {
-                              Fluttertoast.showToast(
-                                  msg: "Please select picture");
-                            }
+                            });
                           } else {
+                            // Fluttertoast.showToast(
+                            //     msg: "Please select picture");
+                          }
+                        } else {
+                          setState(() {
                             searchedText = controller.text;
                             controller.clear();
                             loading = true;
-                            setState(() {});
-                            gemini.text(searchedText!).then((value) {
+                          });
+                          gemini.text(searchedText!).then((value) {
+                            setState(() {
                               print(value?.content?.parts?.length.toString());
                               result = value?.content?.parts?.last.text;
                               loading = false;
                             });
-                          }
-                        } else {
-                          Fluttertoast.showToast(msg: "Please enter something");
+                          });
                         }
-                      },
-                      icon: const Icon(Icons.send_rounded)),
+                      } else {
+                        // Fluttertoast.showToast(msg: "Please enter something");
+                      }
+                    },
+                    icon: const Icon(Icons.send_rounded),
+                  ),
                 ),
               ],
             ),
@@ -187,13 +219,3 @@ class _MyGeminiSearchScreenState extends State<MyGeminiSearchScreen> {
     );
   }
 }
-//
-// class Gemini {
-//
-//   gemini.text(searchedText!).then((value) {
-//   // This will give the final output by Gemini
-//   result = value?.content?.parts?.last.text;
-//   loading = false;
-//   });
-//
-// }
