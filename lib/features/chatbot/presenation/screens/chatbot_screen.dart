@@ -164,3 +164,9 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
     );
   }
 }
+
+class Message {
+  bool isSender;
+  String msg;
+  Message(this.isSender, this.msg);
+}
