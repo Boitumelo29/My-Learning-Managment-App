@@ -92,12 +92,6 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
         DateChip(
           date: DateTime(now.year, now.month, now.day - 2),
         ),
-        galleryFile == null
-            ? SizedBox()
-            : BubbleNormalImage(
-                id: "1",
-                image: _image(),
-              ),
         Expanded(
           child: ListView.builder(
             controller: scrollController,
@@ -110,12 +104,28 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                 child: isTyping && index == 0
                     ? Column(
                         children: [
-                          BubbleNormal(
-                            text: msgs[0].msg,
-                            isSender: true,
-                            color: Colors.red.shade50,
-                            sent: true,
-                          ),
+                          isTextWithImage
+                              ? Row(
+                                children: [
+                                  BubbleNormalImage(
+                                      id: "1",
+                                      image: _image(),
+                                      sent: true,
+                                    ),
+                                  BubbleNormal(
+                                    text: msgs[0].msg,
+                                    isSender: true,
+                                    color: Colors.red.shade50,
+                                    sent: true,
+                                  ),
+                                ],
+                              )
+                              : BubbleNormal(
+                                  text: msgs[0].msg,
+                                  isSender: true,
+                                  color: Colors.red.shade50,
+                                  sent: true,
+                                ),
                           const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Align(
@@ -144,7 +154,10 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               IconButton(
-                  onPressed: () => _showPicker(context),
+                  onPressed: () {
+                    isTextWithImage = true;
+                    _showPicker(context);
+                  },
                   icon: const Icon(
                     CupertinoIcons.add_circled_solid,
                     color: Colors.red,
@@ -169,7 +182,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
               ),
               IconButton(
                   onPressed: () {
-                    sendMsg();
+                    isTextWithImage ? sendMsgImgFunc() : sendMsg();
                   },
                   icon: const Icon(
                     Icons.send,
@@ -217,15 +230,36 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
     }
   }
 
-  void sendMsgImg() {
-    // gemini.textAndImage(text: controller.text, images: [selectedImage!]);
+  // sendMsgImg() async {
+  //   final XFile? photo = await picker.pickImage(source: ImageSource.camera);
+  //
+  //   if (photo != null) {
+  //     photo.readAsBytes().then((value) => setState(() {
+  //           selectedImage = value;
+  //         }));
+  //   }
+  // }
 
+  void sendMsgImgFunc() {
     String text = controller.text;
     try {
       if (text.isNotEmpty) {
-        setState(() {
-          msgs.insert(0, Message(true, text, true));
-        });
+        if (selectedImage != null) {
+          setState(() {
+            msgs.insert(0, Message(true, text, true));
+            isTyping = true;
+            searchedText = text;
+            controller.clear();
+          });
+          gemini
+              .textAndImage(text: text, images: [selectedImage!]).then((value) {
+            setState(() {
+              result = value?.content?.parts?.last.text;
+              isTyping = false;
+            });
+          });
+          ;
+        }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
@@ -246,7 +280,6 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                     title: const Text(Strings.photoLibrary),
                     onTap: () {
                       getImage(ImageSource.gallery);
-                      sendMsgImg();
                       Navigator.of(context).pop();
                     }),
                 ListTile(
