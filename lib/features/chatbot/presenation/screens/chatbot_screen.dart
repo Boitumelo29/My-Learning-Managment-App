@@ -148,19 +148,25 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
   }
 
   void sendMsg() {
+    String text = controller.text;
     try {
-      if (controller.text.isNotEmpty) {
+      if (text.isNotEmpty) {
         setState(() {
           ///todo, this is how you set the data of the controller
-          searchedText = controller.text;
+          msg.insert(0, Message(true, text));
+          isTyping = true;
+          searchedText = text;
           controller.clear();
-          isLoading = true;
+          //isLoading = true;
         });
+        scrollController.animateTo(0.0,
+            duration: const Duration(seconds: 1), curve: Curves.easeOut);
         gemini.text(searchedText!).then((value) {
           setState(() {
             print(value?.content?.parts?.length.toString());
             result = value?.content?.parts?.last.text;
-            isLoading = false;
+            isTyping = false;
+            msg.insert(0, Message(false, result!));
           });
         });
       } else {
