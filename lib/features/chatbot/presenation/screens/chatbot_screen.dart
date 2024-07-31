@@ -228,29 +228,33 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
   }
 
   void sendMsgWithImage(String text) {
+    ///todo handle errors
     ///todo: api not working https://www.googlecloudcommunity.com/gc/AI-ML/image-processing-not-working-with-Gemini-API-text-working-fine/m-p/783615#M8418
-    setState(() {
-      msgs.insert(0, Message(true, text, true));
-      isTyping = true;
-      searchedText = text;
-      controller.clear();
-    });
-    gemini.textAndImage(
-      text: searchedText!,
-      images: [selectedImage!],
-    ).then((value) {
+    try{
       setState(() {
-        result = value?.content?.parts?.last.text;
-        isTyping = false;
-        msgs.insert(0, Message(false, result!, false));
-        scrollController.animateTo(
-          0.0,
-          duration: const Duration(seconds: 1),
-          curve: Curves.easeOut,
-        );
+        msgs.insert(0, Message(true, text, true));
+        isTyping = true;
+        searchedText = text;
+        controller.clear();
       });
-    });
-  }
+      gemini.textAndImage(
+        text: searchedText!,
+        images: [selectedImage!],
+      ).then((value) {
+        setState(() {
+          result = value?.content?.parts?.last.text;
+          isTyping = false;
+          msgs.insert(0, Message(false, result!, false));
+          scrollController.animateTo(
+            0.0,
+            duration: const Duration(seconds: 1),
+            curve: Curves.easeOut,
+          );
+        });
+      });
+    }
+
+    catch(e){}}
 
   void _showPicker(BuildContext context) {
     showModalBottomSheet(
