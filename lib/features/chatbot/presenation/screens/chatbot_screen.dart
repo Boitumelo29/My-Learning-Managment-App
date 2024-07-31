@@ -129,6 +129,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.add_circled_solid)),
               Expanded(
                 child: LongTextFieldForm(
                     controller: controller,
