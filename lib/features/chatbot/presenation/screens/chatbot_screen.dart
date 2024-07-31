@@ -167,6 +167,8 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
             result = value?.content?.parts?.last.text;
             isTyping = false;
             msg.insert(0, Message(false, result!));
+            scrollController.animateTo(0.0,
+                duration: const Duration(seconds: 1), curve: Curves.easeOut);
           });
         });
       } else {
