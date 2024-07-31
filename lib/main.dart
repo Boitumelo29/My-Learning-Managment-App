@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:mylearning/features/notes/presentation/screen/notes_screen.dart';
 import 'package:mylearning/features/upcoming_events/upcoming_event_screen/pages/upcoming_screen.dart';
 import 'package:mylearning/util/navigation/tab_bar.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  Gemini.init(apiKey: "AIzaSyCvFjc2RVFJv6V22IAnzHgPjx5aj8_LCgg");
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider<NoteProvider>(create: (context) => NoteProvider()),
