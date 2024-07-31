@@ -74,6 +74,9 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
   bool isTextWithImage = false;
   Uint8List? selectedImage;
   File? galleryFile;
+  var snackBar = const SnackBar(
+    content: Text("Something happened please try again later"),
+  );
 
   @override
   void initState() {
@@ -90,11 +93,11 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
           date: DateTime(now.year, now.month, now.day - 2),
         ),
         galleryFile == null
-            ? const SizedBox()
+            ? SizedBox()
             : BubbleNormalImage(
-                id: "1",
-                image: _image(),
-              ),
+          id: "1",
+          image: _image(),
+        ),
         Expanded(
           child: ListView.builder(
             controller: scrollController,
@@ -106,31 +109,32 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 4),
                 child: isTyping && index == 0
                     ? Column(
-                        children: [
-                          BubbleNormal(
-                            text: msgs[0].msg,
-                            isSender: true,
-                            color: Colors.red.shade50,
-                            sent: true,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text("Typing"),
-                            ),
-                          )
-                        ],
-                      )
-                    : BubbleNormal(
-                        ///todo: what did you do here
-                        seen: msgs[index].isSender ? true : false,
-                        text: msgs[index].msg,
-                        isSender: msgs[index].isSender,
-                        color: msgs[index].isSender
-                            ? Colors.red.shade100
-                            : Colors.grey.shade100,
+                  children: [
+                    BubbleNormal(
+                      text: msgs[0].msg,
+                      isSender: true,
+                      color: Colors.red.shade50,
+                      sent: true,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text("Typing"),
                       ),
+                    )
+                  ],
+                )
+                    : BubbleNormal(
+
+                  ///todo: what did you do here
+                  seen: msgs[index].isSender ? true : false,
+                  text: msgs[index].msg,
+                  isSender: msgs[index].isSender,
+                  color: msgs[index].isSender
+                      ? Colors.red.shade100
+                      : Colors.grey.shade100,
+                ),
               );
             },
           ),
@@ -204,10 +208,6 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
           });
         });
       } else {
-        print("@@@@@@@@@ error");
-        var snackBar = const SnackBar(
-          content: Text("Something happened please try again later"),
-        );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     } catch (e) {
@@ -218,59 +218,75 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
     }
   }
 
-  void _showPicker(BuildContext context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext context) {
-          return SafeArea(
-            child: (Wrap(
-              children: <Widget>[
-                ListTile(
-                    leading: const Icon(Icons.photo_library),
-                    title: const Text(Strings.photoLibrary),
-                    onTap: () {
-                      getImage(ImageSource.gallery);
-                      Navigator.of(context).pop();
-                    }),
-                ListTile(
-                    leading: const Icon(Icons.file_copy_outlined),
-                    title: const Text("file library"),
-                    onTap: () {
-                      getFile();
-                      Navigator.of(context).pop();
-                    }),
-              ],
-            )),
-          );
-        });
-  }
+  void sendMsgImg() {
+    // gemini.textAndImage(text: controller.text, images: [selectedImage!]);
 
-  void getFile() async {
-    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+    String text = controller.text;
+    try {
+      if (text.isNotEmpty) {
 
-    if (result == null) return;
-  }
-
-  Future getImage(ImageSource img) async {
-    final pickedFile = await picker.pickImage(source: img);
-    XFile? xFilePick = pickedFile;
-    setState(() {
-      if (xFilePick != null) {
-        galleryFile = File(pickedFile!.path);
       } else {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text(Strings.errorOccurred)));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
-    });
-  }
-
-  Widget _image() {
-    return Container(
-      constraints: const BoxConstraints(minHeight: 20, minWidth: 20),
-      child: Image.file(galleryFile!),
-    );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 }
+
+void _showPicker(BuildContext context) {
+  showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return SafeArea(
+          child: (Wrap(
+            children: <Widget>[
+              ListTile(
+                  leading: const Icon(Icons.photo_library),
+                  title: const Text(Strings.photoLibrary),
+                  onTap: () {
+                    getImage(ImageSource.gallery);
+                    sendMsgImg();
+                    Navigator.of(context).pop();
+                  }),
+              ListTile(
+                  leading: const Icon(Icons.file_copy_outlined),
+                  title: const Text("file library"),
+                  onTap: () {
+                    getFile();
+                    Navigator.of(context).pop();
+                  }),
+            ],
+          )),
+        );
+      });
+}
+
+void getFile() async {
+  final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+
+  if (result == null) return;
+}
+
+Future getImage(ImageSource img) async {
+  final pickedFile = await picker.pickImage(source: img);
+  XFile? xFilePick = pickedFile;
+  setState(() {
+    if (xFilePick != null) {
+      galleryFile = File(pickedFile!.path);
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text(Strings.errorOccurred)));
+    }
+  });
+}
+
+Widget _image() {
+  return Container(
+    constraints: const BoxConstraints(minHeight: 20, minWidth: 20),
+    child: Image.file(galleryFile!),
+  );
+}}
 
 class Message {
   bool isSender;

@@ -236,3 +236,43 @@ class _MyGeminiSearchScreenState extends State<MyGeminiSearchScreen> {
     );
   }
 }
+
+
+// void sendMsg() {
+//   String text = controller.text;
+//   try {
+//     if (text.isNotEmpty) {
+//       setState(() {
+//         ///todo, this is how you set the data of the controller
+//         msgs.insert(0, Message(true, text));
+//         isTyping = true;
+//         searchedText = text;
+//         controller.clear();
+//         //isLoading = true;
+//       });
+//       scrollController.animateTo(0.0,
+//           duration: const Duration(seconds: 1), curve: Curves.easeOut);
+//       gemini.text(searchedText!).then((value) {
+//         setState(() {
+//           print(value?.content?.parts?.length.toString());
+//           result = value?.content?.parts?.last.text;
+//           isTyping = false;
+//           msgs.insert(0, Message(false, result!));
+//           scrollController.animateTo(0.0,
+//               duration: const Duration(seconds: 1), curve: Curves.easeOut);
+//         });
+//       });
+//     } else {
+//       print("@@@@@@@@@ error");
+//       var snackBar = const SnackBar(
+//         content: Text("Something happened please try again later"),
+//       );
+//       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+//     }
+//   } catch (e) {
+//     var snackBar = SnackBar(
+//       content: Text("$e"),
+//     );
+//     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+//   }
+// }
