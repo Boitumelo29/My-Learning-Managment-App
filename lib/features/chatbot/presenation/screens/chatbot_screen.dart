@@ -1,6 +1,7 @@
 import 'dart:ffi';
 import 'dart:typed_data';
 import 'package:chat_bubbles/bubbles/bubble_normal.dart';
+import 'package:chat_bubbles/date_chips/date_chip.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -77,10 +78,11 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final now = DateTime.now();
     return Column(
       children: [
-        const SizedBox(
-          height: 10,
+        DateChip(
+          date: DateTime(now.year, now.month, now.day - 2),
         ),
         Expanded(
           child: ListView.builder(
@@ -98,6 +100,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                             text: msgs[0].msg,
                             isSender: true,
                             color: Colors.red.shade50,
+                            sent: true,
                           ),
                           const Padding(
                             padding: EdgeInsets.all(8.0),
@@ -109,6 +112,8 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                         ],
                       )
                     : BubbleNormal(
+                  ///todo: what did you do here
+                        seen: msgs[index].isSender ? true : false,
                         text: msgs[index].msg,
                         isSender: msgs[index].isSender,
                         color: msgs[index].isSender
