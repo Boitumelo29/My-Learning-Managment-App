@@ -167,11 +167,13 @@ class _MyGeminiSearchScreenState extends State<MyGeminiSearchScreen> {
                     // Select image from device
                     child: IconButton(
                       onPressed: () async {
+                        //this fetches the image
                         final XFile? photo = await picker.pickImage(
                             source: ImageSource.camera);
 
                         if (photo != null) {
                           photo.readAsBytes().then((value) => setState(() {
+                            // then it sets the value tp that
                             selectedImage = value;
                           }));
                         }
