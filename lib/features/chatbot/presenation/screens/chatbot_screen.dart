@@ -112,7 +112,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                         ],
                       )
                     : BubbleNormal(
-                  ///todo: what did you do here
+                        ///todo: what did you do here
                         seen: msgs[index].isSender ? true : false,
                         text: msgs[index].msg,
                         isSender: msgs[index].isSender,
@@ -129,7 +129,18 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.add_circled_solid)),
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    CupertinoIcons.add_circled_solid,
+                    color: Colors.red,
+                  )),
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.keyboard_voice,
+                    color: Colors.red,
+                  )),
               Expanded(
                 child: LongTextFieldForm(
                     controller: controller,
