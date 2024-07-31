@@ -1,16 +1,20 @@
 import 'dart:ffi';
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:chat_bubbles/bubbles/bubble_normal.dart';
+import 'package:chat_bubbles/bubbles/bubble_normal_image.dart';
 import 'package:chat_bubbles/date_chips/date_chip.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
+import 'package:mylearning/util/constants/strings/strings.dart';
 
 /// todo: now we focus on this:https://www.geeksforgeeks.org/how-to-create-a-chatbot-application-using-chatgpt-api-in-flutter/?ref=header_search
 /// todo text to speech. https://pub.dev/packages/flutter_tts
+/// todo: https://media.geeksforgeeks.org/wp-content/cdn-uploads/20211007220233/text_to_speech_flutter-master.zip
 class ChatBotPage extends StatelessWidget {
   const ChatBotPage({super.key});
 
@@ -69,6 +73,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
   bool isLoading = false;
   bool isTextWithImage = false;
   Uint8List? selectedImage;
+  File? galleryFile;
 
   @override
   void initState() {
@@ -84,6 +89,12 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
         DateChip(
           date: DateTime(now.year, now.month, now.day - 2),
         ),
+        galleryFile == null
+            ? const SizedBox()
+            : BubbleNormalImage(
+                id: "1",
+                image: _image(),
+              ),
         Expanded(
           child: ListView.builder(
             controller: scrollController,
@@ -130,17 +141,17 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               IconButton(
-                  onPressed: () {},
+                  onPressed: () => _showPicker(context),
                   icon: const Icon(
                     CupertinoIcons.add_circled_solid,
                     color: Colors.red,
                   )),
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.keyboard_voice,
-                    color: Colors.red,
-                  )),
+              // IconButton(
+              //     onPressed: () {},
+              //     icon: const Icon(
+              //       Icons.keyboard_voice,
+              //       color: Colors.red,
+              //     )),
               Expanded(
                 child: LongTextFieldForm(
                     controller: controller,
@@ -206,6 +217,59 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
+
+  void _showPicker(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return SafeArea(
+            child: (Wrap(
+              children: <Widget>[
+                ListTile(
+                    leading: const Icon(Icons.photo_library),
+                    title: const Text(Strings.photoLibrary),
+                    onTap: () {
+                      getImage(ImageSource.gallery);
+                      Navigator.of(context).pop();
+                    }),
+                ListTile(
+                    leading: const Icon(Icons.file_copy_outlined),
+                    title: const Text("file library"),
+                    onTap: () {
+                      getFile();
+                      Navigator.of(context).pop();
+                    }),
+              ],
+            )),
+          );
+        });
+  }
+
+  void getFile() async {
+    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+
+    if (result == null) return;
+  }
+
+  Future getImage(ImageSource img) async {
+    final pickedFile = await picker.pickImage(source: img);
+    XFile? xFilePick = pickedFile;
+    setState(() {
+      if (xFilePick != null) {
+        galleryFile = File(pickedFile!.path);
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text(Strings.errorOccurred)));
+      }
+    });
+  }
+
+  Widget _image() {
+    return Container(
+      constraints: const BoxConstraints(minHeight: 20, minWidth: 20),
+      child: Image.file(galleryFile!),
+    );
+  }
 }
 
 class Message {
@@ -214,41 +278,3 @@ class Message {
 
   Message(this.isSender, this.msg);
 }
-
-// if (searchedText != null)
-//   MaterialButton(
-//     onPressed: () {
-//       setState(() {
-//         searchedText = null;
-//         result = null;
-//       });
-//     },
-//     color: Colors.red,
-//     child: Text(
-//       "Search: $searchedText",
-//       style: const TextStyle(color: Colors.white),
-//     ),
-//   ),
-// Expanded(
-//   child: Padding(
-//     padding: const EdgeInsets.all(8.0),
-//     child: Row(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       children: [
-//         Expanded(
-//           child: isLoading
-//               ? const Center(child: CircularProgressIndicator())
-//               : result != null
-//                   ? Markdown(
-//                       data: result!,
-//                       padding:
-//                           const EdgeInsets.symmetric(horizontal: 12),
-//                     )
-//                   : const Center(
-//                       child: Text("Search Something"),
-//                     ),
-//         )
-//       ],
-//     ),
-//   ),
-// ),
