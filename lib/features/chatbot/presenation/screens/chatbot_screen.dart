@@ -1,5 +1,6 @@
 import 'dart:ffi';
 import 'dart:typed_data';
+import 'package:chat_bubbles/bubbles/bubble_normal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -59,7 +60,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
   final ImagePicker picker = ImagePicker();
   final TextEditingController controller = TextEditingController();
   ScrollController scrollController = ScrollController();
-  List<Message> msg = [];
+  List<Message> msgs = [];
   bool isTyping = false;
   late final Gemini gemini;
   String? searchedText;
@@ -78,41 +79,44 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (searchedText != null)
-          MaterialButton(
-            onPressed: () {
-              setState(() {
-                searchedText = null;
-                result = null;
-              });
-            },
-            color: Colors.red,
-            child: Text(
-              "Search: $searchedText",
-              style: const TextStyle(color: Colors.white),
-            ),
-          ),
+        const SizedBox(
+          height: 10,
+        ),
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: isLoading
-                      ? const Center(child: CircularProgressIndicator())
-                      : result != null
-                          ? Markdown(
-                              data: result!,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 12),
-                            )
-                          : const Center(
-                              child: Text("Search Something"),
+          child: ListView.builder(
+            controller: scrollController,
+            itemCount: msgs.length,
+            shrinkWrap: true,
+            reverse: true,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: isTyping && index == 0
+                    ? Column(
+                        children: [
+                          BubbleNormal(
+                            text: msgs[0].msg,
+                            isSender: true,
+                            color: Colors.red.shade50,
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text("Typing"),
                             ),
-                )
-              ],
-            ),
+                          )
+                        ],
+                      )
+                    : BubbleNormal(
+                        text: msgs[index].msg,
+                        isSender: msgs[index].isSender,
+                        color: msgs[index].isSender
+                            ? Colors.red.shade100
+                            : Colors.grey.shade100,
+                      ),
+              );
+            },
           ),
         ),
         Padding(
@@ -153,7 +157,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
       if (text.isNotEmpty) {
         setState(() {
           ///todo, this is how you set the data of the controller
-          msg.insert(0, Message(true, text));
+          msgs.insert(0, Message(true, text));
           isTyping = true;
           searchedText = text;
           controller.clear();
@@ -166,16 +170,23 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
             print(value?.content?.parts?.length.toString());
             result = value?.content?.parts?.last.text;
             isTyping = false;
-            msg.insert(0, Message(false, result!));
+            msgs.insert(0, Message(false, result!));
             scrollController.animateTo(0.0,
                 duration: const Duration(seconds: 1), curve: Curves.easeOut);
           });
         });
       } else {
         print("@@@@@@@@@ error");
+        var snackBar = const SnackBar(
+          content: Text("Something happened please try again later"),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     } catch (e) {
-      print(e);
+      var snackBar = SnackBar(
+        content: Text("$e"),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 }
@@ -186,3 +197,41 @@ class Message {
 
   Message(this.isSender, this.msg);
 }
+
+// if (searchedText != null)
+//   MaterialButton(
+//     onPressed: () {
+//       setState(() {
+//         searchedText = null;
+//         result = null;
+//       });
+//     },
+//     color: Colors.red,
+//     child: Text(
+//       "Search: $searchedText",
+//       style: const TextStyle(color: Colors.white),
+//     ),
+//   ),
+// Expanded(
+//   child: Padding(
+//     padding: const EdgeInsets.all(8.0),
+//     child: Row(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: [
+//         Expanded(
+//           child: isLoading
+//               ? const Center(child: CircularProgressIndicator())
+//               : result != null
+//                   ? Markdown(
+//                       data: result!,
+//                       padding:
+//                           const EdgeInsets.symmetric(horizontal: 12),
+//                     )
+//                   : const Center(
+//                       child: Text("Search Something"),
+//                     ),
+//         )
+//       ],
+//     ),
+//   ),
+// ),
