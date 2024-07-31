@@ -1,11 +1,11 @@
 import 'dart:ffi';
 import 'dart:typed_data';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
-
 
 /// todo: now we focus on this:https://www.geeksforgeeks.org/how-to-create-a-chatbot-application-using-chatgpt-api-in-flutter/?ref=header_search
 /// todo text to speech. https://pub.dev/packages/flutter_tts
@@ -58,6 +58,9 @@ class ChatBotScreen extends StatefulWidget {
 class _ChatBotScreenState extends State<ChatBotScreen> {
   final ImagePicker picker = ImagePicker();
   final TextEditingController controller = TextEditingController();
+  ScrollController scrollController = ScrollController();
+  List<Message> msg = [];
+  bool isTyping = false;
   late final Gemini gemini;
   String? searchedText;
   String? result;
@@ -119,7 +122,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
             children: [
               Expanded(
                 child: LongTextFieldForm(
-                  controller: controller,
+                    controller: controller,
                     onChanged: (value) {},
                     hintText: "Enter something",
                     labelText: "Enter something",
@@ -131,27 +134,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
               ),
               IconButton(
                   onPressed: () {
-                    try {
-                      if (controller.text.isNotEmpty) {
-                        setState(() {
-                          ///todo, this is how you set the data of the controller
-                          searchedText = controller.text;
-                          controller.clear();
-                          isLoading = true;
-                        });
-                        gemini.text(searchedText!).then((value) {
-                          setState(() {
-                            print(value?.content?.parts?.length.toString());
-                            result = value?.content?.parts?.last.text;
-                            isLoading = false;
-                          });
-                        });
-                      }else{
-                        print("@@@@@@@@@ error");
-                      }
-                    } catch (e) {
-                      print(e);
-                    }
+                    sendMsg();
                   },
                   icon: const Icon(
                     Icons.send,
@@ -163,10 +146,35 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
       ],
     );
   }
+
+  void sendMsg() {
+    try {
+      if (controller.text.isNotEmpty) {
+        setState(() {
+          ///todo, this is how you set the data of the controller
+          searchedText = controller.text;
+          controller.clear();
+          isLoading = true;
+        });
+        gemini.text(searchedText!).then((value) {
+          setState(() {
+            print(value?.content?.parts?.length.toString());
+            result = value?.content?.parts?.last.text;
+            isLoading = false;
+          });
+        });
+      } else {
+        print("@@@@@@@@@ error");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 }
 
 class Message {
   bool isSender;
   String msg;
+
   Message(this.isSender, this.msg);
 }
