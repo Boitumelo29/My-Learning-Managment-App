@@ -85,6 +85,17 @@ class _LongTextFieldFormState extends State<LongTextFieldForm> {
       obscureText: widget.obsureText ? passwordVisible : false,
       controller: widget.controller,
       decoration: InputDecoration(
+        focusedBorder: widget.isRed
+            ? OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: const BorderSide(
+                  color: Colors.red,
+                  width: 0.7,
+                ),
+              )
+            : OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: const BorderSide(color: Colors.grey, width: 0.7)),
         enabledBorder: widget.isRed
             ? OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
@@ -124,4 +135,5 @@ class _LongTextFieldFormState extends State<LongTextFieldForm> {
       textInputAction: TextInputAction.done,
     );
   }
+
 }

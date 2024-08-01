@@ -40,7 +40,7 @@ class _ChatScreenState extends State<ChatScreen> {
     try {
       if (text.isNotEmpty) {
         setState(() {
-          msgs.insert(0, Message(true, text));
+          msgs.insert(0, Message(true, text, false));
           isTyping = true;
         });
         scrollController.animateTo(0.0,
@@ -67,7 +67,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     false,
                     json["choices"][0]["message"]["content"]
                         .toString()
-                        .trimLeft()));
+                        .trimLeft(),
+                    false));
           });
           scrollController.animateTo(0.0,
               duration: const Duration(seconds: 1), curve: Curves.easeOut);
