@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/appBar_with_drawer.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
@@ -32,11 +33,12 @@ class _HomeScreenState extends State<HomePage> {
       shouldScroll: true,
       shouldHaveFloatingButton: false,
       title: 'Home Screen',
-      drawerChildren: const [
+      drawerChildren: [
         DrawerHeader(
           child: UserAccountsDrawerHeader(
-            decoration: BoxDecoration(color: Colors.red),
-            currentAccountPicture: Padding(
+            decoration: BoxDecoration(
+                color: Colors.red, borderRadius: BorderRadius.circular(10)),
+            currentAccountPicture:const Padding(
               padding: EdgeInsets.all(8.0),
               child: Icon(Icons.person),
             ),
