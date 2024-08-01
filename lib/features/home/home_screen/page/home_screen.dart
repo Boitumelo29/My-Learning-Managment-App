@@ -4,7 +4,12 @@ import 'package:mylearning/common_widgets/screens/appBar_layout/appBar_with_draw
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
 import 'package:mylearning/data/data_model/quote_of_the_day_data_model.dart';
 import 'package:mylearning/data/data_services/qoute_of_the_day_data_service.dart';
+import 'package:mylearning/features/profile/contact_us/pages/contact_us.dart';
+import 'package:mylearning/features/profile/edit_profile/page/edit_profile.dart';
+import 'package:mylearning/features/profile/faq_screen/screen/faq_screen.dart';
 import 'package:skeleton_text/skeleton_text.dart';
+
+import '../../../profile/settings/page/settings_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -47,22 +52,43 @@ class _HomeScreenState extends State<HomePage> {
           ),
         ),
         ListTile(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        const EditProfileScreen()));
+          },
           leading: const Icon(Icons.person),
           title: const Text("Edit profile"),
         ),
         ListTile(
-          onTap: () {},
+          onTap: () {
+            // MaterialPageRoute(
+            //     builder: (BuildContext context) =>
+            //         SettingsPage(isDarkMode: isDarkMode, toggleTheme: toggleTheme))
+          },
           leading: const Icon(Icons.help),
           title: const Text("FAQ"),
         ),
         ListTile(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => const FAQScreen()));
+          },
           leading: const Icon(Icons.settings),
           title: const Text("Setting"),
         ),
         ListTile(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        const ContactUsScreen()));
+          },
           leading: const Icon(Icons.phone),
           title: const Text("Contact us"),
         ),
