@@ -38,33 +38,38 @@ class _HomeScreenState extends State<HomePage> {
           child: UserAccountsDrawerHeader(
             decoration: BoxDecoration(
                 color: Colors.red, borderRadius: BorderRadius.circular(10)),
-            currentAccountPicture:const Padding(
+            currentAccountPicture: const Padding(
               padding: EdgeInsets.all(8.0),
               child: Icon(Icons.person),
             ),
-            accountName: Text("Username"),
-            accountEmail: Text("Email testing"),
+            accountName: const Text("Username"),
+            accountEmail: const Text("Email testing"),
           ),
         ),
         ListTile(
-          leading: Icon(Icons.person),
-          title: Text("Edit profile"),
+          onTap: () {},
+          leading: const Icon(Icons.person),
+          title: const Text("Edit profile"),
         ),
         ListTile(
-          leading: Icon(Icons.help),
-          title: Text("FAQ"),
+          onTap: () {},
+          leading: const Icon(Icons.help),
+          title: const Text("FAQ"),
         ),
         ListTile(
-          leading: Icon(Icons.settings),
-          title: Text("Setting"),
+          onTap: () {},
+          leading: const Icon(Icons.settings),
+          title: const Text("Setting"),
         ),
         ListTile(
-          leading: Icon(Icons.phone),
-          title: Text("Contact us"),
+          onTap: () {},
+          leading: const Icon(Icons.phone),
+          title: const Text("Contact us"),
         ),
         ListTile(
-          leading: Icon(Icons.exit_to_app),
-          title: Text("Logout"),
+          onTap: () {},
+          leading: const Icon(Icons.exit_to_app),
+          title: const Text("Logout"),
         ),
       ],
       children: [
