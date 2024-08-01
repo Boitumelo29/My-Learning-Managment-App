@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mylearning/common_widgets/screens/appBar_layout/appBar_with_drawer.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
 import 'package:mylearning/data/data_model/quote_of_the_day_data_model.dart';
 import 'package:mylearning/data/data_services/qoute_of_the_day_data_service.dart';
@@ -25,17 +26,53 @@ class _HomeScreenState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return AppBarScreen(
+    ///todo: we might need to use the orrifnal so we can acces the drawer
+    return AppBarDrawerScreen(
       shouldBeCentered: true,
       shouldScroll: true,
       shouldHaveFloatingButton: false,
       title: 'Home Screen',
+      drawerChildren: const [
+        DrawerHeader(
+          child: UserAccountsDrawerHeader(
+            decoration: BoxDecoration(color: Colors.red),
+            currentAccountPicture: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Icon(Icons.person),
+            ),
+            accountName: Text("Username"),
+            accountEmail: Text("Email testing"),
+          ),
+        ),
+        ListTile(
+          leading: Icon(Icons.person),
+          title: Text("Edit profile"),
+        ),
+        ListTile(
+          leading: Icon(Icons.help),
+          title: Text("FAQ"),
+        ),
+        ListTile(
+          leading: Icon(Icons.settings),
+          title: Text("Setting"),
+        ),
+        ListTile(
+          leading: Icon(Icons.phone),
+          title: Text("Contact us"),
+        ),
+        ListTile(
+          leading: Icon(Icons.exit_to_app),
+          title: Text("Logout"),
+        ),
+      ],
       children: [
         const Text("Hello UserName, welcome back!"),
-        Text("I think I want to change this to a carosle"),
-        Row(
+        const Text("I think I want to change this to a carosle"),
+        const Row(
           children: [
-            Text("My Notes"),Text("My Chat bot"),Text("My Todos"),
+            Text("My Notes"),
+            Text("My Chat bot"),
+            Text("My Todos"),
           ],
         ),
         Container(
@@ -103,7 +140,8 @@ class _HomeScreenState extends State<HomePage> {
             ],
           )),
         ),
-        const Text("Chat bot but I might change this to a caroslue to display the notes, chat bot converstaion and someting else if possible  "),
+        const Text(
+            "Chat bot but I might change this to a caroslue to display the notes, chat bot converstaion and someting else if possible  "),
         Container(
           height: 200,
           width: 400,

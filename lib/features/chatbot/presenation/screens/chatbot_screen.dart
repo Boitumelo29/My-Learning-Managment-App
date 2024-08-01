@@ -29,6 +29,7 @@ class ChatBotPage extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError) {
+            ///todo: create an error page
             return const Center(
               child: Text("Oops, an error has occurred"),
             );
@@ -202,35 +203,39 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
   }
 
   void sendTextMsg(String text) {
-    setState(() {
-      msgs.insert(0, Message(true, text, false));
-      isTyping = true;
-      searchedText = text;
-      controller.clear();
-    });
-    scrollController.animateTo(
-      0.0,
-      duration: const Duration(seconds: 1),
-      curve: Curves.easeOut,
-    );
-    gemini.text(searchedText!).then((value) {
+    try {
       setState(() {
-        result = value?.content?.parts?.last.text;
-        isTyping = false;
-        msgs.insert(0, Message(false, result!, false));
-        scrollController.animateTo(
-          0.0,
-          duration: const Duration(seconds: 1),
-          curve: Curves.easeOut,
-        );
+        msgs.insert(0, Message(true, text, false));
+        isTyping = true;
+        searchedText = text;
+        controller.clear();
       });
-    });
+      scrollController.animateTo(
+        0.0,
+        duration: const Duration(seconds: 1),
+        curve: Curves.easeOut,
+      );
+      gemini.text(searchedText!).then((value) {
+        setState(() {
+          result = value?.content?.parts?.last.text;
+          isTyping = false;
+          msgs.insert(0, Message(false, result!, false));
+          scrollController.animateTo(
+            0.0,
+            duration: const Duration(seconds: 1),
+            curve: Curves.easeOut,
+          );
+        });
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 
   void sendMsgWithImage(String text) {
     ///todo handle errors
     ///todo: api not working https://www.googlecloudcommunity.com/gc/AI-ML/image-processing-not-working-with-Gemini-API-text-working-fine/m-p/783615#M8418
-    try{
+    try {
       setState(() {
         msgs.insert(0, Message(true, text, true));
         isTyping = true;
@@ -252,9 +257,10 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
           );
         });
       });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
-
-    catch(e){}}
+  }
 
   void _showPicker(BuildContext context) {
     showModalBottomSheet(
