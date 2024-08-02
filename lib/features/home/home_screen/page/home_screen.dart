@@ -14,8 +14,11 @@ import '../../../profile/settings/page/settings_page.dart';
 class HomePage extends StatefulWidget {
   final bool isDarkMode;
   final Function toggleTheme;
+
   const HomePage({
-    super.key, required this.isDarkMode, required this.toggleTheme,
+    super.key,
+    required this.isDarkMode,
+    required this.toggleTheme,
   });
 
   @override
@@ -34,7 +37,11 @@ class _HomeScreenState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    ///todo: we might need to use the orrifnal so we can acces the drawer
+    var snackBar = const SnackBar(
+      content: Text("action"),
+      backgroundColor: Colors.red,
+    );
+    bool isYes = false;
     return AppBarDrawerScreen(
       shouldBeCentered: true,
       shouldScroll: true,
@@ -74,8 +81,27 @@ class _HomeScreenState extends State<HomePage> {
           leading: const Icon(Icons.help),
           title: const Text("FAQ"),
         ),
+        SwitchListTile(
+            title: const Text("Theme of app"),
+            secondary: widget.isDarkMode
+                ? const Icon(Icons.dark_mode)
+                : const Icon(Icons.sunny),
+            value: widget.isDarkMode,
+            onChanged: (value) {
+              widget.toggleTheme();
+            }),
+        SwitchListTile(
+            title: const Text("Push Notifications"),
+            secondary: const Icon(Icons.notifications_active),
+            value: isYes,
+            onChanged: (value) {
+              //https://www.geeksforgeeks.org/videos/push-notification-in-flutter-using-firebase/?ref=header_outind
+              //https://www.geeksforgeeks.org/how-to-add-local-notifications-in-flutter/?ref=header_outind
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }),
         ListTile(
           onTap: () {
+            ///Todo: stuff like the permui verison, app verison, adds
             // MaterialPageRoute(
             //     builder: (BuildContext context) =>
             //         SettingsPage(isDarkMode: isDarkMode, toggleTheme: toggleTheme))
@@ -96,10 +122,6 @@ class _HomeScreenState extends State<HomePage> {
         ),
         ListTile(
           onTap: () {
-            var snackBar = const SnackBar(
-              content: Text(" logging you out"),
-              backgroundColor: Colors.red,
-            );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
             Navigator.pop(context);
           },
