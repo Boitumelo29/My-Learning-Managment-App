@@ -22,6 +22,7 @@ class _TabBarScreenState extends State<TabBarScreen> {
   Widget build(BuildContext context) {
     return const DefaultTabController(
       length: 5,
+      ///todo: if no network then we display this, if network then we dispay the other.
       child: Scaffold(
         bottomNavigationBar: const TabBar(tabs: [
           Icon(Icons.home),
