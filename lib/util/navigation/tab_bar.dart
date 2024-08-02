@@ -36,7 +36,7 @@ class _TabBarScreenState extends State<TabBarScreen> {
           children: [
             HomePage(
                 isDarkMode: widget.isDarkMode, toggleTheme: widget.toggleTheme),
-            ChatBotPage(),
+            const ChatBotPage(),
             NotesScreen(),
             UpcomingEvents(),
             TimetablePage()
