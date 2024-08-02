@@ -20,9 +20,10 @@ class TabBarScreen extends StatefulWidget {
 class _TabBarScreenState extends State<TabBarScreen> {
   @override
   Widget build(BuildContext context) {
-    return const DefaultTabController(
+    return DefaultTabController(
       length: 5,
-      ///todo: if no network then we display this, if network then we dispay the other.
+
+      ///todo: if no network then we display this, if network then we display the other.
       child: Scaffold(
         bottomNavigationBar: const TabBar(tabs: [
           Icon(Icons.home),
@@ -33,12 +34,12 @@ class _TabBarScreenState extends State<TabBarScreen> {
         ]),
         body: TabBarView(
           children: [
-            HomePage(),
-            ChatBotPage(),
-            NotesScreen(),
-            UpcomingEvents(),
-            TimetablePage()
-
+            HomePage(
+                isDarkMode: widget.isDarkMode, toggleTheme: widget.toggleTheme),
+            const ChatBotPage(),
+            const NotesScreen(),
+            const UpcomingEvents(),
+            const TimetablePage()
             ///todo instead of a profile screen we can have a drawer so we can keep all of our screens, then keep the dark mode setting in there
             // ProfilePage(
             //     isDarkMode: widget.isDarkMode, toggleTheme: widget.toggleTheme)
