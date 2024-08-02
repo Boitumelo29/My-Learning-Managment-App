@@ -64,19 +64,19 @@ class _HomeScreenState extends State<HomePage> {
         ),
         ListTile(
           onTap: () {
-            // MaterialPageRoute(
-            //     builder: (BuildContext context) =>
-            //         SettingsPage(isDarkMode: isDarkMode, toggleTheme: toggleTheme))
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => const FAQScreen()));
           },
           leading: const Icon(Icons.help),
           title: const Text("FAQ"),
         ),
         ListTile(
           onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => const FAQScreen()));
+            // MaterialPageRoute(
+            //     builder: (BuildContext context) =>
+            //         SettingsPage(isDarkMode: isDarkMode, toggleTheme: toggleTheme))
           },
           leading: const Icon(Icons.settings),
           title: const Text("Setting"),
