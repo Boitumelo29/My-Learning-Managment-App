@@ -12,8 +12,10 @@ import 'package:skeleton_text/skeleton_text.dart';
 import '../../../profile/settings/page/settings_page.dart';
 
 class HomePage extends StatefulWidget {
+  final bool isDarkMode;
+  final Function toggleTheme;
   const HomePage({
-    super.key,
+    super.key, required this.isDarkMode, required this.toggleTheme,
   });
 
   @override
@@ -93,7 +95,14 @@ class _HomeScreenState extends State<HomePage> {
           title: const Text("Contact us"),
         ),
         ListTile(
-          onTap: () {},
+          onTap: () {
+            var snackBar = const SnackBar(
+              content: Text(" logging you out"),
+              backgroundColor: Colors.red,
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            Navigator.pop(context);
+          },
           leading: const Icon(Icons.exit_to_app),
           title: const Text("Logout"),
         ),

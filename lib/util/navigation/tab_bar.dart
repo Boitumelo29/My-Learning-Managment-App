@@ -20,11 +20,12 @@ class TabBarScreen extends StatefulWidget {
 class _TabBarScreenState extends State<TabBarScreen> {
   @override
   Widget build(BuildContext context) {
-    return const DefaultTabController(
+    return  DefaultTabController(
       length: 5,
+
       ///todo: if no network then we display this, if network then we dispay the other.
       child: Scaffold(
-        bottomNavigationBar: const TabBar(tabs: [
+        bottomNavigationBar:const TabBar(tabs: [
           Icon(Icons.home),
           Icon(Icons.chat),
           Icon(Icons.note_alt_outlined),
@@ -33,7 +34,8 @@ class _TabBarScreenState extends State<TabBarScreen> {
         ]),
         body: TabBarView(
           children: [
-            HomePage(),
+            HomePage(
+                isDarkMode: widget.isDarkMode, toggleTheme: widget.toggleTheme),
             ChatBotPage(),
             NotesScreen(),
             UpcomingEvents(),
