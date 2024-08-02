@@ -38,8 +38,8 @@ class _TabBarScreenState extends State<TabBarScreen> {
                 isDarkMode: widget.isDarkMode, toggleTheme: widget.toggleTheme),
             const ChatBotPage(),
             const NotesScreen(),
-            UpcomingEvents(),
-            TimetablePage()
+           const UpcomingEvents(),
+           const  TimetablePage()
 
             ///todo instead of a profile screen we can have a drawer so we can keep all of our screens, then keep the dark mode setting in there
             // ProfilePage(
