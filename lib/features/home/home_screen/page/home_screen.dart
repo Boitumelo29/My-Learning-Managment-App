@@ -71,16 +71,6 @@ class _HomeScreenState extends State<HomePage> {
           leading: const Icon(Icons.person),
           title: const Text("Edit profile"),
         ),
-        ListTile(
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => const FAQScreen()));
-          },
-          leading: const Icon(Icons.help),
-          title: const Text("FAQ"),
-        ),
         SwitchListTile(
             title: const Text("Theme of app"),
             secondary: widget.isDarkMode
@@ -99,6 +89,16 @@ class _HomeScreenState extends State<HomePage> {
               //https://www.geeksforgeeks.org/how-to-add-local-notifications-in-flutter/?ref=header_outind
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }),
+        ListTile(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => const FAQScreen()));
+          },
+          leading: const Icon(Icons.help),
+          title: const Text("FAQ"),
+        ),
         ListTile(
           onTap: () {
             ///Todo: stuff like the permui verison, app verison, adds
