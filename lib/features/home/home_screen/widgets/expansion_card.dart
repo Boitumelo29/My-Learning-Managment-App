@@ -15,22 +15,20 @@ class _ExpansionCardState extends State<ExpansionCard> {
   bool _isExpanded = false;
 
   String _formattedDate = '';
+  String _formattedTime = '';
 
   @override
   void initState() {
     super.initState();
-    _formattedDate = _getCurrentDateTime();
-    Timer.periodic(Duration(seconds: 1), (Timer t) => _updateDateTime());
-  }
-
-  String _getCurrentDateTime() {
-    DateTime now = DateTime.now();
-    return DateFormat('yyyy-MM-dd – kk:mm:ss').format(now);
+    _updateDateTime();
+    Timer.periodic(const Duration(seconds: 1), (Timer t) => _updateDateTime());
   }
 
   void _updateDateTime() {
     setState(() {
-      _formattedDate = _getCurrentDateTime();
+      DateTime now = DateTime.now();
+      _formattedDate = DateFormat('yyyy-MM-dd').format(now);
+      _formattedTime = DateFormat('kk:mm:ss').format(now);
     });
   }
 
@@ -45,7 +43,7 @@ class _ExpansionCardState extends State<ExpansionCard> {
           });
         },
         child: AnimatedContainer(
-          duration: const Duration(microseconds: 700),
+          duration: const Duration(seconds: 2),
           curve: Curves.easeOut,
           height: _isExpanded ? 200 : 100,
           width: 400,
@@ -61,11 +59,10 @@ class _ExpansionCardState extends State<ExpansionCard> {
                       Icon(Icons.calendar_month),
                       Column(
                         children: [
-                          Text("$_formattedDate"),
-                          Text("Time"),
+                          Text(_formattedDate),
+                          Text(_formattedTime),
                         ],
                       ),
-                      Icon(Icons.sunny)
                     ],
                   )
                 : Column(
