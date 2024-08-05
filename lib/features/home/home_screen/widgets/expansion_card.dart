@@ -34,7 +34,7 @@ class _ExpansionCardState extends State<ExpansionCard> {
       DateTime now = DateTime.now();
       _formattedYear = DateFormat('yy').format(now);
       _formattedDate = DateFormat('MM-dd').format(now);
-      _formattedTime = DateFormat('kk:mm').format(now);
+      _formattedTime = DateFormat('kk:mm:ss').format(now);
     });
   }
 
@@ -59,12 +59,15 @@ class _ExpansionCardState extends State<ExpansionCard> {
             border: Border.all(color: Colors.red, width: 1),
             borderRadius: BorderRadius.circular(15)),
         child: SingleChildScrollView(
-            child: _isExpanded ? isExpanded(context) : isNotExpanded(context)),
+          child: _isExpanded
+              ? isExpanded(context)
+              : isNotExpanded(context)
+        ) ,
       ),
     );
   }
 
-  isExpanded(context) {
+  isExpanded(context){
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -72,26 +75,29 @@ class _ExpansionCardState extends State<ExpansionCard> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const Icon(
-              Icons.star,
+              Icons. star,
               color: Colors.red,
               size: 30,
             ),
             Column(
               children: [
+                Text(_formattedTime,
+                    style: const TextStyle(fontSize: 20)),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text(
-                      _formattedYear,
-                      style: const TextStyle(fontSize: 20),
-                    ),
                     Text(
                       _formattedDate,
                       style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
+                          fontSize: 40, fontWeight: FontWeight.bold),
                     ),
+                    Text(
+                      _formattedYear,
+                      style: const TextStyle(fontSize: 40),
+                    )
                   ],
                 ),
-                Text(_formattedTime, style: const TextStyle(fontSize: 40)),
+
               ],
             ),
           ],
@@ -109,8 +115,8 @@ class _ExpansionCardState extends State<ExpansionCard> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
+                          const  Padding(
+                            padding:  EdgeInsets.all(8.0),
                             child: Icon(Icons.format_quote_sharp),
                           ),
                           Text(
@@ -122,7 +128,8 @@ class _ExpansionCardState extends State<ExpansionCard> {
                         ]),
                     Text(
                       snapshot.data!.body,
-                      style: const TextStyle(fontSize: 10, color: Colors.grey),
+                      style: const TextStyle(
+                          fontSize: 10, color: Colors.grey),
                     ),
                   ],
                 );
@@ -144,8 +151,7 @@ class _ExpansionCardState extends State<ExpansionCard> {
       ],
     );
   }
-
-  isNotExpanded(context) {
+  isNotExpanded(context){
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -169,7 +175,8 @@ class _ExpansionCardState extends State<ExpansionCard> {
                 )
               ],
             ),
-            Text(_formattedTime, style: const TextStyle(fontSize: 40)),
+            Text(_formattedTime,
+                style: const TextStyle(fontSize: 40)),
           ],
         ),
       ],
