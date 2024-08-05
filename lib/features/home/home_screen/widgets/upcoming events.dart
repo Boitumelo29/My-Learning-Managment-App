@@ -6,10 +6,17 @@ class UpcomingEvents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("action")));
+      onTap: () {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("action")));
       },
-      
+      child: Container(
+        height: 250,
+        width: 500,
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.red, width: 1),
+            borderRadius: BorderRadius.circular(20)),
+      ),
     );
   }
 }
