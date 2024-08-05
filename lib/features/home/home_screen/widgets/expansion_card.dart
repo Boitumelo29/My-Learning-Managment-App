@@ -23,9 +23,28 @@ class _ExpansionCardState extends State<ExpansionCard> {
           });
         },
         child: AnimatedContainer(
-          duration: const Duration(seconds: 3),
+          duration: const Duration(microseconds: 700),
           curve: Curves.easeOut,
           height: _isExpanded ? 200 : 100,
+          width: 400,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(color: Colors.red[50],),
+          child: SingleChildScrollView(
+            child: _isExpanded
+                ? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Icon(Icons.calendar_month),
+                      Column(children: [Text(date.toString()),
+                      Text("Time"),
+                        Icon(Icons.sunny)
+                      ],)
+                    ],
+                  )
+                : Column(
+                    children: [Text("data")],
+                  ),
+          ),
         ),
       ),
     );
