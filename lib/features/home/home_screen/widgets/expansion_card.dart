@@ -9,15 +9,14 @@ class ExpansionCard extends StatefulWidget {
 }
 
 class _ExpansionCardState extends State<ExpansionCard> {
-  final GlobalKey<ExpansionTileCardState> cardA = GlobalKey();
   final date = DateTime.now();
+  bool
 
   @override
   Widget build(BuildContext context) {
-    return ExpansionTileCard(
-      title: Text(date.toString()),
-      subtitle: Text(""),
-      children: [],
+    return GestureDetector(
+      onTap: ,
     );
   }
 }
+
