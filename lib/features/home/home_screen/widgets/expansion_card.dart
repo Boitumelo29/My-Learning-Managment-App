@@ -54,7 +54,36 @@ class _ExpansionCardState extends State<ExpansionCard> {
               BoxDecoration(border: Border.all(color: Colors.red, width: 10)),
           child: SingleChildScrollView(
             child: _isExpanded
-                ? Row(
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [ const Icon(
+                      Icons.calendar_month,
+                      color: Colors.red,
+                      size: 30,
+                    ),
+                      Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                _formattedDate,
+                                style: const TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                _formattedYear,
+                                style: const TextStyle(fontSize: 20),
+                              )
+                            ],
+                          ),
+                          Text(_formattedTime,
+                              style: const TextStyle(fontSize: 40)),
+                        ],
+                      ),
+                    ],
+                  )
+                : Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       const Icon(
@@ -83,9 +112,6 @@ class _ExpansionCardState extends State<ExpansionCard> {
                         ],
                       ),
                     ],
-                  )
-                : Column(
-                    children: [Text("data")],
                   ),
           ),
         ),
