@@ -52,7 +52,7 @@ class _ExpansionCardState extends State<ExpansionCard> {
       child: AnimatedContainer(
         duration: const Duration(seconds: 1),
         curve: Curves.easeOut,
-        height: _isExpanded ? 250 : 130,
+        height: _isExpanded ? 230 : 130,
         width: 500,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
@@ -71,32 +71,35 @@ class _ExpansionCardState extends State<ExpansionCard> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Align(
-          child: Row(
-            children: [
-              Icon(
-                Icons.calendar_month,
-                color: Colors.red,
-                size: 30,
-              ),
-              Row(
-                children: [
-                  Text(
-                    _formattedDate,
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    _formattedYear,
-                    style: const TextStyle(fontSize: 20),
-                  )
-                ],
-              ),
-            ],
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            const Icon(
+              Icons.calendar_month,
+              color: Colors.red,
+              size: 30,
+            ),
+            Column(
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      _formattedDate,
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      _formattedYear,
+                      style: const TextStyle(fontSize: 20),
+                    )
+                  ],
+                ),
+                Text(_formattedTime,
+                    style: const TextStyle(fontSize: 40)),
+              ],
+            ),
+          ],
         ),
-        Text(_formattedTime,
-            style: const TextStyle(fontSize: 40)),
         Center(
           child: FutureBuilder<QOTDataModel>(
             future: dataModel,
@@ -107,6 +110,8 @@ class _ExpansionCardState extends State<ExpansionCard> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const  Padding(
                             padding:  EdgeInsets.all(8.0),
