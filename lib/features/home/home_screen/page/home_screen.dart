@@ -101,16 +101,6 @@ class _HomeScreenState extends State<HomePage> {
         ),
         ListTile(
           onTap: () {
-            ///Todo: stuff like the permui verison, app verison, adds
-            // MaterialPageRoute(
-            //     builder: (BuildContext context) =>
-            //         SettingsPage(isDarkMode: isDarkMode, toggleTheme: toggleTheme))
-          },
-          leading: const Icon(Icons.settings),
-          title: const Text("Setting"),
-        ),
-        ListTile(
-          onTap: () {
             Navigator.push(
                 context,
                 MaterialPageRoute(
