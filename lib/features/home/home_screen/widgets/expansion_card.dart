@@ -32,9 +32,9 @@ class _ExpansionCardState extends State<ExpansionCard> {
   void _updateDateTime() {
     setState(() {
       DateTime now = DateTime.now();
-      _formattedYear = DateFormat('yyyy').format(now);
+      _formattedYear = DateFormat('yy').format(now);
       _formattedDate = DateFormat('MM-dd').format(now);
-      _formattedTime = DateFormat('kk:mm:ss').format(now);
+      _formattedTime = DateFormat('kk:mm').format(now);
     });
   }
 
@@ -52,7 +52,7 @@ class _ExpansionCardState extends State<ExpansionCard> {
       child: AnimatedContainer(
         duration: const Duration(seconds: 1),
         curve: Curves.easeOut,
-        height: _isExpanded ? 200 : 130,
+        height: _isExpanded ? 250 : 130,
         width: 500,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
@@ -60,120 +60,119 @@ class _ExpansionCardState extends State<ExpansionCard> {
             borderRadius: BorderRadius.circular(15)),
         child: SingleChildScrollView(
           child: _isExpanded
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Align(
-                      alignment: Alignment.topLeft,
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.calendar_month,
-                            color: Colors.red,
-                            size: 30,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                _formattedDate,
-                                style: const TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                _formattedYear,
-                                style: const TextStyle(fontSize: 20),
-                              )
-                            ],
-                          ),
-                          Text(_formattedTime,
-                              style: const TextStyle(fontSize: 40)),
-                        ],
-                      ),
-                    ),
-                    Center(
-                      child: FutureBuilder<QOTDataModel>(
-                        future: dataModel,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            return Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Row(
-                                    children: [
-                                     const  Padding(
-                                        padding:  EdgeInsets.all(8.0),
-                                        child: Icon(Icons.format_quote_sharp),
-                                      ),
-                                      Text(
-                                        snapshot.data!.author,
-                                        style: const TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ]),
-                                Text(
-                                  snapshot.data!.body,
-                                  style: const TextStyle(
-                                      fontSize: 10, color: Colors.grey),
-                                ),
-                              ],
-                            );
-                          }
-                          return Center(
-                            child: SkeletonAnimation(
-                              child: Container(
-                                width: 480,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    color: Colors.red[200],
-                                    borderRadius: BorderRadius.circular(20)),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    )
-                  ],
-                )
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Icon(
-                      Icons.calendar_month,
-                      color: Colors.red,
-                      size: 30,
-                    ),
-                    Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              _formattedDate,
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              _formattedYear,
-                              style: const TextStyle(fontSize: 20),
-                            )
-                          ],
-                        ),
-                        Text(_formattedTime,
-                            style: const TextStyle(fontSize: 40)),
-                      ],
-                    ),
-                  ],
-                ),
-        ),
+              ? isExpanded(context)
+              : isNotExpanded(context)
+        ) ,
       ),
+    );
+  }
+  
+  isExpanded(context){
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Align(
+          child: Row(
+            children: [
+              Icon(
+                Icons.calendar_month,
+                color: Colors.red,
+                size: 30,
+              ),
+              Row(
+                children: [
+                  Text(
+                    _formattedDate,
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    _formattedYear,
+                    style: const TextStyle(fontSize: 20),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+        Text(_formattedTime,
+            style: const TextStyle(fontSize: 40)),
+        Center(
+          child: FutureBuilder<QOTDataModel>(
+            future: dataModel,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                        children: [
+                          const  Padding(
+                            padding:  EdgeInsets.all(8.0),
+                            child: Icon(Icons.format_quote_sharp),
+                          ),
+                          Text(
+                            snapshot.data!.author,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ]),
+                    Text(
+                      snapshot.data!.body,
+                      style: const TextStyle(
+                          fontSize: 10, color: Colors.grey),
+                    ),
+                  ],
+                );
+              }
+              return Center(
+                child: SkeletonAnimation(
+                  child: Container(
+                    width: 480,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: Colors.red[200],
+                        borderRadius: BorderRadius.circular(20)),
+                  ),
+                ),
+              );
+            },
+          ),
+        )
+      ],
+    );
+  }
+  isNotExpanded(context){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        const Icon(
+          Icons.calendar_month,
+          color: Colors.red,
+          size: 30,
+        ),
+        Column(
+          children: [
+            Row(
+              children: [
+                Text(
+                  _formattedDate,
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  _formattedYear,
+                  style: const TextStyle(fontSize: 20),
+                )
+              ],
+            ),
+            Text(_formattedTime,
+                style: const TextStyle(fontSize: 40)),
+          ],
+        ),
+      ],
     );
   }
 }
