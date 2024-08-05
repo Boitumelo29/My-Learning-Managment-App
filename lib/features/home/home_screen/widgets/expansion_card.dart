@@ -50,7 +50,7 @@ class _ExpansionCardState extends State<ExpansionCard> {
         });
       },
       child: AnimatedContainer(
-        duration: const Duration(seconds: 2),
+        duration: const Duration(seconds: 1),
         curve: Curves.easeOut,
         height: _isExpanded ? 200 : 130,
         width: 500,
@@ -65,10 +65,14 @@ class _ExpansionCardState extends State<ExpansionCard> {
                   children: [
                     const Align(
                       alignment: Alignment.topLeft,
-                      child: Icon(
-                        Icons.calendar_month,
-                        color: Colors.red,
-                        size: 30,
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.calendar_month,
+                            color: Colors.red,
+                            size: 30,
+                          ),
+                        ],
                       ),
                     ),
                     Align(
@@ -103,10 +107,11 @@ class _ExpansionCardState extends State<ExpansionCard> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      const Icon(Icons.format_quote_sharp),
+                                     const  Padding(
+                                        padding:  EdgeInsets.all(8.0),
+                                        child: Icon(Icons.format_quote_sharp),
+                                      ),
                                       Text(
                                         snapshot.data!.author,
                                         style: const TextStyle(
@@ -125,8 +130,8 @@ class _ExpansionCardState extends State<ExpansionCard> {
                           return Center(
                             child: SkeletonAnimation(
                               child: Container(
-                                width: 400,
-                                height: 150,
+                                width: 480,
+                                height: 50,
                                 decoration: BoxDecoration(
                                     color: Colors.red[200],
                                     borderRadius: BorderRadius.circular(20)),
