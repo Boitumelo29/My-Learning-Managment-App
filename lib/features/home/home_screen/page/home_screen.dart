@@ -118,6 +118,16 @@ class _HomeScreenState extends State<HomePage> {
           leading: const Icon(Icons.exit_to_app),
           title: const Text("Logout"),
         ),
+        // ListTile(
+        //   onTap: () {
+        //     ///Todo: stuff like the permui verison, app verison, adds
+        //     // MaterialPageRoute(
+        //     //     builder: (BuildContext context) =>
+        //     //         SettingsPage(isDarkMode: isDarkMode, toggleTheme: toggleTheme))
+        //   },
+        //   leading: const Icon(Icons.settings),
+        //   title: const Text("Setting"),
+        // ),
       ],
       children: [
         const Text("Hello UserName, welcome back!"),
