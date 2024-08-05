@@ -56,7 +56,7 @@ class _ExpandableCardState extends State<ExpandableCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Row(
+               const Row(
                   children: [
                     Icon(Icons.calendar_today, color: Colors.white),
                     SizedBox(width: 10),
@@ -72,7 +72,7 @@ class _ExpandableCardState extends State<ExpandableCard> {
                   ],
                 ),
                 if (_isExpanded)
-                  Padding(
+                 const Padding(
                     padding: const EdgeInsets.only(top: 16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

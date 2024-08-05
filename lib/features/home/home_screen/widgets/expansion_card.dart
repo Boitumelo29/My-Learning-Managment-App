@@ -4,7 +4,6 @@ import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-
 class ExpansionCard extends StatefulWidget {
   const ExpansionCard({super.key});
 
@@ -35,8 +34,6 @@ class _ExpansionCardState extends State<ExpansionCard> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -53,17 +50,22 @@ class _ExpansionCardState extends State<ExpansionCard> {
           height: _isExpanded ? 200 : 100,
           width: 400,
           padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(color: Colors.red[50],),
+          decoration: BoxDecoration(
+            color: Colors.red[50],
+          ),
           child: SingleChildScrollView(
             child: _isExpanded
                 ? Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Icon(Icons.calendar_month),
-                      Column(children: [Text("$_formattedDate"),
-                      Text("Time"),
-                        Icon(Icons.sunny)
-                      ],)
+                      Column(
+                        children: [
+                          Text("$_formattedDate"),
+                          Text("Time"),
+                        ],
+                      ),
+                      Icon(Icons.sunny)
                     ],
                   )
                 : Column(
