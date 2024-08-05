@@ -16,6 +16,7 @@ class _ExpansionCardState extends State<ExpansionCard> {
 
   String _formattedDate = '';
   String _formattedTime = '';
+  String _formattedYear = '';
 
   @override
   void initState() {
@@ -27,7 +28,8 @@ class _ExpansionCardState extends State<ExpansionCard> {
   void _updateDateTime() {
     setState(() {
       DateTime now = DateTime.now();
-      _formattedDate = DateFormat('yyyy-MM-dd').format(now);
+      _formattedYear = DateFormat('yyyy').format(now);
+      _formattedDate = DateFormat('MM-dd').format(now);
       _formattedTime = DateFormat('kk:mm:ss').format(now);
     });
   }
@@ -48,19 +50,36 @@ class _ExpansionCardState extends State<ExpansionCard> {
           height: _isExpanded ? 200 : 100,
           width: 400,
           padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.red[50],
-          ),
+          decoration:
+              BoxDecoration(border: Border.all(color: Colors.red, width: 10)),
           child: SingleChildScrollView(
             child: _isExpanded
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Icon(Icons.calendar_month),
+                      const Icon(
+                        Icons.calendar_month,
+                        color: Colors.red,
+                        size: 30,
+                      ),
                       Column(
                         children: [
-                          Text(_formattedDate),
-                          Text(_formattedTime),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                _formattedDate,
+                                style: const TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                _formattedYear,
+                                style: const TextStyle(fontSize: 20),
+                              )
+                            ],
+                          ),
+                          Text(_formattedTime,
+                              style: const TextStyle(fontSize: 40)),
                         ],
                       ),
                     ],
