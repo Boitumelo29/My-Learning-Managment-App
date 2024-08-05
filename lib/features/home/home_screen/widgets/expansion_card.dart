@@ -10,13 +10,24 @@ class ExpansionCard extends StatefulWidget {
 
 class _ExpansionCardState extends State<ExpansionCard> {
   final date = DateTime.now();
-  bool
+  bool _isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: ,
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            _isExpanded = !_isExpanded;
+          });
+        },
+        child: AnimatedContainer(
+          duration: const Duration(seconds: 3),
+          curve: Curves.easeOut,
+          height: _isExpanded ? 200 : 100,
+        ),
+      ),
     );
   }
 }
-
