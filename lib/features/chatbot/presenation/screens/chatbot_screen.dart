@@ -104,7 +104,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                                       id: "1",
                                       image: _image(),
                                       sent: true,
-                                      trailing: Text(controller.text),
+                                      // trailing: Text(controller.text),
                                     ),
                                     BubbleNormal(
                                       text: msgs[0].msg,
@@ -126,7 +126,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                               alignment: Alignment.centerRight,
                               child: BubbleNormal(
                                 isSender: false,
-                                text: "typing",
+                                text: "typing...",
                                 color: Colors.grey.shade100,
                               ),
                             ),
