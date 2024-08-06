@@ -22,6 +22,16 @@ class ChatBotPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("My ChatBot"),
       ),
+      drawer: Drawer(
+        backgroundColor: Colors.white,
+        child: ListView(
+          children: [
+            DrawerHeader(
+              child: Text("My chatty extra tutor packs can be here"),
+            )
+          ],
+        ),
+      ),
       body: FutureBuilder(
         future: initialiseGemini(),
         builder: (context, snapshot) {
@@ -121,7 +131,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                                   sent: true,
                                 ),
                           Padding(
-                            padding:const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Align(
                               alignment: Alignment.centerRight,
                               child: BubbleNormal(
