@@ -168,6 +168,8 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
             },
           ),
         ),
+        /// Todo: after the user has pressed on send button then floating should disappear
+        /// should have a column here instead icons ? true:false
         Padding(
           padding: const EdgeInsets.all(10),
           child: Row(
