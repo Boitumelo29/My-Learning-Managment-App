@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mylearning/data/data_model/quote_of_the_day_data_model.dart';

@@ -6,6 +6,7 @@ import "package:cached_network_image/cached_network_image.dart";
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
