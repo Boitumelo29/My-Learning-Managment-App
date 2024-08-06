@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:chat_bubbles/bubbles/bubble_normal.dart';
 import 'package:chat_bubbles/bubbles/bubble_normal_image.dart';
+import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:chat_bubbles/date_chips/date_chip.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
@@ -119,11 +120,14 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                                   color: Colors.red.shade50,
                                   sent: true,
                                 ),
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
+                          Padding(
+                            padding:const EdgeInsets.all(8.0),
                             child: Align(
                               alignment: Alignment.centerLeft,
-                              child: Text("Typing"),
+                              child: BubbleNormal(
+                                text: "typing",
+                                color: Colors.grey.shade100,
+                              ),
                             ),
                           )
                         ],
