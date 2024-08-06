@@ -34,7 +34,7 @@ class _ExpansionCardState extends State<ExpansionCard> {
       DateTime now = DateTime.now();
       _formattedYear = DateFormat('yy').format(now);
       _formattedDate = DateFormat('MM-dd').format(now);
-      _formattedTime = DateFormat('kk:mm:ss').format(now);
+      _formattedTime = DateFormat('kk:mm').format(now);
     });
   }
 
