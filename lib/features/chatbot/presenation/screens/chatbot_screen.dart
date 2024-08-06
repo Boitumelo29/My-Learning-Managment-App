@@ -123,8 +123,9 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                           Padding(
                             padding:const EdgeInsets.all(8.0),
                             child: Align(
-                              alignment: Alignment.centerLeft,
+                              alignment: Alignment.centerRight,
                               child: BubbleNormal(
+                                isSender: false,
                                 text: "typing",
                                 color: Colors.grey.shade100,
                               ),
