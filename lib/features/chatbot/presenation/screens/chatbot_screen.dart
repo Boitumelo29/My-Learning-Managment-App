@@ -25,10 +25,23 @@ class ChatBotPage extends StatelessWidget {
       drawer: Drawer(
         backgroundColor: Colors.white,
         child: ListView(
-          children: [
-            DrawerHeader(
+          children:  [
+            const DrawerHeader(
               child: Text("My chatty extra tutor packs can be here"),
-            )
+            ),
+            const Text("History"),
+            ...List.generate(5, (index) {
+              return ListTile(
+                leading: const Icon(Icons.chat),
+                title: Text('Item ${index + 1}'),
+                subtitle: Text('Subtitle ${index + 1}'),
+                trailing: const Icon(Icons.arrow_forward),
+                onTap: () {
+                  // Handle tap event here
+                  print('Tapped on Item ${index + 1}');
+                },
+              );
+            }),
           ],
         ),
       ),
