@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
-import 'package:mylearning/common_widgets/widgets/icon_element/icon_floating_elements.dart';
 
 class SlideUpCard extends StatelessWidget {
   final dynamic children;

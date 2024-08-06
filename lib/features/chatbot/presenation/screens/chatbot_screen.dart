@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:chat_bubbles/bubbles/bubble_normal.dart';
 import 'package:chat_bubbles/bubbles/bubble_normal_image.dart';
+import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:chat_bubbles/date_chips/date_chip.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,6 +21,29 @@ class ChatBotPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("My ChatBot"),
+      ),
+      drawer: Drawer(
+        backgroundColor: Colors.white,
+        child: ListView(
+          children:  [
+            const DrawerHeader(
+              child: Text("My chatty extra tutor packs can be here"),
+            ),
+            const Text("History"),
+            ...List.generate(5, (index) {
+              return ListTile(
+                leading: const Icon(Icons.chat),
+                title: Text('Item ${index + 1}'),
+                subtitle: Text('Subtitle ${index + 1}'),
+                trailing: const Icon(Icons.arrow_forward),
+                onTap: () {
+                  // Handle tap event here
+                  print('Tapped on Item ${index + 1}');
+                },
+              );
+            }),
+          ],
+        ),
       ),
       body: FutureBuilder(
         future: initialiseGemini(),
@@ -103,7 +127,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                                       id: "1",
                                       image: _image(),
                                       sent: true,
-                                      trailing: Text(controller.text),
+                                      // trailing: Text(controller.text),
                                     ),
                                     BubbleNormal(
                                       text: msgs[0].msg,
@@ -119,11 +143,15 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                                   color: Colors.red.shade50,
                                   sent: true,
                                 ),
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
                             child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text("Typing"),
+                              alignment: Alignment.centerRight,
+                              child: BubbleNormal(
+                                isSender: false,
+                                text: "typing...",
+                                color: Colors.grey.shade100,
+                              ),
                             ),
                           )
                         ],
@@ -140,6 +168,8 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
             },
           ),
         ),
+        /// Todo: after the user has pressed on send button then floating should disappear
+        /// should have a column here instead icons ? true:false
         Padding(
           padding: const EdgeInsets.all(10),
           child: Row(
