@@ -27,6 +27,7 @@ class _SignUpPageState extends State<SignUpPage> {
   FocusNode password_f = FocusNode();
   final passwordConfirm = TextEditingController();
   FocusNode passwordConfirm_f = FocusNode();
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -148,6 +149,9 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Future<void> _signUp() async {
+    setState(() {
+      isLoading = true;
+    });
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -167,6 +171,10 @@ class _SignUpPageState extends State<SignUpPage> {
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Failed to sign up: $e')));
-    }
+    }{
+      setState(() {
+        isLoading =false;
+      });
+  }
   }
 }

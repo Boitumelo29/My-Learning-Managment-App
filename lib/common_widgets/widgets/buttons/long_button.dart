@@ -29,7 +29,7 @@ class LongButton extends StatelessWidget {
                         color: Colors.white,
                       )),
                 )
-              : Text(title)),
+              : Center(child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold),))),
     );
   }
 }
