@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:mylearning/features/auth/auth.dart';
 import 'package:mylearning/features/notes/presentation/screen/notes_screen.dart';
 import 'package:mylearning/features/upcoming_events/upcoming_event_screen/pages/upcoming_screen.dart';
 import 'package:mylearning/firebase_options.dart';
@@ -46,9 +47,7 @@ class _MyAppState extends State<MyApp> {
       darkTheme:
           ThemeData(primarySwatch: Colors.red, brightness: Brightness.dark),
       debugShowCheckedModeBanner: false,
-      home:
-
-      TabBarScreen(isDarkMode: isDarkMode, toggleTheme: toggleTheme),
+      home: AuthState(isDarkMode: isDarkMode, toggleTheme: toggleTheme),
     );
   }
 

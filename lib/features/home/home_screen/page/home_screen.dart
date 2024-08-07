@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/appBar_with_drawer.dart';
 import 'package:mylearning/features/home/home_screen/widgets/expansion_card.dart';
@@ -21,7 +22,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomePage> {
-
   @override
   Widget build(BuildContext context) {
     var snackBar = const SnackBar(
@@ -98,9 +98,8 @@ class _HomeScreenState extends State<HomePage> {
           title: const Text("Contact us"),
         ),
         ListTile(
-          onTap: () {
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            Navigator.pop(context);
+          onTap: () async {
+            await FirebaseAuth.instance.signOut();
           },
           leading: const Icon(Icons.exit_to_app),
           title: const Text("Logout"),
@@ -127,8 +126,10 @@ class _HomeScreenState extends State<HomePage> {
           ],
         ),
         ExpansionCard(),
-SizedBox(height: 30,),
-       UpcomingEvents(),
+        SizedBox(
+          height: 30,
+        ),
+        UpcomingEvents(),
         const Text(
             "Chat bot but I might change this to a caroslue to display the notes, chat bot converstaion and someting else if possible  "),
         Container(
