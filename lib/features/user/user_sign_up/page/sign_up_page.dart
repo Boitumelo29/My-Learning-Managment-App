@@ -28,11 +28,12 @@ class _SignUpPageState extends State<SignUpPage> {
   FocusNode passwordConfirm_f = FocusNode();
 
   Future<void> _signup() async {
-    setState(() {});
+    setState(() {
+    });
 
     try {
       UserCredential userCredential =
-          await _auth.createUserWithEmailAndPassword(
+      await _auth.createUserWithEmailAndPassword(
         email: email.text,
         password: password.text,
       );
@@ -46,7 +47,8 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       );
     } finally {
-      setState(() {});
+      setState(() {
+      });
     }
   }
 
@@ -141,27 +143,24 @@ class _SignUpPageState extends State<SignUpPage> {
               },
             ),
             TextButton(
-              onPressed: widget.show,
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    "Already have an account? ",
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  Text(
-                    "login",
-                    style: TextStyle(color: Colors.red),
-                  ),
-                ],
-              ),
-            ),
-            LongButton(
-                onTap: () {
-                  _signup();
-                },
-                title: Strings.signUp),
+                onPressed: widget.show,
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      "Already have an account? ",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    Text(
+                      "login",
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ],
+                ),),
+            LongButton(onTap: () {
+              _signup();
+            }, title: Strings.signUp),
           ],
         )),
       ],

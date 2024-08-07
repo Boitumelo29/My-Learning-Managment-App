@@ -22,6 +22,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomePage> {
+  final User? user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     var snackBar = const SnackBar(
@@ -44,7 +46,7 @@ class _HomeScreenState extends State<HomePage> {
               child: Icon(Icons.person),
             ),
             accountName: const Text("Username"),
-            accountEmail: const Text("Email testing"),
+            accountEmail: Text("${user!.email}"),
           ),
         ),
         ListTile(
@@ -125,11 +127,11 @@ class _HomeScreenState extends State<HomePage> {
             Text("My Todos"),
           ],
         ),
-        ExpansionCard(),
-        SizedBox(
+        const ExpansionCard(),
+        const SizedBox(
           height: 30,
         ),
-        UpcomingEvents(),
+        const UpcomingEvents(),
         const Text(
             "Chat bot but I might change this to a caroslue to display the notes, chat bot converstaion and someting else if possible  "),
         Container(
