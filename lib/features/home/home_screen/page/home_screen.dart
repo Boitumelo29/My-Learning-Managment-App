@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomePage> {
               padding: EdgeInsets.all(8.0),
               child: Icon(Icons.person),
             ),
-            accountName: const Text("Username"),
+            accountName:  Text("Username: "),
             accountEmail: Text("${user!.email}"),
           ),
         ),

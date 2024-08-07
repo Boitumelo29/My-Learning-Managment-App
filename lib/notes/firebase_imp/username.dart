@@ -140,7 +140,7 @@ class UserPage extends StatelessWidget {
             padding: EdgeInsets.all(16.0),
             child: Column(
               children: [
-                Text('Username: ${userData['username']}', style: TextStyle(fontSize: 20)),
+                Text('Username  test: ${userData['username']}', style: TextStyle(fontSize: 20)),
                 Text('Email: ${userData['email']}', style: TextStyle(fontSize: 20)),
               ],
             ),
