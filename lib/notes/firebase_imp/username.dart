@@ -116,36 +116,69 @@ class _SignUpPageState extends State<SignUpPage> {
 }
 
 
-class UserPage extends StatelessWidget {
+class UserPage extends StatefulWidget {
+  @override
+  _UserPageState createState() => _UserPageState();
+}
+
+class _UserPageState extends State<UserPage> {
+  User? user;
+  Map<String, dynamic>? userData;
+  bool isLoading = true;
+  bool userNotFound = false;
+
+  @override
+  void initState() {
+    super.initState();
+    user = FirebaseAuth.instance.currentUser;
+    fetchUserData();
+  }
+
+  Future<void> fetchUserData() async {
+    if (user != null) {
+      try {
+        DocumentSnapshot doc = await FirebaseFirestore.instance.collection('users').doc(user!.uid).get();
+        if (doc.exists) {
+          setState(() {
+            userData = doc.data() as Map<String, dynamic>?;
+            isLoading = false;
+          });
+        } else {
+          setState(() {
+            userNotFound = true;
+            isLoading = false;
+          });
+        }
+      } catch (e) {
+        setState(() {
+          userNotFound = true;
+          isLoading = false;
+        });
+      }
+    } else {
+      setState(() {
+        userNotFound = true;
+        isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    User? user = FirebaseAuth.instance.currentUser;
-
     return Scaffold(
       appBar: AppBar(title: Text('User Profile')),
-      body: FutureBuilder<DocumentSnapshot>(
-        future: FirebaseFirestore.instance.collection('users').doc(user!.uid).get(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          }
-
-          if (!snapshot.hasData || !snapshot.data!.exists) {
-            return Center(child: Text('User not found'));
-          }
-
-          var userData = snapshot.data!.data() as Map<String, dynamic>;
-
-          return Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                Text('Username  test: ${userData['username']}', style: TextStyle(fontSize: 20)),
-                Text('Email: ${userData['email']}', style: TextStyle(fontSize: 20)),
-              ],
-            ),
-          );
-        },
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : userNotFound
+          ? Center(child: Text('User not found'))
+          : Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Text('Username: ${userData!['username']}', style: TextStyle(fontSize: 20)),
+            Text('Email: ${userData!['email']}', style: TextStyle(fontSize: 20)),
+          ],
+        ),
       ),
     );
   }

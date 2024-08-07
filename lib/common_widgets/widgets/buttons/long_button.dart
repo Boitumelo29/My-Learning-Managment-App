@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 class LongButton extends StatelessWidget {
   final VoidCallback onTap;
   final String title;
+  final bool isLoading;
 
-  const LongButton({super.key, required this.onTap, required this.title});
+  const LongButton(
+      {super.key,
+      required this.onTap,
+      required this.title,
+      required this.isLoading});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +20,9 @@ class LongButton extends StatelessWidget {
           height: 60,
           decoration: BoxDecoration(
               color: Colors.red, borderRadius: BorderRadius.circular(20)),
-          child: Center(child: Text(title))),
+          child: isLoading
+              ? const CircularProgressIndicator()
+              : Center(child: Text(title))),
     );
   }
 }

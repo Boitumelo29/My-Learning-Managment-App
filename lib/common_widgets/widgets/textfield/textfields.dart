@@ -43,7 +43,7 @@ class LongTextFieldForm extends StatefulWidget {
   final bool showPrefixIcon;
   final IconData? prefixIcon;
   final bool obsureText;
-  final dynamic validator;
+  final String? Function(String?)? validator;
   final FocusNode? focusNode;
   final Function(String) onChanged;
   final bool isRed;

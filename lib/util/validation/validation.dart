@@ -1,35 +1,37 @@
-import 'package:flutter/cupertino.dart';
-
 class Validation {
-  static emailValidation(String value) {
-    if (value.isEmpty ||
+  static String? emailValidation(String? value) {
+    if (value == null || value.isEmpty ||
         !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
             .hasMatch(value)) {
       return "Email is not valid";
     }
+    return null;
   }
 
-  static passwordValidation(String value) {
-    if (value.isEmpty) {
+  static String? passwordValidation(String? value) {
+    if (value == null || value.isEmpty) {
       return "Password is not valid";
-    } else if (value.length <= 6) {
+    } else if (value.length <= 5) {
       return "Password must be longer than 6 characters";
     }
+    return null;
   }
 
-  static passwordConformValidation(String value, String confirmValue) async {
-    if (value.isEmpty) {
+  static String? passwordConformValidation(String? value, String? confirmValue) {
+    if (value == null || value.isEmpty) {
       return "Password is not valid";
     } else if (value != confirmValue) {
       return "Password does not match";
     }
+    return null;
   }
 
-  static usernameValidation(String value) {
-    if (value.isEmpty) {
+  static String? usernameValidation(String? value) {
+    if (value == null || value.isEmpty) {
       return "Username is empty";
     } else if (value.length <= 3) {
       return "Username must be longer than 3 characters";
     }
+    return null;
   }
 }

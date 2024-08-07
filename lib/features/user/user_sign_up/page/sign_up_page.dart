@@ -136,6 +136,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
             LongButton(
+                isLoading: false,
                 onTap: () {
                   _signUp();
                 },

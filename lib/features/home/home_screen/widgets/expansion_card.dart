@@ -15,35 +15,37 @@ class ExpansionCard extends StatefulWidget {
 
 class _ExpansionCardState extends State<ExpansionCard> {
   bool _isExpanded = false;
-
   String _formattedDate = '';
   String _formattedTime = '';
   String _formattedYear = '';
+  late Timer _timer;
+  late Future<QOTDataModel> dataModel;
+  QOTDataService dataService = QOTDataService();
 
   @override
   void initState() {
     super.initState();
     dataModel = QOTDataService.fetchData(context);
     _updateDateTime();
-    Timer.periodic(const Duration(seconds: 1), (Timer t) => _updateDateTime());
+    _timer = Timer.periodic(const Duration(seconds: 1), (Timer t) => _updateDateTime());
   }
 
   void _updateDateTime() {
-    setState(() {
-      DateTime now = DateTime.now();
-      _formattedYear = DateFormat('yy').format(now);
-      _formattedDate = DateFormat('MM-dd').format(now);
-      _formattedTime = DateFormat('kk:mm').format(now);
-    });
+    if (mounted) {
+      setState(() {
+        DateTime now = DateTime.now();
+        _formattedYear = DateFormat('yy').format(now);
+        _formattedDate = DateFormat('MM-dd').format(now);
+        _formattedTime = DateFormat('kk:mm').format(now);
+      });
+    }
   }
 
-  // @override
-  // void dispose(){
-  //   super.dispose();
-  //   _updateDateTime();
-  // }
-  late Future<QOTDataModel> dataModel;
-  QOTDataService dataService = QOTDataService();
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,18 +62,17 @@ class _ExpansionCardState extends State<ExpansionCard> {
         width: 500,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-            border: Border.all(color: Colors.red, width: 1),
-            borderRadius: BorderRadius.circular(15)),
+          border: Border.all(color: Colors.red, width: 1),
+          borderRadius: BorderRadius.circular(15),
+        ),
         child: SingleChildScrollView(
-          child: _isExpanded
-              ? isExpanded(context)
-              : isNotExpanded(context)
-        ) ,
+          child: _isExpanded ? isExpanded(context) : isNotExpanded(context),
+        ),
       ),
     );
   }
 
-  isExpanded(context){
+  Widget isExpanded(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -79,29 +80,29 @@ class _ExpansionCardState extends State<ExpansionCard> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const Icon(
-              Icons. star,
+              Icons.star,
               color: Colors.red,
               size: 30,
             ),
             Column(
               children: [
-                Text(_formattedTime,
-                    style: const TextStyle(fontSize: 20)),
+                Text(
+                  _formattedTime,
+                  style: const TextStyle(fontSize: 20),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
                       _formattedDate,
-                      style: const TextStyle(
-                          fontSize: 40, fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       _formattedYear,
                       style: const TextStyle(fontSize: 40),
-                    )
+                    ),
                   ],
                 ),
-
               ],
             ),
           ],
@@ -116,24 +117,25 @@ class _ExpansionCardState extends State<ExpansionCard> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const  Padding(
-                            padding:  EdgeInsets.all(8.0),
-                            child: Icon(Icons.format_quote_sharp),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Icon(Icons.format_quote_sharp),
+                        ),
+                        Text(
+                          snapshot.data!.author,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
                           ),
-                          Text(
-                            snapshot.data!.author,
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ]),
+                        ),
+                      ],
+                    ),
                     Text(
                       snapshot.data!.body,
-                      style: const TextStyle(
-                          fontSize: 10, color: Colors.grey),
+                      style: const TextStyle(fontSize: 10, color: Colors.grey),
                     ),
                   ],
                 );
@@ -144,18 +146,20 @@ class _ExpansionCardState extends State<ExpansionCard> {
                     width: 480,
                     height: 50,
                     decoration: BoxDecoration(
-                        color: Colors.red[200],
-                        borderRadius: BorderRadius.circular(20)),
+                      color: Colors.red[200],
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
                 ),
               );
             },
           ),
-        )
+        ),
       ],
     );
   }
-  isNotExpanded(context){
+
+  Widget isNotExpanded(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -170,20 +174,22 @@ class _ExpansionCardState extends State<ExpansionCard> {
               children: [
                 Text(
                   _formattedDate,
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   _formattedYear,
                   style: const TextStyle(fontSize: 20),
-                )
+                ),
               ],
             ),
-            Text(_formattedTime,
-                style: const TextStyle(fontSize: 40)),
+            Text(
+              _formattedTime,
+              style: const TextStyle(fontSize: 40),
+            ),
           ],
         ),
       ],
     );
   }
 }
+

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/appBar_with_drawer.dart';
@@ -22,7 +23,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomePage> {
-  final User? user = FirebaseAuth.instance.currentUser;
+  User? user;
+  Map<String, dynamic>? userData;
+  bool isLoading = true;
+  bool userNotFound = false;
+
+  @override
+  void initState() {
+    super.initState();
+    user = FirebaseAuth.instance.currentUser;
+    fetchUserData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +56,8 @@ class _HomeScreenState extends State<HomePage> {
               padding: EdgeInsets.all(8.0),
               child: Icon(Icons.person),
             ),
-            accountName:  Text("Username: "),
-            accountEmail: Text("${user!.email}"),
+            accountName: Text("${userData?['username'] ?? ""}"),
+            accountEmail: Text(user?.email ?? ""),
           ),
         ),
         ListTile(
@@ -152,5 +163,37 @@ class _HomeScreenState extends State<HomePage> {
         ),
       ],
     );
+  }
+
+  Future<void> fetchUserData() async {
+    if (user != null) {
+      try {
+        DocumentSnapshot doc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user!.uid)
+            .get();
+        if (doc.exists) {
+          setState(() {
+            userData = doc.data() as Map<String, dynamic>?;
+            isLoading = false;
+          });
+        } else {
+          setState(() {
+            userNotFound = true;
+            isLoading = false;
+          });
+        }
+      } catch (e) {
+        setState(() {
+          userNotFound = true;
+          isLoading = false;
+        });
+      }
+    } else {
+      setState(() {
+        userNotFound = true;
+        isLoading = false;
+      });
+    }
   }
 }

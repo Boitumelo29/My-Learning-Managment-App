@@ -23,9 +23,11 @@ class _LoginPageState extends State<LoginPage> {
   FocusNode emailFocus = FocusNode();
   TextEditingController password = TextEditingController();
   FocusNode passwordFocus = FocusNode();
+  bool isLoading = false;
 
   Future<void> _login() async {
     setState(() {
+      isLoading = true;
     });
 
     try {
@@ -44,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
       );
     } finally {
       setState(() {
-
+        isLoading = false;
       });
     }
   }
@@ -81,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                   prefixIcon: Icons.email_outlined,
                   focusNode: emailFocus,
                   validator: (value) {
-                    // return Validation.emailValidation(value);
+                    return Validation.emailValidation(value);
                   },
                   obsureText: false,
                   showSuffixIcon: false,
@@ -99,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                   prefixIcon: Icons.password,
                   focusNode: passwordFocus,
                   validator: (value) {
-                    // return Validation.passwordValidation(value);
+                    return Validation.passwordValidation(value);
                   },
                   obsureText: true,
                   showSuffixIcon: true,
@@ -125,15 +127,17 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedSpace(),
                 LongButton(
+                  isLoading: isLoading,
                   onTap: () {
-                    _login();
-                    // emailFocus.unfocus();
-                    // passwordFocus.unfocus();
-                    // if (_formKey.currentState!.validate()) {
-                    //   widget.show;
-                    // }
+                    emailFocus.unfocus();
+                    passwordFocus.unfocus();
+                    if (_formKey.currentState!.validate()) {
+                      _login();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Successfully logged in!')));
+                    }
                   },
-                  title: Strings.signUp,
+                  title: Strings.login,
                 ),
                 const SizedSpace(
                   height: 8,
