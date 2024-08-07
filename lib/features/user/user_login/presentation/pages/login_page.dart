@@ -4,7 +4,9 @@ import 'package:mylearning/common_widgets/screens/user_layout/user_layout_screen
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
-import 'package:mylearning/features/user/user_login/presentation/pages/logo_image.dart';
+import 'package:mylearning/features/user/user_login/presentation/widget/email.dart';
+import 'package:mylearning/features/user/user_login/presentation/widget/logo_image.dart';
+import 'package:mylearning/features/user/user_login/presentation/widget/password.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
 import 'package:mylearning/util/validation/validation.dart';
 
@@ -82,38 +84,16 @@ class _LoginPageState extends State<LoginPage> {
             key: _formKey,
             child: Column(
               children: <Widget>[
-                LongTextFieldForm(
-                  isRed: false,
-                  showPrefixIcon: true,
-                  prefixIcon: Icons.email_outlined,
-                  focusNode: emailFocus,
-                  validator: (value) {
-                    return Validation.emailValidation(value);
-                  },
-                  obsureText: false,
-                  showSuffixIcon: false,
-                  hintText: Strings.email,
-                  labelText: Strings.email,
-                  onChanged: (value) {},
-                  controller: email,
+                LoginEmail(
+                  email: email,
+                  emailFocus: emailFocus,
                 ),
                 const SizedSpace(
                   height: 10,
                 ),
-                LongTextFieldForm(
-                  isRed: false,
-                  showPrefixIcon: true,
-                  prefixIcon: Icons.password,
-                  focusNode: passwordFocus,
-                  validator: (value) {
-                    return Validation.passwordValidation(value);
-                  },
-                  obsureText: true,
-                  showSuffixIcon: true,
-                  hintText: Strings.password,
-                  labelText: Strings.password,
-                  controller: password,
-                  onChanged: (value) {},
+                LoginPassword(
+                  password: password,
+                  passwordFocus: passwordFocus,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
