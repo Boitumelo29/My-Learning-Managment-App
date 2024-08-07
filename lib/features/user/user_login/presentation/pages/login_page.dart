@@ -35,8 +35,10 @@ class _LoginPageState extends State<LoginPage> {
         email: email.text,
         password: password.text,
       );
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Successfully logged in!'),backgroundColor: Colors.red,));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Successfully logged in!'),
+        backgroundColor: Colors.red,
+      ));
       print("Logged in: ${userCredential.user?.email}");
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -44,6 +46,15 @@ class _LoginPageState extends State<LoginPage> {
           content: Text(e.message ?? "Login failed"),
         ),
       );
+      setState(() {
+        isLoading = false;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Failed to sign up: $e')));
+      setState(() {
+        isLoading = false;
+      });
     } finally {
       setState(() {
         isLoading = false;
