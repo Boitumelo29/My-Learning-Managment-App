@@ -21,8 +21,15 @@ class LongButton extends StatelessWidget {
           decoration: BoxDecoration(
               color: Colors.red, borderRadius: BorderRadius.circular(20)),
           child: isLoading
-              ? const CircularProgressIndicator()
-              : Center(child: Text(title))),
+              ? const Center(
+                  child: SizedBox(
+                      width: 50,
+                      height: 50,
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                      )),
+                )
+              : Text(title)),
     );
   }
 }

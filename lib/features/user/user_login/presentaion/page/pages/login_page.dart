@@ -35,10 +35,10 @@ class _LoginPageState extends State<LoginPage> {
         email: email.text,
         password: password.text,
       );
-      // Handle successful login here
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Successfully logged in!'),backgroundColor: Colors.red,));
       print("Logged in: ${userCredential.user?.email}");
     } on FirebaseAuthException catch (e) {
-      // Handle login errors here
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(e.message ?? "Login failed"),
@@ -133,8 +133,6 @@ class _LoginPageState extends State<LoginPage> {
                     passwordFocus.unfocus();
                     if (_formKey.currentState!.validate()) {
                       _login();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Successfully logged in!')));
                     }
                   },
                   title: Strings.login,
