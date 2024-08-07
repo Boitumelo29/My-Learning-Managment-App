@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/user_layout/user_layout_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
@@ -16,6 +17,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final email = TextEditingController();
   FocusNode email_f = FocusNode();
   final username = TextEditingController();
@@ -24,6 +26,29 @@ class _SignUpPageState extends State<SignUpPage> {
   FocusNode password_f = FocusNode();
   final passwordConfirm = TextEditingController();
   FocusNode passwordConfirm_f = FocusNode();
+
+  Future<void> _signup() async {
+    setState(() {});
+
+    try {
+      UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
+        email: email.text,
+        password: password.text,
+      );
+      // Handle successful signup here
+      print("Signed up: ${userCredential.user?.email}");
+    } on FirebaseAuthException catch (e) {
+      // Handle signup errors here
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.message ?? "Signup failed"),
+        ),
+      );
+    } finally {
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,22 +141,27 @@ class _SignUpPageState extends State<SignUpPage> {
               },
             ),
             TextButton(
-                onPressed: widget.show,
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      "Already have an account? ",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    Text(
-                      "login",
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ],
-                ),),
-            LongButton(onTap: () {}, title: Strings.signUp),
+              onPressed: widget.show,
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    "Already have an account? ",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  Text(
+                    "login",
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ],
+              ),
+            ),
+            LongButton(
+                onTap: () {
+                  _signup();
+                },
+                title: Strings.signUp),
           ],
         )),
       ],

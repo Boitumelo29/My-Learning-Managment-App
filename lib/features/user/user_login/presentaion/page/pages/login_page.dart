@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/user_layout/user_layout_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
@@ -16,11 +17,37 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
   TextEditingController email = TextEditingController();
   FocusNode emailFocus = FocusNode();
   TextEditingController password = TextEditingController();
   FocusNode passwordFocus = FocusNode();
+
+  Future<void> _login() async {
+    setState(() {
+    });
+
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email.text,
+        password: password.text,
+      );
+      // Handle successful login here
+      print("Logged in: ${userCredential.user?.email}");
+    } on FirebaseAuthException catch (e) {
+      // Handle login errors here
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.message ?? "Login failed"),
+        ),
+      );
+    } finally {
+      setState(() {
+
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,11 +126,12 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedSpace(),
                 LongButton(
                   onTap: () {
-                    emailFocus.unfocus();
-                    passwordFocus.unfocus();
-                    if (_formKey.currentState!.validate()) {
-                      widget.show;
-                    }
+                    _login();
+                    // emailFocus.unfocus();
+                    // passwordFocus.unfocus();
+                    // if (_formKey.currentState!.validate()) {
+                    //   widget.show;
+                    // }
                   },
                   title: Strings.signUp,
                 ),
