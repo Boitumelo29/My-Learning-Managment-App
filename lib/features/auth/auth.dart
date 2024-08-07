@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mylearning/features/user/user_login/presentaion/page/pages/login_page.dart';
+import 'package:mylearning/features/user/user_login/presentation/pages/login_page.dart';
 import 'package:mylearning/features/user/user_sign_up/page/sign_up_page.dart';
 import 'package:mylearning/util/navigation/tab_bar.dart';
 

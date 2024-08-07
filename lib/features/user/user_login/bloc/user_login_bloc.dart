@@ -7,7 +7,6 @@ part 'user_login_state.dart';
 class UserLoginBloc extends Bloc<UserLoginEvent, UserLoginState> {
   UserLoginBloc() : super(UserLoginInitial()) {
     on<UserLoginEvent>((event, emit) {
-      // TODO: implement event handler
     });
   }
 }

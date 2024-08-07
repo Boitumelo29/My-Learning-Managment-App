@@ -16,20 +16,26 @@ class LongButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-          width: 380,
-          height: 60,
-          decoration: BoxDecoration(
-              color: Colors.red, borderRadius: BorderRadius.circular(20)),
-          child: isLoading
-              ? const Center(
-                  child: SizedBox(
-                      width: 50,
-                      height: 50,
-                      child: CircularProgressIndicator(
-                        color: Colors.white,
-                      )),
-                )
-              : Center(child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold),))),
+        width: 380,
+        height: 60,
+        decoration: BoxDecoration(
+            color: Colors.red, borderRadius: BorderRadius.circular(20)),
+        child: isLoading
+            ? const Center(
+                child: SizedBox(
+                    width: 35,
+                    height: 35,
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    )),
+              )
+            : Center(
+                child: Text(
+                  title,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+      ),
     );
   }
 }
