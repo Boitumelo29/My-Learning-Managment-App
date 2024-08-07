@@ -46,7 +46,9 @@ class _MyAppState extends State<MyApp> {
       darkTheme:
           ThemeData(primarySwatch: Colors.red, brightness: Brightness.dark),
       debugShowCheckedModeBanner: false,
-      home: TabBarScreen(isDarkMode: isDarkMode, toggleTheme: toggleTheme),
+      home:
+
+      TabBarScreen(isDarkMode: isDarkMode, toggleTheme: toggleTheme),
     );
   }
 
