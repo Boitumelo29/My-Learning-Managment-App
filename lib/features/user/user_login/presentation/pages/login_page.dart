@@ -5,6 +5,7 @@ import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/email.dart';
+import 'package:mylearning/features/user/user_login/presentation/widget/forget_password.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/logo_image.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/password.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
@@ -95,21 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                   password: password,
                   passwordFocus: passwordFocus,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        widget.show;
-                      },
-                      child: const Text(
-                        "Forgot Password?",
-                        style: TextStyle(color: Colors.red),
-                      ),
-                    ),
-                  ],
-                ),
+                LoginForgetPassword(onTap: () {}),
                 const SizedSpace(),
                 LongButton(
                   isLoading: isLoading,
