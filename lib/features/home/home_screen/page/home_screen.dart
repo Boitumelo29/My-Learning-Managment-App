@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/appBar_with_drawer.dart';
 import 'package:mylearning/features/home/home_screen/widgets/expansion_card.dart';
@@ -21,6 +23,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomePage> {
+  User? user;
+  Map<String, dynamic>? userData;
+  bool isLoading = true;
+  bool userNotFound = false;
+
+  @override
+  void initState() {
+    super.initState();
+    user = FirebaseAuth.instance.currentUser;
+    fetchUserData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +56,8 @@ class _HomeScreenState extends State<HomePage> {
               padding: EdgeInsets.all(8.0),
               child: Icon(Icons.person),
             ),
-            accountName: const Text("Username"),
-            accountEmail: const Text("Email testing"),
+            accountName: Text("${userData?['username'] ?? ""}"),
+            accountEmail: Text(user?.email ?? ""),
           ),
         ),
         ListTile(
@@ -98,9 +111,8 @@ class _HomeScreenState extends State<HomePage> {
           title: const Text("Contact us"),
         ),
         ListTile(
-          onTap: () {
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            Navigator.pop(context);
+          onTap: () async {
+            await FirebaseAuth.instance.signOut();
           },
           leading: const Icon(Icons.exit_to_app),
           title: const Text("Logout"),
@@ -126,9 +138,11 @@ class _HomeScreenState extends State<HomePage> {
             Text("My Todos"),
           ],
         ),
-        ExpansionCard(),
-SizedBox(height: 30,),
-       UpcomingEvents(),
+        const ExpansionCard(),
+        const SizedBox(
+          height: 30,
+        ),
+        const UpcomingEvents(),
         const Text(
             "Chat bot but I might change this to a caroslue to display the notes, chat bot converstaion and someting else if possible  "),
         Container(
@@ -149,5 +163,37 @@ SizedBox(height: 30,),
         ),
       ],
     );
+  }
+
+  Future<void> fetchUserData() async {
+    if (user != null) {
+      try {
+        DocumentSnapshot doc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user!.uid)
+            .get();
+        if (doc.exists) {
+          setState(() {
+            userData = doc.data() as Map<String, dynamic>?;
+            isLoading = false;
+          });
+        } else {
+          setState(() {
+            userNotFound = true;
+            isLoading = false;
+          });
+        }
+      } catch (e) {
+        setState(() {
+          userNotFound = true;
+          isLoading = false;
+        });
+      }
+    } else {
+      setState(() {
+        userNotFound = true;
+        isLoading = false;
+      });
+    }
   }
 }

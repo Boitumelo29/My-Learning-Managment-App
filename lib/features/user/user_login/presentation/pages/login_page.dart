@@ -1,8 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/user_layout/user_layout_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
+import 'package:mylearning/features/user/user_login/presentation/widget/email.dart';
+import 'package:mylearning/features/user/user_login/presentation/widget/logo_image.dart';
+import 'package:mylearning/features/user/user_login/presentation/widget/password.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
 import 'package:mylearning/util/validation/validation.dart';
 
@@ -16,11 +20,50 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
   TextEditingController email = TextEditingController();
   FocusNode emailFocus = FocusNode();
   TextEditingController password = TextEditingController();
   FocusNode passwordFocus = FocusNode();
+  bool isLoading = false;
+
+  Future<void> _login() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email.text,
+        password: password.text,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Successfully logged in!'),
+        backgroundColor: Colors.red,
+      ));
+      print("Logged in: ${userCredential.user?.email}");
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.message ?? "Login failed"),
+        ),
+      );
+      setState(() {
+        isLoading = false;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Failed to sign up: $e')));
+      setState(() {
+        isLoading = false;
+      });
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,50 +79,21 @@ class _LoginPageState extends State<LoginPage> {
         const SizedSpace(
           height: 40,
         ),
-        Center(
-          child: Image.asset(
-            alignment: Alignment.center,
-            'lib/assets/4.jpg',
-            width: 200,
-            height: 200,
-          ),
-        ),
+        const LogoImage(),
         Form(
             key: _formKey,
             child: Column(
               children: <Widget>[
-                LongTextFieldForm(
-                  isRed: false,
-                  showPrefixIcon: true,
-                  prefixIcon: Icons.email_outlined,
-                  focusNode: emailFocus,
-                  validator: (value) {
-                    // return Validation.emailValidation(value);
-                  },
-                  obsureText: false,
-                  showSuffixIcon: false,
-                  hintText: Strings.email,
-                  labelText: Strings.email,
-                  onChanged: (value) {},
-                  controller: email,
+                LoginEmail(
+                  email: email,
+                  emailFocus: emailFocus,
                 ),
                 const SizedSpace(
                   height: 10,
                 ),
-                LongTextFieldForm(
-                  isRed: false,
-                  showPrefixIcon: true,
-                  prefixIcon: Icons.password,
-                  focusNode: passwordFocus,
-                  validator: (value) {
-                    // return Validation.passwordValidation(value);
-                  },
-                  obsureText: true,
-                  showSuffixIcon: true,
-                  hintText: Strings.password,
-                  labelText: Strings.password,
-                  controller: password,
-                  onChanged: (value) {},
+                LoginPassword(
+                  password: password,
+                  passwordFocus: passwordFocus,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -98,14 +112,15 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedSpace(),
                 LongButton(
+                  isLoading: isLoading,
                   onTap: () {
                     emailFocus.unfocus();
                     passwordFocus.unfocus();
                     if (_formKey.currentState!.validate()) {
-                      widget.show;
+                      _login();
                     }
                   },
-                  title: Strings.signUp,
+                  title: Strings.login,
                 ),
                 const SizedSpace(
                   height: 8,

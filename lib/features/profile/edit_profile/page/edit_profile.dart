@@ -99,7 +99,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ],
           ),
           const SizedSpace(),
-          LongButton(onTap: () {}, title: Strings.save)
+          LongButton(
+              isLoading: false,
+              onTap: () {}, title: Strings.save)
         ]);
   }
 
