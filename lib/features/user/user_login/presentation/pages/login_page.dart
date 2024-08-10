@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/user_layout/user_layout_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
-import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/email.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/forget_password.dart';
+import 'package:mylearning/features/user/user_login/presentation/widget/have_an_account.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/logo_image.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/password.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
-import 'package:mylearning/util/validation/validation.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback show;
@@ -28,43 +27,6 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController password = TextEditingController();
   FocusNode passwordFocus = FocusNode();
   bool isLoading = false;
-
-  Future<void> _login() async {
-    setState(() {
-      isLoading = true;
-    });
-
-    try {
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-        email: email.text,
-        password: password.text,
-      );
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Successfully logged in!'),
-        backgroundColor: Colors.red,
-      ));
-      print("Logged in: ${userCredential.user?.email}");
-    } on FirebaseAuthException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.message ?? "Login failed"),
-        ),
-      );
-      setState(() {
-        isLoading = false;
-      });
-    } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Failed to sign up: $e')));
-      setState(() {
-        isLoading = false;
-      });
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,25 +74,48 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedSpace(
                   height: 8,
                 ),
-                TextButton(
-                  onPressed: widget.show,
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Don't have an account ? ",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      Text(
-                        "signup",
-                        style: TextStyle(color: Colors.red),
-                      ),
-                    ],
-                  ),
-                ),
+                AlreadyHaveAmAccount(onPressed: widget.show)
               ],
             ))
       ],
     );
   }
+
+  Future<void> _login() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email.text,
+        password: password.text,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Successfully logged in!'),
+        backgroundColor: Colors.red,
+      ));
+      print("Logged in: ${userCredential.user?.email}");
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.message ?? "Login failed"),
+        ),
+      );
+      setState(() {
+        isLoading = false;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Failed to sign up: $e')));
+      setState(() {
+        isLoading = false;
+      });
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
 }
