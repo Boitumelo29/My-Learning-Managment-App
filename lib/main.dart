@@ -1,13 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mylearning/features/auth/auth.dart';
 import 'package:mylearning/features/notes/presentation/screen/notes_screen.dart';
 import 'package:mylearning/features/upcoming_events/upcoming_event_screen/pages/upcoming_screen.dart';
 import 'package:mylearning/firebase_options.dart';
 import 'package:provider/provider.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -34,19 +35,22 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      // theme: isDarkMode ? ThemeData.dark() : ThemeData.light(),
-      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
-      theme: ThemeData(
-          scaffoldBackgroundColor: Colors.grey[50],
-          primaryColor: Colors.red,
-          primaryColorLight: Colors.red,
-          primaryColorDark: Colors.red[900]),
-      //theme: ThemeData(primarySwatch: Colors.red, brightness: Brightness.light),
-      darkTheme:
-          ThemeData(primarySwatch: Colors.red, brightness: Brightness.dark),
-      debugShowCheckedModeBanner: false,
-      home: AuthState(isDarkMode: isDarkMode, toggleTheme: toggleTheme),
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      builder: (context, child) => MaterialApp(
+        // theme: isDarkMode ? ThemeData.dark() : ThemeData.light(),
+        themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+        theme: ThemeData(
+            scaffoldBackgroundColor: Colors.grey[50],
+            primaryColor: Colors.red,
+            primaryColorLight: Colors.red,
+            primaryColorDark: Colors.red[900]),
+        //theme: ThemeData(primarySwatch: Colors.red, brightness: Brightness.light),
+        darkTheme:
+            ThemeData(primarySwatch: Colors.red, brightness: Brightness.dark),
+        debugShowCheckedModeBanner: false,
+        home: AuthState(isDarkMode: isDarkMode, toggleTheme: toggleTheme),
+      ),
     );
   }
 
