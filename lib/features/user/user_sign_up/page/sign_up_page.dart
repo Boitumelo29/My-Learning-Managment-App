@@ -5,6 +5,8 @@ import 'package:mylearning/common_widgets/screens/user_layout/user_layout_screen
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
+import 'package:mylearning/data/data_model/user_model/user_model.dart';
+import 'package:mylearning/data/data_services/user_data_services/user_service.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
 import 'package:mylearning/util/validation/validation.dart';
 
@@ -139,9 +141,15 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 LongButton(
                     isLoading: isLoading,
-                    onTap: () {
+                    onTap: () async {
                       if (_formKey.currentState!.validate()) {
-                        _signUp();
+                        UserModel user = UserModel(
+                            username: username.text, email: email.text);
+                        Map<String, dynamic> response =
+                            await UserDataService.createUser(user, context);
+                        if (response["status"] == "success") {
+                          _signUp();
+                        }
                       }
                     },
                     title: Strings.signUp),

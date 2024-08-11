@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
+import 'package:mylearning/util/validation/validation.dart';
 import 'package:provider/provider.dart';
 
 class NotesScreen extends StatefulWidget {
@@ -12,8 +14,14 @@ class NotesScreen extends StatefulWidget {
 
 class _NotesScreenState extends State<NotesScreen> {
   final TextEditingController controller = TextEditingController();
-
   final _key = GlobalKey<ExpandableFabState>();
+  User? user;
+
+  @override
+  void initState() {
+    super.initState();
+    user = FirebaseAuth.instance.currentUser;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +90,9 @@ class _NotesScreenState extends State<NotesScreen> {
                     showSuffixIcon: false,
                     showPrefixIcon: true,
                     prefixIcon: Icons.task,
-                    validator: (value) {},
+                    validator: (value) {
+                      Validation.usernameValidation(value);
+                    },
                     obsureText: false,
                     isRed: true),
                 Row(
