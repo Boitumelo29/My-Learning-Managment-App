@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:mylearning/data/data_model/quote_of_the_day_data_model.dart';
-import 'package:mylearning/data/data_services/qoute_of_the_day_data_service.dart';
+import 'package:mylearning/data/data_model/qot_data_model/quote_of_the_day_data_model.dart';
+import 'package:mylearning/data/data_services/qot_data_services/qoute_of_the_day_data_service.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 
 class ExpansionCard extends StatefulWidget {

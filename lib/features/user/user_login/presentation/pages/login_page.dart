@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/user_layout/user_layout_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
-import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/email.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/forget_password.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/logo_image.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/password.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
-import 'package:mylearning/util/validation/validation.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback show;

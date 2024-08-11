@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:mylearning/data/data_model/quote_of_the_day_data_model.dart';
+import 'package:mylearning/data/data_model/qot_data_model/quote_of_the_day_data_model.dart';
 
 class QOTDataService {
   static Future<QOTDataModel> fetchData(BuildContext context) async {
