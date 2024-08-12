@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 
 class AuthContainer extends StatelessWidget {
-  const AuthContainer({super.key});
+  final String title;
+  final Function() onPressed;
+
+  const AuthContainer(
+      {super.key, required this.title, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return GestureDetector(
+      child: Container(
+        child: Text(title),
+      ),
+      onTap: onPressed,
+    );
   }
 }
