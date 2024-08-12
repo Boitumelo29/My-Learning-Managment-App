@@ -17,7 +17,7 @@ class LongButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: 390,
-        height: 55,
+        height: 50,
         decoration: BoxDecoration(
             color: Colors.red, borderRadius: BorderRadius.circular(20)),
         child: isLoading
