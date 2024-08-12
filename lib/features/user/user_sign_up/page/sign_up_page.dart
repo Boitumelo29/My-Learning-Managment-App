@@ -46,15 +46,15 @@ class _SignUpPageState extends State<SignUpPage> {
             key: _formKey,
             child: Column(
               children: <Widget>[
-               SignupUsername(username: username, username_f: username_f) ,
+                SignupUsername(username: username, username_f: username_f),
                 const SizedSpace(
                   height: 10,
                 ),
-               SignupEmail(email: email, email_f: email_f),
+                SignupEmail(email: email, email_f: email_f),
                 const SizedSpace(
                   height: 10,
                 ),
-                 SignupPassword(password: password, password_f: password_f),
+                SignupPassword(password: password, password_f: password_f),
                 const SizedBox(
                   height: 10,
                 ),
@@ -73,7 +73,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 const SizedBox(
                   height: 10,
                 ),
-                AlreadyHaveAccount(onPressed:(){widget.show;})
+                AlreadyHaveAccount(onPressed: () {
+                  widget.show;
+                })
               ],
             )),
       ],
@@ -85,23 +87,11 @@ class _SignUpPageState extends State<SignUpPage> {
       isLoading = true;
     });
     try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email.text,
         password: password.text,
       );
-
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userCredential.user!.uid)
-          .set({
-        'username': username.text,
-        'email': email.text,
-      });
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Successfully signed up!'),
-        backgroundColor: Colors.red,
-      ));
+      _showWelcomeDialog(context);
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Failed to sign up: $e')));
@@ -119,5 +109,27 @@ class _SignUpPageState extends State<SignUpPage> {
         isLoading = false;
       });
     }
+  }
+
+  void _showWelcomeDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.red,
+          title: Text('Welcome! ${email.toString()}'),
+          content:
+              const Text("Thank you for signing up. We're glad to have you!"),
+          actions: [
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
