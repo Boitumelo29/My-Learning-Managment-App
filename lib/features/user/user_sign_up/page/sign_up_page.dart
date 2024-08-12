@@ -5,6 +5,7 @@ import 'package:mylearning/common_widgets/screens/user_layout/user_layout_screen
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
+import 'package:mylearning/features/user/user_login/presentation/widget/auth_row.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
 import 'package:mylearning/util/validation/validation.dart';
 
@@ -33,12 +34,10 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return UserLayoutScreen(
       children: [
-        const SizedSpace(),
         const Text(
           Strings.myLearning,
           style: TextStyle(color: Colors.red, fontSize: 35),
         ),
-        const SizedSpace(),
         Center(
           child: Image.asset(
             "lib/assets/5.jpg",
@@ -101,30 +100,39 @@ class _SignUpPageState extends State<SignUpPage> {
                     Validation.usernameValidation(value);
                   },
                 ),
-                const SizedSpace(
-                  height: 10,
-                ),
-                LongTextFieldForm(
-                  isRed: false,
-                  controller: passwordConfirm,
-                  focusNode: passwordConfirm_f,
-                  hintText: Strings.confirmPassword,
-                  labelText: Strings.confirmPassword,
-                  obsureText: true,
-                  showPrefixIcon: true,
-                  prefixIcon: Icons.password,
-                  showSuffixIcon: true,
-                  onChanged: (value) {},
-                  validator: (value) {
-                    Validation.passwordConformValidation(
-                        passwordConfirm.text, password.text);
-                  },
-                ),
+                // LongTextFieldForm(
+                //   isRed: false,
+                //   controller: passwordConfirm,
+                //   focusNode: passwordConfirm_f,
+                //   hintText: Strings.confirmPassword,
+                //   labelText: Strings.confirmPassword,
+                //   obsureText: true,
+                //   showPrefixIcon: true,
+                //   prefixIcon: Icons.password,
+                //   showSuffixIcon: true,
+                //   onChanged: (value) {},
+                //   validator: (value) {
+                //     Validation.passwordConformValidation(
+                //         passwordConfirm.text, password.text);
+                //   },
+                // ),
+                const SizedBox(height: 10,),
+                LongButton(
+                    isLoading: isLoading,
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        _signUp();
+                      }
+                    },
+                    title: Strings.signUp),
+                const SizedBox(height: 10,),
+                const AuthRow(),
+                const SizedBox(height: 10,),
                 TextButton(
                   onPressed: widget.show,
                   child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         "Already have an account? ",
@@ -137,14 +145,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     ],
                   ),
                 ),
-                LongButton(
-                    isLoading: isLoading,
-                    onTap: () {
-                      if (_formKey.currentState!.validate()) {
-                        _signUp();
-                      }
-                    },
-                    title: Strings.signUp),
               ],
             )),
       ],

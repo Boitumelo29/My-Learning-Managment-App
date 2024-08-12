@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/user_layout/user_layout_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
+import 'package:mylearning/features/user/user_login/presentation/widget/auth_row.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/email.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/forget_password.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/have_an_account.dart';
@@ -32,9 +33,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return UserLayoutScreen(
       children: [
-        const SizedSpace(
-          height: 40,
-        ),
         const Text(
           Strings.myLearning,
           style: TextStyle(color: Colors.red, fontSize: 40),
@@ -51,15 +49,14 @@ class _LoginPageState extends State<LoginPage> {
                   email: email,
                   emailFocus: emailFocus,
                 ),
-                const SizedSpace(
-                  height: 10,
-                ),
+                LoginForgetPassword(onTap: () {}),
                 LoginPassword(
                   password: password,
                   passwordFocus: passwordFocus,
                 ),
-                LoginForgetPassword(onTap: () {}),
-                const SizedSpace(),
+                const SizedSpace(
+                  height: 10,
+                ),
                 LongButton(
                   isLoading: isLoading,
                   onTap: () {
@@ -72,9 +69,13 @@ class _LoginPageState extends State<LoginPage> {
                   title: Strings.login,
                 ),
                 const SizedSpace(
+                  height: 10,
+                ),
+                const AuthRow(),
+                const SizedSpace(
                   height: 8,
                 ),
-                AlreadyHaveAmAccount(onPressed: widget.show)
+                AlreadyHaveAmAccount(onPressed: widget.show),
               ],
             ))
       ],
@@ -117,5 +118,4 @@ class _LoginPageState extends State<LoginPage> {
       });
     }
   }
-
 }
