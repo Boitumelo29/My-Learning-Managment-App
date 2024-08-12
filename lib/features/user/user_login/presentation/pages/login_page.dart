@@ -33,9 +33,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return UserLayoutScreen(
       children: [
-        const SizedSpace(
-          height: 40,
-        ),
         const Text(
           Strings.myLearning,
           style: TextStyle(color: Colors.red, fontSize: 40),
@@ -52,15 +49,14 @@ class _LoginPageState extends State<LoginPage> {
                   email: email,
                   emailFocus: emailFocus,
                 ),
-                const SizedSpace(
-                  height: 10,
-                ),
+                LoginForgetPassword(onTap: () {}),
                 LoginPassword(
                   password: password,
                   passwordFocus: passwordFocus,
                 ),
-                LoginForgetPassword(onTap: () {}),
-                const SizedSpace(),
+                const SizedSpace(
+                  height: 8,
+                ),
                 LongButton(
                   isLoading: isLoading,
                   onTap: () {
@@ -75,13 +71,11 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedSpace(
                   height: 8,
                 ),
-                const Text("Or continue with"),
-                const SizedBox(
+                const AuthRow(),
+                const SizedSpace(
                   height: 8,
                 ),
-                const AuthRow(),
-                const SizedBox(height: 25,),
-                AlreadyHaveAmAccount(onPressed: widget.show)
+                AlreadyHaveAmAccount(onPressed: widget.show),
               ],
             ))
       ],

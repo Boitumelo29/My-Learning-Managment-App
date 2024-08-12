@@ -34,12 +34,10 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return UserLayoutScreen(
       children: [
-        const SizedSpace(),
         const Text(
           Strings.myLearning,
           style: TextStyle(color: Colors.red, fontSize: 35),
         ),
-        const SizedSpace(),
         Center(
           child: Image.asset(
             "lib/assets/5.jpg",
@@ -121,11 +119,23 @@ class _SignUpPageState extends State<SignUpPage> {
                         passwordConfirm.text, password.text);
                   },
                 ),
+                const SizedBox(height: 10,),
+                LongButton(
+                    isLoading: isLoading,
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        _signUp();
+                      }
+                    },
+                    title: Strings.signUp),
+                const SizedBox(height: 10,),
+                const AuthRow(),
+                const SizedBox(height: 10,),
                 TextButton(
                   onPressed: widget.show,
                   child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         "Already have an account? ",
@@ -138,16 +148,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     ],
                   ),
                 ),
-                LongButton(
-                    isLoading: isLoading,
-                    onTap: () {
-                      if (_formKey.currentState!.validate()) {
-                        _signUp();
-                      }
-                    },
-                    title: Strings.signUp),
-                const SizedBox(height: 10,),
-                const AuthRow(),
               ],
             )),
       ],
