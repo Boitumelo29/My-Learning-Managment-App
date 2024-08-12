@@ -17,7 +17,7 @@ class AuthContainer extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         height: 55,
-        width: 170,
+        width: 175,
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(17),

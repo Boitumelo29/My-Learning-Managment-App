@@ -103,22 +103,22 @@ class _SignUpPageState extends State<SignUpPage> {
                 const SizedSpace(
                   height: 10,
                 ),
-                LongTextFieldForm(
-                  isRed: false,
-                  controller: passwordConfirm,
-                  focusNode: passwordConfirm_f,
-                  hintText: Strings.confirmPassword,
-                  labelText: Strings.confirmPassword,
-                  obsureText: true,
-                  showPrefixIcon: true,
-                  prefixIcon: Icons.password,
-                  showSuffixIcon: true,
-                  onChanged: (value) {},
-                  validator: (value) {
-                    Validation.passwordConformValidation(
-                        passwordConfirm.text, password.text);
-                  },
-                ),
+                // LongTextFieldForm(
+                //   isRed: false,
+                //   controller: passwordConfirm,
+                //   focusNode: passwordConfirm_f,
+                //   hintText: Strings.confirmPassword,
+                //   labelText: Strings.confirmPassword,
+                //   obsureText: true,
+                //   showPrefixIcon: true,
+                //   prefixIcon: Icons.password,
+                //   showSuffixIcon: true,
+                //   onChanged: (value) {},
+                //   validator: (value) {
+                //     Validation.passwordConformValidation(
+                //         passwordConfirm.text, password.text);
+                //   },
+                // ),
                 const SizedBox(height: 10,),
                 LongButton(
                     isLoading: isLoading,
