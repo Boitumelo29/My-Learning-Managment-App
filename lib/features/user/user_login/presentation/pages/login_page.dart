@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/user_layout/user_layout_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
+import 'package:mylearning/features/user/user_login/presentation/widget/auth_row.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/email.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/forget_password.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/have_an_account.dart';
@@ -74,6 +75,12 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedSpace(
                   height: 8,
                 ),
+                const Text("Or continue with"),
+                const SizedBox(
+                  height: 8,
+                ),
+                const AuthRow(),
+                const SizedBox(height: 25,),
                 AlreadyHaveAmAccount(onPressed: widget.show)
               ],
             ))
@@ -117,5 +124,4 @@ class _LoginPageState extends State<LoginPage> {
       });
     }
   }
-
 }

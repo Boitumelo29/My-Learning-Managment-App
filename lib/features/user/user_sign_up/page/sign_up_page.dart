@@ -5,6 +5,7 @@ import 'package:mylearning/common_widgets/screens/user_layout/user_layout_screen
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
+import 'package:mylearning/features/user/user_login/presentation/widget/auth_row.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
 import 'package:mylearning/util/validation/validation.dart';
 
@@ -145,6 +146,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       }
                     },
                     title: Strings.signUp),
+                const AuthRow(),
               ],
             )),
       ],

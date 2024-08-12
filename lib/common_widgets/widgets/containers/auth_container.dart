@@ -16,22 +16,25 @@ class AuthContainer extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        height: 40,
-        width: 60,
+        height: 50,
+        width: 180,
         decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(width: 1, color: Colors.grey)),
+            borderRadius: BorderRadius.circular(17),
+            border: Border.all(width: 1, color: Colors.grey.shade700)),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               iconData,
-              color: Colors.grey,
+              color: Colors.grey.shade700,
+            ),
+            const SizedBox(
+              width: 20,
             ),
             Text(
               title,
-              style: const TextStyle(color: Colors.grey),
+              style: TextStyle(color: Colors.grey.shade700, fontSize: 15, fontWeight: FontWeight.w600),
             ),
           ],
         ),
