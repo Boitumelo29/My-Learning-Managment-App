@@ -146,6 +146,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       }
                     },
                     title: Strings.signUp),
+                const SizedBox(height: 10,),
                 const AuthRow(),
               ],
             )),

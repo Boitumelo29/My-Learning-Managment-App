@@ -7,13 +7,11 @@ class AuthRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         AuthContainer(
             title: "Google", onPressed: () {}, iconData: Icons.g_mobiledata),
-        const SizedBox(
-          width: 10,
-        ),
+
         AuthContainer(
             title: "Facebook", onPressed: () {}, iconData: Icons.facebook)
       ],
