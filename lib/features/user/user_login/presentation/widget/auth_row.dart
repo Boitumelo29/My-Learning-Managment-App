@@ -11,7 +11,9 @@ class AuthRow extends StatelessWidget {
       children: [
         AuthContainer(
             title: "Google", onPressed: () {}, iconData: Icons.g_mobiledata),
-
+        const SizedBox(
+          width: 10,
+        ),
         AuthContainer(
             title: "Facebook", onPressed: () {}, iconData: Icons.facebook)
       ],

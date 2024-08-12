@@ -46,15 +46,14 @@ class _LoginPageState extends State<LoginPage> {
                 LoginEmail(
                   email: email,
                   emailFocus: emailFocus,
+                ), const SizedSpace(
+                  height: 10,
                 ),
-                LoginForgetPassword(onTap: () {}),
                 LoginPassword(
                   password: password,
                   passwordFocus: passwordFocus,
                 ),
-                const SizedSpace(
-                  height: 10,
-                ),
+                LoginForgetPassword(onTap: () {}),
                 LongButton(
                   isLoading: isLoading,
                   onTap: () {
