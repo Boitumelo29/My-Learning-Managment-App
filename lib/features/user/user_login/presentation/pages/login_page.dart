@@ -73,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedSpace(
                   height: 8,
                 ),
-                AlreadyHaveAmAccount(onPressed: widget.show),
+               DontHaveAnAccount(onPressed: widget.show),
               ],
             ))
       ],

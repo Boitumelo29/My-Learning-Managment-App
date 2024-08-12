@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class AlreadyHaveAmAccount extends StatelessWidget {
+class DontHaveAnAccount extends StatelessWidget {
   final Function() onPressed;
-  const AlreadyHaveAmAccount({super.key, required this.onPressed});
+  const DontHaveAnAccount({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

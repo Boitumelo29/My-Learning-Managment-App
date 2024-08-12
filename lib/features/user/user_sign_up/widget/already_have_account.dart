@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 
-class AlreadyHaveAccount extends StatelessWidget {
+class AlreadyHaveAnAccount extends StatelessWidget {
   final Function() onPressed;
-  const AlreadyHaveAccount({super.key, required this.onPressed});
+  const AlreadyHaveAnAccount({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: onPressed,
       child: const Row(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             "Already have an account? ",

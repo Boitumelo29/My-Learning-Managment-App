@@ -16,9 +16,9 @@ import 'package:mylearning/util/constants/strings/strings.dart';
 import 'package:mylearning/util/validation/validation.dart';
 
 class SignUpPage extends StatefulWidget {
-  final VoidCallback? show;
+  final VoidCallback show;
 
-  const SignUpPage({super.key, this.show});
+  const SignUpPage({super.key, required this.show});
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -73,7 +73,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 const SizedBox(
                   height: 10,
                 ),
-                //AlreadyHaveAccount(onPressed: widget.show)
+                AlreadyHaveAnAccount(onPressed: widget.show)
               ],
             )),
       ],
