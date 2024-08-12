@@ -16,7 +16,7 @@ class AuthContainer extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        height: 50,
+        height: 55,
         width: 170,
         decoration: BoxDecoration(
             color: Colors.white,
