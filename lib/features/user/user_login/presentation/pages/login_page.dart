@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                   passwordFocus: passwordFocus,
                 ),
                 const SizedSpace(
-                  height: 8,
+                  height: 10,
                 ),
                 LongButton(
                   isLoading: isLoading,
@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                   title: Strings.login,
                 ),
                 const SizedSpace(
-                  height: 8,
+                  height: 10,
                 ),
                 const AuthRow(),
                 const SizedSpace(

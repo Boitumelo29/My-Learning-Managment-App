@@ -100,9 +100,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     Validation.usernameValidation(value);
                   },
                 ),
-                const SizedSpace(
-                  height: 10,
-                ),
                 // LongTextFieldForm(
                 //   isRed: false,
                 //   controller: passwordConfirm,
