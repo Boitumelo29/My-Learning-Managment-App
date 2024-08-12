@@ -9,7 +9,7 @@ class AlreadyHaveAccount extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       child: const Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(

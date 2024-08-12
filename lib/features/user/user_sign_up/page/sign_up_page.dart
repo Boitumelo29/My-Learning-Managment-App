@@ -73,9 +73,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 const SizedBox(
                   height: 10,
                 ),
-                AlreadyHaveAccount(onPressed: () {
-                  widget.show;
-                })
+                //AlreadyHaveAccount(onPressed: widget.show)
               ],
             )),
       ],
@@ -116,10 +114,10 @@ class _SignUpPageState extends State<SignUpPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: Colors.red,
-          title: Text('Welcome! ${email.toString()}'),
-          content:
-              const Text("Thank you for signing up. We're glad to have you!"),
+          title: const Text('Welcome👋!'),
+          // Text('Welcome! 👋 ${email.toString()}'),
+          content: const Text(
+              "Welcome to MyLearning! So happy to have you app, hope you have a great experience."),
           actions: [
             TextButton(
               child: const Text('OK'),
