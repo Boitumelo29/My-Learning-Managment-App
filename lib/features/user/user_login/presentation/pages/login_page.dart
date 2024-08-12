@@ -8,6 +8,7 @@ import 'package:mylearning/features/user/user_login/presentation/widget/email.da
 import 'package:mylearning/features/user/user_login/presentation/widget/forget_password.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/have_an_account.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/logo_image.dart';
+import 'package:mylearning/features/user/user_login/presentation/widget/mylearning_text.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/password.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
 
@@ -33,10 +34,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return UserLayoutScreen(
       children: [
-        const Text(
-          Strings.myLearning,
-          style: TextStyle(color: Colors.red, fontSize: 40),
-        ),
+        const MyLearningText(),
         const SizedSpace(
           height: 40,
         ),
