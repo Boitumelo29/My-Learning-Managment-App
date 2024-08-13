@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/user_layout/user_layout_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
+import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
+import 'package:mylearning/features/user/user_login/presentation/widget/auth_row.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/email.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/forget_password.dart';
+import 'package:mylearning/features/user/user_login/presentation/widget/have_an_account.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/logo_image.dart';
+import 'package:mylearning/features/user/user_login/presentation/widget/mylearning_text.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/password.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
 
@@ -26,6 +30,57 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController password = TextEditingController();
   FocusNode passwordFocus = FocusNode();
   bool isLoading = false;
+  bool isForgotPasswordLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return UserLayoutScreen(
+      children: [
+        const MyLearningText(),
+        const SizedSpace(
+          height: 40,
+        ),
+        const LogoImage(),
+        Form(
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                LoginEmail(
+                  email: email,
+                  emailFocus: emailFocus,
+                ),
+                LoginForgetPassword(onTap: () {
+                  forgotPassword();
+                }),
+                LoginPassword(
+                  password: password,
+                  passwordFocus: passwordFocus,
+                ),
+                LoginForgetPassword(onTap: () {}),
+                LongButton(
+                  isLoading: isLoading,
+                  onTap: () {
+                    emailFocus.unfocus();
+                    passwordFocus.unfocus();
+                    if (_formKey.currentState!.validate()) {
+                      _login();
+                    }
+                  },
+                  title: Strings.login,
+                ),
+                const SizedSpace(
+                  height: 10,
+                ),
+                const AuthRow(),
+                const SizedSpace(
+                  height: 8,
+                ),
+                DontHaveAnAccount(onPressed: widget.show),
+              ],
+            ))
+      ],
+    );
+  }
 
   Future<void> _login() async {
     setState(() {
@@ -64,66 +119,31 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return UserLayoutScreen(
-      children: [
-        const SizedSpace(
-          height: 40,
-        ),
-        const Text(
-          Strings.myLearning,
-          style: TextStyle(color: Colors.red, fontSize: 40),
-        ),
-        const SizedSpace(
-          height: 40,
-        ),
-        const LogoImage(),
-        Form(
-            key: _formKey,
-            child: Column(
-              children: <Widget>[
-                LoginEmail(
-                  email: email,
-                  emailFocus: emailFocus,
-                ),
-                const SizedSpace(
-                  height: 10,
-                ),
-                LoginPassword(
-                  password: password,
-                  passwordFocus: passwordFocus,
-                ),
-                LoginForgetPassword(onTap: () {}),
-                const SizedSpace(),
-                LongButton(
-                  isLoading: isLoading,
-                  onTap: () {
-                    emailFocus.unfocus();
-                    passwordFocus.unfocus();
-                    if (_formKey.currentState!.validate()) {
-                      _login();
-                    }
-                  },
-                  title: Strings.login,
-                ),
-                const SizedSpace(
-                  height: 8,
-                ),
-                TextButton(
-                  onPressed: widget.show,
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Don't have an account ? ",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      Text(
-                        "signup",
-                        style: TextStyle(color: Colors.red),
-                      ),
-                    ],
+  forgotPassword() {
+    TextEditingController resetPasswordController = TextEditingController();
+
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext context) {
+          return Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: SizedBox(
+              height: 240,
+              width: 480,
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
+                    "Forgot Password?",
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontFamily: 'Merriweather',
+                    ),
                   ),
                 ),
               ],
