@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class DontHaveAnAccount extends StatelessWidget {
+class AlreadyHaveAnAccount extends StatelessWidget {
   final Function() onPressed;
-  const DontHaveAnAccount({super.key, required this.onPressed});
+  const AlreadyHaveAnAccount({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -12,11 +12,11 @@ class DontHaveAnAccount extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "Don't have an account ? ",
+            "Already have an account? ",
             style: TextStyle(color: Colors.black),
           ),
           Text(
-            "signup",
+            "login",
             style: TextStyle(color: Colors.red),
           ),
         ],
