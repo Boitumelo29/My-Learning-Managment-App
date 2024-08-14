@@ -45,7 +45,7 @@ class SocialMediaContainer extends StatelessWidget {
             maxLines: null,
             overflow: TextOverflow.visible,
             style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.w300),
+                fontWeight: FontWeight.w300),
           )
         ],
       ),

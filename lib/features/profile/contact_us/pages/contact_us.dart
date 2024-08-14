@@ -28,8 +28,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         ),
         Text(
           "Get in touch",
-          style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
         ),
         SizedBox(
           height: 10,
@@ -37,9 +36,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
-              "If you have any enquires get in touch we are more than happy to help you",
-            style: TextStyle(
-                color: Colors.black, fontSize: 20, fontWeight: FontWeight.w300),
+            "If you have any enquires get in touch we are more than happy to help you",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
           ),
         ),
         SizedBox(
@@ -54,8 +52,10 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         SizedBox(
           height: 40,
         ),
-        Text("Social Media", style: TextStyle(
-            color: Colors.black, fontSize: 25, fontWeight: FontWeight.w500),),
+        Text(
+          "Social Media",
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+        ),
         SizedBox(
           height: 20,
         ),

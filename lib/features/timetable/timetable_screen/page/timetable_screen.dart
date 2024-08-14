@@ -123,7 +123,6 @@ class _TimetablePageState extends State<TimetablePage> {
                           child: Text(
                             "Add a Task",
                             style: TextStyle(
-                                color: Colors.black,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 25),
                           ),
