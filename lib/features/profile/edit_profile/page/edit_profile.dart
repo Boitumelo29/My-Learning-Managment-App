@@ -170,13 +170,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         return Padding(
           padding: const EdgeInsets.all(10.0),
           child: SizedBox(
-            height: 240,
+            height: 200,
             width: 480,
             child: Column(
               children: [
                 const SizedBox(
                   height: 10,
                 ),
+                const Text("Update Username"),
                 const SizedBox(
                   height: 20,
                 ),
@@ -220,13 +221,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         return Padding(
           padding: const EdgeInsets.all(10.0),
           child: SizedBox(
-            height: 240,
+            height: 200,
             width: 480,
             child: Column(
               children: [
                 const SizedBox(
                   height: 10,
                 ),
+                const Text("Update Email"),
                 const SizedBox(
                   height: 20,
                 ),
