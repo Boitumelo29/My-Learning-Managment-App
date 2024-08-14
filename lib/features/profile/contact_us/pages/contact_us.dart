@@ -27,7 +27,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         ),
         Text("Get in touch"),
         Text(
-            "If you have any question get in touch we are more than happy to help you"),
+            "If you have any enquires get in touch we are more than happy to help you"),
         ContactUsContainer(icon: Icons.phone, title: "+2712345678"),
         ContactUsContainer(
             icon: Icons.email, title: "TumiJanneSolution@gmail.com"),
