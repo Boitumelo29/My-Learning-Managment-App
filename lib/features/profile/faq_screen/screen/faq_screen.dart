@@ -1,6 +1,7 @@
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
+import 'package:mylearning/common_widgets/widgets/cards/expansion_faq_tile.dart';
 
 void main() => runApp(FAQScreen());
 
@@ -18,38 +19,17 @@ class _FAQScreenState extends State<FAQScreen> {
   @override
   Widget build(BuildContext context) {
     return AppBarScreen(
-      shouldBeCentered: false,
-      title: "Frequently Asked Questions",
-      shouldScroll: true,
-      shouldHaveFloatingButton: false,
-      children: [
-        ExpansionTileCard(
-          key: cardA,
-          leading: const CircleAvatar(
-            child: Text("FAQ"),
-          ),
-          title: const Text("Who are we"),
-          subtitle: const Text("What do we do?"),
-          children: const [
-            Text("data"),
-            Text("data"),
-            Text("data"),
-          ],
-        ),
-        ExpansionTileCard(
-          key: cardB,
-          leading: const CircleAvatar(
-            child: Text("FAQ"),
-          ),
-          title: const Text("Who are we"),
-          subtitle: const Text("What do we do?"),
-          children: const [
-            Text("data"),
-            Text("data"),
-            Text("data"),
-          ],
-        ),
-      ],
-    );
+        shouldBeCentered: false,
+        title: "Frequently Asked Questions",
+        shouldScroll: true,
+        shouldHaveFloatingButton: false,
+        children: [
+          ExpansionFaqTile(
+              card: cardA, title: "title", subTitle: "subTitle", children: []),
+          ExpansionFaqTile(
+              card: cardA, title: "title", subTitle: "subTitle", children: []),
+          ExpansionFaqTile(
+              card: cardA, title: "title", subTitle: "subTitle", children: []),
+        ]);
   }
 }

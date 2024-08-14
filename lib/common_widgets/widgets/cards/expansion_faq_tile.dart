@@ -25,7 +25,7 @@ class ExpansionFaqTile extends StatelessWidget {
           child: Text("FAQ"),
         ),
         title: Text(title),
-        subtitle: const Text("What do we do?"),
+        subtitle: Text(subTitle),
         children: children);
   }
 }
