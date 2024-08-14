@@ -20,11 +20,13 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  TextEditingController controller =TextEditingController();
   final List<String> gender = [Strings.male, Strings.female];
   String selectedGender = Strings.maleC;
   File? galleryFile;
   final picker = ImagePicker();
   User? user;
+  DateTime? selectedDate;
 
   @override
   void initState() {
@@ -104,16 +106,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             height: 15,
           ),
           EditProfileContainer(
-              onTap: () {
-                // email();
+              onTap: () async {
+                final DateTime? picked = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2020),
+                    lastDate: DateTime(2101));
+                if (picked != null) {
+                  setState(() {
+                    selectedDate = picked;
+                  });
+                }
               },
               icon: Icons.calendar_month,
               title: "Add a date of birth"),
           const SizedBox(
             height: 15,
           ),
-          AboutBioContainer()
-          // LongButton(isLoading: false, onTap: () {}, title: Strings.save)
+          AboutBioContainer(controller: controller,),
+          const SizedBox(
+            height: 15,
+          ),
+          SizedBox(
+              width: 330,
+              child: LongButton(isLoading: false, onTap: () {}, title: Strings.save))
         ]);
   }
 
