@@ -14,7 +14,8 @@ class SocialMediaContainer extends StatelessWidget {
         Stack(
           children: [const Icon(Icons.circle), Icon(icon)],
         ),
-       const  SizedBox(width: 30,)
+       const  SizedBox(width: 30,),
+        
       ],
     );
   }
