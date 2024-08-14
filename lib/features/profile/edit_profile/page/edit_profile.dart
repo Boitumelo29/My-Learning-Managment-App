@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
+import 'package:mylearning/common_widgets/widgets/containers/about_bio_container.dart';
 import 'package:mylearning/common_widgets/widgets/containers/edit_profile_container.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
@@ -34,11 +35,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return AppBarScreen(
-        shouldBeCentered: false,
+        shouldBeCentered: true,
         title: Strings.editProfile,
         shouldScroll: true,
         shouldHaveFloatingButton: false,
         children: [
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "Edit your Profile",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Icon(Icons.drive_file_rename_outline)
+            ],
+          ),
           Center(
             child: Stack(
               alignment: Alignment.center,
@@ -65,7 +80,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       icon: const Icon(
                         Icons.camera,
                         size: 20,
-                        color: Colors.red,
+                        color: Colors.grey,
                       ),
                     ))
               ],
@@ -85,22 +100,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               },
               icon: Icons.email,
               title: user?.email ?? ""),
-          const SizedSpace(),
-          const Text(
-              "The University would be placed here/// they can type it in"),
-          Row(
-            children: [
-              Text("Your Gender: $selectedGender"),
-              ElevatedButton(
-                onPressed: () {
-                  _showGender(context);
-                },
-                child: const Text(Strings.gender),
-              ),
-            ],
+          const SizedBox(
+            height: 15,
           ),
-          const SizedSpace(),
-          LongButton(isLoading: false, onTap: () {}, title: Strings.save)
+          EditProfileContainer(
+              onTap: () {
+                // email();
+              },
+              icon: Icons.calendar_month,
+              title: "Add a date of birth"),
+          const SizedBox(
+            height: 15,
+          ),
+          AboutBioContainer()
+          // LongButton(isLoading: false, onTap: () {}, title: Strings.save)
         ]);
   }
 
@@ -170,14 +183,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         return Padding(
           padding: const EdgeInsets.all(10.0),
           child: SizedBox(
-            height: 200,
+            height: 230,
             width: 480,
             child: Column(
               children: [
                 const SizedBox(
                   height: 10,
                 ),
-                const Text("Update Username"),
+                const Text("Update Username",
+                    style:
+                        TextStyle(fontWeight: FontWeight.w600, fontSize: 30)),
                 const SizedBox(
                   height: 20,
                 ),
@@ -221,14 +236,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         return Padding(
           padding: const EdgeInsets.all(10.0),
           child: SizedBox(
-            height: 200,
+            height: 230,
             width: 480,
             child: Column(
               children: [
                 const SizedBox(
                   height: 10,
                 ),
-                const Text("Update Email"),
+                const Text("Update Email",
+                    style:
+                        TextStyle(fontWeight: FontWeight.w600, fontSize: 30)),
                 const SizedBox(
                   height: 20,
                 ),
