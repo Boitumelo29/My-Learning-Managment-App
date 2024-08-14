@@ -10,7 +10,7 @@ class ContactUsContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      height: 60,
       width: 330,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
@@ -25,7 +25,7 @@ class ContactUsContainer extends StatelessWidget {
           ),
           Text(
             title,
-            style: const  TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+            style: const  TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
           )
         ],
       ),

@@ -26,37 +26,49 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         SizedBox(
           height: 50,
         ),
-        Text("Get in touch"),
+        Text(
+          "Get in touch",
+          style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30),
+        ),
         SizedBox(
           height: 10,
         ),
-        Text(
-            "If you have any enquires get in touch we are more than happy to help you"),
+        Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text(
+              "If you have any enquires get in touch we are more than happy to help you",
+            style: TextStyle(
+                color: Colors.black, fontSize: 20, fontWeight: FontWeight.w300),
+          ),
+        ),
         SizedBox(
-          height: 30,
+          height: 10,
         ),
         ContactUsContainer(icon: Icons.phone, title: "+2712345678"),
         SizedBox(
-          height: 10,
+          height: 20,
         ),
         ContactUsContainer(
             icon: Icons.email, title: "TumiJanneSolution@gmail.com"),
         SizedBox(
           height: 40,
         ),
-        Text("Social Media"),
+        Text("Social Media", style: TextStyle(
+            color: Colors.black, fontSize: 25, fontWeight: FontWeight.w500),),
         SizedBox(
-          height: 30,
+          height: 20,
         ),
         SocialMediaContainer(
             icon: Icons.facebook,
-            text: "Stay updated, connect, and engage with us on facebook."),
+            text: "Stay updated, connect, and engage with us\non facebook."),
         SizedBox(
           height: 10,
         ),
         SocialMediaContainer(
             icon: Icons.camera,
-            text: "Explore our visual world and discover beauty of our brand."),
+            text:
+                "Explore our visual world and discover beauty\nof our brand."),
         SizedBox(
           height: 10,
         ),
