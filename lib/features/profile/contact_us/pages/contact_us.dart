@@ -50,19 +50,18 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         ),
         SocialMediaContainer(
             icon: Icons.facebook,
-            text: "bsvfhjdbgfjdhghjdgbjhdhsghjdgbjhbdsghbsbgdg"),
+            text: "Stay updated, connect, and engage with us on facebook."),
         SizedBox(
           height: 10,
         ),
         SocialMediaContainer(
-            icon: Icons.facebook,
-            text: "bsvfhjdbgfjdhghjdgbjhdhsghjdgbjhbdsghbsbgdg"),
+            icon: Icons.camera,
+            text: "Explore our visual world and discover beauty of our brand."),
         SizedBox(
           height: 10,
         ),
         SocialMediaContainer(
-            icon: Icons.facebook,
-            text: "bsvfhjdbgfjdhghjdgbjhdhsghjdgbjhbdsghbsbgdg"),
+            icon: Icons.web, text: "Website will have details."),
       ],
     );
   }

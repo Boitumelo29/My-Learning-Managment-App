@@ -37,7 +37,12 @@ class SocialMediaContainer extends StatelessWidget {
         const SizedBox(
           width: 30,
         ),
-        Text(text)
+        Text(
+          text,
+          softWrap: true,
+          maxLines: null,
+          overflow: TextOverflow.visible,
+        )
       ],
     );
   }
