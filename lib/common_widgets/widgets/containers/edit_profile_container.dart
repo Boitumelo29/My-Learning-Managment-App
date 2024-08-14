@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class EditProfileContainer extends StatelessWidget {
@@ -22,23 +23,34 @@ class EditProfileContainer extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: Colors.red, width: 1)),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(
-              width: 20,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  width: 20,
+                ),
+                Icon(
+                  icon,
+                  size: 30,
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                Text(
+                  title,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w400, fontSize: 15),
+                )
+              ],
             ),
-            Icon(
-              icon,
-              size: 30,
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Icon(Icons.draw),
             ),
-            const SizedBox(
-              width: 20,
-            ),
-            Text(
-              title,
-              style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
-            )
           ],
         ),
       ),
