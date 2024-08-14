@@ -21,11 +21,13 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
       title: "Contact us",
       shouldHaveFloatingButton: false,
       children: [
-        Container(),
-        Text("Get in touch"),
-        Text("subtext"),
+        const SizedBox(
+          height: 30,
+        ),
+        const Text("Get in touch"),
+        const Text("If you have any question get in"),
         LongTextFieldForm(
-          isRed: false,
+            isRed: false,
             onChanged: (value) {},
             hintText: "number",
             labelText: "number",
@@ -35,8 +37,9 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
             validator: (value) {
               Validation.passwordValidation(value);
             },
-            obsureText: kFlutterMemoryAllocationsEnabled), LongTextFieldForm(
-          isRed: false,
+            obsureText: kFlutterMemoryAllocationsEnabled),
+        LongTextFieldForm(
+            isRed: false,
             onChanged: (value) {},
             hintText: "email",
             labelText: "email",
@@ -47,10 +50,16 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
               Validation.emailValidation(value);
             },
             obsureText: kFlutterMemoryAllocationsEnabled),
-        Text("Social Media"),
-       Row(children: [ Icon(Icons.facebook), Text("facebook name")],),
-        Row(children: [ Icon(Icons.facebook), Text("facebook name")],),
-        Row(children: [Icon(Icons.facebook), Text("facebook name")],),
+        const Text("Social Media"),
+        const Row(
+          children: [Icon(Icons.facebook), Text("facebook name")],
+        ),
+        const Row(
+          children: [Icon(Icons.facebook), Text("facebook name")],
+        ),
+        const Row(
+          children: [Icon(Icons.facebook), Text("facebook name")],
+        ),
       ],
     );
   }
