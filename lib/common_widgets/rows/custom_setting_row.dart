@@ -31,7 +31,7 @@ class CustomSettingRow extends StatelessWidget {
                   ),
                   Text(
                     title,
-                    style: const TextStyle(color: Colors.black, fontSize: 10),
+                    style: const TextStyle( fontSize: 10),
                   ),
                 ],
               ),

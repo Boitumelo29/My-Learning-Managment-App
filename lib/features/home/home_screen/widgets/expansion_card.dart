@@ -127,7 +127,6 @@ class _ExpansionCardState extends State<ExpansionCard> {
                         Text(
                           snapshot.data!.author,
                           style: const TextStyle(
-                            color: Colors.black,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

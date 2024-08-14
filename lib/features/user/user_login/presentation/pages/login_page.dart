@@ -141,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+
                       fontFamily: 'Merriweather',
                     ),
                   ),
