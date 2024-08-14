@@ -10,15 +10,24 @@ class ContactUsContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 55,
-      width: 400,
+      height: 50,
+      width: 330,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Colors.red, width: 1)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [Icon(icon), Text(title)],
+        children: [
+          Icon(
+            icon,
+            size: 30,
+          ),
+          Text(
+            title,
+            style: const  TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+          )
+        ],
       ),
     );
   }

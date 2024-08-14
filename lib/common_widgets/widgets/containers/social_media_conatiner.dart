@@ -12,10 +12,32 @@ class SocialMediaContainer extends StatelessWidget {
     return Row(
       children: [
         Stack(
-          children: [const Icon(Icons.circle), Icon(icon)],
+          children: [
+            const Icon(
+              Icons.circle,
+              color: Colors.red,
+              size: 55,
+            ),
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: Align(
+                alignment: Alignment.center,
+                child: Icon(
+                  icon,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              ),
+            )
+          ],
         ),
-       const  SizedBox(width: 30,),
-        
+        const SizedBox(
+          width: 30,
+        ),
+        Text(text)
       ],
     );
   }
