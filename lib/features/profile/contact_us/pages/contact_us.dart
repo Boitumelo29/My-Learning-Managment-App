@@ -25,7 +25,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
           height: 30,
         ),
         const Text("Get in touch"),
-        const Text("If you have any question get in touch "),
+        const Text(
+            "If you have any question get in touch we are more than happy to help "),
         LongTextFieldForm(
             isRed: false,
             onChanged: (value) {},
