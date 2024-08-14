@@ -18,6 +18,8 @@ class ExpansionFaqTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ExpansionTileCard(
         key: card,
+        expandedColor: Colors.white,
+        baseColor: Colors.white,
         leading: const CircleAvatar(
           backgroundColor: Colors.red,
           child: Text("FAQ"),
