@@ -61,19 +61,19 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         ),
         SocialMediaContainer(
             icon: Icons.facebook,
-            text: "Stay updated, connect, and engage with us\non facebook."),
+            text: "Stay updated, connect, with us."),
         SizedBox(
           height: 10,
         ),
         SocialMediaContainer(
             icon: Icons.camera,
             text:
-                "Explore our visual world and discover beauty\nof our brand."),
+                "Explore our visual world."),
         SizedBox(
           height: 10,
         ),
         SocialMediaContainer(
-            icon: Icons.web, text: "Website will have details."),
+            icon: Icons.web, text: "www.tumijanesolution.co.za"),
       ],
     );
   }

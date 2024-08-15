@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 import 'package:mylearning/features/timetable/timetable_screen/page/timetable_screen.dart';
 import 'package:provider/provider.dart';
@@ -30,9 +29,7 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
         title: const Text("Upcoming Events"),
       ),
       body:
-          //SingleChildScrollView(
-          //  physics: const ScrollPhysics(),
-          // child:
+
           Column(
         children: [
           Consumer<EventModel>(

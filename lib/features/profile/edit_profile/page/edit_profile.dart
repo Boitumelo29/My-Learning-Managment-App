@@ -1,11 +1,14 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
+import 'package:mylearning/common_widgets/widgets/containers/about_bio_container.dart';
+import 'package:mylearning/common_widgets/widgets/containers/edit_profile_container.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
 
@@ -17,19 +20,42 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  TextEditingController controller =TextEditingController();
   final List<String> gender = [Strings.male, Strings.female];
   String selectedGender = Strings.maleC;
   File? galleryFile;
   final picker = ImagePicker();
+  User? user;
+  DateTime? selectedDate;
+
+  @override
+  void initState() {
+    super.initState();
+    user = FirebaseAuth.instance.currentUser;
+  }
 
   @override
   Widget build(BuildContext context) {
     return AppBarScreen(
-      shouldBeCentered: false,
+        shouldBeCentered: true,
         title: Strings.editProfile,
         shouldScroll: true,
         shouldHaveFloatingButton: false,
         children: [
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "Edit your Profile",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Icon(Icons.drive_file_rename_outline)
+            ],
+          ),
           Center(
             child: Stack(
               alignment: Alignment.center,
@@ -63,45 +89,47 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ),
           ),
           const SizedSpace(),
-          LongTextFieldForm(
-            isRed: false,
-            hintText: Strings.username,
-            labelText: Strings.username,
-            showPrefixIcon: true,
-            onChanged: (value) {},
-            showSuffixIcon: false,
-            validator: (value) {},
-            obsureText: false,
-          ),
+          EditProfileContainer(
+              onTap: () {
+                userName();
+              },
+              icon: Icons.person,
+              title: "Username"),
           const SizedSpace(),
-          LongTextFieldForm(
-            isRed: false,
-            hintText: Strings.username,
-            labelText: Strings.username,
-            showPrefixIcon: true,
-            onChanged: (value) {},
-            showSuffixIcon: false,
-            validator: (value) {},
-            obsureText: false,
+          EditProfileContainer(
+              onTap: () {
+                email();
+              },
+              icon: Icons.email,
+              title: user?.email ?? ""),
+          const SizedBox(
+            height: 15,
           ),
-          const SizedSpace(),
-          const Text(
-              "The University would be placed here/// they can type it in"),
-          Row(
-            children: [
-              Text("Your Gender: $selectedGender"),
-              ElevatedButton(
-                onPressed: () {
-                  _showGender(context);
-                },
-                child: const Text(Strings.gender),
-              ),
-            ],
+          EditProfileContainer(
+              onTap: () async {
+                final DateTime? picked = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2020),
+                    lastDate: DateTime(2101));
+                if (picked != null) {
+                  setState(() {
+                    selectedDate = picked;
+                  });
+                }
+              },
+              icon: Icons.calendar_month,
+              title: "Add a date of birth"),
+          const SizedBox(
+            height: 15,
           ),
-          const SizedSpace(),
-          LongButton(
-              isLoading: false,
-              onTap: () {}, title: Strings.save)
+          AboutBioContainer(controller: controller,),
+          const SizedBox(
+            height: 15,
+          ),
+          SizedBox(
+              width: 330,
+              child: LongButton(isLoading: false, onTap: () {}, title: Strings.save))
         ]);
   }
 
@@ -159,5 +187,111 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             .showSnackBar(const SnackBar(content: Text(Strings.errorOccurred)));
       }
     });
+  }
+
+  userName() {
+    TextEditingController userName = TextEditingController();
+    bool isLoading = false;
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: SizedBox(
+            height: 230,
+            width: 480,
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                const Text("Update Username",
+                    style:
+                        TextStyle(fontWeight: FontWeight.w600, fontSize: 30)),
+                const SizedBox(
+                  height: 20,
+                ),
+                LongTextFieldForm(
+                  controller: userName,
+                  onChanged: (value) {},
+                  hintText: "Username",
+                  labelText: "username",
+                  showSuffixIcon: false,
+                  showPrefixIcon: true,
+                  prefixIcon: Icons.person,
+                  validator: (value) {},
+                  obsureText: false,
+                  isRed: false,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                LongButton(
+                    isLoading: isLoading,
+                    onTap: () async {},
+                    title: "Update Username"),
+                const SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  email() {
+    TextEditingController email = TextEditingController();
+    bool isLoading = false;
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: SizedBox(
+            height: 230,
+            width: 480,
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                const Text("Update Email",
+                    style:
+                        TextStyle(fontWeight: FontWeight.w600, fontSize: 30)),
+                const SizedBox(
+                  height: 20,
+                ),
+                LongTextFieldForm(
+                  controller: email,
+                  onChanged: (value) {},
+                  hintText: "Email",
+                  labelText: "Email",
+                  showSuffixIcon: false,
+                  showPrefixIcon: true,
+                  prefixIcon: Icons.email,
+                  validator: (value) {},
+                  obsureText: false,
+                  isRed: false,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                LongButton(
+                    isLoading: isLoading,
+                    onTap: () async {},
+                    title: "Update Email"),
+                const SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }
