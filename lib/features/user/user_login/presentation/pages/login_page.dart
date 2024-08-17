@@ -49,14 +49,14 @@ class _LoginPageState extends State<LoginPage> {
                   email: email,
                   emailFocus: emailFocus,
                 ),
-                LoginForgetPassword(onTap: () {
-                  forgotPassword();
-                }),
+                const SizedBox(height: 10,),
                 LoginPassword(
                   password: password,
                   passwordFocus: passwordFocus,
                 ),
-                LoginForgetPassword(onTap: () {}),
+                LoginForgetPassword(onTap: () {
+                  forgotPassword();
+                }),
                 LongButton(
                   isLoading: isLoading,
                   onTap: () {
@@ -141,7 +141,6 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
-
                       fontFamily: 'Merriweather',
                     ),
                   ),
