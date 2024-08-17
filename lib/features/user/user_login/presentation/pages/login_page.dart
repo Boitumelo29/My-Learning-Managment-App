@@ -145,10 +145,78 @@ class _LoginPageState extends State<LoginPage> {
                       fontFamily: 'Merriweather',
                     ),
                   ),
-                ),
-              ],
-            ))
-      ],
-    );
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
+                    "No Worries, we'll send you reset instructions",
+                    style: TextStyle(fontSize: 15),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  LongTextFieldForm(
+                    controller: resetPasswordController,
+                    onChanged: (value) {},
+                    hintText: "Please enter your email address",
+                    labelText: "Email",
+                    showSuffixIcon: false,
+                    showPrefixIcon: true,
+                    prefixIcon: Icons.email,
+                    validator: (value) {},
+                    obsureText: false,
+                    isRed: false,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  LongButton(
+                      isLoading: isForgotPasswordLoading,
+                      onTap: () async {
+                        await resetPassword(resetPasswordController.text);
+                        print(resetPasswordController.text);
+                      },
+                      title: "Reset Password"),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  Future<void> resetPassword(String email) async {
+    setState(() {
+      isForgotPasswordLoading = true;
+    });
+    try {
+      print("I am trying");
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+            " Reset instructions have been sent to $email, please check your emails"),
+        backgroundColor: Colors.yellow,
+        duration: const Duration(seconds: 5),
+      ));
+      setState(() {
+        isForgotPasswordLoading = false;
+      });
+    } catch (e) {
+      print(e);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Oops and error has occurred: $e"),
+        backgroundColor: Colors.red,
+        duration: const Duration(seconds: 5),
+      ));
+      setState(() {
+        isForgotPasswordLoading = false;
+      });
+    } finally {
+      setState(() {
+        isForgotPasswordLoading = false;
+      });
+    }
   }
 }

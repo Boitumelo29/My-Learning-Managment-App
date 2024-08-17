@@ -1,4 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/appBar_with_drawer.dart';
@@ -7,6 +8,8 @@ import 'package:mylearning/features/home/home_screen/widgets/upcoming%20events.d
 import 'package:mylearning/features/profile/contact_us/pages/contact_us.dart';
 import 'package:mylearning/features/profile/edit_profile/page/edit_profile.dart';
 import 'package:mylearning/features/profile/faq_screen/screen/faq_screen.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   final bool isDarkMode;
@@ -32,11 +35,12 @@ class _HomeScreenState extends State<HomePage> {
   void initState() {
     super.initState();
     user = FirebaseAuth.instance.currentUser;
-    fetchUserData();
+    fetchUser();
   }
 
   @override
   Widget build(BuildContext context) {
+    fetchUser();
     var snackBar = const SnackBar(
       content: Text("action"),
       backgroundColor: Colors.red,
@@ -165,35 +169,27 @@ class _HomeScreenState extends State<HomePage> {
     );
   }
 
-  Future<void> fetchUserData() async {
-    if (user != null) {
-      try {
-        DocumentSnapshot doc = await FirebaseFirestore.instance
-            .collection('users')
-            .doc(user!.uid)
-            .get();
-        if (doc.exists) {
-          setState(() {
-            userData = doc.data() as Map<String, dynamic>?;
-            isLoading = false;
-          });
-        } else {
-          setState(() {
-            userNotFound = true;
-            isLoading = false;
-          });
-        }
-      } catch (e) {
-        setState(() {
-          userNotFound = true;
-          isLoading = false;
-        });
+  Future<Map<String, dynamic>> fetchUser() async {
+    var baseUrl = Platform.isAndroid ? "http://10.0.2.2:3000" : "http://localhost:3000";
+    var uri = "$baseUrl/user";
+    final url = Uri.parse(uri);
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'email': user!.email}),
+    );
+
+    try {
+      if (response.statusCode == 200) {
+        print("great");
+        return jsonDecode(response.body);
+      } else if (response.statusCode == 404) {
+        print("good");
+        throw Exception('User not found');
       }
-    } else {
-      setState(() {
-        userNotFound = true;
-        isLoading = false;
-      });
+    } catch (e) {
+      print(e);
     }
+    throw Exception('Failed to load user');
   }
 }
