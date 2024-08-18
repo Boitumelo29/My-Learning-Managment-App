@@ -61,6 +61,7 @@ forgotPassword(context, setState, isForgotPasswordLoading) {
                     onTap: () async {
                       await resetPassword(resetPasswordController.text, context,
                           setState, isForgotPasswordLoading);
+                     // Navigator.pop(context);
                     },
                     title: "Reset Password"),
                 const SizedBox(
@@ -73,8 +74,8 @@ forgotPassword(context, setState, isForgotPasswordLoading) {
       });
 }
 
-Future<void> resetPassword(
-    String email, BuildContext context, Function setStateCallback, isForgotPasswordLoading) async {
+Future<void> resetPassword(String email, BuildContext context,
+    Function setStateCallback, isForgotPasswordLoading) async {
   setStateCallback(() {
     isForgotPasswordLoading = true;
   });
@@ -90,7 +91,7 @@ Future<void> resetPassword(
     print(e);
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text("Oops, an error has occurred: $e"),
-      duration: const Duration(seconds: 5),
+      duration: const Duration(seconds: 15),
     ));
   } finally {
     setStateCallback(() {
@@ -98,4 +99,3 @@ Future<void> resetPassword(
     });
   }
 }
-
