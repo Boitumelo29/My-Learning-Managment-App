@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mylearning/features/auth/auth.dart';
 import 'package:mylearning/features/notes/presentation/screen/notes_screen.dart';
+import 'package:mylearning/features/profile/edit_profile/data/image_model.dart';
 import 'package:mylearning/features/upcoming_events/upcoming_event_screen/pages/upcoming_screen.dart';
 import 'package:mylearning/firebase_options.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +13,8 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
+  Hive.registerAdapter(ImageModelAdapter());
+  await Hive.openBox<ImageModel>('images');
   await Hive.openBox("myBox");
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
