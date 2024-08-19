@@ -22,7 +22,7 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final Box bioBox = Hive.box("bioBox");
-  TextEditingController controller =TextEditingController();
+  TextEditingController controller = TextEditingController();
   final List<String> gender = [Strings.male, Strings.female];
   String selectedGender = Strings.maleC;
   File? galleryFile;
@@ -125,13 +125,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           const SizedBox(
             height: 15,
           ),
-          AboutBioContainer(controller: controller,),
+          AboutBioContainer(
+            controller: controller,
+          ),
           const SizedBox(
             height: 15,
           ),
           SizedBox(
               width: 330,
-              child: LongButton(isLoading: false, onTap: () {}, title: Strings.save))
+              child: LongButton(
+                  isLoading: false,
+                  onTap: () {
+                    bioBox.add(controller.text);
+                  },
+                  title: Strings.save),),
+         // Expanded(child: T)
+
         ]);
   }
 
