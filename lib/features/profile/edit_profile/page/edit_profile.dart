@@ -147,13 +147,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   void _saveBio(){
-    box.put('bio', controller.text);
+   try{ box.put('bio', controller.text);
+   ScaffoldMessenger.of(context).showSnackBar(const
+   SnackBar(content: Text('Profile Saved'), backgroundColor: Colors.red,),
+   );
+   }catch(e){
+     ScaffoldMessenger.of(context).showSnackBar(
+     SnackBar(content: Text('Oop an error has occurred: $e'),),
+     );
+   }
   }
   void _showGender(BuildContext context) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext builder) {
-          return Container(
+          return SizedBox(
             height: MediaQuery.of(context).copyWith().size.height / 3,
             child: CupertinoPicker(
               itemExtent: 32,
