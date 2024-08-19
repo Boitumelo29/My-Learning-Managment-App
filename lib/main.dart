@@ -10,9 +10,9 @@ import 'package:mylearning/firebase_options.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
-  await Hive.initFlutter();
-  await Hive.openBox("bioBox");
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await Hive.openBox("myBox");
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

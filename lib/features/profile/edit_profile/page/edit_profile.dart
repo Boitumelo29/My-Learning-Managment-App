@@ -21,7 +21,8 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  final Box bioBox = Hive.box("bioBox");
+  //final Box bioBox = Hive.box("bioBox");
+  late Box box;
   TextEditingController controller = TextEditingController();
   final List<String> gender = [Strings.male, Strings.female];
   String selectedGender = Strings.maleC;
@@ -34,6 +35,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void initState() {
     super.initState();
     user = FirebaseAuth.instance.currentUser;
+    box = Hive.box('myBox');
+    controller.text = box.get("bio", defaultValue: '');
   }
 
   @override
@@ -136,14 +139,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               child: LongButton(
                   isLoading: false,
                   onTap: () {
-                    bioBox.add(controller.text);
+                    _saveBio();
                   },
                   title: Strings.save),),
-         // Expanded(child: T)
 
         ]);
   }
 
+  void _saveBio(){
+    box.put('bio', controller.text);
+  }
   void _showGender(BuildContext context) {
     showModalBottomSheet(
         context: context,
