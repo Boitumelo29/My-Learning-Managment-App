@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,6 +12,7 @@ import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
 import 'package:mylearning/common_widgets/widgets/containers/about_bio_container.dart';
 import 'package:mylearning/common_widgets/widgets/containers/edit_profile_container.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
+import 'package:mylearning/features/profile/edit_profile/data/image_model.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -37,7 +39,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     user = FirebaseAuth.instance.currentUser;
     box = Hive.box('myBox');
     controller.text = box.get("bio", defaultValue: '');
+    loadImageFromHive();
   }
+
+
+  void loadImageFromHive() async {
+    var box = Hive.box<ImageModel>('images');
+    ImageModel? imageModel = box.get('profile_image');
+
+    if (imageModel != null) {
+      setState(() {
+        galleryFile = File.fromRawPath(imageModel.imageBytes);
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -67,43 +83,46 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               children: [
                 galleryFile == null
                     ? const Icon(
-                        Icons.person,
-                        size: 100,
-                      )
+                  Icons.person,
+                  size: 100,
+                )
                     : SizedBox(
-                        height: 100,
-                        width: 100,
-                        child: Center(
-                          child: Image.file(galleryFile!),
-                        ),
-                      ),
+                  height: 100,
+                  width: 100,
+                  child: Center(
+                    child: Image.memory(galleryFile!.readAsBytesSync()), // Use this for Uint8List
+                  ),
+                ),
                 Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: IconButton(
-                      onPressed: () {
-                        _showPicker(context);
-                      },
-                      icon: const Icon(
-                        Icons.camera,
-                        size: 20,
-                        color: Colors.grey,
-                      ),
-                    ))
+                  bottom: 0,
+                  right: 0,
+                  child: IconButton(
+                    onPressed: () {
+                      _showPicker(context);
+                    },
+                    icon: const Icon(
+                      Icons.camera,
+                      size: 20,
+                      color: Colors.grey,
+                    ),
+                  ),
+                )
               ],
             ),
-          ),
+          )
+,
+
           const SizedSpace(),
           EditProfileContainer(
               onTap: () {
-                userName();
+                //userName();
               },
               icon: Icons.person,
               title: "Username"),
           const SizedSpace(),
           EditProfileContainer(
               onTap: () {
-                email();
+               // email();
               },
               icon: Icons.email,
               title: user?.email ?? ""),
@@ -201,17 +220,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   Future getImage(ImageSource img) async {
-    final pickedFile = await picker.pickImage(source: img);
-    XFile? xFilePick = pickedFile;
-    setState(() {
-      if (xFilePick != null) {
-        galleryFile = File(pickedFile!.path);
+    Future getImage(ImageSource img) async {
+      final pickedFile = await picker.pickImage(source: img);
+      if (pickedFile != null) {
+        final bytes = await pickedFile.readAsBytes();
+        final Uint8List uint8List = Uint8List.fromList(bytes);
+        final imageModel = ImageModel(uint8List);
+
+        var box = Hive.box<ImageModel>('images');
+        await box.put('profile_image', imageModel);
+
+        setState(() {
+          galleryFile = File(pickedFile.path);
+        });
       } else {
         ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text(Strings.errorOccurred)));
+            .showSnackBar(const SnackBar(content: Text("Error occurred")));
       }
-    });
-  }
+    }
+
+
 
   userName() {
     TextEditingController userName = TextEditingController();
@@ -318,4 +346,4 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       },
     );
   }
-}
+}}
