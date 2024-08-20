@@ -109,9 +109,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 )
               ],
             ),
-          )
-,
-
+          ),
           const SizedSpace(),
           EditProfileContainer(
               onTap: () {
