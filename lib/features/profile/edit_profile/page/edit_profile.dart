@@ -42,7 +42,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     loadImageFromHive();
   }
 
-
   void loadImageFromHive() async {
     var box = Hive.box<ImageModel>('images');
     ImageModel? imageModel = box.get('profile_image');
@@ -53,7 +52,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -83,16 +81,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               children: [
                 galleryFile == null
                     ? const Icon(
-                  Icons.person,
-                  size: 100,
-                )
+                        Icons.person,
+                        size: 100,
+                      )
                     : SizedBox(
-                  height: 100,
-                  width: 100,
-                  child: Center(
-                    child: Image.memory(galleryFile!.readAsBytesSync()), // Use this for Uint8List
-                  ),
-                ),
+                        height: 100,
+                        width: 100,
+                        child: Center(
+                          child: Image.memory(galleryFile!
+                              .readAsBytesSync()), // Use this for Uint8List
+                        ),
+                      ),
                 Positioned(
                   bottom: 0,
                   right: 0,
@@ -113,14 +112,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           const SizedSpace(),
           EditProfileContainer(
               onTap: () {
-                //userName();
+                userName();
               },
               icon: Icons.person,
               title: "Username"),
           const SizedSpace(),
           EditProfileContainer(
               onTap: () {
-               // email();
+                email();
               },
               icon: Icons.email,
               title: user?.email ?? ""),
@@ -152,92 +151,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             height: 15,
           ),
           SizedBox(
-              width: 330,
-              child: LongButton(
-                  isLoading: false,
-                  onTap: () {
-                    _saveBio();
-                  },
-                  title: Strings.save),),
-
+            width: 330,
+            child: LongButton(
+                isLoading: false,
+                onTap: () {
+                  _saveBio();
+                },
+                title: Strings.save),
+          ),
         ]);
   }
-
-  void _saveBio(){
-   try{ box.put('bio', controller.text);
-   ScaffoldMessenger.of(context).showSnackBar(const
-   SnackBar(content: Text('Profile Saved'), backgroundColor: Colors.red,),
-   );
-   }catch(e){
-     ScaffoldMessenger.of(context).showSnackBar(
-     SnackBar(content: Text('Oop an error has occurred: $e'),),
-     );
-   }
-  }
-  void _showGender(BuildContext context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext builder) {
-          return SizedBox(
-            height: MediaQuery.of(context).copyWith().size.height / 3,
-            child: CupertinoPicker(
-              itemExtent: 32,
-              onSelectedItemChanged: (int value) {
-                setState(() {
-                  selectedGender = gender[value];
-                });
-              },
-              children: gender.map((String gender) {
-                return Center(
-                  child: Text(gender),
-                );
-              }).toList(),
-            ),
-          );
-        });
-  }
-
-  void _showPicker(BuildContext context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext context) {
-          return SafeArea(
-            child: (Wrap(
-              children: <Widget>[
-                ListTile(
-                    leading: const Icon(Icons.photo_library),
-                    title: const Text(Strings.photoLibrary),
-                    onTap: () {
-                      getImage(ImageSource.gallery);
-                      Navigator.of(context).pop();
-                    })
-              ],
-            )),
-          );
-        });
-  }
-
-  Future getImage(ImageSource img) async {
-    Future getImage(ImageSource img) async {
-      final pickedFile = await picker.pickImage(source: img);
-      if (pickedFile != null) {
-        final bytes = await pickedFile.readAsBytes();
-        final Uint8List uint8List = Uint8List.fromList(bytes);
-        final imageModel = ImageModel(uint8List);
-
-        var box = Hive.box<ImageModel>('images');
-        await box.put('profile_image', imageModel);
-
-        setState(() {
-          galleryFile = File(pickedFile.path);
-        });
-      } else {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("Error occurred")));
-      }
-    }
-
-
 
   userName() {
     TextEditingController userName = TextEditingController();
@@ -344,4 +267,86 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       },
     );
   }
-}}
+
+  void _saveBio() {
+    try {
+      box.put('bio', controller.text);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Profile Saved'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Oop an error has occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  void _showGender(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext builder) {
+          return SizedBox(
+            height: MediaQuery.of(context).copyWith().size.height / 3,
+            child: CupertinoPicker(
+              itemExtent: 32,
+              onSelectedItemChanged: (int value) {
+                setState(() {
+                  selectedGender = gender[value];
+                });
+              },
+              children: gender.map((String gender) {
+                return Center(
+                  child: Text(gender),
+                );
+              }).toList(),
+            ),
+          );
+        });
+  }
+
+  void _showPicker(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return SafeArea(
+            child: (Wrap(
+              children: <Widget>[
+                ListTile(
+                    leading: const Icon(Icons.photo_library),
+                    title: const Text(Strings.photoLibrary),
+                    onTap: () {
+                      getImage(ImageSource.gallery);
+                      Navigator.of(context).pop();
+                    })
+              ],
+            )),
+          );
+        });
+  }
+
+  Future getImage(ImageSource img) async {
+    Future getImage(ImageSource img) async {
+      final pickedFile = await picker.pickImage(source: img);
+      if (pickedFile != null) {
+        final bytes = await pickedFile.readAsBytes();
+        final Uint8List uint8List = Uint8List.fromList(bytes);
+        final imageModel = ImageModel(uint8List);
+
+        var box = Hive.box<ImageModel>('images');
+        await box.put('profile_image', imageModel);
+
+        setState(() {
+          galleryFile = File(pickedFile.path);
+        });
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Error occurred")));
+      }
+    }
+  }
+}
