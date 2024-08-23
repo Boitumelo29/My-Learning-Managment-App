@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,6 +11,7 @@ import 'package:mylearning/common_widgets/widgets/containers/edit_profile_contai
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 import 'package:mylearning/features/profile/edit_profile/data/image_model.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
+import 'package:mylearning/util/validation/validation.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -22,6 +22,7 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   //final Box bioBox = Hive.box("bioBox");
+  var formKey = GlobalKey<FormState>();
   late Box box;
   TextEditingController controller = TextEditingController();
   final List<String> gender = [Strings.male, Strings.female];
@@ -30,7 +31,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final picker = ImagePicker();
   User? user;
   DateTime? selectedDate;
-
 
   @override
   void initState() {
@@ -59,116 +59,135 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return AppBarScreen(
-        shouldBeCentered: true,
-        title: Strings.editProfile,
-        shouldScroll: true,
-        shouldHaveFloatingButton: false,
-        children: [
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+      shouldBeCentered: true,
+      title: Strings.editProfile,
+      shouldScroll: true,
+      shouldHaveFloatingButton: false,
+      children: [
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              "Edit your Profile",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Icon(Icons.drive_file_rename_outline)
+          ],
+        ),
+        Center(
+          child: Stack(
+            alignment: Alignment.center,
             children: [
-              Text(
-                "Edit your Profile",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+              galleryFile == null
+                  ? const Icon(
+                      Icons.person,
+                      size: 100,
+                    )
+                  : SizedBox(
+                      height: 100,
+                      width: 100,
+                      child: Center(
+                        child: ClipOval(
+                          child: Image.memory(
+                            galleryFile!,
+                            fit: BoxFit.cover,
+                            width: 100,
+                            height: 100,
+                          ),
+                        ),
+                      ),
+                    ),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: IconButton(
+                  onPressed: () {
+                    _showPicker(context);
+                  },
+                  icon: const Icon(
+                    Icons.camera,
+                    size: 20,
+                    color: Colors.grey,
+                  ),
+                ),
               ),
-              SizedBox(
-                width: 10,
-              ),
-              Icon(Icons.drive_file_rename_outline)
             ],
           ),
-          Center(
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                galleryFile == null
-                    ? const Icon(
-                  Icons.person,
-                  size: 100,
-                )
-                    : SizedBox(
-                  height: 100,
-                  width: 100,
-                  child: Center(
-                    child: Image.memory(
-                      galleryFile!, // Directly pass the Uint8List to Image.memory
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: IconButton(
-                    onPressed: () {
-                      _showPicker(context);
-                    },
-                    icon: const Icon(
-                      Icons.camera,
-                      size: 20,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )
-,
-          const SizedSpace(),
-          EditProfileContainer(
-              onTap: () {
-                userName();
-              },
-              icon: Icons.person,
-              title: "Username"),
-          const SizedSpace(),
-          EditProfileContainer(
-              onTap: () {
-                email();
-              },
-              icon: Icons.email,
-              title: user?.email ?? ""),
-          const SizedBox(
-            height: 15,
-          ),
-          EditProfileContainer(
-              onTap: () async {
-                final DateTime? picked = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2020),
-                    lastDate: DateTime(2101));
-                if (picked != null) {
-                  setState(() {
+        ),
+        const SizedSpace(),
+        EditProfileContainer(
+            onTap: () {
+              userName();
+            },
+            icon: Icons.person,
+            title: "Username"),
+        const SizedSpace(),
+        EditProfileContainer(
+            onTap: () {
+              email();
+            },
+            icon: Icons.email,
+            title: user?.email ?? ""),
+        const SizedBox(
+          height: 15,
+        ),
+        EditProfileContainer(
+            onTap: () async {
+              final DateTime? picked = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(2020),
+                  lastDate: DateTime(2101));
+              if (picked != null) {
+                setState(
+                  () {
                     selectedDate = picked;
-                  });
-                }
-              },
-              icon: Icons.calendar_month,
-              title: "Add a date of birth"),
-          const SizedBox(
-            height: 15,
-          ),
-          AboutBioContainer(
-            controller: controller,
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          SizedBox(
-            width: 330,
-            child: LongButton(
-                isLoading: false,
-                onTap: () {
-                  _saveBio();
+                  },
+                );
+              }
+            },
+            icon: Icons.calendar_month,
+            title: "Add a date of birth"),
+        const SizedBox(
+          height: 15,
+        ),
+        Form(
+          key: formKey,
+          child: Column(
+            children: [
+              AboutBioContainer(
+                validator: (value) {
+                  return Validation.usernameValidation(value);
                 },
-                title: Strings.save),
+                controller: controller,
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              SizedBox(
+                width: 330,
+                child: LongButton(
+                    isLoading: false,
+                    onTap: () {
+                      if (formKey.currentState!.validate()) {
+                        _saveBio();
+                      }
+                    },
+                    title: Strings.save),
+              ),
+            ],
           ),
-        ]);
+        ),
+      ],
+    );
   }
 
   userName() {
+    var formKey = GlobalKey<FormState>();
     TextEditingController userName = TextEditingController();
     bool isLoading = false;
     showModalBottomSheet(
@@ -177,43 +196,53 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       builder: (BuildContext context) {
         return Padding(
           padding: const EdgeInsets.all(10.0),
-          child: SizedBox(
-            height: 230,
-            width: 480,
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 10,
-                ),
-                const Text("Update Username",
-                    style:
-                        TextStyle(fontWeight: FontWeight.w600, fontSize: 30)),
-                const SizedBox(
-                  height: 20,
-                ),
-                LongTextFieldForm(
-                  controller: userName,
-                  onChanged: (value) {},
-                  hintText: "Username",
-                  labelText: "username",
-                  showSuffixIcon: false,
-                  showPrefixIcon: true,
-                  prefixIcon: Icons.person,
-                  validator: (value) {},
-                  obsureText: false,
-                  isRed: false,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                LongButton(
-                    isLoading: isLoading,
-                    onTap: () async {},
-                    title: "Update Username"),
-                const SizedBox(
-                  height: 10,
-                ),
-              ],
+          child: Form(
+            key: formKey,
+            child: SizedBox(
+              height: 250,
+              width: 480,
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text("Update Username",
+                      style:
+                          TextStyle(fontWeight: FontWeight.w600, fontSize: 30)),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  LongTextFieldForm(
+                    controller: userName,
+                    onChanged: (value) {},
+                    hintText: "Username",
+                    labelText: "username",
+                    showSuffixIcon: false,
+                    showPrefixIcon: true,
+                    prefixIcon: Icons.person,
+                    validator: (value) {
+                      return Validation.usernameValidation(value);
+                    },
+                    obsureText: false,
+                    isRed: false,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  LongButton(
+                      isLoading: isLoading,
+                      onTap: () async {
+                        print("object");
+                        if (formKey.currentState!.validate()) {
+                          print("Here");
+                        }
+                      },
+                      title: "Update Username"),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -222,6 +251,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   email() {
+    final formKey = GlobalKey<FormState>();
     TextEditingController email = TextEditingController();
     bool isLoading = false;
     showModalBottomSheet(
@@ -230,43 +260,52 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       builder: (BuildContext context) {
         return Padding(
           padding: const EdgeInsets.all(10.0),
-          child: SizedBox(
-            height: 230,
-            width: 480,
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 10,
-                ),
-                const Text("Update Email",
-                    style:
-                        TextStyle(fontWeight: FontWeight.w600, fontSize: 30)),
-                const SizedBox(
-                  height: 20,
-                ),
-                LongTextFieldForm(
-                  controller: email,
-                  onChanged: (value) {},
-                  hintText: "Email",
-                  labelText: "Email",
-                  showSuffixIcon: false,
-                  showPrefixIcon: true,
-                  prefixIcon: Icons.email,
-                  validator: (value) {},
-                  obsureText: false,
-                  isRed: false,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                LongButton(
-                    isLoading: isLoading,
-                    onTap: () async {},
-                    title: "Update Email"),
-                const SizedBox(
-                  height: 10,
-                ),
-              ],
+          child: Form(
+            key: formKey,
+            child: SizedBox(
+              height: 250,
+              width: 480,
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text("Update Email",
+                      style:
+                          TextStyle(fontWeight: FontWeight.w600, fontSize: 30)),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  LongTextFieldForm(
+                    controller: email,
+                    onChanged: (value) {},
+                    hintText: "Email",
+                    labelText: "Email",
+                    showSuffixIcon: false,
+                    showPrefixIcon: true,
+                    prefixIcon: Icons.email,
+                    validator: (value) {
+                      return Validation.emailValidation(value);
+                    },
+                    obsureText: false,
+                    isRed: false,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  LongButton(
+                      isLoading: isLoading,
+                      onTap: () async {
+                        if (formKey.currentState!.validate()) {
+                          print("Here");
+                        }
+                      },
+                      title: "Update Email"),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -334,5 +373,4 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       print("get image error: $e");
     }
   }
-
 }

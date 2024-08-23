@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:flutter/services.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/appBar_with_drawer.dart';
 import 'package:mylearning/features/home/home_screen/widgets/expansion_card.dart';
 import 'package:mylearning/features/home/home_screen/widgets/upcoming%20events.dart';
 import 'package:mylearning/features/profile/contact_us/pages/contact_us.dart';
+import 'package:mylearning/features/profile/edit_profile/data/image_model.dart';
 import 'package:mylearning/features/profile/edit_profile/page/edit_profile.dart';
 import 'package:mylearning/features/profile/faq_screen/screen/faq_screen.dart';
 
@@ -27,12 +30,29 @@ class _HomeScreenState extends State<HomePage> {
   Map<String, dynamic>? userData;
   bool isLoading = true;
   bool userNotFound = false;
+  Uint8List? galleryFile;
 
   @override
   void initState() {
     super.initState();
     user = FirebaseAuth.instance.currentUser;
     fetchUserData();
+    loadImageFromHive();
+  }
+
+  void loadImageFromHive() async {
+    try {
+      var box = Hive.box<ImageModel>('images');
+      ImageModel? imageModel = box.get('profile_image');
+
+      if (imageModel != null) {
+        setState(() {
+          galleryFile = imageModel.imageBytes; // Store the Uint8List directly
+        });
+      }
+    } catch (e) {
+      print("Load from Hive error: $e");
+    }
   }
 
   @override
@@ -52,9 +72,27 @@ class _HomeScreenState extends State<HomePage> {
           child: UserAccountsDrawerHeader(
             decoration: BoxDecoration(
                 color: Colors.red, borderRadius: BorderRadius.circular(10)),
-            currentAccountPicture: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(Icons.person),
+            currentAccountPicture: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: galleryFile == null
+                  ? const Icon(
+                      Icons.person,
+                      size: 100,
+                    )
+                  : SizedBox(
+                      height: 100,
+                      width: 100,
+                      child: Center(
+                        child: ClipOval(
+                          child: Image.memory(
+                            galleryFile!,
+                            fit: BoxFit.cover,
+                            width: 100,
+                            height: 100,
+                          ),
+                        ),
+                      ),
+                    ),
             ),
             accountName: Text("${userData?['username'] ?? ""}"),
             accountEmail: Text(user?.email ?? ""),
