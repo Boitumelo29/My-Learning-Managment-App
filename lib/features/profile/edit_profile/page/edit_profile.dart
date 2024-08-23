@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,10 +26,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   TextEditingController controller = TextEditingController();
   final List<String> gender = [Strings.male, Strings.female];
   String selectedGender = Strings.maleC;
-  File? galleryFile;
+  Uint8List? galleryFile;
   final picker = ImagePicker();
   User? user;
   DateTime? selectedDate;
+
 
   @override
   void initState() {
@@ -43,13 +42,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   void loadImageFromHive() async {
-    var box = Hive.box<ImageModel>('images');
-    ImageModel? imageModel = box.get('profile_image');
+    try {
+      var box = Hive.box<ImageModel>('images');
+      ImageModel? imageModel = box.get('profile_image');
 
-    if (imageModel != null) {
-      setState(() {
-        galleryFile = File.fromRawPath(imageModel.imageBytes);
-      });
+      if (imageModel != null) {
+        setState(() {
+          galleryFile = imageModel.imageBytes; // Store the Uint8List directly
+        });
+      }
+    } catch (e) {
+      print("Load from Hive error: $e");
     }
   }
 
@@ -81,17 +84,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               children: [
                 galleryFile == null
                     ? const Icon(
-                        Icons.person,
-                        size: 100,
-                      )
+                  Icons.person,
+                  size: 100,
+                )
                     : SizedBox(
-                        height: 100,
-                        width: 100,
-                        child: Center(
-                          child: Image.memory(galleryFile!
-                              .readAsBytesSync()), // Use this for Uint8List
-                        ),
-                      ),
+                  height: 100,
+                  width: 100,
+                  child: Center(
+                    child: Image.memory(
+                      galleryFile!, // Directly pass the Uint8List to Image.memory
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
                 Positioned(
                   bottom: 0,
                   right: 0,
@@ -105,10 +110,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       color: Colors.grey,
                     ),
                   ),
-                )
+                ),
               ],
             ),
-          ),
+          )
+,
           const SizedSpace(),
           EditProfileContainer(
               onTap: () {
@@ -286,29 +292,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
   }
 
-  void _showGender(BuildContext context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext builder) {
-          return SizedBox(
-            height: MediaQuery.of(context).copyWith().size.height / 3,
-            child: CupertinoPicker(
-              itemExtent: 32,
-              onSelectedItemChanged: (int value) {
-                setState(() {
-                  selectedGender = gender[value];
-                });
-              },
-              children: gender.map((String gender) {
-                return Center(
-                  child: Text(gender),
-                );
-              }).toList(),
-            ),
-          );
-        });
-  }
-
   void _showPicker(BuildContext context) {
     showModalBottomSheet(
         context: context,
@@ -330,23 +313,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   Future getImage(ImageSource img) async {
-    Future getImage(ImageSource img) async {
+    try {
       final pickedFile = await picker.pickImage(source: img);
       if (pickedFile != null) {
-        final bytes = await pickedFile.readAsBytes();
+        final bytes = await pickedFile.readAsBytes(); // Read the image bytes
         final Uint8List uint8List = Uint8List.fromList(bytes);
         final imageModel = ImageModel(uint8List);
 
         var box = Hive.box<ImageModel>('images');
-        await box.put('profile_image', imageModel);
+        await box.put('profile_image', imageModel); // Store the image in Hive
 
         setState(() {
-          galleryFile = File(pickedFile.path);
+          galleryFile = uint8List; // Update the galleryFile to use Uint8List
         });
       } else {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("Error occurred")));
       }
+    } catch (e) {
+      print("get image error: $e");
     }
   }
+
 }
