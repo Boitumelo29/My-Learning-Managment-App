@@ -70,6 +70,13 @@ class _HomeScreenState extends State<HomePage> {
       drawerChildren: [
         DrawerHeader(
           child: UserAccountsDrawerHeader(
+            onDetailsPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          const EditProfileScreen()));
+            },
             decoration: BoxDecoration(
                 color: Colors.red, borderRadius: BorderRadius.circular(10)),
             currentAccountPicture: Padding(
