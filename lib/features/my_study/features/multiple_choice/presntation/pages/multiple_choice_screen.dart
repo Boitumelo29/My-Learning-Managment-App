@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
+import 'package:mylearning/common_widgets/widgets/containers/multiple_choice_container.dart';
 import 'package:mylearning/features/my_study/features/multiple_choice/model/multiple_choice_question.dart';
 
 class MultipleChoiceScreen extends StatefulWidget {
@@ -27,16 +28,16 @@ class _MultipleChoiceScreenState extends State<MultipleChoiceScreen> {
         ),
         const SizedBox(height: 20),
         ...questions[currentQuestionIndex].options.map((option) {
-          int index =
-          questions[currentQuestionIndex].options.indexOf(option);
-          return ElevatedButton(
-            child: Text(option),
-            onPressed: () => _answerQuestion(index),
+          int index = questions[currentQuestionIndex].options.indexOf(option);
+          return MultipleChoiceContainer(
+            onTap: () => _answerQuestion(index),
+            title: option,
           );
         }).toList(),
       ],
     );
   }
+
   void _answerQuestion(int selectedIndex) {
     if (selectedIndex == questions[currentQuestionIndex].correctAnswerIndex) {
       setState(() {
@@ -52,15 +53,16 @@ class _MultipleChoiceScreenState extends State<MultipleChoiceScreen> {
       }
     });
   }
+
   void _showResultDialog() {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('Quiz Finished!'),
+        title: const Text('Quiz Finished!'),
         content: Text('Your score is $score/${questions.length}'),
         actions: [
           TextButton(
-            child: Text('Restart'),
+            child: const Text('Restart'),
             onPressed: () {
               setState(() {
                 currentQuestionIndex = 0;
@@ -74,4 +76,3 @@ class _MultipleChoiceScreenState extends State<MultipleChoiceScreen> {
     );
   }
 }
-
