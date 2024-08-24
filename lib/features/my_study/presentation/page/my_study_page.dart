@@ -38,10 +38,12 @@ class _MyStudyPageState extends State<MyStudyPage> {
         MyStudyContainer(
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          const MultipleChoiceScreen()));
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      const MultipleChoiceScreen(),
+                ),
+              );
             },
             iconData: Icons.abc,
             title: "Multiple Choice"),
