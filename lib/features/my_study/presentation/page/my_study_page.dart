@@ -40,7 +40,8 @@ class _MyStudyPageState extends State<MyStudyPage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (BuildContext context) => QuizPage()));
+                      builder: (BuildContext context) =>
+                          const MultipleChoiceScreen()));
             },
             iconData: Icons.abc,
             title: "Multiple Choice"),
