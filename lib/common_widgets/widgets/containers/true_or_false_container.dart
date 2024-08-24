@@ -2,16 +2,31 @@ import 'package:flutter/material.dart';
 
 class TrueOrFalseContainer extends StatelessWidget {
   final bool shouldBeRed;
+  final bool shouldBeTrue;
   final Function() onTap;
 
   const TrueOrFalseContainer(
-      {super.key, required this.shouldBeRed, required this.onTap});
+      {super.key,
+      required this.shouldBeRed,
+      required this.onTap,
+      required this.shouldBeTrue});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(),
+      child: Container(
+        height: 60,
+        width: 350,
+        decoration: BoxDecoration(
+          color: shouldBeRed ? Colors.red : Colors.green,
+          borderRadius: BorderRadius.circular(17),
+        ),
+        child: Text(
+          shouldBeTrue ? "True" : "False",
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+        ),
+      ),
     );
   }
 }
