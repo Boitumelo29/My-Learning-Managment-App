@@ -66,6 +66,8 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   hive_generator: ^2.0.1
+  flip_card: ^0.7.0
+  path_provider: ^2.1.4
 
 dev_dependencies:
   flutter_test:

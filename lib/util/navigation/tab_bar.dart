@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/features/chatbot/presenation/screens/chatbot_screen.dart';
+import 'package:mylearning/features/flash_cards/presenation/page/flashcards_page.dart';
 import 'package:mylearning/features/home/home_screen/page/home_screen.dart';
 import 'package:mylearning/features/notes/presentation/screen/notes_screen.dart';
 import 'package:mylearning/features/profile/profile_screen/page/profile_page.dart';
@@ -30,7 +31,7 @@ class _TabBarScreenState extends State<TabBarScreen> {
           Icon(Icons.chat),
           Icon(Icons.note_alt_outlined),
           Icon(Icons.date_range),
-          Icon(Icons.table_chart_sharp)
+          Icon(Icons.credit_card)
         ]),
         body: TabBarView(
           children: [
@@ -39,7 +40,8 @@ class _TabBarScreenState extends State<TabBarScreen> {
             const ChatBotPage(),
             const NotesScreen(),
             const UpcomingEvents(),
-            const TimetablePage()
+            FlashCardScreen()
+
             ///todo instead of a profile screen we can have a drawer so we can keep all of our screens, then keep the dark mode setting in there
             // ProfilePage(
             //     isDarkMode: widget.isDarkMode, toggleTheme: widget.toggleTheme)
