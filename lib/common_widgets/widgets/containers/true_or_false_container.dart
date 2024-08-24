@@ -16,15 +16,17 @@ class TrueOrFalseContainer extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 60,
+        height: 80,
         width: 350,
         decoration: BoxDecoration(
           color: shouldBeRed ? Colors.red : Colors.green,
           borderRadius: BorderRadius.circular(17),
         ),
-        child: Text(
-          shouldBeTrue ? "True" : "False",
-          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+        child: Center(
+          child: Text(
+            shouldBeTrue ? "True" : "False",
+            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+          ),
         ),
       ),
     );

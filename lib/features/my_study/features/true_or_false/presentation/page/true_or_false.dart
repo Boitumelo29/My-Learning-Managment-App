@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
+import 'package:mylearning/common_widgets/widgets/containers/true_or_false_container.dart';
 import 'package:mylearning/features/my_study/features/true_or_false/model/true_or_false_model.dart';
 
 class TrueOrFalsePage extends StatefulWidget {
@@ -20,6 +21,8 @@ class _TrueOrFalsePageState extends State<TrueOrFalsePage> {
     TrueOrFalseModel('Flutter is developed by Google.', true),
   ];
 
+  List<Widget> scoreKeeper = [];
+
   @override
   Widget build(BuildContext context) {
     return AppBarScreen(
@@ -39,7 +42,7 @@ class _TrueOrFalsePageState extends State<TrueOrFalsePage> {
                   const SizedBox(height: 20.0),
                   Text(
                     'Your Score: $_score/${_questions.length}',
-                    style: TextStyle(fontSize: 20.0),
+                    style: const TextStyle(fontSize: 20.0),
                   ),
                   const SizedBox(height: 20.0),
                   ElevatedButton(
@@ -50,30 +53,32 @@ class _TrueOrFalsePageState extends State<TrueOrFalsePage> {
               )
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+
                   Text(
                     _questions[_currentQuestionIndex].text,
                     style: const TextStyle(fontSize: 24.0),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 200.0),
+                  TrueOrFalseContainer(
+                      shouldBeRed: false,
+                      onTap: () {
+                        _answerQuestion(true);
+                      },
+                      shouldBeTrue: true),
+                  const SizedBox(height: 20.0),
+                  TrueOrFalseContainer(
+                      shouldBeRed: true,
+                      onTap: () {
+                        _answerQuestion(false);
+                      },
+                      shouldBeTrue: false),
+                  const SizedBox(height: 120.0),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      ElevatedButton(
-                        onPressed: () => _answerQuestion(true),
-                        child: Text('True'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () => _answerQuestion(false),
-                        child: Text('False'),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20.0),
-                  Text(
-                    'Score: $_score/${_questions.length}',
-                    style: TextStyle(fontSize: 20.0),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: scoreKeeper,
                   ),
                 ],
               )
@@ -82,22 +87,38 @@ class _TrueOrFalsePageState extends State<TrueOrFalsePage> {
   }
 
   void _answerQuestion(bool answer) {
-    if (answer == _questions[_currentQuestionIndex].isTrue) {
-      _score++;
+    setState(() {
+      if (answer == _questions[_currentQuestionIndex].isTrue) {
+        _score++;
+        scoreKeeper.add(const Icon(
+          Icons.check,
+          color: Colors.green,
+        ));
+      } else {
+        scoreKeeper.add(const Icon(
+          Icons.close,
+          color: Colors.red,
+        ));
+      }
+
+      if (_currentQuestionIndex < _questions.length - 1) {
+        _currentQuestionIndex++;
+      } else {
+        _quizCompleted = true;
+      }
+
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Correct!'),
-          duration: Duration(seconds: 1),
+        SnackBar(
+          content: Text(answer == _questions[_currentQuestionIndex].isTrue
+              ? 'Wrong!'
+              : 'Correct!'),
+          duration: const Duration(seconds: 3),
+          backgroundColor: answer == _questions[_currentQuestionIndex].isTrue
+              ? Colors.red
+              : Colors.green,
         ),
       );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Wrong!'),
-          duration: Duration(seconds: 1),
-        ),
-      );
-    }
+    });
   }
 
   void _resetQuiz() {
@@ -105,6 +126,7 @@ class _TrueOrFalsePageState extends State<TrueOrFalsePage> {
       _currentQuestionIndex = 0;
       _score = 0;
       _quizCompleted = false;
+      scoreKeeper = [];
     });
   }
 }
