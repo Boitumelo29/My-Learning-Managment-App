@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomePage> {
               child: galleryFile == null
                   ? const Icon(
                       Icons.person,
-                      size: 100,
+                      size: 40,
                     )
                   : SizedBox(
                       height: 100,

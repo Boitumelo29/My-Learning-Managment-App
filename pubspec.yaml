@@ -68,6 +68,7 @@ dependencies:
   hive_generator: ^2.0.1
   flip_card: ^0.7.0
   path_provider: ^2.1.4
+  flashy_tab_bar2: ^0.0.10
 
 dev_dependencies:
   flutter_test:

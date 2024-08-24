@@ -4,7 +4,7 @@ import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mylearning/features/auth/auth.dart';
-import 'package:mylearning/features/flash_cards/data/model/flashcard.dart';
+import 'package:mylearning/features/my_study/features/flash_cards/data/model/flashcard.dart';
 import 'package:mylearning/features/notes/presentation/screen/notes_screen.dart';
 import 'package:mylearning/features/profile/edit_profile/data/image_model.dart';
 import 'package:mylearning/features/upcoming_events/upcoming_event_screen/pages/upcoming_screen.dart';

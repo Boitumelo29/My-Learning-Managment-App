@@ -2,7 +2,7 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
-import 'package:mylearning/features/flash_cards/data/model/flashcard.dart';
+import 'package:mylearning/features/my_study/features/flash_cards/data/model/flashcard.dart';
 
 
 class FlashCardScreen extends StatefulWidget {
@@ -84,12 +84,13 @@ class _FlashCardScreenState extends State<FlashCardScreen> {
         valueListenable: flashCardBox.listenable(),
         builder: (context, Box<FlashCard> box, _) {
           if (box.isEmpty) {
-            return Center(
+            return const Center(
               child: Text('No flash cards available'),
             );
           }
 
-          return ListView.builder(
+          return PageView.builder(
+            scrollDirection: Axis.vertical,
             itemCount: box.length,
             itemBuilder: (context, index) {
               final flashCard = box.getAt(index);
@@ -143,15 +144,15 @@ class FlashCardWidget extends StatelessWidget {
           children: [
             Text(
               label,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 color: Colors.white,
               ),
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             Text(
               text,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 24,
                 color: Colors.white,
               ),
