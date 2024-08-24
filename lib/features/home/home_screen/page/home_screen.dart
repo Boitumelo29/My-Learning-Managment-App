@@ -78,7 +78,9 @@ class _HomeScreenState extends State<HomePage> {
                           const EditProfileScreen()));
             },
             decoration: BoxDecoration(
-                color: Colors.red, borderRadius: BorderRadius.circular(10)),
+              color: Colors.red,
+              borderRadius: BorderRadius.circular(10),
+            ),
             currentAccountPicture: Padding(
               padding: const EdgeInsets.all(8.0),
               child: galleryFile == null
