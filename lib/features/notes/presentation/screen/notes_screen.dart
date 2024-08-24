@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
+import 'package:mylearning/util/validation/validation.dart';
 import 'package:provider/provider.dart';
 
 class NotesScreen extends StatefulWidget {
@@ -82,7 +83,9 @@ class _NotesScreenState extends State<NotesScreen> {
                     showSuffixIcon: false,
                     showPrefixIcon: true,
                     prefixIcon: Icons.task,
-                    validator: (value) {},
+                    validator: (value) {
+                      return Validation.usernameValidation(value);
+                    },
                     obsureText: false,
                     isRed: true),
                 Row(

@@ -6,11 +6,12 @@ import 'package:mylearning/util/validation/validation.dart';
 class SignupEmail extends StatelessWidget {
   final TextEditingController email;
   final FocusNode email_f;
+
   const SignupEmail({super.key, required this.email, required this.email_f});
 
   @override
   Widget build(BuildContext context) {
-    return  LongTextFieldForm(
+    return LongTextFieldForm(
       isRed: false,
       controller: email,
       focusNode: email_f,
@@ -22,7 +23,7 @@ class SignupEmail extends StatelessWidget {
       showSuffixIcon: false,
       onChanged: (value) {},
       validator: (value) {
-        Validation.usernameValidation(value);
+        return Validation.usernameValidation(value);
       },
     );
   }

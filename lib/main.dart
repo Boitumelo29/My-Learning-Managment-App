@@ -2,14 +2,23 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mylearning/features/auth/auth.dart';
+import 'package:mylearning/features/my_study/features/flash_cards/data/model/flashcard.dart';
 import 'package:mylearning/features/notes/presentation/screen/notes_screen.dart';
+import 'package:mylearning/features/profile/edit_profile/data/image_model.dart';
 import 'package:mylearning/features/upcoming_events/upcoming_event_screen/pages/upcoming_screen.dart';
 import 'package:mylearning/firebase_options.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(ImageModelAdapter());
+  Hive.registerAdapter(FlashCardAdapter());
+  await Hive.openBox<ImageModel>('images');
+  await Hive.openBox<FlashCard>('flashcards');
+  await Hive.openBox("myBox");
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
