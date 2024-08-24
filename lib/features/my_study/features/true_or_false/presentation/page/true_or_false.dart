@@ -28,57 +28,55 @@ class _TrueOrFalsePageState extends State<TrueOrFalsePage> {
       shouldHaveFloatingButton: false,
       shouldBeCentered: true,
       children: [
-        Center(
-          child: _quizCompleted
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Text(
-                      'Quiz Completed!',
-                      style: TextStyle(fontSize: 24.0),
-                    ),
-                    const SizedBox(height: 20.0),
-                    Text(
-                      'Your Score: $_score/${_questions.length}',
-                      style: TextStyle(fontSize: 20.0),
-                    ),
-                    const SizedBox(height: 20.0),
-                    ElevatedButton(
-                      onPressed: _resetQuiz,
-                      child: const Text('Restart Quiz'),
-                    ),
-                  ],
-                )
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      _questions[_currentQuestionIndex].text,
-                      style: const TextStyle(fontSize: 24.0),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(height: 20.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        ElevatedButton(
-                          onPressed: () => _answerQuestion(true),
-                          child: Text('True'),
-                        ),
-                        ElevatedButton(
-                          onPressed: () => _answerQuestion(false),
-                          child: Text('False'),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 20.0),
-                    Text(
-                      'Score: $_score/${_questions.length}',
-                      style: TextStyle(fontSize: 20.0),
-                    ),
-                  ],
-                ),
-        )
+        _quizCompleted
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Text(
+                    'Quiz Completed!',
+                    style: TextStyle(fontSize: 24.0),
+                  ),
+                  const SizedBox(height: 20.0),
+                  Text(
+                    'Your Score: $_score/${_questions.length}',
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                  const SizedBox(height: 20.0),
+                  ElevatedButton(
+                    onPressed: _resetQuiz,
+                    child: const Text('Restart Quiz'),
+                  ),
+                ],
+              )
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    _questions[_currentQuestionIndex].text,
+                    style: const TextStyle(fontSize: 24.0),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 20.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      ElevatedButton(
+                        onPressed: () => _answerQuestion(true),
+                        child: Text('True'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _answerQuestion(false),
+                        child: Text('False'),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20.0),
+                  Text(
+                    'Score: $_score/${_questions.length}',
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                ],
+              )
       ],
     );
   }
