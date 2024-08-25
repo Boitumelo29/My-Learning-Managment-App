@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:mylearning/data/data_model/quote_of_the_day_data_model.dart';
 import 'package:mylearning/data/data_services/qoute_of_the_day_data_service.dart';
+import 'package:mylearning/features/home/data/model/streak_model.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 
 class ExpansionCard extends StatefulWidget {
@@ -14,10 +16,8 @@ class ExpansionCard extends StatefulWidget {
 }
 
 class _ExpansionCardState extends State<ExpansionCard> {
+  Box<StreakModel>? streakBox;
   bool _isExpanded = false;
-  String _formattedDate = '';
-  String _formattedTime = '';
-  String _formattedYear = '';
   late Timer _timer;
   late Future<QOTDataModel> dataModel;
   QOTDataService dataService = QOTDataService();
@@ -26,19 +26,7 @@ class _ExpansionCardState extends State<ExpansionCard> {
   void initState() {
     super.initState();
     dataModel = QOTDataService.fetchData(context);
-    _updateDateTime();
-    _timer = Timer.periodic(const Duration(seconds: 1), (Timer t) => _updateDateTime());
-  }
-
-  void _updateDateTime() {
-    if (mounted) {
-      setState(() {
-        DateTime now = DateTime.now();
-        _formattedYear = DateFormat('yy').format(now);
-        _formattedDate = DateFormat('MM-dd').format(now);
-        _formattedTime = DateFormat('kk:mm').format(now);
-      });
-    }
+    openBox();
   }
 
   @override
@@ -76,35 +64,11 @@ class _ExpansionCardState extends State<ExpansionCard> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        const Text("Your Weekly Streak"),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Icon(
-              Icons.star,
-              color: Colors.red,
-              size: 30,
-            ),
-            Column(
-              children: [
-                Text(
-                  _formattedTime,
-                  style: const TextStyle(fontSize: 20),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      _formattedDate,
-                      style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      _formattedYear,
-                      style: const TextStyle(fontSize: 40),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+            CircularProgressIndicator(),
           ],
         ),
         Center(
@@ -159,36 +123,62 @@ class _ExpansionCardState extends State<ExpansionCard> {
   }
 
   Widget isNotExpanded(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    final streak = streakBox?.get('streak') ??
+        StreakModel(streakDays: 0, lastUpdated: DateTime.now());
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        const Icon(
-          Icons.star,
-          color: Colors.red,
-          size: 30,
-        ),
-        Column(
+        const Text("Your Weekly Streak", style: TextStyle(fontSize: 18)),
+        const SizedBox(height: 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Row(
+            Stack(
+              alignment: Alignment.center,
               children: [
-                Text(
-                  _formattedDate,
-                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                SizedBox(
+                  height: 50,
+                  width: 50,
+                  child: CircularProgressIndicator(
+                    value: 2 / 10,
+                    strokeWidth: 6,
+                    backgroundColor: Colors.grey.shade200,
+                    valueColor: const AlwaysStoppedAnimation<Color>(Colors.red),
+                  ),
                 ),
-                Text(
-                  _formattedYear,
-                  style: const TextStyle(fontSize: 20),
-                ),
+                Text('${streak.streakDays}',
+                    style: const TextStyle(
+                        fontSize: 32, fontWeight: FontWeight.bold)),
               ],
             ),
-            Text(
-              _formattedTime,
-              style: const TextStyle(fontSize: 40),
-            ),
+            Text('Last update: ${streak.lastUpdated.toString()}'),
           ],
         ),
       ],
     );
   }
-}
 
+  void openBox() async {
+    streakBox = await Hive.openBox<StreakModel>('streakBox');
+    checkAndUpdateStreak();
+    setState(() {});
+  }
+
+  void checkAndUpdateStreak() {
+    final currentDate = DateTime.now();
+    final streak = streakBox?.get('streak') ??
+        StreakModel(streakDays: 0, lastUpdated: DateTime.now());
+
+    if (currentDate.difference(streak.lastUpdated).inDays >= 1) {
+      if (currentDate.weekday == DateTime.monday ||
+          currentDate.difference(streak.lastUpdated).inDays == 1) {
+        streak.streakDays += 1;
+      } else {
+        streak.streakDays = 1; // Reset streak if a day is missed
+      }
+      streak.lastUpdated = currentDate;
+      streakBox?.put('streak', streak);
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 
 part 'flashcard.g.dart';
-@HiveType(typeId: 1) // This is for FlashCard
+@HiveType(typeId: 1)
 class FlashCard {
   @HiveField(0)
   final String question;
