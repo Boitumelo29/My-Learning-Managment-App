@@ -70,32 +70,17 @@ class _ExpansionCardState extends State<ExpansionCard> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text("Your Weekly Streak", style: TextStyle(fontSize: 18)),
-        const SizedBox(height: 20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        const Stack(
+          alignment: Alignment.center,
           children: [
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                SizedBox(
-                  height: 50,
-                  width: 50,
-                  child: CircularProgressIndicator(
-                    value: 2 / 10,
-                    strokeWidth: 6,
-                    backgroundColor: Colors.grey.shade200,
-                    valueColor: const AlwaysStoppedAnimation<Color>(Colors.red),
-                  ),
-                ),
-                Text('${streak.streakDays}',
-                    style: const TextStyle(
-                        fontSize: 32, fontWeight: FontWeight.bold)),
-              ],
-            )
+            Icon(Icons.circle, size: 60, color: Colors.white60),
+            Icon(Icons.whatshot, size: 60, color: Colors.red),
           ],
         ),
-        // Text('Last update: ${streak.lastUpdated.toString()}'),
+        Text(
+          '${streak.streakDays}',
+          style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+        ),
         Center(
           child: FutureBuilder<QOTDataModel>(
             future: dataModel,
@@ -150,36 +135,39 @@ class _ExpansionCardState extends State<ExpansionCard> {
   Widget isNotExpanded(BuildContext context) {
     final streak = streakBox?.get('streak') ??
         StreakModel(streakDays: 0, lastUpdated: DateTime.now());
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Your Weekly Streak", style: TextStyle(fontSize: 18)),
-        const SizedBox(height: 20),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Stack(
-              alignment: Alignment.center,
               children: [
-                SizedBox(
-                  height: 50,
-                  width: 50,
-                  child: CircularProgressIndicator(
-                    value: 2 / 10,
-                    strokeWidth: 6,
-                    backgroundColor: Colors.grey.shade200,
-                    valueColor: const AlwaysStoppedAnimation<Color>(Colors.red),
+                const Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Icon(Icons.circle_outlined, size: 70, color: Colors.red),
+                    Icon(Icons.whatshot, size: 30, color: Colors.red),
+                  ],
+                ),
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Text(
+                    '${streak.streakDays}',
+                    style: const TextStyle(
+                        fontSize: 32, fontWeight: FontWeight.bold),
                   ),
                 ),
-                Text('${streak.streakDays}',
-                    style: const TextStyle(
-                        fontSize: 32, fontWeight: FontWeight.bold)),
               ],
             ),
-            // Text('Last update: ${streak.lastUpdated.toString()}'),
+            const Column(
+              children: [Text("Week Streak"), Text("You are doing amazing!")],
+            )
           ],
-        ),
+        )
       ],
     );
   }
