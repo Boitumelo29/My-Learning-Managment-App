@@ -28,7 +28,9 @@ class _TrueOrFalsePageState extends State<TrueOrFalsePage> {
     return AppBarScreen(
       shouldScroll: false,
       title: "True Or False",
-      shouldHaveFloatingButton: false,
+      shouldHaveFloatingButton: true,
+      tooltip: "Question",
+      icon: Icons.add,
       shouldBeCentered: true,
       children: [
         _quizCompleted

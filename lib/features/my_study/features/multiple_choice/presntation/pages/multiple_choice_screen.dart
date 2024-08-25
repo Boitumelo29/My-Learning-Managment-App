@@ -19,7 +19,9 @@ class _MultipleChoiceScreenState extends State<MultipleChoiceScreen> {
     return AppBarScreen(
       shouldScroll: false,
       title: "Multiple Choice",
-      shouldHaveFloatingButton: false,
+      shouldHaveFloatingButton: true,
+      tooltip: "Question",
+      icon: Icons.add,
       shouldBeCentered: true,
       children: [
         Text(

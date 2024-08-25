@@ -4,7 +4,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:mylearning/features/my_study/features/flash_cards/data/model/flashcard.dart';
 
-
 class FlashCardScreen extends StatefulWidget {
   const FlashCardScreen({super.key});
 
@@ -29,6 +28,52 @@ class _FlashCardScreenState extends State<FlashCardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton:
+          FloatingActionButton(
+            backgroundColor: Colors.red,
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Add Flash Card'),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextField(
+                            controller: questionController,
+                            decoration: InputDecoration(labelText: 'Question'),
+                          ),
+                          TextField(
+                            controller: answerController,
+                            decoration: InputDecoration(labelText: 'Answer'),
+                          ),
+                        ],
+                      ),
+                      actions: [
+                        TextButton(
+                          child: Text('Cancel'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        TextButton(
+                          child: Text('Add'),
+                          onPressed: () {
+                            addFlashCard(
+                              questionController.text,
+                              answerController.text,
+                            );
+                            questionController.clear();
+                            answerController.clear();
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }, child: const Icon(Icons.add)),
       appBar: AppBar(
         title: Text('Flash Cards'),
         actions: [
@@ -162,5 +207,8 @@ class FlashCardWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+  void shoDialog(){
+
   }
 }
