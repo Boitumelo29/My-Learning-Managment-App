@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:intl/intl.dart';
 import 'package:mylearning/data/data_model/quote_of_the_day_data_model.dart';
 import 'package:mylearning/data/data_services/qoute_of_the_day_data_service.dart';
 import 'package:mylearning/features/home/data/model/streak_model.dart';
@@ -27,7 +26,16 @@ class _ExpansionCardState extends State<ExpansionCard> {
     super.initState();
     dataModel = QOTDataService.fetchData(context);
     openBox();
+
+    // Initialize the timer here, if necessary
+    _timer = Timer.periodic(Duration(seconds: 60), (Timer t) {
+      // Your periodic task, such as refreshing the data
+      setState(() {
+        dataModel = QOTDataService.fetchData(context);
+      });
+    });
   }
+
 
   @override
   void dispose() {
@@ -61,16 +69,34 @@ class _ExpansionCardState extends State<ExpansionCard> {
   }
 
   Widget isExpanded(BuildContext context) {
+    final streak = streakBox?.get('streak') ??
+        StreakModel(streakDays: 0, lastUpdated: DateTime.now());
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text("Your Weekly Streak"),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            CircularProgressIndicator(),
-          ],
-        ),
+        const Text("Your Weekly Streak", style: TextStyle(fontSize: 18)),
+        const SizedBox(height: 20),
+        Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              SizedBox(
+                height: 50,
+                width: 50,
+                child: CircularProgressIndicator(
+                  value: 2 / 10,
+                  strokeWidth: 6,
+                  backgroundColor: Colors.grey.shade200,
+                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.red),
+                ),
+              ),
+              Text('${streak.streakDays}',
+                  style: const TextStyle(
+                      fontSize: 32, fontWeight: FontWeight.bold)),
+            ],
+          )
+        ],),
+       // Text('Last update: ${streak.lastUpdated.toString()}'),
         Center(
           child: FutureBuilder<QOTDataModel>(
             future: dataModel,
@@ -152,7 +178,7 @@ class _ExpansionCardState extends State<ExpansionCard> {
                         fontSize: 32, fontWeight: FontWeight.bold)),
               ],
             ),
-            Text('Last update: ${streak.lastUpdated.toString()}'),
+            // Text('Last update: ${streak.lastUpdated.toString()}'),
           ],
         ),
       ],
