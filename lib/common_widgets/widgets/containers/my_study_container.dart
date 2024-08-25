@@ -30,9 +30,6 @@ class MyStudyContainer extends StatelessWidget {
               iconData,
               color: Colors.red,
             ),
-            // const SizedBox(
-            //   width: 20,
-            // ),
             Text(
               title,
               style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),

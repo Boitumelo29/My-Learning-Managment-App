@@ -253,6 +253,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   email() {
     final formKey = GlobalKey<FormState>();
     TextEditingController email = TextEditingController();
+    TextEditingController password = TextEditingController();
     bool isLoading = false;
     showModalBottomSheet(
       isScrollControlled: true,
@@ -263,12 +264,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           child: Form(
             key: formKey,
             child: SizedBox(
-              height: 250,
+              height: 340,
               width: 480,
               child: Column(
                 children: [
                   const SizedBox(
-                    height: 10,
+                    height: 5,
                   ),
                   const Text("Update Email",
                       style:
@@ -279,13 +280,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   LongTextFieldForm(
                     controller: email,
                     onChanged: (value) {},
-                    hintText: "Email",
-                    labelText: "Email",
+                    hintText: "Enter your new email",
+                    labelText: "Enter your new email",
                     showSuffixIcon: false,
                     showPrefixIcon: true,
                     prefixIcon: Icons.email,
                     validator: (value) {
                       return Validation.emailValidation(value);
+                    },
+                    obsureText: false,
+                    isRed: false,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  LongTextFieldForm(
+                    controller: password,
+                    onChanged: (value) {},
+                    hintText: "Password",
+                    labelText: "Password",
+                    showSuffixIcon: false,
+                    showPrefixIcon: true,
+                    prefixIcon: Icons.email,
+                    validator: (value) {
+                      return Validation.passwordValidation(value);
                     },
                     obsureText: false,
                     isRed: false,
