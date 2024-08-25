@@ -144,17 +144,28 @@ class _ExpansionCardState extends State<ExpansionCard> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Stack(
+              alignment: Alignment.center,
               children: [
-                const Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Icon(Icons.circle_outlined, size: 70, color: Colors.red),
-                    Icon(Icons.whatshot, size: 30, color: Colors.red),
-                  ],
+                // Circle Background
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
                 ),
+                const Positioned(
+                  top: 10,
+                  child: Icon(
+                    Icons.whatshot,
+                    color: Colors.red,
+                    size: 40,
+                  ),
+                ),
+                // Streak Number
                 Positioned(
-                  bottom: 0,
-                  right: 0,
+                  bottom: -10,
                   child: Text(
                     '${streak.streakDays}',
                     style: const TextStyle(
