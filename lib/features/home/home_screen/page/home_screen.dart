@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -36,7 +35,6 @@ class _HomeScreenState extends State<HomePage> {
   void initState() {
     super.initState();
     user = FirebaseAuth.instance.currentUser;
-    fetchUserData();
     loadImageFromHive();
   }
 
@@ -210,37 +208,5 @@ class _HomeScreenState extends State<HomePage> {
         ),
       ],
     );
-  }
-
-  Future<void> fetchUserData() async {
-    if (user != null) {
-      try {
-        DocumentSnapshot doc = await FirebaseFirestore.instance
-            .collection('users')
-            .doc(user!.uid)
-            .get();
-        if (doc.exists) {
-          setState(() {
-            userData = doc.data() as Map<String, dynamic>?;
-            isLoading = false;
-          });
-        } else {
-          setState(() {
-            userNotFound = true;
-            isLoading = false;
-          });
-        }
-      } catch (e) {
-        setState(() {
-          userNotFound = true;
-          isLoading = false;
-        });
-      }
-    } else {
-      setState(() {
-        userNotFound = true;
-        isLoading = false;
-      });
-    }
   }
 }
