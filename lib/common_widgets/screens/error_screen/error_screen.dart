@@ -9,6 +9,7 @@ class ErrorScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
+          const Text("Oops An Error has occurred!"),
           LongRectangleButton(
               onTap: () {
                 Navigator.pop(context);

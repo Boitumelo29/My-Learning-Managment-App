@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mylearning/common_widgets/screens/error_screen/error_screen.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
 
@@ -22,7 +23,7 @@ class ChatBotPage extends StatelessWidget {
       drawer: Drawer(
         backgroundColor: Colors.white,
         child: ListView(
-          children:  [
+          children: [
             const DrawerHeader(
               child: Text("My chatty extra tutor packs can be here"),
             ),
@@ -33,8 +34,7 @@ class ChatBotPage extends StatelessWidget {
                 title: Text('Item ${index + 1}'),
                 subtitle: Text('Subtitle ${index + 1}'),
                 trailing: const Icon(Icons.arrow_forward),
-                onTap: () {
-                },
+                onTap: () {},
               );
             }),
           ],
@@ -49,9 +49,7 @@ class ChatBotPage extends StatelessWidget {
             );
           } else if (snapshot.hasError) {
             ///todo: create an error page
-            return const Center(
-              child: Text("Oops, an error has occurred"),
-            );
+            return const ErrorScreen();
           } else {
             return const Center(child: ChatBotScreen());
           }
@@ -163,6 +161,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
             },
           ),
         ),
+
         /// Todo: after the user has pressed on send button then floating should disappear
         /// should have a column here instead icons ? true:false
         Padding(
