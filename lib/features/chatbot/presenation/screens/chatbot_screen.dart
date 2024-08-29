@@ -1,10 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:chat_bubbles/bubbles/bubble_normal.dart';
-import 'package:chat_bubbles/bubbles/bubble_normal_image.dart';
 import 'package:chat_bubbles/chat_bubbles.dart';
-import 'package:chat_bubbles/date_chips/date_chip.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,8 +34,6 @@ class ChatBotPage extends StatelessWidget {
                 subtitle: Text('Subtitle ${index + 1}'),
                 trailing: const Icon(Icons.arrow_forward),
                 onTap: () {
-                  // Handle tap event here
-                  print('Tapped on Item ${index + 1}');
                 },
               );
             }),
