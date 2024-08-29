@@ -1,5 +1,13 @@
 class Validation {
   static String? emailValidation(String? value) {
+    // if (email == null ||
+    //         email.isEmpty ||
+    //         RegExp(r'^[\d]+$').hasMatch(email.split('@')[0]) ||
+    //         !RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$').hasMatch(email)) {
+    //       return Strings.emailFieldValidatorFail;
+    //     }
+    //     return null;
+
     if (value == null || value.isEmpty ||
         !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
             .hasMatch(value)) {
@@ -9,6 +17,15 @@ class Validation {
   }
 
   static String? passwordValidation(String? value) {
+    // if (password == null ||
+    //         password.isEmpty ||
+    //         !RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@.#\$&*~]).{6,}$')
+    //             .hasMatch(password)) {
+    //       return Strings.passwordValidatorFail;
+    //     }
+    //     return null;
+
+
     if (value == null || value.isEmpty) {
       return "Password is not valid";
     } else if (value.length <= 5) {

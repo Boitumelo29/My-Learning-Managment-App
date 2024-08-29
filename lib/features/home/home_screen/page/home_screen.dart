@@ -174,7 +174,12 @@ class _HomeScreenState extends State<HomePage> {
         // ),
       ],
       children: [
-        const Text("Hello UserName, welcome back!"),
+        const Center(
+          child: Text(
+            "Hello UserName, welcome back!",
+            style: TextStyle(color: Colors.black, fontSize: 20),
+          ),
+        ),
         const Text("I think I want to change this to a carosle"),
         const Row(
           children: [
@@ -189,7 +194,7 @@ class _HomeScreenState extends State<HomePage> {
         ),
         const UpcomingEvents(),
         const Text(
-            "Chat bot but I might change this to a caroslue to display the notes, chat bot converstaion and someting else if possible  "),
+            "Chat bot but I might change this to a caroluses to display the notes, chat bot conversation and something else if possible."),
         Container(
           height: 200,
           width: 400,

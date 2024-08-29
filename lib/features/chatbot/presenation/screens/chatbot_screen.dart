@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mylearning/common_widgets/screens/error_screen/error_screen.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
+import 'package:mylearning/util/validation/validation.dart';
 
 class ChatBotPage extends StatelessWidget {
   const ChatBotPage({super.key});
@@ -48,7 +49,6 @@ class ChatBotPage extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError) {
-            ///todo: create an error page
             return const ErrorScreen();
           } else {
             return const Center(child: ChatBotScreen());
@@ -187,7 +187,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                   labelText: "Enter something",
                   showSuffixIcon: false,
                   showPrefixIcon: false,
-                  validator: (value) {},
+                  validator: (value) {return Validation.usernameValidation(value);},
                   obsureText: false,
                   isRed: true,
                 ),
