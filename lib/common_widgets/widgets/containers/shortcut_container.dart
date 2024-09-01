@@ -16,8 +16,8 @@ class ShortCutContainer extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 60,
-        width: 60,
+        height: 85,
+        width: 85,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: Colors.red, width: 1)),
@@ -28,6 +28,7 @@ class ShortCutContainer extends StatelessWidget {
             Icon(
               icon,
               size: 20,
+              color: Colors.red,
             ),
             Text(
               title,

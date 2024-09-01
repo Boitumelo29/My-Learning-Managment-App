@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/appBar_with_drawer.dart';
 import 'package:mylearning/common_widgets/widgets/containers/shortcut_container.dart';
 import 'package:mylearning/features/home/home_screen/widgets/expansion_card.dart';
+import 'package:mylearning/features/home/home_screen/widgets/upcoming%20events.dart';
 import 'package:mylearning/features/profile/contact_us/pages/contact_us.dart';
 import 'package:mylearning/features/profile/edit_profile/data/image_model.dart';
 import 'package:mylearning/features/profile/edit_profile/page/edit_profile.dart';
@@ -63,7 +64,9 @@ class _HomeScreenState extends State<HomePage> {
     return AppBarDrawerScreen(
       shouldBeCentered: true,
       shouldScroll: true,
-      shouldHaveFloatingButton: false,
+      shouldHaveFloatingButton: true,
+      icon: Icons.add,
+      tooltip: "Add a new",
       title: 'Home Screen',
       drawerChildren: [
         DrawerHeader(
@@ -164,17 +167,21 @@ class _HomeScreenState extends State<HomePage> {
         ),
       ],
       children: [
-        const Text(
-          "Hello UserName, welcome back!",
-          style: TextStyle(color: Colors.black, fontSize: 20),
-        ),
-        const Text("I think I want to change this to a carosle"),
         const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("My Notes"),
-            Text("My Chat bot"),
-            Text("My Todos"),
+            Text(
+              "Welcome back,",
+              style: TextStyle(color: Colors.black, fontSize: 25),
+            ),
+            Text(
+              " UserName!",
+              style: TextStyle(color: Colors.red, fontSize: 25),
+            ),
           ],
+        ),
+        const SizedBox(
+          height: 25,
         ),
         const ExpansionCard(),
         const SizedBox(
@@ -184,22 +191,27 @@ class _HomeScreenState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             ShortCutContainer(icon: Icons.chat, title: "ChatBot", onTap: () {}),
-            ShortCutContainer(icon: Icons.abc, title: "Notes", onTap: () {}),
+            ShortCutContainer(icon: Icons.abc, title: "Study", onTap: () {}),
             ShortCutContainer(
-                icon: Icons.note_alt_outlined, title: "Chat", onTap: () {}),
+                icon: Icons.note_alt_outlined, title: "Notes", onTap: () {}),
             ShortCutContainer(
-                icon: Icons.calendar_month, title: "Chat", onTap: () {}),
+                icon: Icons.calendar_month, title: "Event", onTap: () {}),
           ],
         ),
         const SizedBox(
           height: 30,
         ),
         const Align(
+          alignment: Alignment.topLeft,
           child: Text(
             "Upcoming Events",
             style: TextStyle(color: Colors.red, fontSize: 17),
           ),
         ),
+        const SizedBox(
+          height: 20,
+        ),
+        const UpcomingEvents(),
       ],
     );
   }
@@ -224,3 +236,11 @@ class _HomeScreenState extends State<HomePage> {
 //     ],
 //   )),
 //
+//  const Text("I think I want to change this to a carosle"),
+//         const Row(
+//           children: [
+//             Text("My Notes"),
+//             Text("My Chat bot"),
+//             Text("My Todos"),
+//           ],
+//         ),
