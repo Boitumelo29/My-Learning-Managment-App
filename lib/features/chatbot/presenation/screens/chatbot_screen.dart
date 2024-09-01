@@ -1,15 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:chat_bubbles/bubbles/bubble_normal.dart';
-import 'package:chat_bubbles/bubbles/bubble_normal_image.dart';
 import 'package:chat_bubbles/chat_bubbles.dart';
-import 'package:chat_bubbles/date_chips/date_chip.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mylearning/common_widgets/screens/error_screen/error_screen.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
 
@@ -25,7 +23,7 @@ class ChatBotPage extends StatelessWidget {
       drawer: Drawer(
         backgroundColor: Colors.white,
         child: ListView(
-          children:  [
+          children: [
             const DrawerHeader(
               child: Text("My chatty extra tutor packs can be here"),
             ),
@@ -36,10 +34,7 @@ class ChatBotPage extends StatelessWidget {
                 title: Text('Item ${index + 1}'),
                 subtitle: Text('Subtitle ${index + 1}'),
                 trailing: const Icon(Icons.arrow_forward),
-                onTap: () {
-                  // Handle tap event here
-                  print('Tapped on Item ${index + 1}');
-                },
+                onTap: () {},
               );
             }),
           ],
@@ -54,9 +49,7 @@ class ChatBotPage extends StatelessWidget {
             );
           } else if (snapshot.hasError) {
             ///todo: create an error page
-            return const Center(
-              child: Text("Oops, an error has occurred"),
-            );
+            return const ErrorScreen();
           } else {
             return const Center(child: ChatBotScreen());
           }
@@ -168,6 +161,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
             },
           ),
         ),
+
         /// Todo: after the user has pressed on send button then floating should disappear
         /// should have a column here instead icons ? true:false
         Padding(
