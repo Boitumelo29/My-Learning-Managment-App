@@ -177,6 +177,7 @@ class _HomeScreenState extends State<HomePage> {
         const SizedBox(
           height: 30,
         ),
+
         const UpcomingEvents(),
         const Text(
             "Chat bot but I might change this to a caroslue to display the notes, chat bot converstaion and someting else if possible  "),
