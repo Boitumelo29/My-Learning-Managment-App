@@ -183,11 +183,22 @@ class _HomeScreenState extends State<HomePage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            ShortCutContainer(icon: Icons.chat, title: "Chat", onTap: () {}),
-            ShortCutContainer(icon: Icons.chat, title: "Chat", onTap: () {}),
-            ShortCutContainer(icon: Icons.chat, title: "Chat", onTap: () {}),
-            ShortCutContainer(icon: Icons.chat, title: "Chat", onTap: () {}),
+            ShortCutContainer(icon: Icons.chat, title: "ChatBot", onTap: () {}),
+            ShortCutContainer(icon: Icons.abc, title: "Notes", onTap: () {}),
+            ShortCutContainer(
+                icon: Icons.note_alt_outlined, title: "Chat", onTap: () {}),
+            ShortCutContainer(
+                icon: Icons.calendar_month, title: "Chat", onTap: () {}),
           ],
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        const Align(
+          child: Text(
+            "Upcoming Events",
+            style: TextStyle(color: Colors.red, fontSize: 17),
+          ),
         ),
       ],
     );
