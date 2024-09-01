@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:flutter/services.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/appBar_with_drawer.dart';
+import 'package:mylearning/common_widgets/widgets/containers/shortcut_container.dart';
 import 'package:mylearning/features/home/home_screen/widgets/expansion_card.dart';
 import 'package:mylearning/features/home/home_screen/widgets/upcoming%20events.dart';
 import 'package:mylearning/features/profile/contact_us/pages/contact_us.dart';
@@ -164,7 +165,10 @@ class _HomeScreenState extends State<HomePage> {
         ),
       ],
       children: [
-        const Text("Hello UserName, welcome back!"),
+        const Text(
+          "Hello UserName, welcome back!",
+          style: TextStyle(color: Colors.black, fontSize: 20),
+        ),
         const Text("I think I want to change this to a carosle"),
         const Row(
           children: [
@@ -177,27 +181,36 @@ class _HomeScreenState extends State<HomePage> {
         const SizedBox(
           height: 30,
         ),
-
-        const UpcomingEvents(),
-        const Text(
-            "Chat bot but I might change this to a caroslue to display the notes, chat bot converstaion and someting else if possible  "),
-        Container(
-          height: 200,
-          width: 400,
-          decoration: BoxDecoration(
-              color: Colors.red, borderRadius: BorderRadius.circular(20)),
-          child: const Center(
-              child: Column(
-            children: [
-              Icon(Icons.chat),
-              Text("A chat bot instead will be try and hard but it can work")
-              //Text("bursary finder here that will post the latest bursaries here"),
-              //Text("Here is the link: https://www.zabursaries.co.za/general-bursaries-south-africa/capitec-bank-bursary/"),
-              //Text("when pressed it directs you to the job spec details. we can also just redirect them to the job site"),
-            ],
-          )),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ShortCutContainer(icon: Icons.chat, title: "Chat", onTap: () {}),
+            ShortCutContainer(icon: Icons.chat, title: "Chat", onTap: () {}),
+            ShortCutContainer(icon: Icons.chat, title: "Chat", onTap: () {}),
+            ShortCutContainer(icon: Icons.chat, title: "Chat", onTap: () {}),
+          ],
         ),
       ],
     );
   }
 }
+
+//const UpcomingEvents(),
+// const Text(
+//     "Chat bot but I might change this to a caroslue to display the notes, chat bot converstaion and someting else if possible  "),
+// Container(
+//   height: 200,
+//   width: 400,
+//   decoration: BoxDecoration(
+//       color: Colors.red, borderRadius: BorderRadius.circular(20)),
+//   child: const Center(
+//       child: Column(
+//     children: [
+//       Icon(Icons.chat),
+//       Text("A chat bot instead will be try and hard but it can work")
+//       //Text("bursary finder here that will post the latest bursaries here"),
+//       //Text("Here is the link: https://www.zabursaries.co.za/general-bursaries-south-africa/capitec-bank-bursary/"),
+//       //Text("when pressed it directs you to the job spec details. we can also just redirect them to the job site"),
+//     ],
+//   )),
+//
