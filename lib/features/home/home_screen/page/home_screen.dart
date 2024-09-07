@@ -211,7 +211,7 @@ class _HomeScreenState extends State<HomePage> {
         const SizedBox(
           height: 20,
         ),
-        const UpcomingEvents(),
+        const UpcomingEventsCard(),
       ],
     );
   }

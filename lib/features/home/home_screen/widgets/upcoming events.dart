@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mylearning/features/notes/presentation/screen/notes_screen.dart';
+import 'package:mylearning/features/upcoming_events/upcoming_event_screen/pages/upcoming_screen.dart';
 
-class UpcomingEvents extends StatelessWidget {
-  const UpcomingEvents({super.key});
+class UpcomingEventsCard extends StatelessWidget {
+  const UpcomingEventsCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +11,7 @@ class UpcomingEvents extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => const NotesScreen(),
+            builder: (BuildContext context) => const UpcomingEvents(),
           ),
         );
         ScaffoldMessenger.of(context)
