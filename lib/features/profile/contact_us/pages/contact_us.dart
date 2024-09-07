@@ -1,11 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/app_bar_screen.dart';
-import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
 import 'package:mylearning/common_widgets/widgets/containers/contact_us_container.dart';
 import 'package:mylearning/common_widgets/widgets/containers/social_media_conatiner.dart';
-import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
-import 'package:mylearning/util/validation/validation.dart';
 
 class ContactUsScreen extends StatefulWidget {
   const ContactUsScreen({super.key});

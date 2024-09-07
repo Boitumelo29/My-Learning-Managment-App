@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
@@ -123,8 +121,7 @@ class _TimetablePageState extends State<TimetablePage> {
                           child: Text(
                             "Add a Task",
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25),
+                                fontWeight: FontWeight.bold, fontSize: 25),
                           ),
                         ),
                         Padding(
@@ -139,7 +136,7 @@ class _TimetablePageState extends State<TimetablePage> {
                             showPrefixIcon: true,
                             prefixIcon: Icons.pending_actions,
                             validator: (value) {
-                              Validation.usernameValidation(value);
+                              return Validation.textValidation(value);
                             },
                             onChanged: (value) {},
                           ),

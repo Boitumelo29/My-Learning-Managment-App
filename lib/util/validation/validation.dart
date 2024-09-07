@@ -1,6 +1,7 @@
 class Validation {
   static String? emailValidation(String? value) {
-    if (value == null || value.isEmpty ||
+    if (value == null ||
+        value.isEmpty ||
         !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
             .hasMatch(value)) {
       return "Email is not valid";
@@ -17,7 +18,8 @@ class Validation {
     return null;
   }
 
-  static String? passwordConformValidation(String? value, String? confirmValue) {
+  static String? passwordConformValidation(
+      String? value, String? confirmValue) {
     if (value == null || value.isEmpty) {
       return "Password is not valid";
     } else if (value != confirmValue) {
@@ -31,6 +33,13 @@ class Validation {
       return "Username is empty";
     } else if (value.length <= 3) {
       return "Username must be longer than 3 characters";
+    }
+    return null;
+  }
+
+  static String? textValidation(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Text-field is empty";
     }
     return null;
   }

@@ -22,7 +22,7 @@ class SignupPassword extends StatelessWidget {
       showSuffixIcon: true,
       onChanged: (value) {},
       validator: (value) {
-       return Validation.usernameValidation(value);
+       return Validation.passwordValidation(value);
       },
     );
   }

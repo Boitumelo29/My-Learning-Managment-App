@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 import 'package:mylearning/features/timetable/timetable_screen/page/timetable_screen.dart';
+import 'package:mylearning/util/validation/validation.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -28,9 +29,7 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
         centerTitle: true,
         title: const Text("Upcoming Events"),
       ),
-      body:
-
-          Column(
+      body: Column(
         children: [
           Consumer<EventModel>(
             builder: (context, eventModel, child) {
@@ -80,34 +79,39 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
             child: Consumer<EventModel>(
               builder: (context, eventModel, child) {
                 return ListView.builder(
-                    itemCount: eventModel.events.length,
-                    itemBuilder: (context, index) {
-                      final event = eventModel.events[index];
-                      return Card(
-                        margin: const EdgeInsets.all(8),
+                  itemCount: eventModel.events.length,
+                  itemBuilder: (context, index) {
+                    final event = eventModel.events[index];
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        height: 75,
+                        width: 350,
                         child: ListTile(
                           onTap: () => showDetail(context),
-                          leading: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.red,
-                                width: 2,
-                              ),
-                            ),
-                            child: Text(
-                                "${event.dateTime.day} ${_getMonth(event.dateTime.month)}"),
-                          ),
+                          leading: Text(
+                              "${event.dateTime.day} ${_getMonth(event.dateTime.month)}"),
                           title: Text(event.title),
                           subtitle: Text(event.subTitle ?? ""),
+                          trailing: Container(
+                            width: 2,
+                            height: 130,
+                            color: Colors.red,
+                          ),
                         ),
-                      );
-                    });
+                      ),
+                    );
+                  },
+                );
               },
             ),
           )
         ],
       ),
-      //),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _addEventAlert(context),
         child: const Icon(Icons.add),
@@ -136,7 +140,9 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
                         showSuffixIcon: false,
                         showPrefixIcon: true,
                         prefixIcon: Icons.date_range,
-                        validator: (value) {},
+                        validator: (value) {
+                          return Validation.textValidation(value);
+                        },
                         obsureText: false,
                         isRed: true),
                     LongTextFieldForm(
@@ -147,7 +153,9 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
                         showSuffixIcon: false,
                         showPrefixIcon: true,
                         prefixIcon: Icons.date_range,
-                        validator: (value) {},
+                        validator: (value) {
+                          return Validation.textValidation(value);
+                        },
                         obsureText: false,
                         isRed: true),
                     const SizedBox(

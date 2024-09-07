@@ -84,7 +84,7 @@ class _NotesScreenState extends State<NotesScreen> {
                     showPrefixIcon: true,
                     prefixIcon: Icons.task,
                     validator: (value) {
-                      return Validation.usernameValidation(value);
+                      return Validation.textValidation(value);
                     },
                     obsureText: false,
                     isRed: true),

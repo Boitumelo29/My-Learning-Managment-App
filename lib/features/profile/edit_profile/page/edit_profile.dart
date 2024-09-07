@@ -161,7 +161,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             children: [
               AboutBioContainer(
                 validator: (value) {
-                  return Validation.usernameValidation(value);
+                  return Validation.textValidation(value);
                 },
                 controller: controller,
               ),
@@ -221,7 +221,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     showPrefixIcon: true,
                     prefixIcon: Icons.person,
                     validator: (value) {
-                      return Validation.usernameValidation(value);
+                      return Validation.textValidation(value);
                     },
                     obsureText: false,
                     isRed: false,

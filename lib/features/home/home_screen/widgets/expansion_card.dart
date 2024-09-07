@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:hive/hive.dart';
 import 'package:mylearning/data/data_model/quote_of_the_day_data_model.dart';
 import 'package:mylearning/data/data_services/qoute_of_the_day_data_service.dart';
+import 'package:mylearning/features/home/data/model/streak_model.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 
 class ExpansionCard extends StatefulWidget {
@@ -14,10 +15,8 @@ class ExpansionCard extends StatefulWidget {
 }
 
 class _ExpansionCardState extends State<ExpansionCard> {
+  Box<StreakModel>? streakBox;
   bool _isExpanded = false;
-  String _formattedDate = '';
-  String _formattedTime = '';
-  String _formattedYear = '';
   late Timer _timer;
   late Future<QOTDataModel> dataModel;
   QOTDataService dataService = QOTDataService();
@@ -26,19 +25,12 @@ class _ExpansionCardState extends State<ExpansionCard> {
   void initState() {
     super.initState();
     dataModel = QOTDataService.fetchData(context);
-    _updateDateTime();
-    _timer = Timer.periodic(const Duration(seconds: 1), (Timer t) => _updateDateTime());
-  }
-
-  void _updateDateTime() {
-    if (mounted) {
+    openBox();
+    _timer = Timer.periodic(const Duration(seconds: 60), (Timer t) {
       setState(() {
-        DateTime now = DateTime.now();
-        _formattedYear = DateFormat('yy').format(now);
-        _formattedDate = DateFormat('MM-dd').format(now);
-        _formattedTime = DateFormat('kk:mm').format(now);
+        dataModel = QOTDataService.fetchData(context);
       });
-    }
+    });
   }
 
   @override
@@ -73,39 +65,21 @@ class _ExpansionCardState extends State<ExpansionCard> {
   }
 
   Widget isExpanded(BuildContext context) {
+    final streak = streakBox?.get('streak') ??
+        StreakModel(streakDays: 0, lastUpdated: DateTime.now());
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        const Stack(
+          alignment: Alignment.center,
           children: [
-            const Icon(
-              Icons.star,
-              color: Colors.red,
-              size: 30,
-            ),
-            Column(
-              children: [
-                Text(
-                  _formattedTime,
-                  style: const TextStyle(fontSize: 20),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      _formattedDate,
-                      style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      _formattedYear,
-                      style: const TextStyle(fontSize: 40),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+            Icon(Icons.circle, size: 60, color: Colors.white60),
+            Icon(Icons.whatshot, size: 60, color: Colors.red),
           ],
+        ),
+        Text(
+          '${streak.streakDays}',
+          style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
         ),
         Center(
           child: FutureBuilder<QOTDataModel>(
@@ -159,36 +133,76 @@ class _ExpansionCardState extends State<ExpansionCard> {
   }
 
   Widget isNotExpanded(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    final streak = streakBox?.get('streak') ??
+        StreakModel(streakDays: 0, lastUpdated: DateTime.now());
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Icon(
-          Icons.star,
-          color: Colors.red,
-          size: 30,
-        ),
-        Column(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
+            Stack(
+              alignment: Alignment.center,
               children: [
-                Text(
-                  _formattedDate,
-                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                // Circle Background
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
                 ),
-                Text(
-                  _formattedYear,
-                  style: const TextStyle(fontSize: 20),
+                const Positioned(
+                  top: 10,
+                  child: Icon(
+                    Icons.whatshot,
+                    color: Colors.red,
+                    size: 40,
+                  ),
+                ),
+                // Streak Number
+                Positioned(
+                  bottom: -10,
+                  child: Text(
+                    '${streak.streakDays}',
+                    style: const TextStyle(
+                        fontSize: 32, fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
             ),
-            Text(
-              _formattedTime,
-              style: const TextStyle(fontSize: 40),
-            ),
+            const Column(
+              children: [Text("Week Streak"), Text("You are doing amazing!")],
+            )
           ],
-        ),
+        )
       ],
     );
   }
-}
 
+  void openBox() async {
+    streakBox = await Hive.openBox<StreakModel>('streakBox');
+    checkAndUpdateStreak();
+    setState(() {});
+  }
+
+  void checkAndUpdateStreak() {
+    final currentDate = DateTime.now();
+    final streak = streakBox?.get('streak') ??
+        StreakModel(streakDays: 0, lastUpdated: DateTime.now());
+
+    if (currentDate.difference(streak.lastUpdated).inDays >= 1) {
+      if (currentDate.weekday == DateTime.monday ||
+          currentDate.difference(streak.lastUpdated).inDays == 1) {
+        streak.streakDays += 1;
+      } else {
+        streak.streakDays = 1; // Reset streak if a day is missed
+      }
+      streak.lastUpdated = currentDate;
+      streakBox?.put('streak', streak);
+    }
+  }
+}

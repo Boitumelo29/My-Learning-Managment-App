@@ -23,7 +23,7 @@ class SignupEmail extends StatelessWidget {
       showSuffixIcon: false,
       onChanged: (value) {},
       validator: (value) {
-        return Validation.usernameValidation(value);
+        return Validation.emailValidation(value);
       },
     );
   }

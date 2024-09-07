@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:flutter/services.dart';
 import 'package:mylearning/common_widgets/screens/appBar_layout/appBar_with_drawer.dart';
+import 'package:mylearning/common_widgets/widgets/containers/shortcut_container.dart';
 import 'package:mylearning/features/home/home_screen/widgets/expansion_card.dart';
 import 'package:mylearning/features/home/home_screen/widgets/upcoming%20events.dart';
 import 'package:mylearning/features/profile/contact_us/pages/contact_us.dart';
@@ -45,7 +46,7 @@ class _HomeScreenState extends State<HomePage> {
 
       if (imageModel != null) {
         setState(() {
-          galleryFile = imageModel.imageBytes; // Store the Uint8List directly
+          galleryFile = imageModel.imageBytes;
         });
       }
     } catch (e) {
@@ -63,7 +64,9 @@ class _HomeScreenState extends State<HomePage> {
     return AppBarDrawerScreen(
       shouldBeCentered: true,
       shouldScroll: true,
-      shouldHaveFloatingButton: false,
+      shouldHaveFloatingButton: true,
+      icon: Icons.add,
+      tooltip: "Add a new",
       title: 'Home Screen',
       drawerChildren: [
         DrawerHeader(
@@ -162,51 +165,82 @@ class _HomeScreenState extends State<HomePage> {
           leading: const Icon(Icons.exit_to_app),
           title: const Text("Logout"),
         ),
-        // ListTile(
-        //   onTap: () {
-        //     ///Todo: stuff like the permui verison, app verison, adds
-        //     // MaterialPageRoute(
-        //     //     builder: (BuildContext context) =>
-        //     //         SettingsPage(isDarkMode: isDarkMode, toggleTheme: toggleTheme))
-        //   },
-        //   leading: const Icon(Icons.settings),
-        //   title: const Text("Setting"),
-        // ),
       ],
       children: [
-        const Text("Hello UserName, welcome back!"),
-        const Text("I think I want to change this to a carosle"),
         const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("My Notes"),
-            Text("My Chat bot"),
-            Text("My Todos"),
+            Text(
+              "Welcome back,",
+              style: TextStyle(color: Colors.black, fontSize: 25),
+            ),
+            Text(
+              " UserName!",
+              style: TextStyle(color: Colors.red, fontSize: 25),
+            ),
           ],
+        ),
+        const SizedBox(
+          height: 25,
         ),
         const ExpansionCard(),
         const SizedBox(
           height: 30,
         ),
-        const UpcomingEvents(),
-        const Text(
-            "Chat bot but I might change this to a caroslue to display the notes, chat bot converstaion and someting else if possible  "),
-        Container(
-          height: 200,
-          width: 400,
-          decoration: BoxDecoration(
-              color: Colors.red, borderRadius: BorderRadius.circular(20)),
-          child: const Center(
-              child: Column(
-            children: [
-              Icon(Icons.chat),
-              Text("A chat bot instead will be try and hard but it can work")
-              //Text("bursary finder here that will post the latest bursaries here"),
-              //Text("Here is the link: https://www.zabursaries.co.za/general-bursaries-south-africa/capitec-bank-bursary/"),
-              //Text("when pressed it directs you to the job spec details. we can also just redirect them to the job site"),
-            ],
-          )),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ShortCutContainer(icon: Icons.chat, title: "ChatBot", onTap: () {}),
+            ShortCutContainer(icon: Icons.abc, title: "Study", onTap: () {}),
+            ShortCutContainer(
+                icon: Icons.note_alt_outlined, title: "Notes", onTap: () {}),
+            ShortCutContainer(
+                icon: Icons.calendar_month, title: "Event", onTap: () {}),
+          ],
         ),
+        const SizedBox(
+          height: 30,
+        ),
+        const Align(
+          alignment: Alignment.topLeft,
+          child: Text(
+            "Upcoming Events",
+            style: TextStyle(color: Colors.red, fontSize: 17),
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        const UpcomingEventsCard(),
       ],
     );
   }
 }
+
+//const UpcomingEvents(),
+// const Text(
+//     "Chat bot but I might change this to a caroslue to display the notes, chat bot converstaion and someting else if possible  "),
+// Container(
+//   height: 200,
+//   width: 400,
+//   decoration: BoxDecoration(
+//       color: Colors.red, borderRadius: BorderRadius.circular(20)),
+//   child: const Center(
+//       child: Column(
+//     children: [
+//       Icon(Icons.chat),
+//       Text("A chat bot instead will be try and hard but it can work")
+//       //Text("bursary finder here that will post the latest bursaries here"),
+//       //Text("Here is the link: https://www.zabursaries.co.za/general-bursaries-south-africa/capitec-bank-bursary/"),
+//       //Text("when pressed it directs you to the job spec details. we can also just redirect them to the job site"),
+//     ],
+//   )),
+//
+//  const Text("I think I want to change this to a carosle"),
+//         const Row(
+//           children: [
+//             Text("My Notes"),
+//             Text("My Chat bot"),
+//             Text("My Todos"),
+//           ],
+//         ),
