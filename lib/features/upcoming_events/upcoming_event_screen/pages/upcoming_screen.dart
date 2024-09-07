@@ -140,7 +140,9 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
                         showSuffixIcon: false,
                         showPrefixIcon: true,
                         prefixIcon: Icons.date_range,
-                        validator: (value) {},
+                        validator: (value) {
+                          return Validation.textValidation(value);
+                        },
                         obsureText: false,
                         isRed: true),
                     LongTextFieldForm(

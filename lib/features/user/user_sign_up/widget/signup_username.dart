@@ -6,7 +6,9 @@ import 'package:mylearning/util/validation/validation.dart';
 class SignupUsername extends StatelessWidget {
   final TextEditingController username;
   final FocusNode username_f;
-  const SignupUsername({super.key, required this.username, required this.username_f});
+
+  const SignupUsername(
+      {super.key, required this.username, required this.username_f});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class SignupUsername extends StatelessWidget {
       showSuffixIcon: false,
       onChanged: (value) {},
       validator: (value) {
-       return Validation.usernameValidation(value);
+        return Validation.usernameValidation(value);
       },
     );
   }
