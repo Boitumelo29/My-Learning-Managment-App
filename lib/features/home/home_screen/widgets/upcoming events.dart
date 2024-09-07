@@ -26,8 +26,9 @@ class UpcomingEvents extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Icon(
-                      Icons.arrow_right,
+                      Icons.circle,
                       color: Colors.red,
+                      size: 10,
                     ),
                   ),
                   SizedBox(
@@ -50,10 +51,13 @@ class UpcomingEvents extends StatelessWidget {
                 ],
               ),
             ),
-            Container(
-              width: 2,
-              height: 70,
-              color: Colors.red,
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Container(
+                width: 2,
+                height: 90,
+                color: Colors.red,
+              ),
             ),
           ],
         ),
