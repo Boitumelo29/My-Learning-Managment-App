@@ -8,6 +8,12 @@ class UpcomingEvents extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => const UpcomingEvents(),
+          ),
+        );
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("action")));
       },
