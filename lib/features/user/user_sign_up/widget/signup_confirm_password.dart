@@ -23,7 +23,7 @@ class SignupConfirmPassword extends StatelessWidget {
       showSuffixIcon: true,
       onChanged: (value) {},
       validator: (value) {
-        Validation.passwordConformValidation(
+        return Validation.passwordConformValidation(
             passwordConfirm.text, password.text);
       },
     );

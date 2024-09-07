@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/screens/user_layout/user_layout_screen.dart';
 import 'package:mylearning/common_widgets/sized_box/sized_space.dart';
 import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
-import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/auth_row.dart';
 import 'package:mylearning/features/user/user_login/presentation/widget/mylearning_text.dart';
 import 'package:mylearning/features/user/user_sign_up/widget/SignupEmail.dart';
@@ -13,7 +12,6 @@ import 'package:mylearning/features/user/user_sign_up/widget/logo_image.dart';
 import 'package:mylearning/features/user/user_sign_up/widget/signup_password.dart';
 import 'package:mylearning/features/user/user_sign_up/widget/signup_username.dart';
 import 'package:mylearning/util/constants/strings/strings.dart';
-import 'package:mylearning/util/validation/validation.dart';
 
 class SignUpPage extends StatefulWidget {
   final VoidCallback show;
