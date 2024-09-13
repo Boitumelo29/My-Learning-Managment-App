@@ -1,6 +1,16 @@
 part of 'auth_bloc.dart';
 
 @immutable
-sealed class AuthState {}
+abstract class AuthState {}
 
-final class AuthInitial extends AuthState {}
+class AuthInitial extends AuthState {}
+
+class Authenticated extends AuthState {}
+
+class Unauthenticated extends AuthState {}
+
+class ThemeState extends AuthState {
+  final bool isDarkMode;
+
+  ThemeState({required this.isDarkMode});
+}
