@@ -1,16 +1,19 @@
 part of 'auth_bloc.dart';
 
-@immutable
-abstract class AuthState {}
+enum AuthStatus {
+  initial,
+  inProgress,
+  authenticated,
+  unauthenticated,
+}
 
-class AuthInitial extends AuthState {}
-
-class Authenticated extends AuthState {}
-
-class Unauthenticated extends AuthState {}
-
-class ThemeState extends AuthState {
+class AuthState extends Equatable {
+  final AuthStatus authStatus;
   final bool isDarkMode;
 
-  ThemeState({required this.isDarkMode});
+  const AuthState(
+      {this.authStatus = AuthStatus.initial, this.isDarkMode = false});
+
+  @override
+  List<Object?> get props => [authStatus, isDarkMode];
 }

@@ -1,42 +1,36 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:equatable/equatable.dart';
+import 'package:mylearning/features/auth/data/auth_repo.dart';
 
 part 'auth_event.dart';
+
 part 'auth_state.dart';
 
-
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  final AuthRepository authRepo;
   bool isDarkMode = false;
 
-  AuthBloc() : super(AuthInitial()) {
-
-    // Handle the AuthCheckRequested event
+  AuthBloc({required this.authRepo}) : super(const AuthState()) {
     on<AuthCheckRequested>((event, emit) async {
-      emit(AuthInitial());
+      emit(const AuthState());
 
-      // Listen for auth state changes and emit the corresponding state
-      FirebaseAuth.instance.authStateChanges().listen((user) {
+      authRepo.authStateChanges().listen((user) {
         if (user != null) {
-          emit(Authenticated());
+          emit(const AuthState(authStatus: AuthStatus.authenticated));
         } else {
-          emit(Unauthenticated());
+          emit(const AuthState(authStatus: AuthStatus.unauthenticated));
         }
       });
     });
 
-    // Handle the LoggedOut event
-    on<LoggedOut>((event, emit) async {
-      await FirebaseAuth.instance.signOut();
-      // Emit Unauthenticated state after logout
-      emit(Unauthenticated());
+    on<LogOut>((event, emit) async {
+      await authRepo.logout();
+      emit(const AuthState(authStatus: AuthStatus.unauthenticated));
     });
 
-    // Handle the ToggleThemeEvent
     on<ToggleThemeEvent>((event, emit) {
       isDarkMode = !isDarkMode;
-      // Emit updated ThemeState with the new isDarkMode value
-      emit(ThemeState(isDarkMode: isDarkMode));
+      emit(AuthState(isDarkMode: isDarkMode));
     });
   }
 }

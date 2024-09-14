@@ -1,32 +1,33 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mylearning/features/auth/bloc/auth_bloc.dart';
 import 'package:mylearning/features/user/user_login/presentation/pages/login_page.dart';
 import 'package:mylearning/features/user/user_sign_up/page/sign_up_page.dart';
 import 'package:mylearning/util/navigation/tab_bar.dart';
 
-class AuthState extends StatelessWidget {
+class AuthView extends StatelessWidget {
   final bool isDarkMode;
   final Function toggleTheme;
 
-  const AuthState(
+  const AuthView(
       {super.key, required this.toggleTheme, required this.isDarkMode});
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, state) {
+        if (state.authStatus == AuthStatus.authenticated) {
+          return TabBarScreen(
+              isDarkMode: isDarkMode, toggleTheme: toggleTheme);
+        } else if (state.authStatus == AuthStatus.unauthenticated) {
+          return const AuthPage();
         }
-        if (snapshot.hasData) {
-          return TabBarScreen(isDarkMode: isDarkMode, toggleTheme: toggleTheme);
-        }
-        return AuthPage();
+        return const CircularProgressIndicator();
       },
     );
   }
 }
+
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
