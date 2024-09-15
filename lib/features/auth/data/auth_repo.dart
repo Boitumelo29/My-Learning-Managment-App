@@ -35,6 +35,20 @@ class AuthRepository {
     }
   }
 
+  Future<Either<Failure, Unit>> signUpUser(
+      String email, String password) async {
+    if (await internetConnection.isConnected == false) {
+      return const Left(Failure.socketFailure());
+    }
+    try {
+      await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      return const Right(unit);
+    } catch (e) {
+      return Left(Failure.authFailure(code: "$e"));
+    }
+  }
+
   Future<Either<Failure, Unit>> forgotPassword(String email) async {
     if (await internetConnection.isConnected == false) {
       return const Left(Failure.socketFailure());

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mylearning/features/auth/bloc/auth_bloc.dart';
 import 'package:mylearning/features/user/user_login/bloc/login_bloc.dart';
 import 'package:mylearning/features/user/user_login/presentation/pages/login_page.dart';
+import 'package:mylearning/features/user/user_sign_up/bloc/sign_up_bloc.dart';
 import 'package:mylearning/features/user/user_sign_up/page/sign_up_page.dart';
 import 'package:mylearning/util/navigation/tab_bar.dart';
 
@@ -54,7 +55,10 @@ class _AuthPageState extends State<AuthPage> {
         ),
       );
     } else {
-      return SignUpPage(show: go);
+      return BlocProvider(
+        create: (context) => SignUpBloc(),
+        child: SignUpPage(show: go),
+      );
     }
   }
 }
