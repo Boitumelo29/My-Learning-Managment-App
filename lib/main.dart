@@ -13,6 +13,7 @@ import 'package:mylearning/features/notes/presentation/screen/notes_screen.dart'
 import 'package:mylearning/features/profile/edit_profile/data/image_model.dart';
 import 'package:mylearning/features/upcoming_events/upcoming_event_screen/pages/upcoming_screen.dart';
 import 'package:mylearning/firebase_options.dart';
+import 'package:mylearning/network/network_checker.dart';
 import 'package:provider/provider.dart';
 import 'features/auth/data/auth_repo.dart';
 
@@ -21,6 +22,8 @@ GetIt getIt = GetIt.instance;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   getIt.registerLazySingleton<AuthRepository>(() => AuthRepository());
+  getIt.registerLazySingleton<InternetConnection>(
+      () => InternetConnectionImpl());
   await Hive.initFlutter();
   Hive.registerAdapter(ImageModelAdapter());
   Hive.registerAdapter(FlashCardAdapter());
@@ -45,20 +48,7 @@ void main() async {
   ));
 }
 
-void setupLocator() async {
-  getIt.registerLazySingleton<AuthRepository>(() => AuthRepository());
-  await Hive.initFlutter();
-  Hive.registerAdapter(ImageModelAdapter());
-  Hive.registerAdapter(FlashCardAdapter());
-  Hive.registerAdapter(StreakModelAdapter());
-  await Hive.openBox<ImageModel>('images');
-  await Hive.openBox<FlashCard>('flashcards');
-  await Hive.openBox("myBox");
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  Gemini.init(apiKey: "AIzaSyCvFjc2RVFJv6V22IAnzHgPjx5aj8_LCgg");
-}
+void setupLocator() async {}
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});

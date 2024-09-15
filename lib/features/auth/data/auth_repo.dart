@@ -1,17 +1,19 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mylearning/main.dart';
 import 'package:mylearning/network/failures/failures.dart';
+import 'package:mylearning/network/network_checker.dart';
 
 class AuthRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  //late final InternetConnection internetConnection;
+  final InternetConnection internetConnection = getIt<InternetConnection>();
 
   User? get currentUser => _firebaseAuth.currentUser;
 
   Future<Either<Failure, Unit>> logout() async {
-    // if (await internetConnection.isConnected == false) {
-    //   return const Left(Failure.socketFailure());
-    // }
+    if (await internetConnection.isConnected == false) {
+      return const Left(Failure.socketFailure());
+    }
     try {
       await _firebaseAuth.signOut();
       return const Right(unit);
@@ -21,9 +23,9 @@ class AuthRepository {
   }
 
   Future<Either<Failure, Unit>> loginUser(String email, String password) async {
-    // if (await internetConnection.isConnected == false) {
-    //   return const Left(Failure.socketFailure());
-    // }
+    if (await internetConnection.isConnected == false) {
+      return const Left(Failure.socketFailure());
+    }
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
@@ -34,9 +36,9 @@ class AuthRepository {
   }
 
   Future<Either<Failure, Unit>> forgotPassword(String email) async {
-    // if (await internetConnection.isConnected == false) {
-    //   return const Left(Failure.socketFailure());
-    // }
+    if (await internetConnection.isConnected == false) {
+      return const Left(Failure.socketFailure());
+    }
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: email);
       return const Right(unit);
