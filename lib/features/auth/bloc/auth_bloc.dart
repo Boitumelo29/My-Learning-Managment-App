@@ -11,9 +11,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   bool isDarkMode = false;
 
   AuthBloc({required this.authRepo}) : super(const AuthState()) {
+
     on<AuthCheckRequested>((event, emit) async {
       emit(const AuthState());
-
       authRepo.authStateChanges().listen((user) {
         if (user != null) {
           emit(const AuthState(authStatus: AuthStatus.authenticated));
