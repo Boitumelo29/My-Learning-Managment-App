@@ -15,7 +15,6 @@ class NotesScreen extends StatefulWidget {
 
 class _NotesScreenState extends State<NotesScreen> {
   final TextEditingController controller = TextEditingController();
-
   final _key = GlobalKey<ExpandableFabState>();
 
   @override
@@ -23,7 +22,7 @@ class _NotesScreenState extends State<NotesScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("My Notes & Todos"),
+        title: const Text("My Notes"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -65,6 +64,9 @@ class _NotesScreenState extends State<NotesScreen> {
       ),
     );
   }
+
+  ///todo I no longer want to do it like this
+
 
   _showInputAlert(BuildContext context) {
     return showDialog(
