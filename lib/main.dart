@@ -9,7 +9,7 @@ import 'package:mylearning/features/auth/auth.dart';
 import 'package:mylearning/features/auth/bloc/auth_bloc.dart';
 import 'package:mylearning/features/home/data/model/streak_model.dart';
 import 'package:mylearning/features/my_study/features/flash_cards/data/model/flashcard.dart';
-import 'package:mylearning/features/notes/presentation/screen/notes_screen.dart';
+import 'package:mylearning/features/notes/data/note_provider_class.dart';
 import 'package:mylearning/features/profile/edit_profile/data/image_model.dart';
 import 'package:mylearning/features/upcoming_events/upcoming_event_screen/pages/upcoming_screen.dart';
 import 'package:mylearning/firebase_options.dart';

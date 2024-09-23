@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
+import 'package:mylearning/features/notes/data/note_provider_class.dart';
+import 'package:mylearning/features/notes/presentation/widgets/note_card.dart';
 import 'package:mylearning/util/validation/validation.dart';
 import 'package:provider/provider.dart';
 
@@ -124,38 +126,4 @@ class _NotesScreenState extends State<NotesScreen> {
   }
 }
 
-class Note {
-  String title;
-  String? description;
-  IconData? iconData;
 
-  Note({required this.title, this.description, this.iconData});
-}
-
-class NoteProvider with ChangeNotifier {
-  List<Note> _notes = [];
-
-  List<Note> get notes => _notes;
-
-  void addNotes(Note note) {
-    _notes.add(note);
-    notifyListeners();
-  }
-}
-
-class NotesCard extends StatelessWidget {
-  final Note note;
-
-  const NotesCard({super.key, required this.note});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        title: Text(note.title),
-        subtitle: Text(note.description ?? ""),
-        trailing: Icon(note.iconData ?? Icons.abc),
-      ),
-    );
-  }
-}
