@@ -17,7 +17,6 @@ class NotesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.grey[900],
         title: const Text("Notes"),
@@ -109,14 +108,16 @@ class NotesScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  backgroundColor: Colors.grey),
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 80.0, vertical: 15),
-                child: Text('Add note', style: TextStyle(color: Colors.white)),
+                child: Text(
+                  'Add note',
+                ),
               ),
             ),
           ],
