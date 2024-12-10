@@ -82,6 +82,7 @@ class _SignUpPageState extends State<SignUpPage> {
       isLoading = true;
     });
     try {
+      ///on the signup it should then take us to the onboading screen
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email.text,
         password: password.text,
