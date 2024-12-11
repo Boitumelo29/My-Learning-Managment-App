@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
+import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
+import 'package:mylearning/util/validation/validation.dart';
+import 'dart:math';
 
 void main() {
   runApp(MyApp());
@@ -28,7 +32,8 @@ class _TransferPageState extends State<TransferPage> {
   String? selectedBank;
   TextEditingController accountNameController = TextEditingController();
   TextEditingController accountNumberController = TextEditingController();
-  TextEditingController beneficiaryReferenceController = TextEditingController();
+  TextEditingController beneficiaryReferenceController =
+      TextEditingController();
   TextEditingController myReferenceController = TextEditingController();
   TextEditingController amountController = TextEditingController();
 
@@ -36,7 +41,7 @@ class _TransferPageState extends State<TransferPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Money Transfer'),
+        title: const Text('Transfer'),
       ),
       body: Form(
         key: _formKey,
@@ -45,10 +50,17 @@ class _TransferPageState extends State<TransferPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              const Text(
+                "Amount: R ####",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 20),
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(
                   labelText: 'Bank',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                 ),
                 value: selectedBank,
                 onChanged: (String? newValue) {
@@ -62,102 +74,110 @@ class _TransferPageState extends State<TransferPage> {
                     child: Text(value),
                   );
                 }).toList(),
-                validator: (value) => value == null ? 'Please select a bank' : null,
+                validator: (value) =>
+                    value == null ? 'Please select a bank' : null,
               ),
-              SizedBox(height: 20),
-              TextFormField(
+              const SizedBox(height: 20),
+              LongTextFieldForm(
                 controller: accountNameController,
-                decoration: InputDecoration(
-                  labelText: 'Account Name',
-                  border: OutlineInputBorder(),
-                ),
+                hintText: "Account Name",
+                labelText: "Account Name",
+                showPrefixIcon: false,
+                onChanged: (value) {},
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter account name';
-                  }
-                  return null;
+                  return Validation.textValidation(value);
                 },
+                showSuffixIcon: false,
+                obsureText: false,
+                isRed: true,
               ),
-              SizedBox(height: 20),
-              TextFormField(
+              const SizedBox(height: 20),
+              LongTextFieldForm(
                 controller: accountNumberController,
-                decoration: InputDecoration(
-                  labelText: 'Account Number',
-                  border: OutlineInputBorder(),
-                ),
+                hintText: 'Account Number',
+                labelText: 'Account Number',
+                showPrefixIcon: false,
+                onChanged: (value) {},
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter account number';
-                  }
-                  return null;
+                  return Validation.textValidation(value);
                 },
+                showSuffixIcon: false,
+                obsureText: false,
+                isRed: true,
               ),
-              SizedBox(height: 20),
-              TextFormField(
+              const SizedBox(height: 20),
+              LongTextFieldForm(
                 controller: beneficiaryReferenceController,
-                decoration: InputDecoration(
-                  labelText: 'Beneficiary Reference',
-                  border: OutlineInputBorder(),
-                ),
+                hintText: 'Beneficiary Reference',
+                labelText: 'Beneficiary Reference',
+                showPrefixIcon: false,
+                onChanged: (value) {},
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter beneficiary reference';
-                  }
-                  return null;
+                  return Validation.textValidation(value);
                 },
+                showSuffixIcon: false,
+                obsureText: false,
+                isRed: true,
               ),
-              SizedBox(height: 20),
-              TextFormField(
+              const SizedBox(height: 20),
+              LongTextFieldForm(
                 controller: myReferenceController,
-                decoration: InputDecoration(
-                  labelText: 'My Reference',
-                  border: OutlineInputBorder(),
-                ),
+                hintText: 'My Reference',
+                labelText: 'My Reference',
+                showPrefixIcon: false,
+                onChanged: (value) {},
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your reference';
-                  }
-                  return null;
+                  return Validation.textValidation(value);
                 },
+                showSuffixIcon: false,
+                obsureText: false,
+                isRed: true,
               ),
-              SizedBox(height: 20),
-              TextFormField(
+              const SizedBox(height: 20),
+              ///todo you can not transfer anything about the amout so I need to do a check here
+              LongTextFieldForm(
                 controller: amountController,
-                decoration: InputDecoration(
-                  labelText: 'Amount',
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.number,
+                hintText: 'Amount',
+                labelText: 'Amount',
+                showPrefixIcon: false,
+                onChanged: (value) {},
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter an amount';
-                  }
-                  return null;
+                  return Validation.textValidation(value);
                 },
+                showSuffixIcon: false,
+                obsureText: false,
+                isRed: true,
               ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    // Here you would usually send the data to the backend or your database
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: Text('Success'),
-                        content: Text('Transfer initiated successfully'),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Text('OK'),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
+
+              ///todo you need to use the number textfield or creat a custome textfield
+              const SizedBox(height: 20),
+              LongButton(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SuccessScreen()),
+                  );
+                  // if (_formKey.currentState!.validate()) {
+                  //   // Here you would usually send the data to the backend or your database
+                  //   showDialog(
+                  //     context: context,
+                  //     builder: (context) => AlertDialog(
+                  //       title: Text('Success'),
+                  //       content: Text('Transfer initiated successfully'),
+                  //       actions: <Widget>[
+                  //         TextButton(
+                  //           onPressed: () {
+                  //             Navigator.of(context).pop();
+                  //           },
+                  //           child: Text('OK'),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   );
+                  // }
                 },
-                child: Text('Transfer Money'),
+                title: "Transfer",
+                isLoading: false,
               ),
             ],
           ),
@@ -166,3 +186,337 @@ class _TransferPageState extends State<TransferPage> {
     );
   }
 }
+
+class TransferSuccessScreen extends StatelessWidget {
+  const TransferSuccessScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // backgroundColor: Colors.blueGrey[900],
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Spacer(),
+            const Icon(Icons.check_circle_outline,
+                size: 100, color: Colors.greenAccent),
+            const SizedBox(height: 20),
+            const Text(
+              "Transfer success!!",
+              style: TextStyle(
+                  // color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            const Text(
+              "You transferred €900 to Brooklyn Simmons.",
+              style: TextStyle(fontSize: 18),
+            ),
+            const Text(
+              "Find the details in transactions page.",
+              style: TextStyle(fontSize: 16),
+            ),
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: LongButton(
+                ///we send them to the home screen insted over here
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Container()),
+                  );
+                },
+                title: "Done",
+                isLoading: false,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SuccessScreen extends StatefulWidget {
+  @override
+  _SuccessScreenState createState() => _SuccessScreenState();
+}
+
+class _SuccessScreenState extends State<SuccessScreen>
+    with SingleTickerProviderStateMixin {
+  AnimationController? _controller;
+  Animation<double>? _opacityAnimation;
+  Animation<Offset>? _positionAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+
+    _opacityAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _controller!,
+        curve: Curves.easeIn,
+      ),
+    );
+
+    _positionAnimation = Tween<Offset>(
+      begin: Offset(0, 0.05), // slight vertical offset
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(
+        parent: _controller!,
+        curve: Curves.easeOut,
+      ),
+    );
+
+    _controller!.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: <Widget>[
+          StarryBackground(),
+          FadeTransition(
+            opacity: _opacityAnimation!,
+            child: SlideTransition(
+              position: _positionAnimation!,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Spacer(),
+                  const Icon(Icons.check_circle_outline,
+                      size: 100, color: Colors.greenAccent),
+                  const SizedBox(height: 20),
+                  const Text(
+                    "Transfer success!!",
+                    style: TextStyle(
+                        // color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  // const Text(
+                  //   "You transferred €900 to Brooklyn Simmons.",
+                  //   style: TextStyle(fontSize: 18),
+                  // ),
+                  const Text(
+                    "Find the details in transactions page.",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: LongButton(
+                      ///we send them to the home screen insted over here
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TransferSuccessScreen()),
+                        );
+                      },
+                      title: "Done",
+                      isLoading: false,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class StarryBackground extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      painter: StarPainter(),
+      size: Size(MediaQuery.of(context).size.width,
+          MediaQuery.of(context).size.height),
+    );
+  }
+}
+
+class StarPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    var paint = Paint()..color = Colors.green.withAlpha(100);
+    var rng = Random();
+
+    for (int i = 0; i < 100; i++) {
+      var x = rng.nextDouble() * size.width;
+      var y = rng.nextDouble() * size.height;
+      canvas.drawCircle(Offset(x, y), rng.nextDouble() * 2, paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+// class SuccessScreen extends StatefulWidget {
+//   @override
+//   _SuccessScreenState createState() => _SuccessScreenState();
+// }
+//
+// class _SuccessScreenState extends State<SuccessScreen> with SingleTickerProviderStateMixin {
+//   AnimationController? _controller;
+//   Animation<double>? _animation;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     _controller = AnimationController(vsync: this, duration: Duration(seconds: 1));
+//     _animation = Tween<double>(begin: 0, end: 1).animate(_controller!)
+//       ..addListener(() {
+//         setState(() {});
+//       });
+//     _controller!.forward();
+//   }
+//
+//   @override
+//   void dispose() {
+//     _controller?.dispose();
+//     super.dispose();
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       // backgroundColor: Colors.deepPurple[900],
+//       body: Stack(
+//         children: <Widget>[
+//           StarryBackground(),  // Custom widget for drawing stars
+//            Column(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: <Widget>[
+//               const Spacer(),
+//               const Icon(Icons.check_circle_outline,
+//                   size: 100, color: Colors.greenAccent),
+//               const SizedBox(height: 20),
+//               const Text(
+//                 "Transfer success!!",
+//                 style: TextStyle(
+//                   // color: Colors.white,
+//                     fontSize: 24,
+//                     fontWeight: FontWeight.bold),
+//               ),
+//               const SizedBox(height: 10),
+//               // const Text(
+//               //   "You transferred €900 to Brooklyn Simmons.",
+//               //   style: TextStyle(fontSize: 18),
+//               // ),
+//               const Text(
+//                 "Find the details in transactions page.",
+//                 style: TextStyle(fontSize: 16),
+//               ),
+//               const Spacer(),
+//               Padding(
+//                 padding: const EdgeInsets.all(20.0),
+//                 child: LongButton(
+//                   ///we send them to the home screen insted over here
+//                   onTap: () {
+//                     Navigator.push(
+//                       context,
+//                       MaterialPageRoute(
+//                           builder: (context) => TransferSuccessScreen()),
+//                     );
+//                   },
+//                   title: "Done",
+//                   isLoading: false,
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+//
+// class StarryBackground extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return CustomPaint(
+//       painter: StarPainter(),
+//       size: Size(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height),
+//     );
+//   }
+// }
+//
+// class StarPainter extends CustomPainter {
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//     var paint = Paint()..color = Colors.green.withAlpha(100);
+//     var rng = Random();
+//
+//     for (int i = 0; i < 100; i++) {
+//       var x = rng.nextDouble() * size.width;
+//       var y = rng.nextDouble() * size.height;
+//       canvas.drawCircle(Offset(x, y), rng.nextDouble() * 2, paint);
+//     }
+//   }
+//
+//   @override
+//   bool shouldRepaint(CustomPainter oldDelegate) => false;
+// }
+//
+//
+//
