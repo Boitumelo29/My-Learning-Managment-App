@@ -69,6 +69,7 @@ dependencies:
   flip_card: ^0.7.0
   path_provider: ^2.1.4
   flashy_tab_bar2: ^0.0.10
+  shared_preferences: ^2.3.3
 
 dev_dependencies:
   flutter_test:
