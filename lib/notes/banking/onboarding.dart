@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mylearning/notes/banking/transfer_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -26,28 +27,34 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
-        controller: _pageController,
-        onPageChanged: (int page) {
-          setState(() {
-            _currentPage = page;
-          });
-        },
-        children: <Widget>[
-          createPage(
-            title: "Welcome to [Bank Name]!",
-            content: "Banking made easy.",
-            image: 'assets/welcome.png',
-          ),
-          createPage(
-            title: "Key Features",
-            content: "Check balances, transfer money, pay bills anytime, anywhere.",
-            image: 'assets/features.png',
-          ),
-          createPage(
-            title: "Get Started",
-            content: "Secure, reliable, and ready to go! Register or log in to continue.",
-            image: 'assets/get_started.png',
+      ///here all I need to do is to
+      body: Stack(
+        children: [
+          StarryBackground(),
+          PageView(
+            controller: _pageController,
+            onPageChanged: (int page) {
+              setState(() {
+                _currentPage = page;
+              });
+            },
+            children: <Widget>[
+              createPage(
+                title: "Welcome to [Bank Name]!",
+                content: "Banking made easy.",
+                // image: 'assets/welcome.png',
+              ),
+              createPage(
+                title: "Key Features",
+                content: "Check balances, transfer money, pay bills anytime, anywhere.",
+                // image: 'assets/features.png',
+              ),
+              createPage(
+                title: "Get Started",
+                content: "Secure, reliable, and ready to go! Register or log in to continue.",
+                // image: 'assets/get_started.png',
+              ),
+            ],
           ),
         ],
       ),
@@ -89,13 +96,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  Widget createPage({required String title, required String content, required String image}) {
+  Widget createPage({required String title, required String content, }) {
     return Container(
       padding: EdgeInsets.all(24),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Image.asset(image),
+          // Image.asset(image),
           SizedBox(height: 20),
           Text(title, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
           SizedBox(height: 10),
@@ -116,3 +123,6 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+
+//a user wh
