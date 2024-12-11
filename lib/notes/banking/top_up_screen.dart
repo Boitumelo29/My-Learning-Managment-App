@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
+import 'package:mylearning/notes/banking/home_screen.dart';
 import 'package:mylearning/notes/banking/transfer_screen.dart';
 
 void main() {
@@ -15,6 +16,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
+///can quickly do the user functions here of topping up
+
 class MoneyTransferScreen extends StatefulWidget {
   @override
   _MoneyTransferScreenState createState() => _MoneyTransferScreenState();
@@ -25,7 +28,7 @@ class _MoneyTransferScreenState extends State<MoneyTransferScreen> {
 
   void _onKeypadTap(String value) {
     setState(() {
-      if (value == 'Delete') {
+      if (value == 'Del') {
         if (_amountController.text.isNotEmpty) {
           _amountController.text = _amountController.text
               .substring(0, _amountController.text.length - 1);
@@ -122,10 +125,7 @@ class _MoneyTransferScreenState extends State<MoneyTransferScreen> {
             ),
             LongButton(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PaymentSuccessScreen()),
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>PaymentSuccessScreen()),
                   );
                 },
                 title: "Top up",
@@ -244,10 +244,10 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
                     child: LongButton(
                       ///we send them to the home screen insted over here
                       onTap: () {
-                        Navigator.push(
+                        Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => TransferSuccessScreen()),
+                          MaterialPageRoute(builder: (context) => HomeScreenEG()),
+                              (Route<dynamic> route) => false,  // This predicate will always return false, removing all routes
                         );
                       },
                       title: "Done",

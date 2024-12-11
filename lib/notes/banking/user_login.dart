@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mylearning/notes/banking/home_screen.dart';
+import 'package:mylearning/notes/banking/onboarding.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -11,11 +13,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Simple Login App',
       home: FutureBuilder(
+        ///we use it here getUserToken
         future: checkLoginStatus(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            bool isLoggedIn = snapshot.data as bool;
-            return isLoggedIn ? HomeScreen() : LoginPage();
+           if(snapshot.hasData){
+             bool isLoggedIn = snapshot.data as bool;
+             return isLoggedIn ? HomeScreenEG() : LoginPage();
+           }
           }
           return Scaffold(body: Center(child: CircularProgressIndicator()));
         },
@@ -56,7 +61,7 @@ class LoginPage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () => loginUser(context),
+              onPressed: () => loginUser(context, "hgjkhjk"),
               child: Text('Login'),
             ),
           ],
@@ -65,11 +70,27 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Future<void> loginUser(BuildContext context) async {
+  Future<void> loginUser(BuildContext context, String username) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    await prefs.setString('userToken', username); // Storing username as a token
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => OnboardingScreen()));
   }
+  Future<String> getUserToken() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('userToken') ?? '';
+  }
+  Future<void> logoutUser(BuildContext context) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('isLoggedIn');
+    await prefs.remove('userToken'); // Clearing the username token
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => LoginPage()),
+          (Route<dynamic> route) => false,  // This predicate will always return false, removing all routes
+    );
+  }
+
 }
 
 class HomeScreen extends StatelessWidget {
@@ -94,6 +115,11 @@ class HomeScreen extends StatelessWidget {
   Future<void> logoutUser(BuildContext context) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove('isLoggedIn');
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => LoginPage()),
+          (Route<dynamic> route) => false,  // This predicate will always return false, removing all routes
+    );
+   // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
   }
 }

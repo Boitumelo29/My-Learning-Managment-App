@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mylearning/common_widgets/widgets/buttons/long_button.dart';
 import 'package:mylearning/common_widgets/widgets/textfield/textfields.dart';
+import 'package:mylearning/notes/banking/home_screen.dart';
 import 'package:mylearning/util/validation/validation.dart';
 import 'dart:math';
 
@@ -57,9 +58,28 @@ class _TransferPageState extends State<TransferPage> {
               const SizedBox(height: 20),
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                      color: Colors.green, // Default border color
+                      width: 1.0,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                      color: Colors.green,
+                      // Border color when the field is focused
+                      width: 2.0,
+                    ),
+                  ),
                   labelText: 'Bank',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
+                    borderSide: const BorderSide(
+                      color: Colors.green, // Default border color
+                      width: 1.0,
+                    ),
                   ),
                 ),
                 value: selectedBank,
@@ -134,6 +154,7 @@ class _TransferPageState extends State<TransferPage> {
                 isRed: true,
               ),
               const SizedBox(height: 20),
+
               ///todo you can not transfer anything about the amout so I need to do a check here
               LongTextFieldForm(
                 controller: amountController,
@@ -187,59 +208,58 @@ class _TransferPageState extends State<TransferPage> {
   }
 }
 
-class TransferSuccessScreen extends StatelessWidget {
-  const TransferSuccessScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      // backgroundColor: Colors.blueGrey[900],
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Spacer(),
-            const Icon(Icons.check_circle_outline,
-                size: 100, color: Colors.greenAccent),
-            const SizedBox(height: 20),
-            const Text(
-              "Transfer success!!",
-              style: TextStyle(
-                  // color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            const Text(
-              "You transferred €900 to Brooklyn Simmons.",
-              style: TextStyle(fontSize: 18),
-            ),
-            const Text(
-              "Find the details in transactions page.",
-              style: TextStyle(fontSize: 16),
-            ),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: LongButton(
-                ///we send them to the home screen insted over here
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Container()),
-                  );
-                },
-                title: "Done",
-                isLoading: false,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+// class TransferSuccessScreen extends StatelessWidget {
+//   const TransferSuccessScreen({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       // backgroundColor: Colors.blueGrey[900],
+//       body: SafeArea(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget>[
+//             const Spacer(),
+//             const Icon(Icons.check_circle_outline,
+//                 size: 100, color: Colors.greenAccent),
+//             const SizedBox(height: 20),
+//             const Text(
+//               "Transfer success!!",
+//               style: TextStyle(
+//                   // color: Colors.white,
+//                   fontSize: 24,
+//                   fontWeight: FontWeight.bold),
+//             ),
+//             const SizedBox(height: 10),
+//             const Text(
+//               "You transferred €900 to Brooklyn Simmons.",
+//               style: TextStyle(fontSize: 18),
+//             ),
+//             const Text(
+//               "Find the details in transactions page.",
+//               style: TextStyle(fontSize: 16),
+//             ),
+//             const Spacer(),
+//             Padding(
+//               padding: const EdgeInsets.all(20.0),
+//               child: LongButton(
+//                 ///we send them to the home screen insted over here
+//                 onTap: () {
+//                   Navigator.push(
+//                     context,
+//                     MaterialPageRoute(builder: (context) => Container()),
+//                   );
+//                 },
+//                 title: "Done",
+//                 isLoading: false,
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class SuccessScreen extends StatefulWidget {
   @override
@@ -301,7 +321,7 @@ class _SuccessScreenState extends State<SuccessScreen>
                 children: <Widget>[
                   const Spacer(),
                   const Icon(Icons.check_circle_outline,
-                      size: 100, color: Colors.greenAccent),
+                      size: 100, color: Colors.green),
                   const SizedBox(height: 20),
                   const Text(
                     "Transfer success!!",
@@ -325,10 +345,10 @@ class _SuccessScreenState extends State<SuccessScreen>
                     child: LongButton(
                       ///we send them to the home screen insted over here
                       onTap: () {
-                        Navigator.push(
+                        Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => TransferSuccessScreen()),
+                          MaterialPageRoute(builder: (context) => HomeScreenEG()),
+                              (Route<dynamic> route) => false,  // This predicate will always return false, removing all routes
                         );
                       },
                       title: "Done",
@@ -359,7 +379,7 @@ class StarryBackground extends StatelessWidget {
 class StarPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    var paint = Paint()..color = Colors.green.withAlpha(100);
+    var paint = Paint()..color = Colors.green;
     var rng = Random();
 
     for (int i = 0; i < 100; i++) {
@@ -372,43 +392,6 @@ class StarPainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //
 // class SuccessScreen extends StatefulWidget {

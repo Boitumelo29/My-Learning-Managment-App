@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mylearning/notes/banking/home_screen.dart';
 import 'package:mylearning/notes/banking/transfer_screen.dart';
 
 void main() {
@@ -68,7 +69,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             style: TextStyle(color: Colors.white, fontSize: 24),
           ),
           onPressed: () {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => HomePage()));
+            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => HomeScreenEG()));
           },
         ),
       ) : Container(

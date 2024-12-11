@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mylearning/notes/banking/top_up_screen.dart';
+import 'package:mylearning/notes/banking/transfer_screen.dart';
+import 'package:mylearning/notes/banking/user_login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Bank App',
-      home: HomeScreen(),
+      home: HomeScreenEG(),
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
@@ -17,12 +21,18 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreenEG extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Home"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () => logoutUser(context),
+          ),
+        ],
         elevation: 0,
         backgroundColor: Colors.white10,
         foregroundColor: Colors.black,
@@ -31,13 +41,6 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Text(
-                '€ 6,815.53',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-            ),
             Center(
               child: Card(
                 child: Container(
@@ -72,10 +75,20 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  _buildActionButton(Icons.add, 'Top up'),
-                  _buildActionButton(Icons.loop, 'Exchange'),
-                  _buildActionButton(Icons.send, 'Transfer'),
-                  _buildActionButton(Icons.details, 'Details'),
+                  _buildActionButton(Icons.add, 'Top up',(){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MoneyTransferScreen()),
+                    );
+                  }),
+                  _buildActionButton(Icons.send, 'Transfer',(){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TransferPage()),
+                    );
+                  }),
                 ],
               ),
             ),
@@ -98,13 +111,22 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildActionButton(IconData icon, String label) {
-    return Column(
-      children: <Widget>[
-        Icon(icon, size: 30),
-        SizedBox(height: 8),
-        Text(label),
-      ],
+  Future<void> logoutUser(BuildContext context) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('isLoggedIn');
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+  }
+
+  Widget _buildActionButton(IconData icon, String label,Function() onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: <Widget>[
+          Icon(icon, size: 30),
+          SizedBox(height: 8),
+          Text(label),
+        ],
+      ),
     );
   }
 }
